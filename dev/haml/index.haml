@@ -24,54 +24,74 @@
 
 				%ul
 					%li
-						%a.cat_link{:href => "#", :title => "All"} All
+						%a.cat_link.selected{:href => "#", :title => "All", "data-filter" => "*"} All
 					%li
-						%a.cat_link.selected{:href => "#", :title => "Curated"} Curated
+						%a.cat_link{:href => "#", :title => "Curated", "data-filter" => ".curated"} Curated
 					%li
-						%a.cat_link{:href => "#", :title => "Apps"} Apps
+						%a.cat_link{:href => "#", :title => "Apps", "data-filter" => ".apps"} Apps
 					%li
-						%a.cat_link{:href => "#", :title => "Apparel"} Apparel
+						%a.cat_link{:href => "#", :title => "Apparel", "data-filter" => ".apparel"} Apparel
 					%li
-						%a.cat_link{:href => "#", :title => "Automotive"} Automotive
+						%a.cat_link{:href => "#", :title => "Automotive", "data-filter" => ".automotive"} Automotive
 					%li
-						%a.cat_link{:href => "#", :title => "Fashion"} Fashion
+						%a.cat_link{:href => "#", :title => "Fashion", "data-filter" => ".fashion"} Fashion
 					%li
-						%a.cat_link{:href => "#", :title => "Film"} Film
+						%a.cat_link{:href => "#", :title => "Film", "data-filter" => ".film"} Film
 					%li
-						%a.cat_link{:href => "#", :title => "Food & Drink"} Food & Drink
+						%a.cat_link{:href => "#", :title => "Food & Drink", "data-filter" => ".food-drink"} Food & Drink
 					%li
-						%a.cat_link{:href => "#", :title => "Internet"} Internet
+						%a.cat_link{:href => "#", :title => "Internet", "data-filter" => ".internet"} Internet
 					%li
-						%a.cat_link{:href => "#", :title => "Lifestyle"} Lifestyle
+						%a.cat_link{:href => "#", :title => "Lifestyle", "data-filter" => ".lifestyle"} Lifestyle
 					%li
-						%a.cat_link{:href => "#", :title => "Money"} Money
+						%a.cat_link{:href => "#", :title => "Money", "data-filter" => ".money"} Money
 					%li
-						%a.cat_link{:href => "#", :title => "Photography"} Photography
+						%a.cat_link{:href => "#", :title => "Photography", "data-filter" => ".photography"} Photography
 					%li
-						%a.cat_link{:href => "#", :title => "Solutions"} Solutions
+						%a.cat_link{:href => "#", :title => "Solutions", "data-filter" => ".solutions"} Solutions
 					%li
-						%a.cat_link{:href => "#", :title => "TV Commercials"} TV Commercials
+						%a.cat_link{:href => "#", :title => "TV Commercials", "data-filter" => ".tv-comms"} TV Commercials
 					%li
-						%a.cat_link{:href => "#", :title => "Video"} Video
+						%a.cat_link{:href => "#", :title => "Video", "data-filter" => ".video"} Video
 
 			%section#iso_container.iso_container
 
 				.iso_sizer
 				.iso_gutter
 
+				-# create HAML Array, push to array certain values based on iteration, spit out space separated values
+
 				- (1..18).each do |i|
-					%article.iso_brick{:id => "post_#{i}"}
-						-# 248px x 140px
-						%a{:href => "#", :title => "Company Name #{i}"}
-							%h3.visuallyhidden Company Name #{i}
-							%img.iso_image{:src => "assets/img/iso_image.jpg", :alt => ""}
+
+					- if i % 2 == 0
+						- strIsoTitle = 'Even Number / Company Name on Multiple Lines #'
+						- strClasses = 'apps'
+						- if i == 4 || i == 6 || i == 8
+							- strClasses += ' curated'
+						- elsif i == 10 || i == 12
+							- strClasses += ' apparel'
+						- else
+							- strClasses += ' automotive'
+					- else
+						- strIsoTitle = 'Odd Number / Company Name #'
+						- strClasses = 'food-drink'
+						- if i == 3 || i == 5 || i == 7
+							- strClasses += ' curated'
+						- elsif i == 9 || i == 11
+							- strClasses += ' fashion'
+						- else
+							- strClasses += ' film'
+
+					%article{:id => "post_#{i}", :class => "iso_brick #{strClasses}"}
+						%a.iso_link{:href => "#", :title => "Company Name #{i}"}
+							.wrap_iso-image
+								%img.iso_image{:src => "assets/img/iso_image.jpg", :alt => ""}
+								.wrap_iso-title
+									.wrap_txt-center
+										%h3.iso_title "#{strIsoTitle}#{i}"
 							.iso_logo
 								%img.iso_logo-off{:src => "assets/img/iso_logo-off.png", :alt => ""}
 								%img.iso_logo-on{:src => "assets/img/iso_logo-on.png", :alt => ""}
-
-							-# figure out if you can transition from CSS color to inline color
-							-# %svg.iso_logo.logo_placeholder{:viewBox => "0 0 88 14"}
-								-# %use{"xlink:href" => "#logo_placeholder"}
 
 		= Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render
 

@@ -30,15 +30,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	// ----------------------------------------------------------------------------
 	function onPageLoad() {
 
-		// load some code
-		// initDragPhysics();
-
 		initIsotope();
-
 		navToggle();
-
-		categoryDropdown();
-
 		cycleLinkColors();
 
 	}
@@ -53,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		// layout Isotope after all images have loaded
 		imagesLoaded(elIsoContainer, function(instance) {
 
-			var iso = new Isotope(elIsoContainer, {
+			objISO = new Isotope(elIsoContainer, {
 
 				itemSelector: '.iso_brick',
 				percentPosition: true,
@@ -65,36 +58,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
 			});
 
-		});
-
-	}
-
-
-	// navToggle: Toggle Mobile Navigation
-	// ----------------------------------------------------------------------------
-	function navToggle() {
-
-
-		var // elNavPrimary        = document.getElementById('nav_primary'),
-			elNavPrimaryTrigger = document.getElementById('nav_toggle');
-
-
-		elNavPrimaryTrigger.addEventListener('click', function(e) {
-
-			e.preventDefault();
-
-			classie.toggle(this, 'toggled');
-			// classie.toggle(elNavPrimary, 'toggled');
+			// initalize and pass objISO to categoryDropdown once teady
+			categoryDropdown(objISO);
 
 		});
-
 
 	}
 
 
 	// categoryDropdown: isoTope Category Dropdown
 	// ----------------------------------------------------------------------------
-	function categoryDropdown() {
+	function categoryDropdown(passedISO) {
 
 		var elNavCat = document.getElementById('nav_categories');
 
@@ -148,8 +122,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 				e.preventDefault(); // prevent navigation to url
 
+				var strThisLabel = this.innerHTML,
+					strThisFilter = this.getAttribute('data-filter');
+
 				// update both elNavCat 'data-selected' and elNavCatLabel innerHTML
-				var strThisLabel = this.innerHTML;
 				elNavCat.setAttribute('data-selected', strThisLabel);
 				elNavCatLabel.innerHTML = strThisLabel;
 
@@ -161,6 +137,9 @@ document.addEventListener('DOMContentLoaded', function() {
 				elNavLinkSelected = this;
 
 				// now do all that Isotope shit
+				passedISO.arrange({
+					filter: strThisFilter
+				});
 
 			});
 
@@ -169,8 +148,29 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 
+	// navToggle: Toggle Mobile Navigation
+	// ----------------------------------------------------------------------------
+	function navToggle() {
 
-	// randomLinkColors: Randomly select from an array of colours on mouseover of any link
+
+		var // elNavPrimary        = document.getElementById('nav_primary'),
+			elNavPrimaryTrigger = document.getElementById('nav_toggle');
+
+
+		elNavPrimaryTrigger.addEventListener('click', function(e) {
+
+			e.preventDefault();
+
+			classie.toggle(this, 'toggled');
+			// classie.toggle(elNavPrimary, 'toggled');
+
+		});
+
+
+	}
+
+
+	// randomLinkColors: Randomly select from an array of colours on mouseenter of any link
 	// ----------------------------------------------------------------------------
 /*
 	function randomLinkColors() {
@@ -197,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 */
 
-	// cycleLinkColors: Cycle through an array of colours on mouseover of any link
+	// cycleLinkColors: Cycle through an array of colours on mouseenter of any link
 	// ----------------------------------------------------------------------------
 	function cycleLinkColors() {
 
@@ -212,15 +212,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		classie.add(elBody, strCurrentColor);
 
-		// iterate through each <a href> and bind the mouseover
+		// iterate through each <a href> and bind the mouseenter
 		for (var i = 0; i < numPageLinks; i++) {
-			linkMouseOver(arrPageLinks[i]);
+			linkMouseEnter(arrPageLinks[i]);
 		}
 
-		// function for mouseover
-		function linkMouseOver(thisPageLink) {
+		// function for mouseenter
+		function linkMouseEnter(thisPageLink) {
 
-			thisPageLink.addEventListener('mouseover', function(e) {
+			thisPageLink.addEventListener('mouseenter', function(e) {
 
 				if (numCurrentColor >= numColorsLength) {
 					numCurrentColor = 0;

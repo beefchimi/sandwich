@@ -75,8 +75,8 @@ div.wrap_lines div {
 }
 nav.nav_primary,
 nav.nav_categories ul,
-article.iso_brick a img.iso_image,
-article.iso_brick a div.iso_logo img {
+a.iso_link div.iso_logo img,
+a.iso_link div.wrap_iso-image div.wrap_iso-title {
 	transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
 }
 // --- Animations --- \\
@@ -484,44 +484,58 @@ article.iso_brick {
 	// float: left; // fallback style
 	margin-bottom: 2rem;
 }
-article.iso_brick a {
+a.iso_link {
 	display: block;
 }
-article.iso_brick a div.iso_logo {
+// + iso image + \\
+a.iso_link div.wrap_iso-image {
 	position: relative;
 }
-article.iso_brick a div.iso_logo img.iso_logo-on {
+
+/*
+a.iso_link div.wrap_iso-image img {
+	opacity: 0.01;
+}
+*/
+
+a.iso_link div.wrap_iso-image div.wrap_iso-title {
+	display: none;
+}
+// + iso logo + \\
+a.iso_link div.iso_logo {
+	position: relative;
+}
+a.iso_link div.iso_logo img.iso_logo-on {
 	@include pos_cover(absolute, 1);
 	@include toggle_visibility(off);
 }
 // + interaction + \\
-article.iso_brick a:hover img.iso_image {
-	opacity: 0.8;
-}
-article.iso_brick a:hover div.iso_logo img.iso_logo-off {
+a.iso_link:hover div.iso_logo img.iso_logo-off {
 	@include toggle_visibility(off);
 }
-article.iso_brick a:hover div.iso_logo img.iso_logo-on {
+a.iso_link:hover div.iso_logo img.iso_logo-on {
 	@include toggle_visibility(on);
-}
-article.iso_brick a:active img.iso_image {
-	opacity: 1;
 }
 
 // Alternating Colours
 // ----------------------------------------------------------------------------
 // + red links + \\
+body.links_red a.iso_link div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_red; }
 body.links_red footer h4 a:hover { color: $hsl_red; }
 body.links_red footer h4 a:active { color: darken($hsl_red, 20%); }
 // + orange links + \\
+body.links_orange a.iso_link div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_orange; }
 body.links_orange footer h4 a:hover { color: $hsl_orange; }
 body.links_orange footer h4 a:active { color: darken($hsl_orange, 20%); }
 // + yellow links + \\
+body.links_yellow a.iso_link div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_yellow; }
 body.links_yellow footer h4 a:hover { color: $hsl_yellow; }
 body.links_yellow footer h4 a:active { color: darken($hsl_yellow, 20%); }
 // + aqua links + \\
+body.links_aqua a.iso_link div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_aqua; }
 body.links_aqua footer h4 a:hover { color: $hsl_aqua; }
 body.links_aqua footer h4 a:active { color: darken($hsl_aqua, 20%); }
 // + cyan links + \\
+body.links_cyan a.iso_link div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_cyan; }
 body.links_cyan footer h4 a:hover { color: $hsl_cyan; }
 body.links_cyan footer h4 a:active { color: darken($hsl_cyan, 20%); }

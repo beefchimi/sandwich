@@ -118,10 +118,6 @@
 
 	// Nav Categories
 	// ----------------------------------------------------------------------------
-
-	// $unitCatHeight: 4rem;
-	// $unitIconRight: 0.5rem;
-
 	nav.nav_categories {
 		margin-bottom: 6.4rem;
 		max-width: 70rem;
@@ -150,7 +146,7 @@
 		margin: 0 0.4rem 0.6rem 0.4rem;
 	}
 	nav.nav_categories ul li a {
-		padding: 1rem 1.2rem 0.8rem 1.2rem;
+		padding: 1rem 1.2rem 0.6rem 1.2rem;
 		color: $hsl_navy;
 		border: 0.1rem solid transparent;
 		border-radius: 0.8rem;
@@ -180,39 +176,76 @@
 	article.iso_brick {
 		margin-bottom: 4rem;
 	}
+	// + iso image + \\
+	a.iso_link div.wrap_iso-image div.wrap_iso-title {
+		display: block;
+		@include pos_cover(absolute, 101);
+		@include toggle_visibility(off);
+	}
+	a.iso_link div.wrap_iso-image div.wrap_iso-title div.wrap_txt-center {
+		display: table;
+		width: 100%;
+		height: 100%;
+		text-align: center;
+	}
+	a.iso_link div.wrap_iso-image div.wrap_iso-title div.wrap_txt-center h3 {
+		display: table-cell;
+		vertical-align: middle;
+		padding-left: 1.6rem;
+		padding-right: 1.6rem;
+		font-size: 2.1rem;
+		color: $hsl_L100;
+	}
+	// + interaction + \\
+	a.iso_link:hover div.wrap_iso-image div.wrap_iso-title {
+		@include toggle_visibility(on);
+	}
+	a.iso_link:active div.wrap_iso-image div.wrap_iso-title {
+		opacity: 0.9;
+	}
 
 	// Alternating Colours
 	// ----------------------------------------------------------------------------
 	// --- Alternating Colours --- \\
+
 	// + red links + \\
+	body.links_red a.iso_link div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_red; }
 	body.links_red nav.nav_primary ul li a:hover,
 	body.links_red nav.nav_categories ul li a:hover { color: $hsl_red; }
 	// body.links_red nav.nav_categories ul li a:hover { border-color: $hsl_red; }
 	body.links_red nav.nav_primary ul li a:active,
 	body.links_red nav.nav_categories ul li a:active { color: darken($hsl_red, 20%); }
 	// body.links_red nav.nav_categories ul li a:active { border-color: darken($hsl_red, 20%); }
+
 	// + orange links + \\
+	body.links_orange a.iso_link div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_orange; }
 	body.links_orange nav.nav_primary ul li a:hover,
 	body.links_orange nav.nav_categories ul li a:hover { color: $hsl_orange; }
 	// body.links_orange nav.nav_categories ul li a:hover { border-color: $hsl_orange; }
 	body.links_orange nav.nav_primary ul li a:active,
 	body.links_orange nav.nav_categories ul li a:active { color: darken($hsl_orange, 20%); }
 	// body.links_orange nav.nav_categories ul li a:active { border-color: darken($hsl_orange, 20%); }
+
 	// + yellow links + \\
+	body.links_yellow a.iso_link div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_yellow; }
 	body.links_yellow nav.nav_primary ul li a:hover,
 	body.links_yellow nav.nav_categories ul li a:hover { color: $hsl_yellow; }
 	// body.links_yellow nav.nav_categories ul li a:hover { border-color: $hsl_yellow; }
 	body.links_yellow nav.nav_primary ul li a:active,
 	body.links_yellow nav.nav_categories ul li a:active { color: darken($hsl_yellow, 20%); }
 	// body.links_yellow nav.nav_categories ul li a:active { border-color: darken($hsl_yellow, 20%); }
+
 	// + aqua links + \\
+	body.links_aqua a.iso_link div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_aqua; }
 	body.links_aqua nav.nav_primary ul li a:hover,
 	body.links_aqua nav.nav_categories ul li a:hover { color: $hsl_aqua; }
 	// body.links_aqua nav.nav_categories ul li a:hover { border-color: $hsl_aqua; }
 	body.links_aqua nav.nav_primary ul li a:active,
 	body.links_aqua nav.nav_categories ul li a:active { color: darken($hsl_aqua, 20%); }
 	// body.links_aqua nav.nav_categories ul li a:active { border-color: darken($hsl_aqua, 20%); }
+
 	// + cyan links + \\
+	body.links_cyan a.iso_link div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_cyan; }
 	body.links_cyan nav.nav_primary ul li a:hover,
 	body.links_cyan nav.nav_categories ul li a:hover { color: $hsl_cyan; }
 	// body.links_cyan nav.nav_categories ul li a:hover { border-color: $hsl_cyan; }
@@ -251,8 +284,33 @@
 		padding-right: 4.8rem;
 	}
 
+	// Header
+	// ----------------------------------------------------------------------------
+	header {
+		padding-top: 6.4rem;
+		padding-bottom: 12rem;
+	}
+
+	// Nav Primary
+	// ----------------------------------------------------------------------------
+	nav.nav_primary {
+		margin-bottom: 16rem;
+	}
+	nav.nav_primary ul li {
+		margin-right: 4rem;
+	}
+	nav.nav_primary ul li.nav_twitter {
+		top: 6.4rem;
+	}
+
 // ==|== main styles ==========================================================
 // ============================================================================
+
+	// Nav Categories
+	// ----------------------------------------------------------------------------
+	nav.nav_categories {
+		margin-bottom: 10rem;
+	}
 
 	// Isotope
 	// ----------------------------------------------------------------------------
