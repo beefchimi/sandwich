@@ -1,0 +1,78 @@
+!!!
+%html{:lang => "en"}
+
+	= Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render
+
+	%body
+
+		#svgInject
+			/ inject:svg
+			/ endinject
+
+		= Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render
+
+		%main{:role => "main", "data-container" => "width_1640"}
+
+			-# "data-mobile" currently not used for anything (could use data-device = mobile/desktop)
+			%nav#nav_categories.nav_categories{"data-dropdown" => "list", "data-selected" => "Curated", "data-mobile" => true}
+
+				%a#cat_trigger.cat_trigger{:href => "#", :title => "Click To Select Category"}
+					%span.cat_label.truncate Curated
+					#cat_icon.cat_icon
+					-# %svg.wrap_svg{:viewBox => "0 0 88 14"}
+						-# %use{"xlink:href" => "#ui_arrow"}
+
+				%ul
+					%li
+						%a.cat_link{:href => "#", :title => "All"} All
+					%li
+						%a.cat_link.selected{:href => "#", :title => "Curated"} Curated
+					%li
+						%a.cat_link{:href => "#", :title => "Apps"} Apps
+					%li
+						%a.cat_link{:href => "#", :title => "Apparel"} Apparel
+					%li
+						%a.cat_link{:href => "#", :title => "Automotive"} Automotive
+					%li
+						%a.cat_link{:href => "#", :title => "Fashion"} Fashion
+					%li
+						%a.cat_link{:href => "#", :title => "Film"} Film
+					%li
+						%a.cat_link{:href => "#", :title => "Food & Drink"} Food & Drink
+					%li
+						%a.cat_link{:href => "#", :title => "Internet"} Internet
+					%li
+						%a.cat_link{:href => "#", :title => "Lifestyle"} Lifestyle
+					%li
+						%a.cat_link{:href => "#", :title => "Money"} Money
+					%li
+						%a.cat_link{:href => "#", :title => "Photography"} Photography
+					%li
+						%a.cat_link{:href => "#", :title => "Solutions"} Solutions
+					%li
+						%a.cat_link{:href => "#", :title => "TV Commercials"} TV Commercials
+					%li
+						%a.cat_link{:href => "#", :title => "Video"} Video
+
+			%section#iso_container.iso_container
+
+				.iso_sizer
+				.iso_gutter
+
+				- (1..18).each do |i|
+					%article.iso_brick{:id => "post_#{i}"}
+						-# 248px x 140px
+						%a{:href => "#", :title => "Company Name #{i}"}
+							%h3.visuallyhidden Company Name #{i}
+							%img.iso_image{:src => "assets/img/iso_image.jpg", :alt => ""}
+							.iso_logo
+								%img.iso_logo-off{:src => "assets/img/iso_logo-off.png", :alt => ""}
+								%img.iso_logo-on{:src => "assets/img/iso_logo-on.png", :alt => ""}
+
+							-# figure out if you can transition from CSS color to inline color
+							-# %svg.iso_logo.logo_placeholder{:viewBox => "0 0 88 14"}
+								-# %use{"xlink:href" => "#logo_placeholder"}
+
+		= Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render
+
+		= Haml::Engine.new(File.read("dev/haml/partials/_doc_scripts.haml")).render

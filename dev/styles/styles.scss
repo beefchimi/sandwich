@@ -1,0 +1,62 @@
+// SASS Variables
+// ----------------------------------------------------------------------------
+$hsl_sea:    hsl(168,100%,84%);
+$hsl_yellow: hsl(54,100%,74%);
+
+$hsl_L0:   hsl(0,0%,0%);
+$hsl_L60:  hsl(0,0%,60%);
+$hsl_L100: hsl(0,0%,100%);
+
+
+
+
+$hsl_bone:   hsl(180,50%,99%);
+$hsl_navy:   hsl(212,59%,22%);
+$hsl_red:    hsl(3,85%,56%);
+$hsl_orange: hsl(25,100%,58%);
+$hsl_yellow: hsl(52,88%,48%);
+$hsl_aqua:   hsl(171,81%,45%);
+$hsl_cyan:   hsl(194,76%,51%);
+
+$hsla_blue-80: hsla(212,59%,22%,0.8);
+
+
+// SASS Mixins
+// ----------------------------------------------------------------------------
+@mixin pos_cover($pos, $index) {
+	position: $pos;
+	z-index: $index;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	margin: auto;
+}
+@mixin pos_cover-reset() {
+	position: static;
+	// z-index: 1;
+	top: auto;
+	right: auto;
+	bottom: auto;
+	left: auto;
+	margin: 0;
+}
+
+@mixin toggle_visibility($state) {
+
+	@if $state == "off" {
+		opacity: 0;
+		visibility: hidden;
+	} @else if $state == "on" {
+		opacity: 1;
+		visibility: visible;
+	}
+
+}
+
+
+// One stylesheet to rule them all
+// ----------------------------------------------------------------------------
+@import 'base';
+@import 'main';
+@import 'queries';
