@@ -17,9 +17,6 @@
 	nav.nav_primary ul li {
 		margin-bottom: 1.8rem;
 	}
-	nav.nav_primary ul li a {
-		font-size: 2.2rem;
-	}
 	// --- Nav Toggle --- \\
 	a.nav_toggle {
 		top: 1rem;
@@ -33,11 +30,11 @@
 
 	// Isotope
 	// ----------------------------------------------------------------------------
-	div.iso_sizer,
-	article.iso_brick {
+	section.iso_container article,
+	section.iso_container div.iso_sizer {
 		width: 30.357143%; // 448 - 40 = 408 / 3 = 136 / 408 = 30.357143%
 	}
-	div.iso_gutter {
+	section.iso_container div.iso_gutter {
 		width: 4.464286%; // 40 / 2 = 20 / 408 = 4.464286%
 	}
 
@@ -153,9 +150,11 @@
 		border-radius: 0.8rem;
 	}
 	nav.nav_categories ul li a.selected {
-		color: $hsl_red;
 		background-color: transparent;
-		border-color: $hsl_red;
+
+		color: $hsl_red; // 0% state of animation ... without this, there is a jump on loop
+		border-color: $hsl_red; // 0% state of animation ... without this, there is a jump on loop
+
 	}
 	// + default transitions + \\
 	nav.nav_categories ul li a:hover {
@@ -169,29 +168,29 @@
 
 	// Isotope
 	// ----------------------------------------------------------------------------
-	div.iso_sizer,
-	article.iso_brick {
+	section.iso_container article,
+	section.iso_container div.iso_sizer {
 		width: 29.545455%; // 704 - 80 = 624 / 3 = 208 / 704 = 29.545455%
 	}
-	div.iso_gutter {
+	section.iso_container div.iso_gutter {
 		width: 5.681818%; // 80 / 2 = 40 / 704 = 5.681818%
 	}
-	article.iso_brick {
+	section.iso_container article {
 		margin-bottom: 4rem;
 	}
 	// + iso image + \\
-	a.iso_link div.wrap_iso-image div.wrap_iso-title {
+	section.iso_container article a div.wrap_iso-image div.wrap_iso-title {
 		display: block;
 		@include pos_cover(absolute, 103);
 		@include toggle_visibility(off);
 	}
-	a.iso_link div.wrap_iso-image div.wrap_iso-title div.wrap_txt-center {
+	section.iso_container article a div.wrap_iso-image div.wrap_iso-title div.wrap_txt-center {
 		display: table;
 		width: 100%;
 		height: 100%;
 		text-align: center;
 	}
-	a.iso_link div.wrap_iso-image div.wrap_iso-title div.wrap_txt-center h3 {
+	section.iso_container article a div.wrap_iso-image div.wrap_iso-title div.wrap_txt-center h3 {
 		display: table-cell;
 		vertical-align: middle;
 		padding-left: 1.6rem;
@@ -200,44 +199,68 @@
 		color: $hsl_L100;
 	}
 	// + interaction + \\
-	a.iso_link:hover div.wrap_iso-image div.wrap_iso-title {
+	section.iso_container article a:hover div.wrap_iso-image div.wrap_iso-title {
 		@include toggle_visibility(on);
+		// animation: animRainbowColor 0.6s ease-in-out infinite;
 	}
-	a.iso_link:active div.wrap_iso-image div.wrap_iso-title {
+	section.iso_container article a:active div.wrap_iso-image div.wrap_iso-title {
 		opacity: 0.9;
 	}
 
 	// Alternating Colours
 	// ----------------------------------------------------------------------------
+
+
+
+	section[data-color="red"] article.iso_brick a div.wrap_iso-image div.wrap_iso-title,
+	section[data-color="random"] article.iso_brick a.color_red div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_red; }
+
+	section[data-color="orange"] article.iso_brick a div.wrap_iso-image div.wrap_iso-title,
+	section[data-color="random"] article.iso_brick a.color_orange div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_orange; }
+
+	section[data-color="yellow"] article.iso_brick a div.wrap_iso-image div.wrap_iso-title,
+	section[data-color="random"] article.iso_brick a.color_yellow div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_yellow; }
+
+	section[data-color="aqua"] article.iso_brick a div.wrap_iso-image div.wrap_iso-title,
+	section[data-color="random"] article.iso_brick a.color_aqua div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_aqua; }
+
+	section[data-color="cyan"] article.iso_brick a div.wrap_iso-image div.wrap_iso-title,
+	section[data-color="random"] article.iso_brick a.color_cyan div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_cyan; }
+
+
+	// + rainbow links + \\
+	nav.nav_categories ul li a.color_rainbow:hover { animation: animRainbowColor 0.6s ease-in-out infinite; }
+	nav.nav_categories ul li a.color_rainbow.selected { animation: animRainbowColorBorder 0.6s ease-in-out infinite both; }
+
 	// + red links + \\
-	nav.nav_primary ul li a.links_red:hover,
-	nav.nav_categories ul li a.links_red:hover { color: $hsl_red; } // nav.nav_categories ul li a.links_red:hover { border-color: $hsl_red; }
-	nav.nav_primary ul li a.links_red:active,
-	nav.nav_categories ul li a.links_red:active { color: darken($hsl_red, 20%); } // nav.nav_categories ul li a.links_red:active { border-color: darken($hsl_red, 20%); }
+	nav.nav_primary ul li a.color_red:hover,
+	nav.nav_categories ul li a.color_red:hover { color: $hsl_red; } // nav.nav_categories ul li a.color_red:hover { border-color: $hsl_red; }
+	nav.nav_primary ul li a.color_red:active,
+	nav.nav_categories ul li a.color_red:active { color: darken($hsl_red, 20%); } // nav.nav_categories ul li a.color_red:active { border-color: darken($hsl_red, 20%); }
+
 	// + orange links + \\
-	a.iso_link.links_orange div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_orange; }
-	nav.nav_primary ul li a.links_orange:hover,
-	nav.nav_categories ul li a.links_orange:hover { color: $hsl_orange; } // nav.nav_categories ul li a.links_orange:hover { border-color: $hsl_orange; }
-	nav.nav_primary ul li a.links_orange:active,
-	nav.nav_categories ul li a.links_orange:active { color: darken($hsl_orange, 20%); } // nav.nav_categories ul li a.links_orange:active { border-color: darken($hsl_orange, 20%); }
+	nav.nav_primary ul li a.color_orange:hover,
+	nav.nav_categories ul li a.color_orange:hover { color: $hsl_orange; } // nav.nav_categories ul li a.color_orange:hover { border-color: $hsl_orange; }
+	nav.nav_primary ul li a.color_orange:active,
+	nav.nav_categories ul li a.color_orange:active { color: darken($hsl_orange, 20%); } // nav.nav_categories ul li a.color_orange:active { border-color: darken($hsl_orange, 20%); }
+
 	// + yellow links + \\
-	a.iso_link.links_yellow div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_yellow; }
-	nav.nav_primary ul li a.links_yellow:hover,
-	nav.nav_categories ul li a.links_yellow:hover { color: $hsl_yellow; } // nav.nav_categories ul li a.links_yellow:hover { border-color: $hsl_yellow; }
-	nav.nav_primary ul li a.links_yellow:active,
-	nav.nav_categories ul li a.links_yellow:active { color: darken($hsl_yellow, 20%); } // nav.nav_categories ul li a.links_yellow:active { border-color: darken($hsl_yellow, 20%); }
+	nav.nav_primary ul li a.color_yellow:hover,
+	nav.nav_categories ul li a.color_yellow:hover { color: $hsl_yellow; } // nav.nav_categories ul li a.color_yellow:hover { border-color: $hsl_yellow; }
+	nav.nav_primary ul li a.color_yellow:active,
+	nav.nav_categories ul li a.color_yellow:active { color: darken($hsl_yellow, 20%); } // nav.nav_categories ul li a.color_yellow:active { border-color: darken($hsl_yellow, 20%); }
+
 	// + aqua links + \\
-	a.iso_link.links_aqua div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_aqua; }
-	nav.nav_primary ul li a.links_aqua:hover,
-	nav.nav_categories ul li a.links_aqua:hover { color: $hsl_aqua; } // nav.nav_categories ul li a.links_aqua:hover { border-color: $hsl_aqua; }
-	nav.nav_primary ul li a.links_aqua:active,
-	nav.nav_categories ul li a.links_aqua:active { color: darken($hsl_aqua, 20%); } // nav.nav_categories ul li a.links_aqua:active { border-color: darken($hsl_aqua, 20%); }
+	nav.nav_primary ul li a.color_aqua:hover,
+	nav.nav_categories ul li a.color_aqua:hover { color: $hsl_aqua; } // nav.nav_categories ul li a.color_aqua:hover { border-color: $hsl_aqua; }
+	nav.nav_primary ul li a.color_aqua:active,
+	nav.nav_categories ul li a.color_aqua:active { color: darken($hsl_aqua, 20%); } // nav.nav_categories ul li a.color_aqua:active { border-color: darken($hsl_aqua, 20%); }
+
 	// + cyan links + \\
-	body a.iso_link.links_cyan div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_cyan; }
-	nav.nav_primary ul li a.links_cyan:hover,
-	nav.nav_categories ul li a.links_cyan:hover { color: $hsl_cyan; } // nav.nav_categories ul li a.links_cyan:hover { border-color: $hsl_cyan; }
-	nav.nav_primary ul li a.links_cyan:active,
-	nav.nav_categories ul li a.links_cyan:active { color: darken($hsl_cyan, 20%); } // nav.nav_categories ul li a.links_cyan:active { border-color: darken($hsl_cyan, 20%); }
+	nav.nav_primary ul li a.color_cyan:hover,
+	nav.nav_categories ul li a.color_cyan:hover { color: $hsl_cyan; } // nav.nav_categories ul li a.color_cyan:hover { border-color: $hsl_cyan; }
+	nav.nav_primary ul li a.color_cyan:active,
+	nav.nav_categories ul li a.color_cyan:active { color: darken($hsl_cyan, 20%); } // nav.nav_categories ul li a.color_cyan:active { border-color: darken($hsl_cyan, 20%); }
 
 	// Page Load
 	// ----------------------------------------------------------------------------
@@ -268,9 +291,9 @@
 	$numDelay: 1;
 	@for $i from 1 through 15 { // assumes 15 nav items
 		nav.nav_categories ul li:nth-child(#{$i}) {
-			animation: animBounceUp 0.4s cubic-bezier(0.215,0.610,0.355,1) #{$numDelay}s both;
+			animation: animBounceUp 0.3s cubic-bezier(0.215,0.610,0.355,1) #{$numDelay}s both;
 		}
-		$numDelay: $numDelay + 0.06;
+		$numDelay: $numDelay + 0.05;
 	}
 
 }
@@ -282,11 +305,11 @@
 
 	// Isotope
 	// ----------------------------------------------------------------------------
-	div.iso_sizer,
-	article.iso_brick {
+	section.iso_container article,
+	section.iso_container div.iso_sizer {
 		width: 21.651786%; // 896 - 120 = 776 / 4 = 194 / 704 = 21.651786%
 	}
-	div.iso_gutter {
+	section.iso_container div.iso_gutter {
 		width: 4.464286%; // 120 / 3 = 40 / 896 = 4.464286%
 	}
 
@@ -334,11 +357,11 @@
 
 	// Isotope
 	// ----------------------------------------------------------------------------
-	div.iso_sizer,
-	article.iso_brick {
+	section.iso_container article,
+	section.iso_container div.iso_sizer {
 		width: 17.028986%; // 1104 - 164 = 940 / 5 = 188 / 1104 = 17.028986%
 	}
-	div.iso_gutter {
+	section.iso_container div.iso_gutter {
 		width: 3.713768%; // 164 / 4 = 41 / 1104 = 3.713768%
 	}
 
@@ -351,11 +374,11 @@
 
 	// Isotope
 	// ----------------------------------------------------------------------------
-	div.iso_sizer,
-	article.iso_brick {
+	section.iso_container article,
+	section.iso_container div.iso_sizer {
 		width: 15.121951%; // 1640 - 400 = 1240 / 5 = 248 / 1640 = 15.121951%
 	}
-	div.iso_gutter {
+	section.iso_container div.iso_gutter {
 		width: 6.097561%; // 400 / 4 = 100 / 1640 = 6.097561%
 	}
 

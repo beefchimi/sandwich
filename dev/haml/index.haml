@@ -17,9 +17,9 @@
 		%main{:role => "main", "data-container" => "width_1640"}
 
 			-# "data-mobile" currently not used for anything (could use data-device = mobile/desktop)
-			%nav#nav_categories.nav_categories{"data-dropdown" => "list", "data-selected" => ".curated", "data-mobile" => true}
+			%nav#nav_categories.nav_categories{"data-dropdown" => "list", "data-selected" => ".curated", "data-mobile" => true, "data-animated" => "animating"}
 
-				%a#cat_trigger.cat_trigger.links_orange{:href => "#", :title => "Click To Select Category"}
+				%a#cat_trigger.cat_trigger{:href => "#", :title => "Click To Select Category"}
 					%span.cat_label.truncate Curated
 					#cat_icon.cat_icon
 					-# %svg.wrap_svg{:viewBox => "0 0 88 14"}
@@ -27,42 +27,47 @@
 
 				%ul
 					%li
-						%a.cat_link{:href => "#", :title => "All", "data-filter" => "*"} All
+						%a.cat_link.color_rainbow{:href => "#", :title => "All", "data-filter" => "*"} All
 					%li
-						%a.cat_link.selected{:href => "#", :title => "Curated", "data-filter" => ".curated"} Curated
+						%a.cat_link.color_rainbow.selected{:href => "#", :title => "Curated", "data-filter" => ".curated"} Curated
 					%li
-						%a.cat_link{:href => "#", :title => "Apps", "data-filter" => ".apps"} Apps
+						%a.cat_link.color_solid.color_red{:href => "#", :title => "Apps", "data-filter" => ".apps"} Apps
 					%li
-						%a.cat_link{:href => "#", :title => "Apparel", "data-filter" => ".apparel"} Apparel
+						%a.cat_link.color_solid.color_orange{:href => "#", :title => "Apparel", "data-filter" => ".apparel"} Apparel
 					%li
-						%a.cat_link{:href => "#", :title => "Automotive", "data-filter" => ".automotive"} Automotive
+						%a.cat_link.color_solid.color_yellow{:href => "#", :title => "Automotive", "data-filter" => ".automotive"} Automotive
 					%li
-						%a.cat_link{:href => "#", :title => "Fashion", "data-filter" => ".fashion"} Fashion
+						%a.cat_link.color_solid.color_aqua{:href => "#", :title => "Fashion", "data-filter" => ".fashion"} Fashion
 					%li
-						%a.cat_link{:href => "#", :title => "Film", "data-filter" => ".film"} Film
+						%a.cat_link.color_solid.color_cyan{:href => "#", :title => "Film", "data-filter" => ".film"} Film
 					%li
-						%a.cat_link{:href => "#", :title => "Food & Drink", "data-filter" => ".food-drink"} Food & Drink
+						%a.cat_link.color_solid.color_red{:href => "#", :title => "Food & Drink", "data-filter" => ".food-drink"} Food & Drink
 					%li
-						%a.cat_link{:href => "#", :title => "Internet", "data-filter" => ".curated"} Internet
+						%a.cat_link.color_solid.color_orange{:href => "#", :title => "Internet", "data-filter" => ".curated"} Internet
 					%li
-						%a.cat_link{:href => "#", :title => "Lifestyle", "data-filter" => ".apps"} Lifestyle
+						%a.cat_link.color_solid.color_yellow{:href => "#", :title => "Lifestyle", "data-filter" => ".apps"} Lifestyle
 					%li
-						%a.cat_link{:href => "#", :title => "Money", "data-filter" => ".apparel"} Money
+						%a.cat_link.color_solid.color_aqua{:href => "#", :title => "Money", "data-filter" => ".apparel"} Money
 					%li
-						%a.cat_link{:href => "#", :title => "Photography", "data-filter" => ".automotive"} Photography
+						%a.cat_link.color_solid.color_cyan{:href => "#", :title => "Photography", "data-filter" => ".automotive"} Photography
 					%li
-						%a.cat_link{:href => "#", :title => "Solutions", "data-filter" => ".fashion"} Solutions
+						%a.cat_link.color_solid.color_red{:href => "#", :title => "Solutions", "data-filter" => ".fashion"} Solutions
 					%li
-						%a.cat_link{:href => "#", :title => "TV Commercials", "data-filter" => ".film"} TV Commercials
+						%a.cat_link.color_solid.color_orange{:href => "#", :title => "TV Commercials", "data-filter" => ".film"} TV Commercials
 					%li
-						%a.cat_link{:href => "#", :title => "Video", "data-filter" => ".food-drink"} Video
+						%a.cat_link.color_solid.color_yellow{:href => "#", :title => "Video", "data-filter" => ".food-drink"} Video
 
-			%section#iso_container.iso_container
+			-# if: "All" or "Curated" (.color_rainbow), 'data-color' => 'random
+			-# otherwise: 'data-color' = color array
+			%section#iso_container.iso_container{"data-color" => "random"}
 
 				.iso_sizer
 				.iso_gutter
 
-				-# create HAML Array, push to array certain values based on iteration, spit out space separated values
+				- arrProjects = ['aereo', 'aeropress', 'airbnb-host', 'airbnb', 'being-geek', 'big-jambox', 'birdhouse', 'boku', 'bump']
+				- numProjects = 0
+				- numAdjustedLength = arrProjects.length - 1
+				- strCurrentProject = arrProjects[numProjects]
 
 				- (1..42).each do |i|
 
@@ -88,13 +93,20 @@
 					%article{:id => "post_#{i}", :class => "iso_brick #{strClasses}"}
 						%a.iso_link{:href => "#", :title => "Company Name #{i}"}
 							.wrap_iso-image
-								%img.iso_image{:src => "assets/img/1password.jpg", :alt => ""}
+								%img.iso_image{:src => "assets/img/thumb_#{strCurrentProject}.jpg", :alt => ""}
 								.wrap_iso-title
 									.wrap_txt-center
 										%h3.iso_title "#{strIsoTitle}#{i}"
 							.iso_logo
 								%img.iso_logo-off{:src => "assets/img/iso_logo-off.png", :alt => ""}
 								%img.iso_logo-on{:src => "assets/img/iso_logo-on.png", :alt => ""}
+
+					- if numProjects < numAdjustedLength
+						- numProjects += 1
+					- else
+						- numProjects = 0
+
+					- strCurrentProject = arrProjects[numProjects]
 
 				#iso_loader.iso_loader.visible
 					.wrap_svg
@@ -106,7 +118,6 @@
 					%img{:src => "assets/img/temp_02.jpg", :alt => ""}
 					%img{:src => "assets/img/temp_03.png", :alt => ""}
 					%img{:src => "assets/img/temp_04.png", :alt => ""}
-					-# %img{:src => "assets/img/temp_05.jpg", :alt => ""}
 
 		= Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render
 

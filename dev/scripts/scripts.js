@@ -229,6 +229,16 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 
+
+/*
+	function finalAnimate() {
+
+		var elTest = document.getElementById()('nav_twitter')
+
+	}
+*/
+
+
 	// navToggle: Toggle Mobile Navigation
 	// ----------------------------------------------------------------------------
 	function navToggle() {
@@ -272,10 +282,10 @@ document.addEventListener('DOMContentLoaded', function() {
 	function randomLinkColors() {
 
 		var elLinkTest      = document.getElementById('link_test'),
-			arrLinkColors   = ['links_red', 'links_orange', 'links_yellow', 'links_aqua', 'links_cyan'],
+			arrLinkColors   = ['red', 'orange', 'yellow', 'aqua', 'cyan'],
 			numColorsLength = arrLinkColors.length - 1,
 			numCurrentColor = getRandomInt(0, numColorsLength),
-			strCurrentColor = arrLinkColors[numCurrentColor];
+			strCurrentColor = 'color_ ' + arrLinkColors[numCurrentColor];
 
 		classie.add(elBody, strCurrentColor);
 
@@ -284,7 +294,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			classie.remove(elBody, strCurrentColor);
 
 			numCurrentColor = getRandomInt(0, numColorsLength);
-			strCurrentColor = arrLinkColors[numCurrentColor];
+			strCurrentColor = 'color_ ' + arrLinkColors[numCurrentColor];
 
 			classie.add(elBody, strCurrentColor);
 
@@ -299,12 +309,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		// currently assumes there is at least 1 link on every page...
 
-		var arrPageLinks    = document.getElementsByTagName('a'),
-			arrLinkColors   = ['links_red', 'links_orange', 'links_yellow', 'links_aqua', 'links_cyan'],
+		var arrPageLinks    = document.getElementsByClassName('color_random'),
+			arrLinkColors   = ['red', 'orange', 'yellow', 'aqua', 'cyan'],
 			numPageLinks    = arrPageLinks.length,
 			numColorsLength = arrLinkColors.length - 1,
 			numCurrentColor = 0,
-			strCurrentColor = arrLinkColors[numCurrentColor];
+			strCurrentColor = 'color_' + arrLinkColors[numCurrentColor];
 
 		// classie.add(elBody, strCurrentColor);
 		// everything must have a default colour
@@ -328,7 +338,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				// classie.remove(elBody, strCurrentColor);
 				checkForClass(thisPageLink);
 
-				strCurrentColor = arrLinkColors[numCurrentColor];
+				strCurrentColor = 'color_' + arrLinkColors[numCurrentColor];
 
 				// classie.add(elBody, strCurrentColor);
 				classie.add(thisPageLink, strCurrentColor);
@@ -342,8 +352,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 			for (var i = 0; i < arrLinkColors.length; i++) {
 
-				if ( classie.has(pThisPageLink, arrLinkColors[i]) ) {
-					classie.remove(pThisPageLink, arrLinkColors[i]);
+				if ( classie.has(pThisPageLink, 'color_' + arrLinkColors[i]) ) {
+					classie.remove(pThisPageLink, 'color_' + arrLinkColors[i]);
 					return;
 				}
 

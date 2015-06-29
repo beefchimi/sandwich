@@ -82,8 +82,8 @@ div.wrap_lines div {
 	transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
 }
 
-a.iso_link div.iso_logo img,
-a.iso_link div.wrap_iso-image div.wrap_iso-title {
+section.iso_container article a div.iso_logo img,
+section.iso_container article a div.wrap_iso-image div.wrap_iso-title {
 	transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
 }
 
@@ -126,10 +126,28 @@ nav.nav_categories ul {
 	100% { opacity: 1; transform: translateY(0); }
 }
 @keyframes animBounceUp {
-	0%   { opacity: 0; transform: translateY(4.8rem); }
+	0%   { opacity: 0; transform: translateY(4.8rem); } // filter: blur(0.2rem);
 	60%  { transform: translateY(-0.8rem); }
 	100% { opacity: 1; transform: translateY(0); }
 }
+
+
+@keyframes animRainbowColor {
+	0%  { color: $hsl_red; }
+	20% { color: $hsl_orange; }
+	40% { color: $hsl_yellow; }
+	60% { color: $hsl_aqua; }
+	80% { color: $hsl_cyan; }
+}
+@keyframes animRainbowColorBorder {
+	0%  { color: $hsl_red; border-color: $hsl_red; }
+	20% { color: $hsl_orange; border-color: $hsl_orange; }
+	40% { color: $hsl_yellow; border-color: $hsl_yellow; }
+	60% { color: $hsl_aqua; border-color: $hsl_aqua; }
+	80% { color: $hsl_cyan; border-color: $hsl_cyan; }
+}
+
+
 /*
 @keyframes animShake {
 	0%, 100% { transform: translate3d(0,0,0); }
@@ -256,6 +274,23 @@ header h2 {
 .logo_main svg.logo_video-rainbow {
 	max-width: 19.8rem;
 	width: 50%; // adjust height for mobile
+	overflow: visible; // otherwise, <path> animation will get chopped off
+}
+// + video letters + \\
+path.video_1 {
+	fill: $hsl_red;
+}
+path.video_2 {
+	fill: $hsl_orange;
+}
+path.video_3 {
+	fill: $hsl_yellow;
+}
+path.video_4 {
+	fill: $hsl_aqua;
+}
+path.video_5 {
+	fill: $hsl_cyan;
 }
 
 // Nav Primary
@@ -272,7 +307,7 @@ nav.nav_primary ul {
 	display: table-cell;
 	width: 100%;
 	vertical-align: middle;
-	transform: perspective(60rem) rotateX(10deg) translateY(-5%);
+	transform: perspective(60rem) rotateX(10deg) translateY(0%);
 }
 nav.nav_primary ul li {
 	margin-bottom: 2.4rem;
@@ -281,7 +316,7 @@ nav.nav_primary ul li.nav_twitter {
 	margin-bottom: 0;
 }
 nav.nav_primary ul li a {
-	font-size: 3rem;
+	font-size: 2.2rem;
 	color: $hsl_bone;
 }
 // --- Nav Toggle --- \\
@@ -339,7 +374,7 @@ a.nav_toggle.toggled + nav.nav_primary {
 	@include toggle_visibility(on);
 }
 a.nav_toggle.toggled + nav.nav_primary ul {
-	transform: perspective(60rem) rotateX(0deg) translateY(0%);
+	transform: perspective(60rem) rotateX(0deg) translateY(6%);
 }
 // + interaction + \\
 a.nav_toggle:hover div.wrap_lines div {
@@ -478,75 +513,63 @@ section.iso_container {
 	position: relative;
 	z-index: 100;
 }
-div.iso_sizer,
-article.iso_brick {
+section.iso_container article,
+section.iso_container div.iso_sizer {
 	width: calc(50% - 1rem);
 }
-div.iso_gutter {
+section.iso_container div.iso_gutter {
 	width: 2rem;
 }
-article.iso_brick {
-	// float: left; // fallback style
-	// position: relative;
+section.iso_container article {
+	// float: left;
+	position: relative;
 	z-index: 101;
 	margin-bottom: 2rem;
 }
-a.iso_link {
+section.iso_container article a {
 	display: block;
 }
 // + iso image + \\
-a.iso_link div.wrap_iso-image {
+section.iso_container article a div.wrap_iso-image {
 	position: relative;
 }
-
-/*
-a.iso_link div.wrap_iso-image img {
-	opacity: 0.01;
-}
-*/
-
-a.iso_link div.wrap_iso-image div.wrap_iso-title {
+section.iso_container article a div.wrap_iso-image div.wrap_iso-title {
 	display: none;
 	background-color: $hsl_red; // default background-color
 }
 // + iso logo + \\
-a.iso_link div.iso_logo {
+section.iso_container article a div.iso_logo {
 	position: relative;
 }
-a.iso_link div.iso_logo img.iso_logo-on {
+section.iso_container article a div.iso_logo img.iso_logo-on {
 	@include pos_cover(absolute, 102);
 	@include toggle_visibility(off);
 }
 // + interaction + \\
-a.iso_link:hover div.iso_logo img.iso_logo-off {
+section.iso_container article a:hover div.iso_logo img.iso_logo-off {
 	@include toggle_visibility(off);
 }
-a.iso_link:hover div.iso_logo img.iso_logo-on {
+section.iso_container article a:hover div.iso_logo img.iso_logo-on {
 	@include toggle_visibility(on);
 }
 
 // Alternating Colours
 // ----------------------------------------------------------------------------
 // + red links + \\
-a.iso_link.links_red div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_red; }
-footer h4 a.links_red:hover { color: $hsl_red; }
-footer h4 a.links_red:active { color: darken($hsl_red, 20%); }
+footer h4 a.color_red:hover { color: $hsl_red; }
+footer h4 a.color_red:active { color: darken($hsl_red, 20%); }
 // + orange links + \\
-a.iso_link.links_orange div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_orange; }
-footer h4 a.links_orange:hover { color: $hsl_orange; }
-footer h4 a.links_orange:active { color: darken($hsl_orange, 20%); }
+footer h4 a.color_orange:hover { color: $hsl_orange; }
+footer h4 a.color_orange:active { color: darken($hsl_orange, 20%); }
 // + yellow links + \\
-a.iso_link.links_yellow div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_yellow; }
-footer h4 a.links_yellow:hover { color: $hsl_yellow; }
-footer h4 a.links_yellow:active { color: darken($hsl_yellow, 20%); }
+footer h4 a.color_yellow:hover { color: $hsl_yellow; }
+footer h4 a.color_yellow:active { color: darken($hsl_yellow, 20%); }
 // + aqua links + \\
-a.iso_link.links_aqua div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_aqua; }
-footer h4 a.links_aqua:hover { color: $hsl_aqua; }
-footer h4 a.links_aqua:active { color: darken($hsl_aqua, 20%); }
+footer h4 a.color_aqua:hover { color: $hsl_aqua; }
+footer h4 a.color_aqua:active { color: darken($hsl_aqua, 20%); }
 // + cyan links + \\
-a.iso_link.links_cyan div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_cyan; }
-footer h4 a.links_cyan:hover { color: $hsl_cyan; }
-footer h4 a.links_cyan:active { color: darken($hsl_cyan, 20%); }
+footer h4 a.color_cyan:hover { color: $hsl_cyan; }
+footer h4 a.color_cyan:active { color: darken($hsl_cyan, 20%); }
 
 // Page Load
 // ----------------------------------------------------------------------------
@@ -562,12 +585,24 @@ html:not(.ie9) header {
 .logo_main svg.logo_sandwich {
 	animation: animShow 0.8s ease-in-out 0.2s both;
 }
-.logo_main svg.logo_video-rainbow {
-	animation: animShow 0.8s ease-in-out 0.6s both;
+$numDelay: 0.6;
+@for $i from 1 through 5 { // assumes 5 letters
+	path.video_#{$i} {
+		animation: animBounceUp 0.4s cubic-bezier(0.215,0.610,0.355,1) #{$numDelay}s both;
+	}
+	$numDelay: $numDelay + 0.1;
 }
 header h2 {
 	animation: animShow 0.8s ease-in-out 1s both;
 }
+
+
+
+
+
+
+
+
 
 // + nav primary + \\
 $numDelay: 0.6;
