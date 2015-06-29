@@ -124,7 +124,7 @@
 	}
 	// --- Dropdown Trigger --- \\
 	nav.nav_categories a.cat_trigger {
-		display: none;
+		display: none; // will there be JS errors? should this be visually hidden instead?
 		visibility: hidden;
 	}
 	// --- Dropdown List --- \\
@@ -148,7 +148,8 @@
 	nav.nav_categories ul li a {
 		padding: 1rem 1.2rem 0.6rem 1.2rem;
 		color: $hsl_navy;
-		border: 0.1rem solid transparent;
+		background-color: transparent;
+		border: 0.1rem solid transparent; // does a border-color need to be applied for each cycle?
 		border-radius: 0.8rem;
 	}
 	nav.nav_categories ul li a.selected {
@@ -156,11 +157,13 @@
 		background-color: transparent;
 		border-color: $hsl_red;
 	}
-	// + interaction + \\
+	// + default transitions + \\
 	nav.nav_categories ul li a:hover {
+		color: $hsl_red;
 		background-color: transparent;
 	}
 	nav.nav_categories ul li a:active {
+		color: darken($hsl_red, 10%);
 		background-color: transparent;
 	}
 
@@ -179,7 +182,7 @@
 	// + iso image + \\
 	a.iso_link div.wrap_iso-image div.wrap_iso-title {
 		display: block;
-		@include pos_cover(absolute, 101);
+		@include pos_cover(absolute, 103);
 		@include toggle_visibility(off);
 	}
 	a.iso_link div.wrap_iso-image div.wrap_iso-title div.wrap_txt-center {
@@ -206,52 +209,69 @@
 
 	// Alternating Colours
 	// ----------------------------------------------------------------------------
-	// --- Alternating Colours --- \\
-
 	// + red links + \\
-	body.links_red a.iso_link div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_red; }
-	body.links_red nav.nav_primary ul li a:hover,
-	body.links_red nav.nav_categories ul li a:hover { color: $hsl_red; }
-	// body.links_red nav.nav_categories ul li a:hover { border-color: $hsl_red; }
-	body.links_red nav.nav_primary ul li a:active,
-	body.links_red nav.nav_categories ul li a:active { color: darken($hsl_red, 20%); }
-	// body.links_red nav.nav_categories ul li a:active { border-color: darken($hsl_red, 20%); }
-
+	nav.nav_primary ul li a.links_red:hover,
+	nav.nav_categories ul li a.links_red:hover { color: $hsl_red; } // nav.nav_categories ul li a.links_red:hover { border-color: $hsl_red; }
+	nav.nav_primary ul li a.links_red:active,
+	nav.nav_categories ul li a.links_red:active { color: darken($hsl_red, 20%); } // nav.nav_categories ul li a.links_red:active { border-color: darken($hsl_red, 20%); }
 	// + orange links + \\
-	body.links_orange a.iso_link div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_orange; }
-	body.links_orange nav.nav_primary ul li a:hover,
-	body.links_orange nav.nav_categories ul li a:hover { color: $hsl_orange; }
-	// body.links_orange nav.nav_categories ul li a:hover { border-color: $hsl_orange; }
-	body.links_orange nav.nav_primary ul li a:active,
-	body.links_orange nav.nav_categories ul li a:active { color: darken($hsl_orange, 20%); }
-	// body.links_orange nav.nav_categories ul li a:active { border-color: darken($hsl_orange, 20%); }
-
+	a.iso_link.links_orange div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_orange; }
+	nav.nav_primary ul li a.links_orange:hover,
+	nav.nav_categories ul li a.links_orange:hover { color: $hsl_orange; } // nav.nav_categories ul li a.links_orange:hover { border-color: $hsl_orange; }
+	nav.nav_primary ul li a.links_orange:active,
+	nav.nav_categories ul li a.links_orange:active { color: darken($hsl_orange, 20%); } // nav.nav_categories ul li a.links_orange:active { border-color: darken($hsl_orange, 20%); }
 	// + yellow links + \\
-	body.links_yellow a.iso_link div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_yellow; }
-	body.links_yellow nav.nav_primary ul li a:hover,
-	body.links_yellow nav.nav_categories ul li a:hover { color: $hsl_yellow; }
-	// body.links_yellow nav.nav_categories ul li a:hover { border-color: $hsl_yellow; }
-	body.links_yellow nav.nav_primary ul li a:active,
-	body.links_yellow nav.nav_categories ul li a:active { color: darken($hsl_yellow, 20%); }
-	// body.links_yellow nav.nav_categories ul li a:active { border-color: darken($hsl_yellow, 20%); }
-
+	a.iso_link.links_yellow div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_yellow; }
+	nav.nav_primary ul li a.links_yellow:hover,
+	nav.nav_categories ul li a.links_yellow:hover { color: $hsl_yellow; } // nav.nav_categories ul li a.links_yellow:hover { border-color: $hsl_yellow; }
+	nav.nav_primary ul li a.links_yellow:active,
+	nav.nav_categories ul li a.links_yellow:active { color: darken($hsl_yellow, 20%); } // nav.nav_categories ul li a.links_yellow:active { border-color: darken($hsl_yellow, 20%); }
 	// + aqua links + \\
-	body.links_aqua a.iso_link div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_aqua; }
-	body.links_aqua nav.nav_primary ul li a:hover,
-	body.links_aqua nav.nav_categories ul li a:hover { color: $hsl_aqua; }
-	// body.links_aqua nav.nav_categories ul li a:hover { border-color: $hsl_aqua; }
-	body.links_aqua nav.nav_primary ul li a:active,
-	body.links_aqua nav.nav_categories ul li a:active { color: darken($hsl_aqua, 20%); }
-	// body.links_aqua nav.nav_categories ul li a:active { border-color: darken($hsl_aqua, 20%); }
-
+	a.iso_link.links_aqua div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_aqua; }
+	nav.nav_primary ul li a.links_aqua:hover,
+	nav.nav_categories ul li a.links_aqua:hover { color: $hsl_aqua; } // nav.nav_categories ul li a.links_aqua:hover { border-color: $hsl_aqua; }
+	nav.nav_primary ul li a.links_aqua:active,
+	nav.nav_categories ul li a.links_aqua:active { color: darken($hsl_aqua, 20%); } // nav.nav_categories ul li a.links_aqua:active { border-color: darken($hsl_aqua, 20%); }
 	// + cyan links + \\
-	body.links_cyan a.iso_link div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_cyan; }
-	body.links_cyan nav.nav_primary ul li a:hover,
-	body.links_cyan nav.nav_categories ul li a:hover { color: $hsl_cyan; }
-	// body.links_cyan nav.nav_categories ul li a:hover { border-color: $hsl_cyan; }
-	body.links_cyan nav.nav_primary ul li a:active,
-	body.links_cyan nav.nav_categories ul li a:active { color: darken($hsl_cyan, 20%); }
-	// body.links_cyan nav.nav_categories ul li a:active { border-color: darken($hsl_cyan, 20%); }
+	body a.iso_link.links_cyan div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_cyan; }
+	nav.nav_primary ul li a.links_cyan:hover,
+	nav.nav_categories ul li a.links_cyan:hover { color: $hsl_cyan; } // nav.nav_categories ul li a.links_cyan:hover { border-color: $hsl_cyan; }
+	nav.nav_primary ul li a.links_cyan:active,
+	nav.nav_categories ul li a.links_cyan:active { color: darken($hsl_cyan, 20%); } // nav.nav_categories ul li a.links_cyan:active { border-color: darken($hsl_cyan, 20%); }
+
+	// Page Load
+	// ----------------------------------------------------------------------------
+	// html:not(.ie9) header,
+	html:not(.ie9) nav.nav_categories {
+		opacity: 1;
+		animation: none;
+	}
+	a.nav_toggle div.wrap_lines div {
+		animation: none;
+	}
+	// + header + \\
+	header h2 {
+		animation: animSlideUp 0.4s ease-in-out 1s both;
+	}
+	// + nav primary + \\
+	$numDelay: 0.6;
+	@for $i from 1 through 5 { // assumes 5 nav items
+		nav.nav_primary ul li:nth-child(#{$i}) {
+			animation: animBounceUp 0.4s cubic-bezier(0.215,0.610,0.355,1) #{$numDelay}s both;
+		}
+		$numDelay: $numDelay + 0.1;
+	}
+	nav.nav_primary ul li.nav_twitter {
+		animation: animShow 0.6s ease-in-out 1.6s both;
+	}
+	// + nav categories + \\
+	$numDelay: 1;
+	@for $i from 1 through 15 { // assumes 15 nav items
+		nav.nav_categories ul li:nth-child(#{$i}) {
+			animation: animBounceUp 0.4s cubic-bezier(0.215,0.610,0.355,1) #{$numDelay}s both;
+		}
+		$numDelay: $numDelay + 0.06;
+	}
 
 }
 

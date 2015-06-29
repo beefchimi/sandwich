@@ -1,5 +1,8 @@
 !!!
-%html{:lang => "en"}
+/[if IE 9] <html class="ie9" lang="en">
+<!--[if gt IE 9]><!-->
+%html{:lang => "en", "data-ready" => "waiting", "data-overflow" => "scrollable"}<>
+	<!--<![endif]-->
 
 	= Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render
 
@@ -14,9 +17,9 @@
 		%main{:role => "main", "data-container" => "width_1640"}
 
 			-# "data-mobile" currently not used for anything (could use data-device = mobile/desktop)
-			%nav#nav_categories.nav_categories{"data-dropdown" => "list", "data-selected" => "Curated", "data-mobile" => true}
+			%nav#nav_categories.nav_categories{"data-dropdown" => "list", "data-selected" => ".curated", "data-mobile" => true}
 
-				%a#cat_trigger.cat_trigger{:href => "#", :title => "Click To Select Category"}
+				%a#cat_trigger.cat_trigger.links_orange{:href => "#", :title => "Click To Select Category"}
 					%span.cat_label.truncate Curated
 					#cat_icon.cat_icon
 					-# %svg.wrap_svg{:viewBox => "0 0 88 14"}
@@ -24,9 +27,9 @@
 
 				%ul
 					%li
-						%a.cat_link.selected{:href => "#", :title => "All", "data-filter" => "*"} All
+						%a.cat_link{:href => "#", :title => "All", "data-filter" => "*"} All
 					%li
-						%a.cat_link{:href => "#", :title => "Curated", "data-filter" => ".curated"} Curated
+						%a.cat_link.selected{:href => "#", :title => "Curated", "data-filter" => ".curated"} Curated
 					%li
 						%a.cat_link{:href => "#", :title => "Apps", "data-filter" => ".apps"} Apps
 					%li
@@ -40,19 +43,19 @@
 					%li
 						%a.cat_link{:href => "#", :title => "Food & Drink", "data-filter" => ".food-drink"} Food & Drink
 					%li
-						%a.cat_link{:href => "#", :title => "Internet", "data-filter" => ".internet"} Internet
+						%a.cat_link{:href => "#", :title => "Internet", "data-filter" => ".curated"} Internet
 					%li
-						%a.cat_link{:href => "#", :title => "Lifestyle", "data-filter" => ".lifestyle"} Lifestyle
+						%a.cat_link{:href => "#", :title => "Lifestyle", "data-filter" => ".apps"} Lifestyle
 					%li
-						%a.cat_link{:href => "#", :title => "Money", "data-filter" => ".money"} Money
+						%a.cat_link{:href => "#", :title => "Money", "data-filter" => ".apparel"} Money
 					%li
-						%a.cat_link{:href => "#", :title => "Photography", "data-filter" => ".photography"} Photography
+						%a.cat_link{:href => "#", :title => "Photography", "data-filter" => ".automotive"} Photography
 					%li
-						%a.cat_link{:href => "#", :title => "Solutions", "data-filter" => ".solutions"} Solutions
+						%a.cat_link{:href => "#", :title => "Solutions", "data-filter" => ".fashion"} Solutions
 					%li
-						%a.cat_link{:href => "#", :title => "TV Commercials", "data-filter" => ".tv-comms"} TV Commercials
+						%a.cat_link{:href => "#", :title => "TV Commercials", "data-filter" => ".film"} TV Commercials
 					%li
-						%a.cat_link{:href => "#", :title => "Video", "data-filter" => ".video"} Video
+						%a.cat_link{:href => "#", :title => "Video", "data-filter" => ".food-drink"} Video
 
 			%section#iso_container.iso_container
 
@@ -61,23 +64,23 @@
 
 				-# create HAML Array, push to array certain values based on iteration, spit out space separated values
 
-				- (1..18).each do |i|
+				- (1..42).each do |i|
 
 					- if i % 2 == 0
 						- strIsoTitle = 'Even Number / Company Name on Multiple Lines #'
 						- strClasses = 'apps'
-						- if i == 4 || i == 6 || i == 8
+						- if i == 4 || i == 8 || i == 16 || i == 24 || i == 36 || i == 42
 							- strClasses += ' curated'
-						- elsif i == 10 || i == 12
+						- elsif i == 10 || i == 12 || i == 14 || i == 20 || i == 32 || i == 40
 							- strClasses += ' apparel'
 						- else
 							- strClasses += ' automotive'
 					- else
 						- strIsoTitle = 'Odd Number / Company Name #'
 						- strClasses = 'food-drink'
-						- if i == 3 || i == 5 || i == 7
+						- if i == 3 || i == 7 || i == 13 || i == 21 || i == 27 || i == 39
 							- strClasses += ' curated'
-						- elsif i == 9 || i == 11
+						- elsif i == 9 || i == 11 || i == 17 || i == 19 || i == 31 || i == 35
 							- strClasses += ' fashion'
 						- else
 							- strClasses += ' film'
@@ -85,13 +88,25 @@
 					%article{:id => "post_#{i}", :class => "iso_brick #{strClasses}"}
 						%a.iso_link{:href => "#", :title => "Company Name #{i}"}
 							.wrap_iso-image
-								%img.iso_image{:src => "assets/img/iso_image.jpg", :alt => ""}
+								%img.iso_image{:src => "assets/img/1password.jpg", :alt => ""}
 								.wrap_iso-title
 									.wrap_txt-center
 										%h3.iso_title "#{strIsoTitle}#{i}"
 							.iso_logo
 								%img.iso_logo-off{:src => "assets/img/iso_logo-off.png", :alt => ""}
 								%img.iso_logo-on{:src => "assets/img/iso_logo-on.png", :alt => ""}
+
+				#iso_loader.iso_loader.visible
+					.wrap_svg
+						%svg.ui_loader
+							%use{"xlink:href" => "#ui_loader"}
+
+				.temp_images.visuallyhidden
+					%img{:src => "assets/img/temp_01.jpg", :alt => ""}
+					%img{:src => "assets/img/temp_02.jpg", :alt => ""}
+					%img{:src => "assets/img/temp_03.png", :alt => ""}
+					%img{:src => "assets/img/temp_04.png", :alt => ""}
+					-# %img{:src => "assets/img/temp_05.jpg", :alt => ""}
 
 		= Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render
 

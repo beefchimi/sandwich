@@ -25,6 +25,7 @@ body {
 	color: $hsl_L100;
 	background-color: $hsl_cyan;
 }
+
 /*
 // + autoprefixer does not recognize placeholder + \\
 ::-webkit-input-placeholder {
@@ -38,8 +39,15 @@ body {
 	color: $hsl_L0;
 }
 */
-/*
+
 // --- Lock Scrolling On Load --- \\
+/*
+html[data-overflow="locked"],
+html[data-overflow="locked"] body {
+	overflow-y: hidden;
+}
+*/
+/*
 html {
 	min-height: 100%;
 	overflow-y: scroll;
@@ -56,10 +64,10 @@ html[data-ready="loaded"] body {
 // ----------------------------------------------------------------------------
 a,
 div.cat_icon {
-	transition: all 0.3s ease-in-out;
+	transition: all 0.2s ease-in-out;
 }
 svg {
-	transition: fill 0.3s ease-in-out;
+	transition: fill 0.2s ease-in-out;
 }
 /*
 div.wrap_lines div {
@@ -73,28 +81,33 @@ nav.nav_primary ul {
 div.wrap_lines div {
 	transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
 }
-nav.nav_primary,
-nav.nav_categories ul,
+
 a.iso_link div.iso_logo img,
 a.iso_link div.wrap_iso-image div.wrap_iso-title {
-	transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+	transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
 }
+
+
+div.iso_loader,
+nav.nav_primary,
+nav.nav_categories ul {
+	transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
+}
+
 // --- Animations --- \\
+/*
 @keyframes animSVG {
-	to {
-		stroke-dashoffset: 0;
-	}
+	to { stroke-dashoffset: 0; }
 }
+*/
 @keyframes anim360 {
-	to {
-		transform: rotate(360deg);
-	}
+	to { transform: rotate(360deg); }
 }
+/*
 @keyframes animFadeIn {
-	to {
-		opacity: 1;
-	}
+	to { opacity: 1; }
 }
+*/
 @keyframes animShow {
 	0%   { opacity: 0; }
 	100% { opacity: 1; }
@@ -104,96 +117,67 @@ a.iso_link div.wrap_iso-image div.wrap_iso-title {
 	99%  { opacity: 0; left: 0; }
 	100% { opacity: 0; left: -200%; }
 }
+@keyframes animWidth {
+	0%   { width: 0%; opacity: 0; }
+	100% { width: 100%; opacity: 1; }
+}
+@keyframes animSlideUp {
+	0%   { opacity: 0; transform: translateY(2rem); }
+	100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes animBounceUp {
+	0%   { opacity: 0; transform: translateY(4.8rem); }
+	60%  { transform: translateY(-0.8rem); }
+	100% { opacity: 1; transform: translateY(0); }
+}
+/*
 @keyframes animShake {
-	0%, 100% {
-		transform: translate3d(0,0,0);
-	}
-	10%, 30%, 50%, 70%, 90% {
-		transform: translate3d(-1rem,0,0);
-	}
-	20%, 40%, 60%, 80% {
-		transform: translate3d(1rem,0,0);
-	}
+	0%, 100% { transform: translate3d(0,0,0); }
+	10%, 30%, 50%, 70%, 90% { transform: translate3d(-1rem,0,0); }
+	20%, 40%, 60%, 80% { transform: translate3d(1rem,0,0); }
 }
 .animate_shake {
 	animation: animShake 0.7s ease-in-out both;
 }
-
-/*
-@keyframes animRainbow {
-	0% {
-		color: $hsl_red;
-	}
-	20% {
-		color: $hsl_orange;
-	}
-	40% {
-		color: $hsl_yellow;
-	}
-	60% {
-		color: $hsl_aqua;
-	}
-	80% {
-		color: $hsl_cyan;
-	}
-	100% {
-		color: $hsl_red;
-	}
-}
 */
 
-// --- FOUT --- \\
-/*
-html:not(.ie9) main,
-html:not(.ie9) header,
-html:not(.ie9) footer {
-	opacity: 0; // begin by setting opacity to 0 (if not IE9)
-	animation: animShow 0.6s ease-in-out 0.2s forwards;
-}
-*/
-/*
-.wf-active main,
-.wf-active header,
-.wf-active footer {
-	animation: animShow 0.4s ease-in-out forwards;
-}
-*/
-
-
-/*
 // CSS Loader
 // ----------------------------------------------------------------------------
-div.loader_overlay {
-	position: fixed;
-	z-index: 910;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
+div.iso_loader {
+	@include pos_cover(absolute, 300);
+
+	background-color: $hsl_bone;
+
 	opacity: 0;
 	// visibility: hidden; // webkit will stop the animation if visibility is changed
 	overflow: hidden;
-	pointer-events: none;
+	// pointer-events: none;
+
 }
-div.loader_overlay.visible {
+div.iso_loader.visible {
 	opacity: 1;
 }
-div.loader_overlay div.wrap_svg {
+div.iso_loader div.wrap_svg {
 	position: absolute;
-	z-index: 911;
-	top: 0;
-	right: 0;
-	bottom: 0;
+	z-index: 301;
+	top: 6rem;
+	// top: 0;
+	// bottom: 0;
 	left: 0;
+	right: 0;
 	margin: auto;
 	width: 4.4rem;
 	height: 4.4rem;
 	animation: anim360 1s linear infinite forwards;
 }
-div.loader_overlay div.wrap_svg svg {
-	fill: $hsl_orange;
+div.iso_loader div.wrap_svg svg {
+	fill: $hsl_red;
 }
-*/
+
+html.ie9 div.iso_loader {
+	display: none;
+	visibility: hidden;
+}
 
 // General Styles
 // ----------------------------------------------------------------------------
@@ -277,7 +261,7 @@ header h2 {
 // Nav Primary
 // ----------------------------------------------------------------------------
 nav.nav_primary {
-	@include pos_cover(fixed, 300);
+	@include pos_cover(fixed, 400);
 	@include toggle_visibility(off);
 	display: table;
 	width: 100%;
@@ -304,7 +288,7 @@ nav.nav_primary ul li a {
 a.nav_toggle {
 	display: block;
 	position: absolute;
-	z-index: 301;
+	z-index: 401;
 	top: 2rem;
 	left: 0;
 	right: 0;
@@ -320,22 +304,23 @@ a.nav_toggle div.wrap_lines {
 }
 a.nav_toggle div.wrap_lines div {
 	position: absolute;
-	width: 100%;
 	height: 0.4rem;
 	background-color: $hsl_navy;
 }
 a.nav_toggle div.wrap_lines div.line-1 {
 	top: 0rem;
+	left: 0;
 }
 a.nav_toggle div.wrap_lines div.line-2 {
 	top: 0.8rem;
+	right: 0;
 }
 a.nav_toggle div.wrap_lines div.line-3 {
 	top: 1.6rem;
+	left: 0;
 }
 // + toggled + \\
-a.nav_toggle.toggled div.wrap_lines div,
-a.nav_toggle.toggled:hover div.wrap_lines div {
+a.nav_toggle.toggled div.wrap_lines div {
 	background-color: $hsl_bone;
 }
 a.nav_toggle.toggled div.wrap_lines {
@@ -360,6 +345,18 @@ a.nav_toggle.toggled + nav.nav_primary ul {
 a.nav_toggle:hover div.wrap_lines div {
 	background-color: $hsl_red;
 }
+a.nav_toggle.toggled:hover div.wrap_lines div.line-1,
+a.nav_toggle.toggled:hover div.wrap_lines div.line-3 {
+	background-color: $hsl_bone;
+}
+a.nav_toggle:active div.wrap_lines div {
+	background-color: darken($hsl_red, 10%);
+}
+a.nav_toggle.toggled:active div.wrap_lines div.line-1,
+a.nav_toggle.toggled:active div.wrap_lines div.line-3 {
+	background-color: darken($hsl_bone, 10%);
+}
+// + nav links do not cycle colours until 768 + \\
 nav.nav_primary ul li a:hover {
 	color: $hsl_yellow;
 }
@@ -381,6 +378,13 @@ footer h4 {
 }
 footer h4 a {
 	color: $hsl_navy;
+}
+// + default transitions + \\
+footer h4 a:hover {
+	color: $hsl_red;
+}
+footer h4 a:active {
+	color: darken($hsl_red, 10%);
 }
 
 
@@ -422,6 +426,7 @@ nav.nav_categories a.cat_trigger div.cat_icon {
 	width: 1rem;
 	height: 1rem;
 	background-color: $hsl_red;
+	border-radius: 50%;
 }
 // --- Dropdown List --- \\
 nav.nav_categories ul {
@@ -441,15 +446,13 @@ nav.nav_categories ul li a {
 	padding: 1.2rem 1.6rem;
 	font-size: 1.6rem;
 	color: $hsl_bone;
+	background-color: $hsl_red;
 }
 nav.nav_categories ul li a.selected {
 	pointer-events: none;
 	background-color: $hsl_yellow;
 }
 // + toggled + \\
-nav.nav_categories.toggled a.cat_trigger div.cat_icon {
-	border-radius: 50%;
-}
 nav.nav_categories.toggled ul {
 	@include toggle_visibility(on);
 }
@@ -461,6 +464,7 @@ nav.nav_categories a.cat_trigger:hover {
 nav.nav_categories a.cat_trigger:hover div.cat_icon {
 	background-color: $hsl_orange;
 }
+// + cat links do not cycle colours until 768 + \\
 nav.nav_categories ul li a:hover {
 	background-color: $hsl_orange;
 }
@@ -471,6 +475,7 @@ nav.nav_categories ul li a:active {
 // Isotope
 // ----------------------------------------------------------------------------
 section.iso_container {
+	position: relative;
 	z-index: 100;
 }
 div.iso_sizer,
@@ -482,6 +487,8 @@ div.iso_gutter {
 }
 article.iso_brick {
 	// float: left; // fallback style
+	// position: relative;
+	z-index: 101;
 	margin-bottom: 2rem;
 }
 a.iso_link {
@@ -500,13 +507,14 @@ a.iso_link div.wrap_iso-image img {
 
 a.iso_link div.wrap_iso-image div.wrap_iso-title {
 	display: none;
+	background-color: $hsl_red; // default background-color
 }
 // + iso logo + \\
 a.iso_link div.iso_logo {
 	position: relative;
 }
 a.iso_link div.iso_logo img.iso_logo-on {
-	@include pos_cover(absolute, 1);
+	@include pos_cover(absolute, 102);
 	@include toggle_visibility(off);
 }
 // + interaction + \\
@@ -520,22 +528,61 @@ a.iso_link:hover div.iso_logo img.iso_logo-on {
 // Alternating Colours
 // ----------------------------------------------------------------------------
 // + red links + \\
-body.links_red a.iso_link div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_red; }
-body.links_red footer h4 a:hover { color: $hsl_red; }
-body.links_red footer h4 a:active { color: darken($hsl_red, 20%); }
+a.iso_link.links_red div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_red; }
+footer h4 a.links_red:hover { color: $hsl_red; }
+footer h4 a.links_red:active { color: darken($hsl_red, 20%); }
 // + orange links + \\
-body.links_orange a.iso_link div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_orange; }
-body.links_orange footer h4 a:hover { color: $hsl_orange; }
-body.links_orange footer h4 a:active { color: darken($hsl_orange, 20%); }
+a.iso_link.links_orange div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_orange; }
+footer h4 a.links_orange:hover { color: $hsl_orange; }
+footer h4 a.links_orange:active { color: darken($hsl_orange, 20%); }
 // + yellow links + \\
-body.links_yellow a.iso_link div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_yellow; }
-body.links_yellow footer h4 a:hover { color: $hsl_yellow; }
-body.links_yellow footer h4 a:active { color: darken($hsl_yellow, 20%); }
+a.iso_link.links_yellow div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_yellow; }
+footer h4 a.links_yellow:hover { color: $hsl_yellow; }
+footer h4 a.links_yellow:active { color: darken($hsl_yellow, 20%); }
 // + aqua links + \\
-body.links_aqua a.iso_link div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_aqua; }
-body.links_aqua footer h4 a:hover { color: $hsl_aqua; }
-body.links_aqua footer h4 a:active { color: darken($hsl_aqua, 20%); }
+a.iso_link.links_aqua div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_aqua; }
+footer h4 a.links_aqua:hover { color: $hsl_aqua; }
+footer h4 a.links_aqua:active { color: darken($hsl_aqua, 20%); }
 // + cyan links + \\
-body.links_cyan a.iso_link div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_cyan; }
-body.links_cyan footer h4 a:hover { color: $hsl_cyan; }
-body.links_cyan footer h4 a:active { color: darken($hsl_cyan, 20%); }
+a.iso_link.links_cyan div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_cyan; }
+footer h4 a.links_cyan:hover { color: $hsl_cyan; }
+footer h4 a.links_cyan:active { color: darken($hsl_cyan, 20%); }
+
+// Page Load
+// ----------------------------------------------------------------------------
+/*
+html:not(.ie9) header {
+	// opacity: 0; // begin by setting opacity to 0 (if not IE9)
+	animation: animShow 0.6s ease-in-out 0s both;
+}
+*/
+
+
+// + header + \\
+.logo_main svg.logo_sandwich {
+	animation: animShow 0.8s ease-in-out 0.2s both;
+}
+.logo_main svg.logo_video-rainbow {
+	animation: animShow 0.8s ease-in-out 0.6s both;
+}
+header h2 {
+	animation: animShow 0.8s ease-in-out 1s both;
+}
+
+// + nav primary + \\
+$numDelay: 0.6;
+@for $i from 1 through 3 {
+
+	a.nav_toggle div.wrap_lines div:nth-child(#{$i}) {
+		animation: animWidth 0.6s ease-in-out #{$numDelay}s both;
+	}
+
+	$numDelay: $numDelay + 0.3;
+
+}
+
+// + nav categories + \\
+html:not(.ie9) nav.nav_categories {
+	// opacity: 0; // begin by setting opacity to 0 (if not IE9)
+	animation: animShow 0.8s ease-in-out 1.2s both;
+}
