@@ -3,10 +3,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	// Global Variables
 	// ----------------------------------------------------------------------------
-	var elHTML      = document.documentElement,
-		elBody      = document.body;
+	var elHTML   = document.documentElement,
+		elBody   = document.body,
+		elNavCat = document.getElementById('nav_categories'); // required to be global
 
-	var numWinWidth       = window.innerWidth;
+	var numWinWidth = window.innerWidth;
 
 /*
 	// window measurement variables
@@ -90,6 +91,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		navToggle();
 		cycleLinkColors();
 
+finalAnimate();
+
 	}
 
 
@@ -101,7 +104,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		var elIsoContainer = document.getElementById('iso_container'),
 			elIsoLoader    = document.getElementById('iso_loader'),
-			elNavCat       = document.getElementById('nav_categories'),
 			strCurrentCat  = elNavCat.getAttribute('data-selected');
 
 		// layout Isotope after all images have loaded
@@ -120,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			});
 
 			// initalize and pass objISO to categoryDropdown once teady
-			categoryDropdown(objISO, elNavCat);
+			categoryDropdown(objISO);
 
 			// IE9 does not support animations...
 			if ( !classie.has(elHTML, 'ie9') ) {
@@ -140,8 +142,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			// only listen for the opacity property
 			if (e.propertyName == 'opacity') {
 
-				// elBody not working for some reason
-				// elIsoLoader.parentNode.removeChild(elIsoLoader);
 				elIsoContainer.removeChild(elIsoLoader);
 				elIsoLoader.removeEventListener(transitionEvent, removeLoader);
 
@@ -156,13 +156,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	// categoryDropdown: isoTope Category Dropdown
 	// ----------------------------------------------------------------------------
-	function categoryDropdown(pISO, pNavCat) {
+	function categoryDropdown(pISO) {
 
 		// it does exist! define our remaining variables
 		var elNavCatTrigger   = document.getElementById('cat_trigger'),
 			elNavCatLabel     = elNavCatTrigger.getElementsByClassName('cat_label')[0],
-			elNavLinkSelected = pNavCat.querySelector('.selected'),
-			arrCatLinks       = pNavCat.getElementsByClassName('cat_link'),
+			elNavLinkSelected = elNavCat.querySelector('.selected'),
+			arrCatLinks       = elNavCat.getElementsByClassName('cat_link'),
 			numCatLinksLength = arrCatLinks.length;
 
 		// click elNavCatTrigger to toggle dropdown
@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 			e.preventDefault(); // url is just a #, do not follow
 
-			classie.toggle(pNavCat, 'toggled'); // add / remove 'toggled' class from pNavCat
+			classie.toggle(elNavCat, 'toggled'); // add / remove 'toggled' class from elNavCat
 
 		});
 
@@ -178,14 +178,14 @@ document.addEventListener('DOMContentLoaded', function() {
 		document.addEventListener('click', function(e) {
 
 			// if this is not the currently toggled dropdown
-			if (e.target != pNavCat) {
+			if (e.target != elNavCat) {
 
 				// ignore this event if preventDefault has been called
 				if (e.defaultPrevented) {
 					return;
 				}
 
-				classie.remove(pNavCat, 'toggled'); // remove 'toggled' class from pNavCat
+				classie.remove(elNavCat, 'toggled'); // remove 'toggled' class from elNavCat
 
 			}
 
@@ -204,13 +204,15 @@ document.addEventListener('DOMContentLoaded', function() {
 				e.preventDefault(); // prevent navigation to url
 
 				var strThisLabel  = this.innerHTML,
+					strThisColor  = this.getAttribute('data-color'),
 					strThisFilter = this.getAttribute('data-filter');
 
-				// update both pNavCat 'data-selected' and elNavCatLabel innerHTML
-				pNavCat.setAttribute('data-selected', strThisFilter);
+				// update elNavCat 'data-color', 'data-selected', and elNavCatLabel innerHTML
+				elNavCat.setAttribute('data-color', strThisColor);
+				elNavCat.setAttribute('data-selected', strThisFilter);
 				elNavCatLabel.innerHTML = strThisLabel;
 
-				classie.remove(pNavCat, 'toggled'); // remove 'toggled' class from pNavCat
+				classie.remove(elNavCat, 'toggled'); // remove 'toggled' class from elNavCat
 
 				// swap 'selected' class and redefine elNavLinkSelected as new selection
 				classie.remove(elNavLinkSelected, 'selected');
@@ -230,13 +232,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-/*
+
 	function finalAnimate() {
 
-		var elTest = document.getElementById()('nav_twitter')
+		var elNavTwitter = document.getElementById('nav_twitter');
+
+		elNavTwitter.addEventListener(animationEvent, applyReadyState);
+
+		function applyReadyState() {
+
+			classie.add(elHTML, 'ready');
+			elNavTwitter.removeEventListener(animationEvent, applyReadyState);
+
+			console.log('animations have ended');
+
+		}
 
 	}
-*/
+
 
 
 	// navToggle: Toggle Mobile Navigation
@@ -338,16 +351,30 @@ document.addEventListener('DOMContentLoaded', function() {
 				// classie.remove(elBody, strCurrentColor);
 				checkForClass(thisPageLink);
 
+
+				// if this is an isotope block...
+				if ( classie.has(e.target, 'iso_link') ) {
+
+					// we only want to cycle color classes on 'rainbow' categories,
+					// so exit the function if elNavCat is not 'data-color' => 'random'
+					if ( elNavCat.getAttribute('data-color') != 'random' ) {
+						return;
+					}
+
+				}
+
+
+				// redfine strCurrentColor as current color iteration
 				strCurrentColor = 'color_' + arrLinkColors[numCurrentColor];
 
-				// classie.add(elBody, strCurrentColor);
+				// apply the 'color_*' class to 'this' hovered link
 				classie.add(thisPageLink, strCurrentColor);
 
 			});
 
 		}
 
-		// function to iterate through arrLinkColors and check is the arguement contains the class
+		// function to iterate through arrLinkColors and check if the arguement contains the class
 		function checkForClass(pThisPageLink) {
 
 			for (var i = 0; i < arrLinkColors.length; i++) {

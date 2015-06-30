@@ -16,8 +16,12 @@
 
 		%main{:role => "main", "data-container" => "width_1640"}
 
-			-# "data-mobile" currently not used for anything (could use data-device = mobile/desktop)
-			%nav#nav_categories.nav_categories{"data-dropdown" => "list", "data-selected" => ".curated", "data-mobile" => true, "data-animated" => "animating"}
+			-# 'data-mobile' currently not used for anything (could use data-device = mobile/desktop)
+			-# 'data-animated' used to apply visible .selected styles once the list items have finished animating
+
+			-# if: "All" or "Curated" (.color_rainbow), 'data-color' => 'random'
+			-# otherwise: 'data-color' = color array
+			%nav#nav_categories.nav_categories{"data-dropdown" => "list", "data-selected" => ".curated", "data-color" => "random", "data-animated" => "animating"}
 
 				%a#cat_trigger.cat_trigger{:href => "#", :title => "Click To Select Category"}
 					%span.cat_label.truncate Curated
@@ -27,38 +31,36 @@
 
 				%ul
 					%li
-						%a.cat_link.color_rainbow{:href => "#", :title => "All", "data-filter" => "*"} All
+						%a.cat_link.color_rainbow{:href => "#", :title => "All", "data-color" => "random", "data-filter" => "*"} All
 					%li
-						%a.cat_link.color_rainbow.selected{:href => "#", :title => "Curated", "data-filter" => ".curated"} Curated
+						%a.cat_link.color_rainbow.selected{:href => "#", :title => "Curated", "data-color" => "random", "data-filter" => ".curated"} Curated
 					%li
-						%a.cat_link.color_solid.color_red{:href => "#", :title => "Apps", "data-filter" => ".apps"} Apps
+						%a.cat_link.color_solid.color_red{:href => "#", :title => "Apps", "data-color" => "red", "data-filter" => ".apps"} Apps
 					%li
-						%a.cat_link.color_solid.color_orange{:href => "#", :title => "Apparel", "data-filter" => ".apparel"} Apparel
+						%a.cat_link.color_solid.color_orange{:href => "#", :title => "Apparel", "data-color" => "orange", "data-filter" => ".apparel"} Apparel
 					%li
-						%a.cat_link.color_solid.color_yellow{:href => "#", :title => "Automotive", "data-filter" => ".automotive"} Automotive
+						%a.cat_link.color_solid.color_yellow{:href => "#", :title => "Automotive", "data-color" => "yellow", "data-filter" => ".automotive"} Automotive
 					%li
-						%a.cat_link.color_solid.color_aqua{:href => "#", :title => "Fashion", "data-filter" => ".fashion"} Fashion
+						%a.cat_link.color_solid.color_aqua{:href => "#", :title => "Fashion", "data-color" => "aqua", "data-filter" => ".fashion"} Fashion
 					%li
-						%a.cat_link.color_solid.color_cyan{:href => "#", :title => "Film", "data-filter" => ".film"} Film
+						%a.cat_link.color_solid.color_cyan{:href => "#", :title => "Film", "data-color" => "cyan", "data-filter" => ".film"} Film
 					%li
-						%a.cat_link.color_solid.color_red{:href => "#", :title => "Food & Drink", "data-filter" => ".food-drink"} Food & Drink
+						%a.cat_link.color_solid.color_red{:href => "#", :title => "Food & Drink", "data-color" => "red", "data-filter" => ".food-drink"} Food & Drink
 					%li
-						%a.cat_link.color_solid.color_orange{:href => "#", :title => "Internet", "data-filter" => ".curated"} Internet
+						%a.cat_link.color_solid.color_orange{:href => "#", :title => "Internet", "data-color" => "orange", "data-filter" => ".curated"} Internet
 					%li
-						%a.cat_link.color_solid.color_yellow{:href => "#", :title => "Lifestyle", "data-filter" => ".apps"} Lifestyle
+						%a.cat_link.color_solid.color_yellow{:href => "#", :title => "Lifestyle", "data-color" => "yellow", "data-filter" => ".apps"} Lifestyle
 					%li
-						%a.cat_link.color_solid.color_aqua{:href => "#", :title => "Money", "data-filter" => ".apparel"} Money
+						%a.cat_link.color_solid.color_aqua{:href => "#", :title => "Money", "data-color" => "aqua", "data-filter" => ".apparel"} Money
 					%li
-						%a.cat_link.color_solid.color_cyan{:href => "#", :title => "Photography", "data-filter" => ".automotive"} Photography
+						%a.cat_link.color_solid.color_cyan{:href => "#", :title => "Photography", "data-color" => "cyan", "data-filter" => ".automotive"} Photography
 					%li
-						%a.cat_link.color_solid.color_red{:href => "#", :title => "Solutions", "data-filter" => ".fashion"} Solutions
+						%a.cat_link.color_solid.color_red{:href => "#", :title => "Solutions", "data-color" => "red", "data-filter" => ".fashion"} Solutions
 					%li
-						%a.cat_link.color_solid.color_orange{:href => "#", :title => "TV Commercials", "data-filter" => ".film"} TV Commercials
+						%a.cat_link.color_solid.color_orange{:href => "#", :title => "TV Commercials", "data-color" => "orange", "data-filter" => ".film"} TV Commercials
 					%li
-						%a.cat_link.color_solid.color_yellow{:href => "#", :title => "Video", "data-filter" => ".food-drink"} Video
+						%a.cat_link.color_solid.color_yellow{:href => "#", :title => "Video", "data-color" => "yellow", "data-filter" => ".food-drink"} Video
 
-			-# if: "All" or "Curated" (.color_rainbow), 'data-color' => 'random
-			-# otherwise: 'data-color' = color array
 			%section#iso_container.iso_container{"data-color" => "random"}
 
 				.iso_sizer
@@ -90,8 +92,9 @@
 						- else
 							- strClasses += ' film'
 
+					-# apply 'color_random' class to a.iso_link for cycleLinkColors()
 					%article{:id => "post_#{i}", :class => "iso_brick #{strClasses}"}
-						%a.iso_link{:href => "#", :title => "Company Name #{i}"}
+						%a.iso_link.color_random{:href => "#", :title => "Company Name #{i}"}
 							.wrap_iso-image
 								%img.iso_image{:src => "assets/img/thumb_#{strCurrentProject}.jpg", :alt => ""}
 								.wrap_iso-title
