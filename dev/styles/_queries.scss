@@ -14,7 +14,8 @@
 
 	// Nav Primary
 	// ----------------------------------------------------------------------------
-	nav.nav_primary ul li {
+	// --- Nav Wrap --- \\
+	div.nav_wrap ul li {
 		margin-bottom: 1.8rem;
 	}
 	// --- Nav Toggle --- \\
@@ -52,6 +53,82 @@
 		padding-right: 3.2rem;
 	}
 
+	// Transitions & Animations
+	// ----------------------------------------------------------------------------
+	// --- Animations --- \\
+/*
+	@keyframes animRbowFade_path-1 {
+		0%  { fill: $hsl_red; }
+		20% { fill: $hsl_orange; }
+		40% { fill: $hsl_yellow; }
+		60% { fill: $hsl_aqua; }
+		80% { fill: $hsl_cyan; }
+	}
+	@keyframes animRbowFade_path-2 {
+		0%  { fill: $hsl_orange; }
+		20% { fill: $hsl_yellow; }
+		40% { fill: $hsl_aqua; }
+		60% { fill: $hsl_cyan; }
+		80% { fill: $hsl_red; }
+	}
+	@keyframes animRbowFade_path-3 {
+		0%  { fill: $hsl_yellow; }
+		20% { fill: $hsl_aqua; }
+		40% { fill: $hsl_cyan; }
+		60% { fill: $hsl_red; }
+		80% { fill: $hsl_orange; }
+	}
+	@keyframes animRbowFade_path-4 {
+		0%  { fill: $hsl_aqua; }
+		20% { fill: $hsl_cyan; }
+		40% { fill: $hsl_red; }
+		60% { fill: $hsl_orange; }
+		80% { fill: $hsl_yellow; }
+	}
+	@keyframes animRbowFade_path-5 {
+		0%  { fill: $hsl_cyan; }
+		20% { fill: $hsl_red; }
+		40% { fill: $hsl_orange; }
+		60% { fill: $hsl_yellow; }
+		80% { fill: $hsl_aqua; }
+	}
+*/
+	@keyframes animRbowInst_path-1 {
+		0%, 19%  { fill: $hsl_red; }
+		20%, 39% { fill: $hsl_orange; }
+		40%, 59% { fill: $hsl_yellow; }
+		60%, 79% { fill: $hsl_aqua; }
+		80%, 99% { fill: $hsl_cyan; }
+	}
+	@keyframes animRbowInst_path-2 {
+		0%, 19%  { fill: $hsl_orange; }
+		20%, 39% { fill: $hsl_yellow; }
+		40%, 59% { fill: $hsl_aqua; }
+		60%, 79% { fill: $hsl_cyan; }
+		80%, 99% { fill: $hsl_red; }
+	}
+	@keyframes animRbowInst_path-3 {
+		0%, 19%  { fill: $hsl_yellow; }
+		20%, 39% { fill: $hsl_aqua; }
+		40%, 59% { fill: $hsl_cyan; }
+		60%, 79% { fill: $hsl_red; }
+		80%, 99% { fill: $hsl_orange; }
+	}
+	@keyframes animRbowInst_path-4 {
+		0%, 19%  { fill: $hsl_aqua; }
+		20%, 39% { fill: $hsl_cyan; }
+		40%, 59% { fill: $hsl_red; }
+		60%, 79% { fill: $hsl_orange; }
+		80%, 99% { fill: $hsl_yellow; }
+	}
+	@keyframes animRbowInst_path-5 {
+		0%, 19%  { fill: $hsl_cyan; }
+		20%, 39% { fill: $hsl_red; }
+		40%, 59% { fill: $hsl_orange; }
+		60%, 79% { fill: $hsl_yellow; }
+		80%, 99% { fill: $hsl_aqua; }
+	}
+
 	// Header
 	// ----------------------------------------------------------------------------
 	header {
@@ -67,34 +144,41 @@
 	// Nav Primary
 	// ----------------------------------------------------------------------------
 	nav.nav_primary {
+		margin-bottom: 10rem;
+	}
+	// --- Nav Wrap --- \\
+	div.nav_wrap {
 		@include pos_cover-reset();
 		@include toggle_visibility(on);
 		display: block;
-		margin-bottom: 10rem;
 		height: auto;
 		background-color: transparent;
 	}
-	nav.nav_primary ul {
+	div.nav_wrap ul {
 		display: block;
 		// vertical-align: middle;
+	}
+	div.nav_wrap ul,
+	nav.nav_primary.toggled div.nav_wrap ul {
 		transform: none;
 	}
-	nav.nav_primary ul li {
+
+	div.nav_wrap ul li {
 		display: inline-block;
 		margin-right: 3.2rem;
 		margin-bottom: 0;
 	}
-	nav.nav_primary ul li:nth-last-child(2) {
+	div.nav_wrap ul li:nth-last-child(2) {
 		margin-right: 0;
 	}
-	nav.nav_primary ul li.nav_twitter {
+	div.nav_wrap ul li.nav_twitter {
 		position: absolute;
 		top: 4rem;
 		right: 0;
 		margin-right: 0;
 	}
-	nav.nav_primary ul li a {
-		font-size: 1.5rem; // calibre: 1.7rem;
+	div.nav_wrap ul li a {
+		font-size: 1.5rem;
 		color: $hsl_navy;
 	}
 	// --- Nav Toggle --- \\
@@ -208,8 +292,8 @@
 	// Alternating Colours
 	// ----------------------------------------------------------------------------
 	// + rainbow links + \\
-	nav.nav_categories ul li a.color_rainbow:hover { animation: animRainbowColor 600ms ease-in-out infinite; }
-	nav.nav_categories ul li a.color_rainbow.selected { animation: animRainbowColorBorder 600ms ease-in-out infinite both; }
+	nav.nav_categories ul li a.color_rainbow:hover { animation: animRbow_color 600ms ease-in-out infinite; }
+	nav.nav_categories ul li a.color_rainbow.selected { animation: animRbow_color-border 600ms ease-in-out infinite both; }
 	// + red links + \\
 	nav.nav_categories[data-color="red"] + section.iso_container article a div.wrap_iso-image div.wrap_iso-title,
 	nav.nav_categories[data-color="random"] + section.iso_container article a.color_red div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_red; }
@@ -254,22 +338,34 @@
 	// Page Load
 	// ----------------------------------------------------------------------------
 	nav.nav_categories,
-	a.nav_toggle div.wrap_lines div {
+	a.nav_toggle div.wrap_lines div.nav_line,
+	a.nav_toggle div.wrap_lines div.nav_line div.line_bg {
 		animation: none;
 	}
 	// + header + \\
+	@for $i from 1 through 5 { // assumes 5 letters
+		html.ready .logo_main div.wrap_logo-video svg.logo_video-rainbow path.video_#{$i} {
+			// animation: animRbowInst_path-#{$i} 400ms linear infinite reverse; // animRbowFade_path-
+			// animation-play-state: paused;
+			animation: none;
+		}
+		html.ready .logo_main div.wrap_logo-video:hover svg.logo_video-rainbow path.video_#{$i} {
+			// animation-play-state: running;
+			animation: animRbowInst_path-#{$i} 400ms linear infinite reverse; // animRbowFade_path-
+		}
+	}
 	header h2 {
 		animation: animSlideUp 400ms ease-in-out 1s both;
 	}
 	// + nav primary + \\
 	$numDelay: 600;
-	@for $i from 1 through 5 { // assumes 5 nav items
-		nav.nav_primary ul li:nth-child(#{$i}) {
+	@for $i from 1 through 5 { // assumes 5 nav items (excluding twitter)
+		div.nav_wrap ul li:nth-child(#{$i}) {
 			animation: animBounceUp 400ms cubic-bezier(0.215,0.610,0.355,1) #{$numDelay}ms both;
 		}
 		$numDelay: $numDelay + 100;
 	}
-	nav.nav_primary ul li.nav_twitter {
+	div.nav_wrap ul li.nav_twitter {
 		animation: animShow 600ms ease-in-out 1600ms both;
 	}
 	// + nav categories + \\
@@ -324,10 +420,11 @@
 	nav.nav_primary {
 		margin-bottom: 16rem;
 	}
-	nav.nav_primary ul li {
+	// --- Nav Wrap --- \\
+	div.nav_wrap ul li {
 		margin-right: 4rem;
 	}
-	nav.nav_primary ul li.nav_twitter {
+	div.nav_wrap ul li.nav_twitter {
 		top: 6.4rem;
 	}
 

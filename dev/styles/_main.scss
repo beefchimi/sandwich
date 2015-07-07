@@ -2,20 +2,10 @@
 // Author: Curtis Dulmage
 // ============================================================================
 
-/*
-@font-face {
-	font-family: 'Calibre Medium';
-	src: local('Calibre Medium'),
-		 local('Calibre-Medium'),
-		 url('Calibre-Medium.otf');
-}
-*/
-
 // Foundation
 // ----------------------------------------------------------------------------
 html {
-	// font-family: 'Calibre Medium';
-	font-family: 'aktiv-grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif; // bug in FF causing 2 scrollbars?
+	font-family: 'aktiv-grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif; // bug in FF causing 2 scrollbars with Helvetica?
 }
 body {
 	position: relative;
@@ -26,7 +16,6 @@ body {
 ::selection {
 	color: $hsl_L100;
 	background-color: $hsl_cyan;
-	// animation: animRainbowBackground 600ms ease-in-out infinite;
 }
 
 /*
@@ -68,27 +57,26 @@ html[data-ready="loaded"] body {
 a {
 	transition: all 260ms ease-in-out;
 }
-
 div.cat_icon {
 	transition: background-color 260ms ease-in-out;
 }
-
 svg {
 	transition: fill 260ms ease-in-out;
 }
+div.nav_wrap ul,
 div.wrap_lines,
-nav.nav_primary ul {
+div.wrap_lines div.nav_line {
 	transition: transform 260ms ease-in-out;
 }
-div.wrap_lines div {
-	transition: transform 260ms ease-in-out, background-color 260ms ease-in-out;
+div.wrap_lines div.nav_line div.line_bg {
+	transition: background-color 260ms ease-in-out;
 }
 section.iso_container article a div.iso_logo img,
 section.iso_container article a div.wrap_iso-image div.wrap_iso-title {
 	transition: opacity 260ms ease-in-out, visibility 260ms ease-in-out;
 }
+div.nav_wrap,
 div.iso_loader,
-nav.nav_primary,
 nav.nav_categories ul {
 	transition: opacity 360ms ease-in-out, visibility 360ms ease-in-out;
 }
@@ -118,27 +106,55 @@ nav.nav_categories ul {
 	60%  { transform: translateY(-0.8rem); }
 	100% { opacity: 1; transform: translateY(0); }
 }
-@keyframes animRainbowColor {
+@keyframes animRbow_color {
 	0%  { color: $hsl_red; }
 	20% { color: $hsl_orange; }
 	40% { color: $hsl_yellow; }
 	60% { color: $hsl_aqua; }
 	80% { color: $hsl_cyan; }
 }
-@keyframes animRainbowBackground {
+@keyframes animRbow_bg {
 	0%  { background-color: $hsl_red; }
 	20% { background-color: $hsl_orange; }
 	40% { background-color: $hsl_yellow; }
 	60% { background-color: $hsl_aqua; }
 	80% { background-color: $hsl_cyan; }
 }
-@keyframes animRainbowColorBorder {
-	0%  { color: $hsl_red; border-color: $hsl_red; }
+@keyframes animRbow_color-border {
+	0%  { color: $hsl_red;    border-color: $hsl_red; }
 	20% { color: $hsl_orange; border-color: $hsl_orange; }
 	40% { color: $hsl_yellow; border-color: $hsl_yellow; }
-	60% { color: $hsl_aqua; border-color: $hsl_aqua; }
-	80% { color: $hsl_cyan; border-color: $hsl_cyan; }
+	60% { color: $hsl_aqua;   border-color: $hsl_aqua; }
+	80% { color: $hsl_cyan;   border-color: $hsl_cyan; }
 }
+@keyframes animRbow2Navy_bg {
+	0%   { background-color: $hsl_red; }
+	20%  { background-color: $hsl_orange; }
+	40%  { background-color: $hsl_yellow; }
+	60%  { background-color: $hsl_aqua; }
+	80%  { background-color: $hsl_cyan; }
+	100% { background-color: $hsl_navy; }
+}
+/*
+@keyframes animRbow2Navy_fill {
+
+	0%   { fill: $hsl_red; }
+	20%  { fill: $hsl_orange; }
+	40%  { fill: $hsl_yellow; }
+	60%  { fill: $hsl_aqua; }
+	80%  { fill: $hsl_cyan; }
+	100% { fill: $hsl_navy; }
+
+	0%   { fill: $hsl_red; }
+	10%  { fill: $hsl_orange; }
+	23%  { fill: $hsl_yellow; }
+	80%  { fill: $hsl_aqua; }
+	91%  { fill: $hsl_cyan; }
+	100% { fill: $hsl_navy; }
+
+}
+*/
+
 
 /*
 @keyframes animSVG {
@@ -161,14 +177,11 @@ nav.nav_categories ul {
 // ----------------------------------------------------------------------------
 div.iso_loader {
 	@include pos_cover(absolute, 300);
-
+	// pointer-events: none;
 	background-color: $hsl_bone;
-
 	opacity: 0;
 	// visibility: hidden; // webkit will stop the animation if visibility is changed
 	overflow: hidden;
-	// pointer-events: none;
-
 }
 div.iso_loader.visible {
 	opacity: 1;
@@ -189,7 +202,7 @@ div.iso_loader div.wrap_svg {
 div.iso_loader div.wrap_svg svg {
 	fill: $hsl_red;
 }
-
+// + internet explorer + \\
 html.ie9 div.iso_loader {
 	display: none;
 	visibility: hidden;
@@ -259,121 +272,47 @@ header h2 {
 	margin: 0 auto 3.2rem auto;
 	max-width: 28.8rem;
 }
-.logo_main svg {
+.logo_main div.wrap_svg {
 	margin-left: auto;
 	margin-right: auto;
 }
-.logo_main svg.logo_sandwich {
+.logo_main div.wrap_logo-sandwich {
 	margin-bottom: 0.8rem;
 	max-width: 34rem;
 	width: 84%; // adjust height for mobile
-	fill: $hsl_navy;
 }
-.logo_main svg.logo_video-rainbow {
+.logo_main div.wrap_logo-sandwich svg.logo_sandwich {
+	fill: $hsl_navy; // default fill (in case of animation)
+}
+.logo_main div.wrap_logo-video {
 	max-width: 19.8rem;
 	width: 50%; // adjust height for mobile
+}
+.logo_main div.wrap_logo-video svg.logo_video-rainbow {
 	overflow: visible; // otherwise, <path> animation will get chopped off
 }
 // + video letters + \\
 path.video_1 {
-	fill: $hsl_red;
+	fill: $hsl_red; // default fill
 }
 path.video_2 {
-	fill: $hsl_orange;
+	fill: $hsl_orange; // default fill
 }
 path.video_3 {
-	fill: $hsl_yellow;
+	fill: $hsl_yellow; // default fill
 }
 path.video_4 {
-	fill: $hsl_aqua;
+	fill: $hsl_aqua; // default fill
 }
 path.video_5 {
-	fill: $hsl_cyan;
+	fill: $hsl_cyan; // default fill
 }
-
-
-
-
-/*
-@keyframes animRainbowPath1 {
-	0%  { fill: $hsl_red; }
-	20% { fill: $hsl_orange; }
-	40% { fill: $hsl_yellow; }
-	60% { fill: $hsl_aqua; }
-	80% { fill: $hsl_cyan; }
-}
-@keyframes animRainbowPath2 {
-	0%  { fill: $hsl_orange; }
-	20% { fill: $hsl_yellow; }
-	40% { fill: $hsl_aqua; }
-	60% { fill: $hsl_cyan; }
-	80% { fill: $hsl_red; }
-}
-@keyframes animRainbowPath3 {
-	0%  { fill: $hsl_yellow; }
-	20% { fill: $hsl_aqua; }
-	40% { fill: $hsl_cyan; }
-	60% { fill: $hsl_red; }
-	80% { fill: $hsl_orange; }
-}
-@keyframes animRainbowPath4 {
-	0%  { fill: $hsl_aqua; }
-	20% { fill: $hsl_cyan; }
-	40% { fill: $hsl_red; }
-	60% { fill: $hsl_orange; }
-	80% { fill: $hsl_yellow; }
-}
-@keyframes animRainbowPath5 {
-	0%  { fill: $hsl_cyan; }
-	20% { fill: $hsl_red; }
-	40% { fill: $hsl_orange; }
-	60% { fill: $hsl_yellow; }
-	80% { fill: $hsl_aqua; }
-}
-*/
-
-@keyframes animRainbowPath1 {
-	0%, 19%  { fill: $hsl_red; }
-	20%, 39% { fill: $hsl_orange; }
-	40%, 59% { fill: $hsl_yellow; }
-	60%, 79% { fill: $hsl_aqua; }
-	80%, 99% { fill: $hsl_cyan; }
-}
-@keyframes animRainbowPath2 {
-	0%, 19%  { fill: $hsl_orange; }
-	20%, 39% { fill: $hsl_yellow; }
-	40%, 59% { fill: $hsl_aqua; }
-	60%, 79% { fill: $hsl_cyan; }
-	80%, 99% { fill: $hsl_red; }
-}
-@keyframes animRainbowPath3 {
-	0%, 19%  { fill: $hsl_yellow; }
-	20% { fill: $hsl_aqua; }
-	40%, 59% { fill: $hsl_cyan; }
-	60%, 79% { fill: $hsl_red; }
-	80%, 99% { fill: $hsl_orange; }
-}
-@keyframes animRainbowPath4 {
-	0%, 19%  { fill: $hsl_aqua; }
-	20%, 39% { fill: $hsl_cyan; }
-	40%, 59% { fill: $hsl_red; }
-	60%, 79% { fill: $hsl_orange; }
-	80%, 99% { fill: $hsl_yellow; }
-}
-@keyframes animRainbowPath5 {
-	0%, 19%  { fill: $hsl_cyan; }
-	20%, 39% { fill: $hsl_red; }
-	40%, 59% { fill: $hsl_orange; }
-	60%, 79% { fill: $hsl_yellow; }
-	80%, 99% { fill: $hsl_aqua; }
-}
-
-
-
 
 // Nav Primary
 // ----------------------------------------------------------------------------
-nav.nav_primary {
+nav.nav_primary {} // all children are absolutely positioned, so element has the height of 0
+// --- Nav Wrap --- \\
+div.nav_wrap {
 	@include pos_cover(fixed, 400);
 	@include toggle_visibility(off);
 	display: table;
@@ -381,19 +320,19 @@ nav.nav_primary {
 	height: 100%;
 	background-color: $hsl_red;
 }
-nav.nav_primary ul {
+div.nav_wrap ul {
 	display: table-cell;
 	width: 100%;
 	vertical-align: middle;
 	transform: perspective(60rem) rotateX(10deg) translateY(0%);
 }
-nav.nav_primary ul li {
+div.nav_wrap ul li {
 	margin-bottom: 2.4rem;
 }
-nav.nav_primary ul li.nav_twitter {
+div.nav_wrap ul li.nav_twitter {
 	margin-bottom: 0;
 }
-nav.nav_primary ul li a {
+div.nav_wrap ul li a {
 	font-size: 2.2rem;
 	color: $hsl_bone;
 }
@@ -415,11 +354,16 @@ a.nav_toggle div.wrap_lines {
 	width: 100%;
 	height: 100%;
 }
-a.nav_toggle div.wrap_lines div {
+a.nav_toggle div.wrap_lines div.nav_line {
 	position: absolute;
 	height: 0.4rem;
-	background-color: $hsl_navy;
 }
+a.nav_toggle div.wrap_lines div.nav_line div.line_bg {
+	width: 100%;
+	height: 100%;
+	background-color: $hsl_navy; // default background-color
+}
+// + each line + \\
 a.nav_toggle div.wrap_lines div.line-1 {
 	top: 0rem;
 	left: 0;
@@ -433,41 +377,51 @@ a.nav_toggle div.wrap_lines div.line-3 {
 	left: 0;
 }
 // + toggled + \\
-a.nav_toggle.toggled div.wrap_lines div {
-	background-color: $hsl_bone;
-}
-a.nav_toggle.toggled div.wrap_lines {
+nav.nav_primary.toggled a.nav_toggle div.wrap_lines {
 	transform: rotate(180deg);
 }
-a.nav_toggle.toggled div.wrap_lines div.line-1 {
+nav.nav_primary.toggled a.nav_toggle div.wrap_lines div.line-1 {
 	transform: translateY(0.8rem) rotate(-45deg);
 }
-a.nav_toggle.toggled div.wrap_lines div.line-2 {
-	background-color: hsla(0,0%,100%,0);
-}
-a.nav_toggle.toggled div.wrap_lines div.line-3 {
+nav.nav_primary.toggled a.nav_toggle div.wrap_lines div.line-3 {
 	transform: translateY(-0.8rem) rotate(45deg);
 }
-a.nav_toggle.toggled + nav.nav_primary {
-	@include toggle_visibility(on);
-}
-a.nav_toggle.toggled + nav.nav_primary ul {
-	transform: perspective(60rem) rotateX(0deg) translateY(4%);
-}
-// + interaction + \\
-a.nav_toggle:hover div.wrap_lines div {
-	background-color: $hsl_red;
-}
-a.nav_toggle.toggled:hover div.wrap_lines div.line-1,
-a.nav_toggle.toggled:hover div.wrap_lines div.line-3 {
+nav.nav_primary.toggled a.nav_toggle div.wrap_lines div.line-1 div.line_bg,
+nav.nav_primary.toggled a.nav_toggle div.wrap_lines div.line-3 div.line_bg {
 	background-color: $hsl_bone;
 }
-a.nav_toggle:active div.wrap_lines div {
+nav.nav_primary.toggled a.nav_toggle div.wrap_lines div.line-2 div.line_bg {
+	background-color: hsla(0,0%,100%,0);
+}
+
+
+nav.nav_primary.toggled div.nav_wrap {
+	@include toggle_visibility(on);
+}
+nav.nav_primary.toggled div.nav_wrap ul {
+	transform: perspective(60rem) rotateX(0deg) translateY(4%);
+}
+
+// + interaction + \\
+a.nav_toggle:hover div.wrap_lines div.nav_line div.line_bg {
+	background-color: $hsl_red;
+}
+nav.nav_primary.toggled a.nav_toggle:hover div.wrap_lines div.line-1 div.line_bg,
+nav.nav_primary.toggled a.nav_toggle:hover div.wrap_lines div.line-3 div.line_bg {
+	background-color: $hsl_bone;
+}
+nav.nav_primary.toggled a.nav_toggle:hover div.wrap_lines div.line-2 div.line_bg {
+	background-color: hsla(0,0%,100%,0);
+}
+a.nav_toggle:active div.wrap_lines div.nav_line div.line_bg {
 	background-color: darken($hsl_red, 10%);
 }
-a.nav_toggle.toggled:active div.wrap_lines div.line-1,
-a.nav_toggle.toggled:active div.wrap_lines div.line-3 {
+nav.nav_primary.toggled a.nav_toggle:active div.wrap_lines div.line-1 div.line_bg,
+nav.nav_primary.toggled a.nav_toggle:active div.wrap_lines div.line-3 div.line_bg {
 	background-color: darken($hsl_bone, 10%);
+}
+nav.nav_primary.toggled a.nav_toggle:active div.wrap_lines div.line-2 div.line_bg {
+	background-color: hsla(0,0%,100%,0);
 }
 // + nav links do not cycle colours until 768 + \\
 nav.nav_primary ul li a:hover {
@@ -485,7 +439,7 @@ footer {
 	text-align: center;
 }
 footer h4 {
-	font-size: 1.3rem; // calibre: 1.6rem
+	font-size: 1.3rem;
 	line-height: 1.4;
 	color: $hsl_navy;
 }
@@ -632,8 +586,8 @@ section.iso_container article a:hover div.iso_logo img.iso_logo-on {
 
 /*
 // + rainbow links + \\
-nav.nav_categories[data-color="random"] a.cat_trigger { animation: animRainbowColorBorder 0.6s ease-in-out infinite; }
-nav.nav_categories[data-color="random"] a.cat_trigger div.cat_icon { animation: animRainbowBackground 0.6s ease-in-out infinite; }
+nav.nav_categories[data-color="random"] a.cat_trigger { animation: animRbow_color-border 0.6s ease-in-out infinite; }
+nav.nav_categories[data-color="random"] a.cat_trigger div.cat_icon { animation: animRbow_bg 0.6s ease-in-out infinite; }
 */
 
 // + red links + \\
@@ -692,51 +646,22 @@ nav.nav_categories a.cat_trigger:hover div.cat_icon {
 // Page Load
 // ----------------------------------------------------------------------------
 // + header + \\
-.logo_main svg.logo_sandwich {
+.logo_main div.wrap_logo-sandwich {
 	animation: animShow 800ms ease-in-out 200ms both;
 }
+/*
+.logo_main div.wrap_logo-sandwich svg.logo_sandwich {
+	animation: animRbow2Navy_fill 2400ms linear 200ms forwards;
+}
+*/
 $numDelay: 600;
 @for $i from 1 through 5 { // assumes 5 letters
 	path.video_#{$i} {
 		animation: animBounceUp 400ms cubic-bezier(0.215,0.610,0.355,1) #{$numDelay}ms both;
 	}
 	$numDelay: $numDelay + 100;
-
-
-
-
-/*
-	.logo_main svg.logo_video-rainbow:hover path.video_#{$i} {
-		animation: animRainbowPath#{$i} 0.6s ease-in-out infinite both;
-	}
-*/
-
-
-/*
-	html.ready .logo_main svg.logo_video-rainbow path.video_#{$i} {
-		animation: animRainbowPath#{$i} 0.6s ease-in-out infinite both;
-		animation-play-state: paused;
-	}
-*/
-
-
-
-
-	html.ready .logo_main svg.logo_video-rainbow:hover path.video_#{$i} {
-		// animation-play-state: running;
-		animation: animRainbowPath#{$i} 400ms ease-in-out infinite reverse;
-	}
-
-
-
 }
 
-
-
-
-html.ready .logo_main svg.logo_video-rainbow path {
-	animation: none;
-}
 
 
 
@@ -747,10 +672,13 @@ header h2 {
 // + nav primary + \\
 $numDelay: 600;
 @for $i from 1 through 3 {
-	a.nav_toggle div.wrap_lines div:nth-child(#{$i}) {
+	a.nav_toggle div.wrap_lines div.line-#{$i} {
 		animation: animWidth 600ms ease-in-out #{$numDelay}ms both;
 	}
 	$numDelay: $numDelay + 300;
+}
+a.nav_toggle div.wrap_lines div.nav_line div.line_bg {
+	animation: animRbow2Navy_bg 1000ms linear 800ms; // forwards
 }
 // + nav categories + \\
 nav.nav_categories {

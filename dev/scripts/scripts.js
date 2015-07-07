@@ -231,8 +231,8 @@ finalAnimate();
 	}
 
 
-
-
+	// finalAnimate: Inform the document when we have finished our loading animations
+	// ----------------------------------------------------------------------------
 	function finalAnimate() {
 
 		var elNavTwitter = document.getElementById('nav_twitter');
@@ -251,13 +251,12 @@ finalAnimate();
 	}
 
 
-
 	// navToggle: Toggle Mobile Navigation
 	// ----------------------------------------------------------------------------
 	function navToggle() {
 
 
-		var // elNavPrimary        = document.getElementById('nav_primary'),
+		var elNavPrimary        = document.getElementById('nav_primary'),
 			elNavPrimaryTrigger = document.getElementById('nav_toggle');
 
 
@@ -265,9 +264,8 @@ finalAnimate();
 
 			e.preventDefault();
 
-			classie.toggle(this, 'toggled');
-
-			// classie.toggle(elNavPrimary, 'toggled');
+			// classie.toggle(this, 'toggled');
+			classie.toggle(elNavPrimary, 'toggled');
 
 /*
 			if ( classie.has(this, 'toggled') ) {

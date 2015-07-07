@@ -2,35 +2,39 @@
 
 	%h1.visuallyhidden Sandwich Video
 
-	%a#nav_toggle.nav_toggle{:href => "#", :title => "Toggle Menu"}
-		.wrap_lines
-			.line-1
-			.line-2
-			.line-3
-
 	%nav#nav_primary.nav_primary
 
-		%ul
-			%li
-				%a.color_random{:href => "#", :title => "Projects"} Projects
-			%li
-				%a.color_random{:href => "#", :title => "People"} People
-			%li
-				%a.color_random{:href => "#", :title => "How it Works"} How it Works
-			%li
-				%a.color_random{:href => "#", :title => "Press"} Press
-			%li
-				%a.color_random{:href => "#", :title => "Contact"} Contact
-			%li#nav_twitter.nav_twitter
-				%a.color_random{:href => "https://twitter.com/sandwich", :title => "Follow @sandwich", :target => "_blank"} @sandwich
+		%a#nav_toggle.nav_toggle{:href => "#", :title => "Toggle Menu"}
+			.wrap_lines
+				.nav_line.line-1
+					.line_bg
+				.nav_line.line-2
+					.line_bg
+				.nav_line.line-3
+					.line_bg
+
+		.nav_wrap
+			%ul
+				%li
+					%a.color_random{:href => "#", :title => "Projects"} Projects
+				%li
+					%a.color_random{:href => "#", :title => "People"} People
+				%li
+					%a.color_random{:href => "#", :title => "How it Works"} How it Works
+				%li
+					%a.color_random{:href => "#", :title => "Press"} Press
+				%li
+					%a.color_random{:href => "#", :title => "Contact"} Contact
+				%li#nav_twitter.nav_twitter
+					%a.color_random{:href => "https://twitter.com/sandwich", :title => "Follow @sandwich", :target => "_blank"} @sandwich
 
 	-# %a.logo_main{:href => "#", :title => "Back To Home"}
 	.logo_main
-		%svg.logo_sandwich{:viewBox => "0 0 340 48"}
-			%use{"xlink:href" => "#logo_sandwich"}
-		= Haml::Engine.new(File.read("dev/haml/partials/_svg_logo-video.haml")).render
-		-# %svg.logo_video-rainbow{:viewBox => "0 0 198 48"}
-			-# %use{"xlink:href" => "#logo_video-rainbow"}
+		.wrap_svg.wrap_logo-sandwich
+			%svg.logo_sandwich{:viewBox => "0 0 340 48"}
+				%use{"xlink:href" => "#logo_sandwich"}
+		.wrap_svg.wrap_logo-video
+			= Haml::Engine.new(File.read("dev/haml/partials/_svg_logo-video.haml")).render
 
 	:plain
 		<h2>We make videos and TV commercials.<br> Here are some below</h2>
