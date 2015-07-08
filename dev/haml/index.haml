@@ -28,40 +28,44 @@
 				%a#cat_trigger.cat_trigger{:href => "#", :title => "Click To Select Category"}
 					%span.cat_label.truncate Curated
 					#cat_icon.cat_icon
-					-# %svg.wrap_svg{:viewBox => "0 0 88 14"}
-						-# %use{"xlink:href" => "#ui_arrow"}
 
-				%ul
-					%li
-						%a.cat_link.color_rainbow{:href => "#", :title => "All", "data-color" => "random", "data-filter" => "*"} All
-					%li
-						%a.cat_link.color_rainbow.selected{:href => "#", :title => "Curated", "data-color" => "random", "data-filter" => ".curated"} Curated
-					%li
-						%a.cat_link.color_solid.color_red{:href => "#", :title => "Apps", "data-color" => "red", "data-filter" => ".apps"} Apps
-					%li
-						%a.cat_link.color_solid.color_orange{:href => "#", :title => "Apparel", "data-color" => "orange", "data-filter" => ".apparel"} Apparel
-					%li
-						%a.cat_link.color_solid.color_yellow{:href => "#", :title => "Automotive", "data-color" => "yellow", "data-filter" => ".automotive"} Automotive
-					%li
-						%a.cat_link.color_solid.color_aqua{:href => "#", :title => "Fashion", "data-color" => "aqua", "data-filter" => ".fashion"} Fashion
-					%li
-						%a.cat_link.color_solid.color_cyan{:href => "#", :title => "Film", "data-color" => "cyan", "data-filter" => ".film"} Film
-					%li
-						%a.cat_link.color_solid.color_red{:href => "#", :title => "Food & Drink", "data-color" => "red", "data-filter" => ".food-drink"} Food & Drink
-					%li
-						%a.cat_link.color_solid.color_orange{:href => "#", :title => "Internet", "data-color" => "orange", "data-filter" => ".curated"} Internet
-					%li
-						%a.cat_link.color_solid.color_yellow{:href => "#", :title => "Lifestyle", "data-color" => "yellow", "data-filter" => ".apps"} Lifestyle
-					%li
-						%a.cat_link.color_solid.color_aqua{:href => "#", :title => "Money", "data-color" => "aqua", "data-filter" => ".apparel"} Money
-					%li
-						%a.cat_link.color_solid.color_cyan{:href => "#", :title => "Photography", "data-color" => "cyan", "data-filter" => ".automotive"} Photography
-					%li
-						%a.cat_link.color_solid.color_red{:href => "#", :title => "Solutions", "data-color" => "red", "data-filter" => ".fashion"} Solutions
-					%li
-						%a.cat_link.color_solid.color_orange{:href => "#", :title => "TV Commercials", "data-color" => "orange", "data-filter" => ".film"} TV Commercials
-					%li
-						%a.cat_link.color_solid.color_yellow{:href => "#", :title => "Video", "data-color" => "yellow", "data-filter" => ".food-drink"} Video
+				-# if UL > LI.length >= 6: add class "scrollable"
+				.wrap_dropdown.scrollable
+
+					-# if UL > LI.length >= 6: output <span>
+					.fix_ios-scroll
+
+						%ul
+							%li
+								%a.cat_link.color_rainbow{:href => "#", :title => "All", "data-color" => "random", "data-filter" => "*"} All
+							%li
+								%a.cat_link.color_rainbow.selected{:href => "#", :title => "Curated", "data-color" => "random", "data-filter" => ".curated"} Curated
+							%li
+								%a.cat_link.color_solid.color_red{:href => "#", :title => "Apps", "data-color" => "red", "data-filter" => ".apps"} Apps
+							%li
+								%a.cat_link.color_solid.color_orange{:href => "#", :title => "Apparel", "data-color" => "orange", "data-filter" => ".apparel"} Apparel
+							%li
+								%a.cat_link.color_solid.color_yellow{:href => "#", :title => "Automotive", "data-color" => "yellow", "data-filter" => ".automotive"} Automotive
+							%li
+								%a.cat_link.color_solid.color_aqua{:href => "#", :title => "Fashion", "data-color" => "aqua", "data-filter" => ".fashion"} Fashion
+							%li
+								%a.cat_link.color_solid.color_cyan{:href => "#", :title => "Film", "data-color" => "cyan", "data-filter" => ".film"} Film
+							%li
+								%a.cat_link.color_solid.color_red{:href => "#", :title => "Food & Drink", "data-color" => "red", "data-filter" => ".food-drink"} Food & Drink
+							%li
+								%a.cat_link.color_solid.color_orange{:href => "#", :title => "Internet", "data-color" => "orange", "data-filter" => ".curated"} Internet
+							%li
+								%a.cat_link.color_solid.color_yellow{:href => "#", :title => "Lifestyle", "data-color" => "yellow", "data-filter" => ".apps"} Lifestyle
+							%li
+								%a.cat_link.color_solid.color_aqua{:href => "#", :title => "Money", "data-color" => "aqua", "data-filter" => ".apparel"} Money
+							%li
+								%a.cat_link.color_solid.color_cyan{:href => "#", :title => "Photography", "data-color" => "cyan", "data-filter" => ".automotive"} Photography
+							%li
+								%a.cat_link.color_solid.color_red{:href => "#", :title => "Solutions", "data-color" => "red", "data-filter" => ".fashion"} Solutions
+							%li
+								%a.cat_link.color_solid.color_orange{:href => "#", :title => "TV Commercials", "data-color" => "orange", "data-filter" => ".film"} TV Commercials
+							%li
+								%a.cat_link.color_solid.color_yellow{:href => "#", :title => "Video", "data-color" => "yellow", "data-filter" => ".food-drink"} Video
 
 			%section#iso_container.iso_container{"data-color" => "random"}
 
@@ -114,10 +118,14 @@
 					- strCurrentProject = arrProjects[numProjects]
 
 				#iso_loader.iso_loader.visible
-					.wrap_svg
-						%svg.ui_loader
-							%use{"xlink:href" => "#ui_loader"}
+					.wrap_graphics
+						.wrap_svg
+							%svg.ui_loader
+								%use{"xlink:href" => "#ui_loader"}
+						.wrap_txt
+							%p Loading Videos
 
+				-# TEMPORARY ONLY TO ALLOW LOAD TIMES
 				.temp_images.visuallyhidden
 					%img{:src => "assets/img/temp_01.jpg", :alt => ""}
 					%img{:src => "assets/img/temp_02.jpg", :alt => ""}

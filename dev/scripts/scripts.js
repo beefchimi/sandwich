@@ -66,11 +66,10 @@ document.addEventListener('DOMContentLoaded', function() {
 	function onPageLoad() {
 
 		initIsotope();
-fixedHeader();
+		finalAnimate();
+		fixedHeader();
 		navToggle();
 		cycleLinkColors();
-
-finalAnimate();
 
 	}
 
@@ -86,14 +85,16 @@ finalAnimate();
 			return;
 		}
 
+		// lock body on initial page load
+		// (should be doing this only if images are NOT loaded)
+		// lockBody();
+
 		// it does exist! continue on...
 		var elIsoLoader   = document.getElementById('iso_loader'),
 			strCurrentCat = elNavCat.getAttribute('data-selected');
 
 		// layout Isotope after all images have loaded
 		imagesLoaded(elIsoContainer, function(instance) {
-
-			// if iamges are not initially loaded, then create the loader
 
 			objISO = new Isotope(elIsoContainer, {
 
@@ -107,7 +108,7 @@ finalAnimate();
 
 			});
 
-			// initalize and pass objISO to categoryDropdown once teady
+			// initalize and pass objISO to categoryDropdown once ready
 			categoryDropdown(objISO);
 
 			// IE9 does not support animations...
@@ -128,10 +129,10 @@ finalAnimate();
 			// only listen for the opacity property
 			if (e.propertyName == 'opacity') {
 
+				// unlockBody();
+
 				elIsoContainer.removeChild(elIsoLoader);
 				elIsoLoader.removeEventListener(transitionEvent, removeLoader);
-
-				console.log('loader removed');
 
 			}
 
@@ -158,6 +159,20 @@ finalAnimate();
 
 			classie.toggle(elNavCat, 'toggled'); // add / remove 'toggled' class from elNavCat
 
+/*
+			if ( classie.has(elNavCat, 'toggled') ) {
+
+				classie.remove(elNavCat, 'toggled');
+				unlockBody();
+
+			} else {
+
+				classie.add(elNavCat, 'toggled');
+				lockBody();
+
+			}
+*/
+
 		});
 
 		// click outside of element to close dropdown
@@ -170,6 +185,8 @@ finalAnimate();
 				if (e.defaultPrevented) {
 					return;
 				}
+
+				// unlockBody();
 
 				classie.remove(elNavCat, 'toggled'); // remove 'toggled' class from elNavCat
 
@@ -198,6 +215,7 @@ finalAnimate();
 				elNavCat.setAttribute('data-selected', strThisFilter);
 				elNavCatLabel.innerHTML = strThisLabel;
 
+				// unlockBody();
 				classie.remove(elNavCat, 'toggled'); // remove 'toggled' class from elNavCat
 
 				// swap 'selected' class and redefine elNavLinkSelected as new selection
@@ -239,6 +257,34 @@ finalAnimate();
 	}
 
 
+	// fixedHeader: Decrease Primary Nav Padding Top On Scroll
+	// ----------------------------------------------------------------------------
+	function fixedHeader() {
+
+		// nav_primary, by default, requires a padding-top of 16px to be evenly spaced
+		// additional padding is needed to push the content further down the page if scrolled to the top of the document
+		// values are explicitly defined below, instead of pulled from CSS
+
+		var numNavPadTop = 16;
+
+		if (numWinWidth >= 1200) {
+			numNavPadTop = 64;
+		} else if (numWinWidth >= 768) {
+			numNavPadTop = 40;
+		} else {
+			elNavPrimary.style.paddingTop = '0px';
+			return;
+		}
+
+		if (numScrollPos <= numNavPadTop) {
+			elNavPrimary.style.paddingTop = (numNavPadTop + 16) - numScrollPos + 'px';
+		} else if (numScrollPos > numNavPadTop) {
+			elNavPrimary.style.paddingTop = '16px';
+		}
+
+	}
+
+
 	// navToggle: Toggle Mobile Navigation
 	// ----------------------------------------------------------------------------
 	function navToggle() {
@@ -249,8 +295,8 @@ finalAnimate();
 
 			e.preventDefault();
 
-			// classie.toggle(elNavPrimary, 'toggled');
-
+			// since we are removing the 'toggled' class if window is < 768...
+			// we cannot rely on classie.toggle to switch our nav class
 			if ( classie.has(elNavPrimary, 'toggled') ) {
 
 				classie.remove(elNavPrimary, 'toggled');
@@ -271,33 +317,6 @@ finalAnimate();
 	}
 
 
-	// randomLinkColors: Randomly select from an array of colours on mouseenter of any link
-	// ----------------------------------------------------------------------------
-/*
-	function randomLinkColors() {
-
-		var elLinkTest      = document.getElementById('link_test'),
-			arrLinkColors   = ['red', 'orange', 'yellow', 'aqua', 'cyan'],
-			numColorsLength = arrLinkColors.length - 1,
-			numCurrentColor = getRandomInt(0, numColorsLength),
-			strCurrentColor = 'color_ ' + arrLinkColors[numCurrentColor];
-
-		classie.add(elBody, strCurrentColor);
-
-		window.setInterval(function() {
-
-			classie.remove(elBody, strCurrentColor);
-
-			numCurrentColor = getRandomInt(0, numColorsLength);
-			strCurrentColor = 'color_ ' + arrLinkColors[numCurrentColor];
-
-			classie.add(elBody, strCurrentColor);
-
-		}, 1000);
-
-	}
-*/
-
 	// cycleLinkColors: Cycle through an array of colours on mouseenter of any link
 	// ----------------------------------------------------------------------------
 	function cycleLinkColors() {
@@ -310,9 +329,6 @@ finalAnimate();
 			numColorsLength = arrLinkColors.length - 1,
 			numCurrentColor = 0,
 			strCurrentColor = 'color_' + arrLinkColors[numCurrentColor];
-
-		// classie.add(elBody, strCurrentColor);
-		// everything must have a default colour
 
 		// iterate through each <a href> and bind the mouseenter
 		for (var i = 0; i < numPageLinks; i++) {
@@ -330,9 +346,7 @@ finalAnimate();
 					numCurrentColor++;
 				}
 
-				// classie.remove(elBody, strCurrentColor);
 				checkForClass(thisPageLink);
-
 
 				// if this is an isotope block...
 				if ( classie.has(e.target, 'iso_link') ) {
@@ -344,7 +358,6 @@ finalAnimate();
 					}
 
 				}
-
 
 				// redfine strCurrentColor as current color iteration
 				strCurrentColor = 'color_' + arrLinkColors[numCurrentColor];
@@ -371,48 +384,6 @@ finalAnimate();
 		}
 
 	}
-
-
-
-// for every px scrolled, subtract that value from the translateY until we reach 0, then stop
-
-// if < 768: nothing
-
-// if >= 768: 40px
-
-// if >= 1200: 64px
-
-
-
-
-	function fixedHeader() {
-
-		// nav_primary, by default, requires a padding-top of 16px to be evenly spaced
-		// additional padding is needed to push the content further down the page if scrolled to the top of the document
-		// values are explicitly defined below, instead of pulled from CSS
-
-		var numNavPadTop = 16;
-
-		if (numWinWidth >= 1200) {
-			numNavPadTop = 64;
-		} else if (numWinWidth >= 768) {
-			numNavPadTop = 40;
-		} else {
-			elNavPrimary.style.paddingTop = '0px';
-			return;
-		}
-
-		if (numScrollPos <= numNavPadTop) {
-			elNavPrimary.style.paddingTop = (numNavPadTop + 16) - numScrollPos + 'px';
-		} else if (numScrollPos > numNavPadTop) {
-			elNavPrimary.style.paddingTop = '16px';
-		}
-
-		console.log(numNavPadTop);
-
-	}
-
-
 
 
 	// Window Events

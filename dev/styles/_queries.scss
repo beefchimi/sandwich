@@ -41,6 +41,19 @@
 
 }
 
+@media only screen and (max-height: 400px) {
+
+// ==|== main styles ==========================================================
+// =============================================================================
+
+	// Isotope Loader
+	// ----------------------------------------------------------------------------
+	div.wrap_graphics div.wrap_svg {
+		margin-top: 0;
+	}
+
+}
+
 @media only screen and (min-width: 768px) {
 
 // ==|== primary styles =======================================================
@@ -55,78 +68,44 @@
 
 	// Transitions & Animations
 	// ----------------------------------------------------------------------------
+	div.wrap_dropdown {
+		transition: none;
+	}
 	// --- Animations --- \\
-/*
-	@keyframes animRbowFade_path-1 {
-		 0% { fill: $hsl_red;    }
-		20% { fill: $hsl_orange; }
-		40% { fill: $hsl_yellow; }
-		60% { fill: $hsl_aqua;   }
-		80% { fill: $hsl_cyan;   }
-	}
-	@keyframes animRbowFade_path-2 {
-		 0% { fill: $hsl_orange; }
-		20% { fill: $hsl_yellow; }
-		40% { fill: $hsl_aqua;   }
-		60% { fill: $hsl_cyan;   }
-		80% { fill: $hsl_red;    }
-	}
-	@keyframes animRbowFade_path-3 {
-		 0% { fill: $hsl_yellow; }
-		20% { fill: $hsl_aqua;   }
-		40% { fill: $hsl_cyan;   }
-		60% { fill: $hsl_red;    }
-		80% { fill: $hsl_orange; }
-	}
-	@keyframes animRbowFade_path-4 {
-		 0% { fill: $hsl_aqua;   }
-		20% { fill: $hsl_cyan;   }
-		40% { fill: $hsl_red;    }
-		60% { fill: $hsl_orange; }
-		80% { fill: $hsl_yellow; }
-	}
-	@keyframes animRbowFade_path-5 {
-		 0% { fill: $hsl_cyan;   }
-		20% { fill: $hsl_red;    }
-		40% { fill: $hsl_orange; }
-		60% { fill: $hsl_yellow; }
-		80% { fill: $hsl_aqua;   }
-	}
-*/
 	@keyframes animRbowInst_path-1 {
-		 0%, 19% { fill: $hsl_red;    }
-		20%, 39% { fill: $hsl_orange; }
-		40%, 59% { fill: $hsl_yellow; }
-		60%, 79% { fill: $hsl_aqua;   }
-		80%, 99% { fill: $hsl_cyan;   }
+		 0%, 20%  { fill: $hsl_red;    }
+		21%, 40%  { fill: $hsl_orange; }
+		41%, 60%  { fill: $hsl_yellow; }
+		61%, 80%  { fill: $hsl_aqua;   }
+		81%, 100% { fill: $hsl_cyan;   }
 	}
 	@keyframes animRbowInst_path-2 {
-		 0%, 19% { fill: $hsl_orange; }
-		20%, 39% { fill: $hsl_yellow; }
-		40%, 59% { fill: $hsl_aqua;   }
-		60%, 79% { fill: $hsl_cyan;   }
-		80%, 99% { fill: $hsl_red;    }
+		 0%, 20%  { fill: $hsl_orange; }
+		21%, 40%  { fill: $hsl_yellow; }
+		41%, 60%  { fill: $hsl_aqua;   }
+		61%, 80%  { fill: $hsl_cyan;   }
+		81%, 100% { fill: $hsl_red;    }
 	}
 	@keyframes animRbowInst_path-3 {
-		 0%, 19% { fill: $hsl_yellow; }
-		20%, 39% { fill: $hsl_aqua;   }
-		40%, 59% { fill: $hsl_cyan;   }
-		60%, 79% { fill: $hsl_red;    }
-		80%, 99% { fill: $hsl_orange; }
+		 0%, 20%  { fill: $hsl_yellow; }
+		21%, 40%  { fill: $hsl_aqua;   }
+		41%, 60%  { fill: $hsl_cyan;   }
+		61%, 80%  { fill: $hsl_red;    }
+		81%, 100% { fill: $hsl_orange; }
 	}
 	@keyframes animRbowInst_path-4 {
-		 0%, 19% { fill: $hsl_aqua;   }
-		20%, 39% { fill: $hsl_cyan;   }
-		40%, 59% { fill: $hsl_red;    }
-		60%, 79% { fill: $hsl_orange; }
-		80%, 99% { fill: $hsl_yellow; }
+		 0%, 20%  { fill: $hsl_aqua;   }
+		21%, 40%  { fill: $hsl_cyan;   }
+		41%, 60%  { fill: $hsl_red;    }
+		61%, 80%  { fill: $hsl_orange; }
+		81%, 100% { fill: $hsl_yellow; }
 	}
 	@keyframes animRbowInst_path-5 {
-		 0%, 19% { fill: $hsl_cyan;   }
-		20%, 39% { fill: $hsl_red;    }
-		40%, 59% { fill: $hsl_orange; }
-		60%, 79% { fill: $hsl_yellow; }
-		80%, 99% { fill: $hsl_aqua;   }
+		 0%, 20%  { fill: $hsl_cyan;   }
+		21%, 40%  { fill: $hsl_red;    }
+		41%, 60%  { fill: $hsl_orange; }
+		61%, 80%  { fill: $hsl_yellow; }
+		81%, 100% { fill: $hsl_aqua;   }
 	}
 
 	// Header
@@ -217,29 +196,34 @@
 		max-width: 70rem;
 	}
 	// --- Dropdown Trigger --- \\
-	nav.nav_categories a.cat_trigger {
+	a.cat_trigger {
 		display: none; // will there be JS errors? should this be visually hidden instead?
 		visibility: hidden;
 	}
 	// --- Dropdown List --- \\
-	nav.nav_categories ul {
+	div.wrap_dropdown,
+	div.wrap_dropdown ul,
+	div.wrap_dropdown div.fix_ios-scroll {
+		background-color: transparent;
+	}
+	div.wrap_dropdown {
 		@include toggle_visibility(on);
 		position: static;
 		top: auto;
-		left: auto;
-		right: auto;
-		max-height: none;
+		// left: auto;
+		// right: auto;
 		text-align: center;
-		overflow-y: visible;
-		-webkit-overflow-scrolling: auto;
-		background-color: transparent;
 		border-radius: 0;
+		overflow: visible;
 	}
-	nav.nav_categories ul li {
+	div.wrap_dropdown ul {
+		// padding-top: 0;
+	}
+	div.wrap_dropdown ul li {
 		display: inline-block;
 		margin: 0 0.4rem 0.6rem 0.4rem;
 	}
-	nav.nav_categories ul li a {
+	div.wrap_dropdown ul li a {
 		padding: 0.8rem 1.2rem 1rem 1.2rem;
 		font-size: 1.4rem; // calibre: 1.6rem
 		color: $hsl_navy;
@@ -247,17 +231,31 @@
 		border: 0.1rem solid transparent; // does a border-color need to be applied for each cycle?
 		border-radius: 0.8rem;
 	}
-	nav.nav_categories ul li a.selected {
+	div.wrap_dropdown ul li a.selected {
 		background-color: transparent;
 		color: $hsl_red; // 0% state of animation ... without this, there is a jump on loop
 		border-color: $hsl_red; // 0% state of animation ... without this, there is a jump on loop
 	}
+	// + dropdown scrollable + \\
+	div.wrap_dropdown.scrollable {
+		height: auto;
+	}
+	div.wrap_dropdown div.fix_ios-scroll { // required only get to iOS to behave
+		@include pos_cover-reset(static);
+		overflow: visible;
+		-webkit-mask-image: none;
+	}
+	div.wrap_dropdown div.fix_ios-scroll ul {
+		height: auto;
+		overflow: visible;
+		-webkit-overflow-scrolling: auto;
+	}
 	// + default transitions + \\
-	nav.nav_categories ul li a:hover {
+	div.wrap_dropdown ul li a:hover {
 		color: $hsl_red;
 		background-color: transparent;
 	}
-	nav.nav_categories ul li a:active {
+	div.wrap_dropdown ul li a:active {
 		color: darken($hsl_red, 10%);
 		background-color: transparent;
 	}
@@ -305,66 +303,63 @@
 	// Alternating Colours
 	// ----------------------------------------------------------------------------
 	// + rainbow links + \\
-	nav.nav_categories ul li a.color_rainbow:hover { animation: animRbow_color 600ms ease-in-out infinite; }
-	nav.nav_categories ul li a.color_rainbow.selected { animation: animRbow_color-border 600ms ease-in-out infinite both; }
+	div.wrap_dropdown ul li a.color_rainbow:hover { animation: animRbow_color 600ms linear infinite; }
+	div.wrap_dropdown ul li a.color_rainbow.selected { animation: animRbow_color-border 600ms linear infinite; }
 	// + red links + \\
 	nav.nav_categories[data-color="red"] + section.iso_container article a div.wrap_iso-image div.wrap_iso-title,
 	nav.nav_categories[data-color="random"] + section.iso_container article a.color_red div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_red; }
-	nav.nav_categories ul li a.selected.color_red { color: $hsl_red; border-color: $hsl_red; }
+	div.wrap_dropdown ul li a.selected.color_red { color: $hsl_red; border-color: $hsl_red; }
 	nav.nav_primary ul li a.color_red:hover,
-	nav.nav_categories ul li a.color_red:hover { color: $hsl_red; }
+	div.wrap_dropdown ul li a.color_red:hover { color: $hsl_red; }
 	nav.nav_primary ul li a.color_red:active,
-	nav.nav_categories ul li a.color_red:active { color: darken($hsl_red, 20%); }
+	div.wrap_dropdown ul li a.color_red:active { color: darken($hsl_red, 20%); }
 	// + orange links + \\
 	nav.nav_categories[data-color="orange"] + section.iso_container article a div.wrap_iso-image div.wrap_iso-title,
 	nav.nav_categories[data-color="random"] + section.iso_container article a.color_orange div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_orange; }
-	nav.nav_categories ul li a.selected.color_orange { color: $hsl_orange; border-color: $hsl_orange; }
+	div.wrap_dropdown ul li a.selected.color_orange { color: $hsl_orange; border-color: $hsl_orange; }
 	nav.nav_primary ul li a.color_orange:hover,
-	nav.nav_categories ul li a.color_orange:hover { color: $hsl_orange; }
+	div.wrap_dropdown ul li a.color_orange:hover { color: $hsl_orange; }
 	nav.nav_primary ul li a.color_orange:active,
-	nav.nav_categories ul li a.color_orange:active { color: darken($hsl_orange, 20%); }
+	div.wrap_dropdown ul li a.color_orange:active { color: darken($hsl_orange, 20%); }
 	// + yellow links + \\
 	nav.nav_categories[data-color="yellow"] + section.iso_container article a div.wrap_iso-image div.wrap_iso-title,
 	nav.nav_categories[data-color="random"] + section.iso_container article a.color_yellow div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_yellow; }
-	nav.nav_categories ul li a.selected.color_yellow { color: $hsl_yellow; border-color: $hsl_yellow; }
+	div.wrap_dropdown ul li a.selected.color_yellow { color: $hsl_yellow; border-color: $hsl_yellow; }
 	nav.nav_primary ul li a.color_yellow:hover,
-	nav.nav_categories ul li a.color_yellow:hover { color: $hsl_yellow; }
+	div.wrap_dropdown ul li a.color_yellow:hover { color: $hsl_yellow; }
 	nav.nav_primary ul li a.color_yellow:active,
-	nav.nav_categories ul li a.color_yellow:active { color: darken($hsl_yellow, 20%); }
+	div.wrap_dropdown ul li a.color_yellow:active { color: darken($hsl_yellow, 20%); }
 	// + aqua links + \\
 	nav.nav_categories[data-color="aqua"] + section.iso_container article a div.wrap_iso-image div.wrap_iso-title,
 	nav.nav_categories[data-color="random"] + section.iso_container article a.color_aqua div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_aqua; }
-	nav.nav_categories ul li a.selected.color_aqua { color: $hsl_aqua; border-color: $hsl_aqua; }
+	div.wrap_dropdown ul li a.selected.color_aqua { color: $hsl_aqua; border-color: $hsl_aqua; }
 	nav.nav_primary ul li a.color_aqua:hover,
-	nav.nav_categories ul li a.color_aqua:hover { color: $hsl_aqua; }
+	div.wrap_dropdown ul li a.color_aqua:hover { color: $hsl_aqua; }
 	nav.nav_primary ul li a.color_aqua:active,
-	nav.nav_categories ul li a.color_aqua:active { color: darken($hsl_aqua, 20%); }
+	div.wrap_dropdown ul li a.color_aqua:active { color: darken($hsl_aqua, 20%); }
 	// + cyan links + \\
 	nav.nav_categories[data-color="cyan"] + section.iso_container article a div.wrap_iso-image div.wrap_iso-title,
 	nav.nav_categories[data-color="random"] + section.iso_container article a.color_cyan div.wrap_iso-image div.wrap_iso-title { background-color: $hsl_cyan; }
-	nav.nav_categories ul li a.selected.color_cyan { color: $hsl_cyan; border-color: $hsl_cyan; }
+	div.wrap_dropdown ul li a.selected.color_cyan { color: $hsl_cyan; border-color: $hsl_cyan; }
 	nav.nav_primary ul li a.color_cyan:hover,
-	nav.nav_categories ul li a.color_cyan:hover { color: $hsl_cyan; }
+	div.wrap_dropdown ul li a.color_cyan:hover { color: $hsl_cyan; }
 	nav.nav_primary ul li a.color_cyan:active,
-	nav.nav_categories ul li a.color_cyan:active { color: darken($hsl_cyan, 20%); }
+	div.wrap_dropdown ul li a.color_cyan:active { color: darken($hsl_cyan, 20%); }
 
 	// Page Load
 	// ----------------------------------------------------------------------------
 	nav.nav_categories,
 	a.nav_toggle div.wrap_lines div.nav_line,
 	a.nav_toggle div.wrap_lines div.nav_line div.line_bg {
-		animation: none;
+		animation: none !important; // important seems to be required here...
 	}
 	// + header + \\
 	@for $i from 1 through 5 { // assumes 5 letters
 		html.ready .logo_main div.wrap_logo-video svg.logo_video-rainbow path.video_#{$i} {
-			// animation: animRbowInst_path-#{$i} 400ms linear infinite reverse; // animRbowFade_path-
-			// animation-play-state: paused;
 			animation: none;
 		}
 		html.ready .logo_main div.wrap_logo-video:hover svg.logo_video-rainbow path.video_#{$i} {
-			// animation-play-state: running;
-			animation: animRbowInst_path-#{$i} 400ms linear infinite reverse; // animRbowFade_path-
+			animation: animRbowInst_path-#{$i} 400ms linear infinite reverse;
 		}
 	}
 	header h2 {
@@ -384,7 +379,7 @@
 	// + nav categories + \\
 	$numDelay: 1000;
 	@for $i from 1 through 15 { // assumes 15 nav items
-		nav.nav_categories ul li:nth-child(#{$i}) {
+		div.wrap_dropdown ul li:nth-child(#{$i}) {
 			animation: animBounceUp 300ms cubic-bezier(0.215,0.610,0.355,1) #{$numDelay}ms both;
 		}
 		$numDelay: $numDelay + 40;
