@@ -3,37 +3,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	// Global Variables
 	// ----------------------------------------------------------------------------
-	var elHTML   = document.documentElement,
-		elBody   = document.body,
-		elNavCat = document.getElementById('nav_categories'); // required to be global
+	var elHTML       = document.documentElement,
+		elBody       = document.body,
+		elNavPrimary = document.getElementById('nav_primary'), // required to be global
+		elNavCat     = document.getElementById('nav_categories'); // required to be global
 
-	var numWinWidth = window.innerWidth;
-
-/*
 	// window measurement variables
-	var numWinWidth       = window.innerWidth,
+	var numScrollPos      = window.pageYOffset,
+		numWinWidth       = window.innerWidth,
 		numClientWidth    = document.documentElement.clientWidth,
 		numScrollbarWidth = numWinWidth - numClientWidth,
 		hasScrollbar      = numScrollbarWidth > 0 ? true : false;
-*/
 
 
-/*
 	// Helper: Lock / Unlock Body Scrolling
 	// ----------------------------------------------------------------------------
 	function lockBody() {
 
-		// get current scroll position
-		// numScrollPos = window.pageYOffset;
-
 		// enable overflow-y: hidden on <body>
 		elHTML.setAttribute('data-overflow', 'locked');
-
-		// lock scrolling by setting explicit height on <body>
-		// elBody.style.height = numWindowHeight + 'px';
-
-		// set a negative margin on the content wrapper based on current scroll position
-		// document.getElementById('test-wrap').style.marginTop = -numScrollPos + 'px';
 
 		// if necessary, accomodate for scrollbar width
 		if (hasScrollbar) {
@@ -47,15 +35,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		// disable overflow-y: hidden on <body>
 		elHTML.setAttribute('data-overflow', 'scrollable');
 
-		// restore scrolling to document by removing locked <body> height
-		// elBody.removeAttribute('style');
-
-		// remove negative margin on content wrapped
-		// document.getElementById('test-wrap').removeAttribute('style');
-
-		// to prevent window from returning to 0, apply scroll position
-		// window.scrollTo(0, numScrollPos);
-
 		// if necessary, remove scrollbar width styles
 		// should be expanded to restore original padding if needed
 		if (hasScrollbar) {
@@ -63,7 +42,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 
 	}
-*/
 
 
 /*
@@ -87,7 +65,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	// ----------------------------------------------------------------------------
 	function onPageLoad() {
 
-		initIsotope(); // not checking if elements exists... so only load on pages that use ISOTOPE
+		initIsotope();
+fixedHeader();
 		navToggle();
 		cycleLinkColors();
 
@@ -100,14 +79,21 @@ finalAnimate();
 	// ----------------------------------------------------------------------------
 	function initIsotope() {
 
-		// not checking if elements exists... so only load on pages that use ISOTOPE
+		var elIsoContainer = document.getElementById('iso_container');
 
-		var elIsoContainer = document.getElementById('iso_container'),
-			elIsoLoader    = document.getElementById('iso_loader'),
-			strCurrentCat  = elNavCat.getAttribute('data-selected');
+		// check if iso_container exists
+		if (elIsoContainer == null) {
+			return;
+		}
+
+		// it does exist! continue on...
+		var elIsoLoader   = document.getElementById('iso_loader'),
+			strCurrentCat = elNavCat.getAttribute('data-selected');
 
 		// layout Isotope after all images have loaded
 		imagesLoaded(elIsoContainer, function(instance) {
+
+			// if iamges are not initially loaded, then create the loader
 
 			objISO = new Isotope(elIsoContainer, {
 
@@ -235,6 +221,8 @@ finalAnimate();
 	// ----------------------------------------------------------------------------
 	function finalAnimate() {
 
+		// watching for #nav_twitter, which only animates >= 768px
+
 		var elNavTwitter = document.getElementById('nav_twitter');
 
 		elNavTwitter.addEventListener(animationEvent, applyReadyState);
@@ -255,31 +243,27 @@ finalAnimate();
 	// ----------------------------------------------------------------------------
 	function navToggle() {
 
-
-		var elNavPrimary        = document.getElementById('nav_primary'),
-			elNavPrimaryTrigger = document.getElementById('nav_toggle');
-
+		var elNavPrimaryTrigger = document.getElementById('nav_toggle');
 
 		elNavPrimaryTrigger.addEventListener('click', function(e) {
 
 			e.preventDefault();
 
-			// classie.toggle(this, 'toggled');
-			classie.toggle(elNavPrimary, 'toggled');
+			// classie.toggle(elNavPrimary, 'toggled');
 
-/*
-			if ( classie.has(this, 'toggled') ) {
+			if ( classie.has(elNavPrimary, 'toggled') ) {
 
-				classie.remove(this, 'toggled');
+				classie.remove(elNavPrimary, 'toggled');
 				unlockBody();
 
 			} else {
 
-				classie.add(this, 'toggled');
+				window.scrollTo(0,0);
+
+				classie.add(elNavPrimary, 'toggled');
 				lockBody();
 
 			}
-*/
 
 		});
 
@@ -390,7 +374,47 @@ finalAnimate();
 
 
 
-/*
+// for every px scrolled, subtract that value from the translateY until we reach 0, then stop
+
+// if < 768: nothing
+
+// if >= 768: 40px
+
+// if >= 1200: 64px
+
+
+
+
+	function fixedHeader() {
+
+		// nav_primary, by default, requires a padding-top of 16px to be evenly spaced
+		// additional padding is needed to push the content further down the page if scrolled to the top of the document
+		// values are explicitly defined below, instead of pulled from CSS
+
+		var numNavPadTop = 16;
+
+		if (numWinWidth >= 1200) {
+			numNavPadTop = 64;
+		} else if (numWinWidth >= 768) {
+			numNavPadTop = 40;
+		} else {
+			elNavPrimary.style.paddingTop = '0px';
+			return;
+		}
+
+		if (numScrollPos <= numNavPadTop) {
+			elNavPrimary.style.paddingTop = (numNavPadTop + 16) - numScrollPos + 'px';
+		} else if (numScrollPos > numNavPadTop) {
+			elNavPrimary.style.paddingTop = '16px';
+		}
+
+		console.log(numNavPadTop);
+
+	}
+
+
+
+
 	// Window Events
 	// ----------------------------------------------------------------------------
 	window.addEventListener('resize', function(e) {
@@ -401,11 +425,30 @@ finalAnimate();
 			// re-measure window width on resize
 			numWinWidth = window.innerWidth;
 
+			if (numWinWidth >= 768) {
+
+				// remove 'toggled' class from nav_primary and restore body scrolling
+				classie.remove(elNavPrimary, 'toggled');
+				unlockBody();
+
+			}
+
+			// rerun fixedHeader to compensate for 'padding-top' adjustment
+			fixedHeader();
+
 		}, 500, 'unique string');
 
 	}, false);
-*/
 
+	window.addEventListener('scroll', function(e) {
+
+		// re-measure the window scroll distance
+		numScrollPos = window.pageYOffset;
+
+		// function
+		fixedHeader();
+
+	});
 
 
 	// Initialize Primary Functions

@@ -4,6 +4,8 @@
 %html{:lang => "en", "data-ready" => "waiting", "data-overflow" => "scrollable"}<>
 	<!--<![endif]-->
 
+	-# are we using data-ready and data-overflow?
+
 	= Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render
 
 	%body

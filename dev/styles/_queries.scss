@@ -58,81 +58,82 @@
 	// --- Animations --- \\
 /*
 	@keyframes animRbowFade_path-1 {
-		0%  { fill: $hsl_red; }
+		 0% { fill: $hsl_red;    }
 		20% { fill: $hsl_orange; }
 		40% { fill: $hsl_yellow; }
-		60% { fill: $hsl_aqua; }
-		80% { fill: $hsl_cyan; }
+		60% { fill: $hsl_aqua;   }
+		80% { fill: $hsl_cyan;   }
 	}
 	@keyframes animRbowFade_path-2 {
-		0%  { fill: $hsl_orange; }
+		 0% { fill: $hsl_orange; }
 		20% { fill: $hsl_yellow; }
-		40% { fill: $hsl_aqua; }
-		60% { fill: $hsl_cyan; }
-		80% { fill: $hsl_red; }
+		40% { fill: $hsl_aqua;   }
+		60% { fill: $hsl_cyan;   }
+		80% { fill: $hsl_red;    }
 	}
 	@keyframes animRbowFade_path-3 {
-		0%  { fill: $hsl_yellow; }
-		20% { fill: $hsl_aqua; }
-		40% { fill: $hsl_cyan; }
-		60% { fill: $hsl_red; }
+		 0% { fill: $hsl_yellow; }
+		20% { fill: $hsl_aqua;   }
+		40% { fill: $hsl_cyan;   }
+		60% { fill: $hsl_red;    }
 		80% { fill: $hsl_orange; }
 	}
 	@keyframes animRbowFade_path-4 {
-		0%  { fill: $hsl_aqua; }
-		20% { fill: $hsl_cyan; }
-		40% { fill: $hsl_red; }
+		 0% { fill: $hsl_aqua;   }
+		20% { fill: $hsl_cyan;   }
+		40% { fill: $hsl_red;    }
 		60% { fill: $hsl_orange; }
 		80% { fill: $hsl_yellow; }
 	}
 	@keyframes animRbowFade_path-5 {
-		0%  { fill: $hsl_cyan; }
-		20% { fill: $hsl_red; }
+		 0% { fill: $hsl_cyan;   }
+		20% { fill: $hsl_red;    }
 		40% { fill: $hsl_orange; }
 		60% { fill: $hsl_yellow; }
-		80% { fill: $hsl_aqua; }
+		80% { fill: $hsl_aqua;   }
 	}
 */
 	@keyframes animRbowInst_path-1 {
-		0%, 19%  { fill: $hsl_red; }
+		 0%, 19% { fill: $hsl_red;    }
 		20%, 39% { fill: $hsl_orange; }
 		40%, 59% { fill: $hsl_yellow; }
-		60%, 79% { fill: $hsl_aqua; }
-		80%, 99% { fill: $hsl_cyan; }
+		60%, 79% { fill: $hsl_aqua;   }
+		80%, 99% { fill: $hsl_cyan;   }
 	}
 	@keyframes animRbowInst_path-2 {
-		0%, 19%  { fill: $hsl_orange; }
+		 0%, 19% { fill: $hsl_orange; }
 		20%, 39% { fill: $hsl_yellow; }
-		40%, 59% { fill: $hsl_aqua; }
-		60%, 79% { fill: $hsl_cyan; }
-		80%, 99% { fill: $hsl_red; }
+		40%, 59% { fill: $hsl_aqua;   }
+		60%, 79% { fill: $hsl_cyan;   }
+		80%, 99% { fill: $hsl_red;    }
 	}
 	@keyframes animRbowInst_path-3 {
-		0%, 19%  { fill: $hsl_yellow; }
-		20%, 39% { fill: $hsl_aqua; }
-		40%, 59% { fill: $hsl_cyan; }
-		60%, 79% { fill: $hsl_red; }
+		 0%, 19% { fill: $hsl_yellow; }
+		20%, 39% { fill: $hsl_aqua;   }
+		40%, 59% { fill: $hsl_cyan;   }
+		60%, 79% { fill: $hsl_red;    }
 		80%, 99% { fill: $hsl_orange; }
 	}
 	@keyframes animRbowInst_path-4 {
-		0%, 19%  { fill: $hsl_aqua; }
-		20%, 39% { fill: $hsl_cyan; }
-		40%, 59% { fill: $hsl_red; }
+		 0%, 19% { fill: $hsl_aqua;   }
+		20%, 39% { fill: $hsl_cyan;   }
+		40%, 59% { fill: $hsl_red;    }
 		60%, 79% { fill: $hsl_orange; }
 		80%, 99% { fill: $hsl_yellow; }
 	}
 	@keyframes animRbowInst_path-5 {
-		0%, 19%  { fill: $hsl_cyan; }
-		20%, 39% { fill: $hsl_red; }
+		 0%, 19% { fill: $hsl_cyan;   }
+		20%, 39% { fill: $hsl_red;    }
 		40%, 59% { fill: $hsl_orange; }
 		60%, 79% { fill: $hsl_yellow; }
-		80%, 99% { fill: $hsl_aqua; }
+		80%, 99% { fill: $hsl_aqua;   }
 	}
 
 	// Header
 	// ----------------------------------------------------------------------------
 	header {
 		position: relative;
+		padding-top: 14rem;
 		padding-bottom: 6.4rem;
 	}
 	// --- Main Logo --- \\
@@ -144,25 +145,37 @@
 	// Nav Primary
 	// ----------------------------------------------------------------------------
 	nav.nav_primary {
-		margin-bottom: 10rem;
+		position: fixed;
+		z-index: 900;
+		top: 0;
+		left: 0;
+		right: 0;
+		padding: 5.6rem 3.2rem 2rem 3.2rem; // 40px of extra top padding for scroll distance
+		background-color: $hsla_bone-L98;
 	}
 	// --- Nav Wrap --- \\
 	div.nav_wrap {
-		@include pos_cover-reset();
+		// @include pos_cover-reset(relative);
 		@include toggle_visibility(on);
-		display: block;
-		height: auto;
+		position: relative;
+		top: auto;
+		right: auto;
+		bottom: auto;
+		left: auto;
+		margin-top: 0;
+		margin-bottom: 0;
+		perspective: none;
+		max-width: 164rem; // match width of <main>
 		background-color: transparent;
 	}
 	div.nav_wrap ul {
-		display: block;
-		// vertical-align: middle;
+		position: static;
+		top: auto;
+		transform: none;
 	}
-	div.nav_wrap ul,
 	nav.nav_primary.toggled div.nav_wrap ul {
 		transform: none;
 	}
-
 	div.nav_wrap ul li {
 		display: inline-block;
 		margin-right: 3.2rem;
@@ -173,8 +186,8 @@
 	}
 	div.nav_wrap ul li.nav_twitter {
 		position: absolute;
-		top: 4rem;
 		right: 0;
+		bottom: 0;
 		margin-right: 0;
 	}
 	div.nav_wrap ul li a {
@@ -278,7 +291,7 @@
 		vertical-align: middle;
 		padding-left: 1.6rem;
 		padding-right: 1.6rem;
-		font-size: 1.8rem; // calibre: 2.1rem;
+		font-size: 1.8rem;
 		color: $hsl_L100;
 	}
 	// + interaction + \\
@@ -411,21 +424,18 @@
 	// Header
 	// ----------------------------------------------------------------------------
 	header {
-		padding-top: 6.4rem;
+		padding-top: 22rem;
 		padding-bottom: 12rem;
 	}
 
 	// Nav Primary
 	// ----------------------------------------------------------------------------
 	nav.nav_primary {
-		margin-bottom: 16rem;
+		padding: 8rem 4.8rem 2rem 4.8rem; // 64px of extra top padding for scroll distance
 	}
 	// --- Nav Wrap --- \\
 	div.nav_wrap ul li {
 		margin-right: 4rem;
-	}
-	div.nav_wrap ul li.nav_twitter {
-		top: 6.4rem;
 	}
 
 // ==|== main styles ==========================================================

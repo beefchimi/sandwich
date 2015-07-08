@@ -12,6 +12,7 @@ $hsl_L0:   hsl(0,0%,0%);
 $hsl_L60:  hsl(0,0%,60%);
 $hsl_L100: hsl(0,0%,100%);
 
+$hsla_bone-L98: hsla(180,50%,99%,0.98);
 
 // SASS Mixins
 // ----------------------------------------------------------------------------
@@ -24,9 +25,9 @@ $hsl_L100: hsl(0,0%,100%);
 	left: 0;
 	margin: auto;
 }
-@mixin pos_cover-reset() {
-	position: static;
-	// z-index: 1;
+@mixin pos_cover-reset($pos) {
+	position: $pos;
+	// z-index: 1; // should we allow a specific z-index?
 	top: auto;
 	right: auto;
 	bottom: auto;
