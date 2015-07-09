@@ -61,9 +61,6 @@ div.cat_icon {
 svg {
 	transition: fill 260ms ease-in-out;
 }
-nav.nav_primary {
-	transition: padding-top 260ms ease-in-out;
-}
 div.nav_wrap ul,
 div.wrap_lines,
 div.wrap_lines div.nav_line {
@@ -236,6 +233,7 @@ header {
 	padding-bottom: 3.2rem;
 	text-align: center;
 }
+/*
 header h2 {
 	font-size: 1.3rem;
 	font-style: italic;
@@ -244,6 +242,7 @@ header h2 {
 	text-transform: uppercase;
 	color: $hsl_navy;
 }
+*/
 // --- Main Logo --- \\
 .logo_main {
 	margin: 0 auto 3.2rem auto;
@@ -284,6 +283,15 @@ path.video_4 {
 path.video_5 {
 	fill: $hsl_cyan; // default fill
 }
+// --- Tagline --- \\
+div.wrap_txt-tagline {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 28.4rem;
+}
+div.wrap_txt-tagline svg {
+	fill: $hsl_navy;
+}
 
 // Nav Primary
 // ----------------------------------------------------------------------------
@@ -294,7 +302,7 @@ nav.nav_primary {
 div.nav_wrap {
 	@include pos_cover(fixed, 400);
 	@include toggle_visibility(off);
-	background-color: $hsl_red;
+	background-color: $hsl_bone;
 	perspective: 60rem;
 }
 div.nav_wrap ul {
@@ -311,7 +319,7 @@ div.nav_wrap ul li.nav_twitter {
 }
 div.nav_wrap ul li a {
 	font-size: 2.2rem;
-	color: $hsl_bone;
+	color: $hsl_navy;
 }
 // --- Nav Toggle --- \\
 a.nav_toggle {
@@ -342,14 +350,17 @@ a.nav_toggle div.wrap_lines div.nav_line div.line_bg {
 }
 // + each line + \\
 a.nav_toggle div.wrap_lines div.line-1 {
-	top: 0rem;
+	z-index: 404; // must be in front of line-2
+	top: 0;
 	left: 0;
 }
 a.nav_toggle div.wrap_lines div.line-2 {
+	z-index: 402;
 	top: 0.8rem;
 	right: 0;
 }
 a.nav_toggle div.wrap_lines div.line-3 {
+	z-index: 403;
 	top: 1.6rem;
 	left: 0;
 }
@@ -363,12 +374,8 @@ nav.nav_primary.toggled a.nav_toggle div.wrap_lines div.line-1 {
 nav.nav_primary.toggled a.nav_toggle div.wrap_lines div.line-3 {
 	transform: translateY(-0.8rem) rotate(45deg);
 }
-nav.nav_primary.toggled a.nav_toggle div.wrap_lines div.line-1 div.line_bg,
-nav.nav_primary.toggled a.nav_toggle div.wrap_lines div.line-3 div.line_bg {
-	background-color: $hsl_bone;
-}
 nav.nav_primary.toggled a.nav_toggle div.wrap_lines div.line-2 div.line_bg {
-	background-color: hsla(0,0%,100%,0);
+	background-color: $hsl_bone;
 }
 nav.nav_primary.toggled div.nav_wrap {
 	@include toggle_visibility(on);
@@ -376,33 +383,12 @@ nav.nav_primary.toggled div.nav_wrap {
 nav.nav_primary.toggled div.nav_wrap ul {
 	transform: rotateX(0deg) translateY(-48%);
 }
-// + interaction + \\
-a.nav_toggle:hover div.wrap_lines div.nav_line div.line_bg {
-	background-color: $hsl_red;
-}
-nav.nav_primary.toggled a.nav_toggle:hover div.wrap_lines div.line-1 div.line_bg,
-nav.nav_primary.toggled a.nav_toggle:hover div.wrap_lines div.line-3 div.line_bg {
-	background-color: $hsl_bone;
-}
-nav.nav_primary.toggled a.nav_toggle:hover div.wrap_lines div.line-2 div.line_bg {
-	background-color: hsla(0,0%,100%,0);
-}
-a.nav_toggle:active div.wrap_lines div.nav_line div.line_bg {
-	background-color: darken($hsl_red, 10%);
-}
-nav.nav_primary.toggled a.nav_toggle:active div.wrap_lines div.line-1 div.line_bg,
-nav.nav_primary.toggled a.nav_toggle:active div.wrap_lines div.line-3 div.line_bg {
-	background-color: darken($hsl_bone, 10%);
-}
-nav.nav_primary.toggled a.nav_toggle:active div.wrap_lines div.line-2 div.line_bg {
-	background-color: hsla(0,0%,100%,0);
-}
 // + nav links do not cycle colours until 768 + \\
 nav.nav_primary ul li a:hover {
-	color: $hsl_yellow;
+	color: $hsl_red;
 }
 nav.nav_primary ul li a:active {
-	color: $hsl_aqua;
+	color: $hsl_yellow;
 }
 
 // Footer
@@ -724,8 +710,8 @@ $numDelay: 600;
 	}
 	$numDelay: $numDelay + 100;
 }
-header h2 {
-	animation: animShow 800ms ease-in-out 1000ms both;
+div.wrap_txt-tagline {
+	animation: animShow 800ms ease-in-out 1000ms both; // could transition fill instead?
 }
 // + nav primary + \\
 $numDelay: 600;

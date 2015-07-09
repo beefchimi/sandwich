@@ -261,25 +261,16 @@ document.addEventListener('DOMContentLoaded', function() {
 	// ----------------------------------------------------------------------------
 	function fixedHeader() {
 
-		// nav_primary, by default, requires a padding-top of 16px to be evenly spaced
-		// additional padding is needed to push the content further down the page if scrolled to the top of the document
-		// values are explicitly defined below, instead of pulled from CSS
+		var numNavTravel = 60; // arbitrary number based on what feels good
 
-		var numNavPadTop = 16;
+		if (numWinWidth >= 768) {
 
-		if (numWinWidth >= 1200) {
-			numNavPadTop = 64;
-		} else if (numWinWidth >= 768) {
-			numNavPadTop = 40;
-		} else {
-			elNavPrimary.style.paddingTop = '0px';
-			return;
-		}
+			if (numScrollPos >= numNavTravel) {
+				classie.add(elNavPrimary, 'scrolled');
+			} else {
+				classie.remove(elNavPrimary, 'scrolled');
+			}
 
-		if (numScrollPos <= numNavPadTop) {
-			elNavPrimary.style.paddingTop = (numNavPadTop + 16) - numScrollPos + 'px';
-		} else if (numScrollPos > numNavPadTop) {
-			elNavPrimary.style.paddingTop = '16px';
 		}
 
 	}
@@ -312,7 +303,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			}
 
 		});
-
 
 	}
 
@@ -402,10 +392,9 @@ document.addEventListener('DOMContentLoaded', function() {
 				classie.remove(elNavPrimary, 'toggled');
 				unlockBody();
 
+			} else {
+				classie.remove(elNavPrimary, 'scrolled');
 			}
-
-			// rerun fixedHeader to compensate for 'padding-top' adjustment
-			fixedHeader();
 
 		}, 500, 'unique string');
 
@@ -416,7 +405,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		// re-measure the window scroll distance
 		numScrollPos = window.pageYOffset;
 
-		// function
+		// functions that require scroll data
 		fixedHeader();
 
 	});
