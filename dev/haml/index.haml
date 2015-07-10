@@ -1,8 +1,10 @@
 !!!
 /[if IE 9] <html class="ie9" lang="en">
 <!--[if gt IE 9]><!-->
-%html{:lang => "en", "data-ready" => "waiting", "data-overflow" => "scrollable"}<>
+%html{:lang => "en", "data-overflow" => "scrollable"}<>
 	<!--<![endif]-->
+
+	-# "data-device" => "mobile"
 
 	-# are we using data-ready and data-overflow?
 
@@ -18,12 +20,11 @@
 
 		%main{:role => "main", "data-container" => "width_1640"}
 
-			-# 'data-mobile' currently not used for anything (could use data-device = mobile/desktop)
-			-# 'data-animated' used to apply visible .selected styles once the list items have finished animating
+			-# 'data-animated' COULD be used to apply visible .selected styles once the list items have finished animating
 
 			-# if: "All" or "Curated" (.color_rainbow), 'data-color' => 'random'
 			-# otherwise: 'data-color' = color array
-			%nav#nav_categories.nav_categories{"data-dropdown" => "list", "data-selected" => ".curated", "data-color" => "random", "data-animated" => "animating"}
+			%nav#nav_categories.nav_categories{"data-dropdown" => "list", "data-current" => ".curated", "data-color" => "random", "data-animated" => "animating"}
 
 				%a#cat_trigger.cat_trigger{:href => "#", :title => "Click To Select Category"}
 					%span.cat_label.truncate Curated
@@ -38,8 +39,8 @@
 						%ul
 							%li
 								%a.cat_link.color_rainbow{:href => "#", :title => "All", "data-color" => "random", "data-filter" => "*"} All
-							%li
-								%a.cat_link.color_rainbow.selected{:href => "#", :title => "Curated", "data-color" => "random", "data-filter" => ".curated"} Curated
+							%li.cat_current
+								%a.cat_link.color_rainbow{:href => "#", :title => "Curated", "data-color" => "random", "data-filter" => ".curated"} Curated
 							%li
 								%a.cat_link.color_solid.color_red{:href => "#", :title => "Apps", "data-color" => "red", "data-filter" => ".apps"} Apps
 							%li

@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		// it does exist! continue on...
 		var elIsoLoader   = document.getElementById('iso_loader'),
-			strCurrentCat = elNavCat.getAttribute('data-selected');
+			strCurrentCat = elNavCat.getAttribute('data-current');
 
 		// layout Isotope after all images have loaded
 		imagesLoaded(elIsoContainer, function(instance) {
@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		// it does exist! define our remaining variables
 		var elNavCatTrigger   = document.getElementById('cat_trigger'),
 			elNavCatLabel     = elNavCatTrigger.getElementsByClassName('cat_label')[0],
-			elNavLinkSelected = elNavCat.querySelector('.selected'),
+			elNavLinkCurrent  = elNavCat.getElementsByClassName('cat_current')[0], // elNavCat.querySelector('.cat_current'),
 			arrCatLinks       = elNavCat.getElementsByClassName('cat_link'),
 			numCatLinksLength = arrCatLinks.length;
 
@@ -210,18 +210,18 @@ document.addEventListener('DOMContentLoaded', function() {
 					strThisColor  = this.getAttribute('data-color'),
 					strThisFilter = this.getAttribute('data-filter');
 
-				// update elNavCat 'data-color', 'data-selected', and elNavCatLabel innerHTML
+				// update elNavCat 'data-color', 'data-current', and elNavCatLabel innerHTML
 				elNavCat.setAttribute('data-color', strThisColor);
-				elNavCat.setAttribute('data-selected', strThisFilter);
+				elNavCat.setAttribute('data-current', strThisFilter);
 				elNavCatLabel.innerHTML = strThisLabel;
 
 				// unlockBody();
 				classie.remove(elNavCat, 'toggled'); // remove 'toggled' class from elNavCat
 
-				// swap 'selected' class and redefine elNavLinkSelected as new selection
-				classie.remove(elNavLinkSelected, 'selected');
-				classie.add(this, 'selected');
-				elNavLinkSelected = this;
+				// swap 'cat_current' class and redefine elNavLinkCurrent as new selection
+				classie.remove(elNavLinkCurrent, 'cat_current');
+				elNavLinkCurrent = this.parentNode;
+				classie.add(elNavLinkCurrent, 'cat_current');
 
 				// now do all that Isotope shit
 				pISO.arrange({
@@ -235,22 +235,50 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 
-	// finalAnimate: Inform the document when we have finished our loading animations
-	// ----------------------------------------------------------------------------
-	function finalAnimate() {
+/*
+	var elNavMobileLine3 = document.getElementById('line-3'),
+		elNavTwitter     = document.getElementById('nav_twitter'); // final animated element for desktop
+*/
 
-		// watching for #nav_twitter, which only animates >= 768px
+/*
+		// if < 768
+			// apply class '
 
-		var elNavTwitter = document.getElementById('nav_twitter');
+		if (numWinWidth < 768) {
+			elHTML.setAttribute('data-device', 'mobile');
+		} else {
+			elHTML.setAttribute('data-device', 'desktop');
+		}
 
-		elNavTwitter.addEventListener(animationEvent, applyReadyState);
+		if ( elHTML.getAttribute('data-device') == 'mobile' ) {
 
-		function applyReadyState() {
+			elNavMobileLine3.addEventListener(animationEvent, mobileReadyState);
+
+		}
+
+		function mobileReadyState() {
 
 			classie.add(elHTML, 'ready');
 			elNavTwitter.removeEventListener(animationEvent, applyReadyState);
 
 			console.log('animations have ended');
+
+		}
+*/
+
+
+	// finalAnimate: Inform the document when we have finished our loading animations
+	// ----------------------------------------------------------------------------
+	function finalAnimate() {
+
+		var elFooter = document.getElementsByTagName('footer')[0];
+
+		elFooter.addEventListener(animationEvent, applyReadyState);
+
+		function applyReadyState() {
+
+			classie.add(elHTML, 'ready');
+			elFooter.removeEventListener(animationEvent, applyReadyState);
 
 		}
 
@@ -305,6 +333,52 @@ document.addEventListener('DOMContentLoaded', function() {
 		});
 
 	}
+
+
+/*
+	function navToggle() {
+
+		var elNavPrimaryTrigger = document.getElementById('nav_toggle');
+
+		elNavPrimaryTrigger.addEventListener('click', function(e) {
+
+			e.preventDefault();
+
+			// since we are removing the 'toggled' class if window is < 768...
+			// we cannot rely on classie.toggle to switch our nav class
+			if ( classie.has(elNavPrimary, 'toggled') ) {
+
+				// turn OFF navigation
+
+				classie.remove(elNavPrimary, 'toggled');
+				classie.add(elNavPrimary, 'toggled_off');
+				unlockBody();
+
+			} else if ( classie.has(elNavPrimary, 'toggled_off') ) {
+
+				// turn ON navigation
+
+				window.scrollTo(0,0); // scroll to top of document only so toggle button is in view
+
+				classie.remove(elNavPrimary, 'toggled_off')
+				classie.add(elNavPrimary, 'toggled');
+				lockBody();
+
+			} else {
+
+				// turn ON navigation
+
+				window.scrollTo(0,0);
+
+				classie.add(elNavPrimary, 'toggled');
+				lockBody();
+
+			}
+
+		});
+
+	}
+*/
 
 
 	// cycleLinkColors: Cycle through an array of colours on mouseenter of any link
@@ -393,7 +467,9 @@ document.addEventListener('DOMContentLoaded', function() {
 				unlockBody();
 
 			} else {
+
 				classie.remove(elNavPrimary, 'scrolled');
+
 			}
 
 		}, 500, 'unique string');

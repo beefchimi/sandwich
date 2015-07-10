@@ -53,57 +53,67 @@ html[data-ready="loaded"] body {
 // Transitions & Animations
 // ----------------------------------------------------------------------------
 a {
-	transition: all 260ms ease-in-out;
-}
-div.cat_icon {
-	transition: background-color 260ms ease-in-out;
+	transition: all 260ms ease-in-out; // reconsider 'all'?
 }
 svg {
 	transition: fill 260ms ease-in-out;
 }
 div.nav_wrap ul,
-div.wrap_lines,
-div.wrap_lines div.nav_line {
+html.ready div.wrap_lines,
+html.ready div.wrap_lines div.nav_line {
 	transition: transform 260ms ease-in-out;
 }
-div.wrap_lines div.nav_line div.line_bg {
-	transition: background-color 260ms ease-in-out;
-}
+html.ready div.wrap_lines div.line-2 div.line_bg,
 section.iso_container article a div.iso_logo img,
 section.iso_container article a div.wrap_iso-image div.wrap_iso-title {
-	transition: opacity 260ms ease-in-out, visibility 260ms ease-in-out;
+	transition: opacity 260ms ease-in-out;
 }
-div.nav_wrap,
-div.iso_loader,
+div.nav_wrap {
+	transition: opacity 360ms ease-in-out, visibility 360ms ease-in-out; // try to avoid using visibility
+}
+div.iso_loader {
+	transition: opacity 720ms ease-in-out 360ms;
+}
+
+
+// + TEMP + \\
+div.cat_icon {
+	transition: background-color 260ms ease-in-out; // temporary!
+}
 div.wrap_dropdown {
-	transition: opacity 360ms ease-in-out, visibility 360ms ease-in-out;
+	transition: opacity 360ms ease-in-out, visibility 360ms ease-in-out; // try to avoid using visibility
 }
+
+
 // --- Animations --- \\
 @keyframes anim360 {
 	to { transform: rotate(360deg); }
 }
-@keyframes animShow {
-	0%   { opacity: 0; }
+@keyframes animOpacity {
+	  0% { opacity: 0; }
 	100% { opacity: 1; }
 }
-@keyframes animHide {
-	0%   { opacity: 1; left: 0; }
-	99%  { opacity: 0; left: 0; }
-	100% { opacity: 0; left: -200%; }
+/*
+@keyframes animFade {
+	  0% { opacity: 0; transform: translate3d(-20rem,0,0); }
+	  1% { opacity: 0; transform: translate3d(0,0,0);      }
+	100% { opacity: 1; transform: translate3d(0,0,0);      }
 }
-@keyframes animWidth {
-	0%   { width: 0%; opacity: 0; }
-	100% { width: 100%; opacity: 1; }
+*/
+@keyframes animSlideIn_left {
+	  0% { transform: translate3d(-100%,0,0); }
+	100% { transform: translate3d(0%,0,0);    }
 }
-@keyframes animSlideUp {
-	0%   { opacity: 0; transform: translateY(2rem); }
-	100% { opacity: 1; transform: translateY(0); }
+@keyframes animSlideIn_right {
+	  0% { transform: translate3d(100%,0,0); }
+	100% { transform: translate3d(0%,0,0);   }
 }
 @keyframes animBounceUp {
-	0%   { opacity: 0; transform: translateY(4.8rem); }
-	60%  { transform: translateY(-0.8rem); }
-	100% { opacity: 1; transform: translateY(0); }
+	  0% { transform: translate3d(0,4.8rem,0);  }
+	 60% { transform: translate3d(0,-1.2rem,0); }
+	100% { transform: translate3d(0,0,0);       }
 }
+
 @keyframes animRbow_color {
 	  0% { color: $hsl_red;    }
 	 20% { color: $hsl_orange; }
@@ -120,22 +130,16 @@ div.wrap_dropdown {
 	 80% { fill: $hsl_cyan;   }
 	100% { fill: $hsl_red;    }
 }
+/*
 @keyframes animRbow_bg {
 	  0% { background-color: $hsl_red;    }
 	 20% { background-color: $hsl_orange; }
 	 40% { background-color: $hsl_yellow; }
 	 60% { background-color: $hsl_aqua;   }
 	 80% { background-color: $hsl_cyan;   }
-	100% { background-color: $hsl_red;   }
+	100% { background-color: $hsl_red;    }
 }
-@keyframes animRbow_color-border {
-	  0% { color: $hsl_red;    border-color: $hsl_red;    }
-	 20% { color: $hsl_orange; border-color: $hsl_orange; }
-	 40% { color: $hsl_yellow; border-color: $hsl_yellow; }
-	 60% { color: $hsl_aqua;   border-color: $hsl_aqua;   }
-	 80% { color: $hsl_cyan;   border-color: $hsl_cyan;   }
-	100% { color: $hsl_red;    border-color: $hsl_red;   }
-}
+*/
 @keyframes animRbow2Navy_bg {
 	  0% { background-color: $hsl_red;    }
 	 20% { background-color: $hsl_orange; }
@@ -148,19 +152,19 @@ div.wrap_dropdown {
 /*
 @keyframes animRbow2Navy_fill {
 
-	0%   { fill: $hsl_red; }
-	20%  { fill: $hsl_orange; }
-	40%  { fill: $hsl_yellow; }
-	60%  { fill: $hsl_aqua; }
-	80%  { fill: $hsl_cyan; }
-	100% { fill: $hsl_navy; }
+	  0% { fill: $hsl_red;    }
+	 20% { fill: $hsl_orange; }
+	 40% { fill: $hsl_yellow; }
+	 60% { fill: $hsl_aqua;   }
+	 80% { fill: $hsl_cyan;   }
+	100% { fill: $hsl_navy;   }
 
-	0%   { fill: $hsl_red; }
-	10%  { fill: $hsl_orange; }
-	23%  { fill: $hsl_yellow; }
-	80%  { fill: $hsl_aqua; }
-	91%  { fill: $hsl_cyan; }
-	100% { fill: $hsl_navy; }
+	  0% { fill: $hsl_red;    }
+	 10% { fill: $hsl_orange; }
+	 23% { fill: $hsl_yellow; }
+	 80% { fill: $hsl_aqua;   }
+	 91% { fill: $hsl_cyan;   }
+	100% { fill: $hsl_navy;   }
 
 }
 */
@@ -168,9 +172,6 @@ div.wrap_dropdown {
 /*
 @keyframes animSVG {
 	to { stroke-dashoffset: 0; }
-}
-@keyframes animFadeIn {
-	to { opacity: 1; }
 }
 @keyframes animShake {
 	0%, 100% { transform: translate3d(0,0,0); }
@@ -213,18 +214,6 @@ svg.svg_inline {
 [data-container="width_1280"] {
 	max-width: 128rem;
 }
-/*
-// --- Links --- \\
-a {
-	color: $hsl_red;
-}
-a:hover {
-	color: $hsl_navy;
-}
-a:active {
-	color: darken($hsl_navy, 30%);
-}
-*/
 
 // Header
 // ----------------------------------------------------------------------------
@@ -233,16 +222,6 @@ header {
 	padding-bottom: 3.2rem;
 	text-align: center;
 }
-/*
-header h2 {
-	font-size: 1.3rem;
-	font-style: italic;
-	font-weight: 800;
-	line-height: 1.3;
-	text-transform: uppercase;
-	color: $hsl_navy;
-}
-*/
 // --- Main Logo --- \\
 .logo_main {
 	margin: 0 auto 3.2rem auto;
@@ -268,19 +247,19 @@ header h2 {
 	overflow: visible; // otherwise, <path> animation will get chopped off
 }
 // + video letters + \\
-path.video_1 {
+path.video_path-1 {
 	fill: $hsl_red; // default fill
 }
-path.video_2 {
+path.video_path-2 {
 	fill: $hsl_orange; // default fill
 }
-path.video_3 {
+path.video_path-3 {
 	fill: $hsl_yellow; // default fill
 }
-path.video_4 {
+path.video_path-4 {
 	fill: $hsl_aqua; // default fill
 }
-path.video_5 {
+path.video_path-5 {
 	fill: $hsl_cyan; // default fill
 }
 // --- Tagline --- \\
@@ -295,9 +274,31 @@ div.wrap_txt-tagline svg {
 
 // Nav Primary
 // ----------------------------------------------------------------------------
+
+/*
 nav.nav_primary {
-	// all children are absolutely positioned, so element has the height of 0
 }
+div.nav_wrap {
+	position: fixed;
+	z-index: 400;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	// need to begin in the hidden state
+	opacity: 0;
+	transform: translate3d(-200%,0,0);
+	background-color: $hsl_bone;
+	perspective: 60rem;
+}
+nav.nav_primary.toggled div.nav_wrap {
+	animation: animFade 360ms ease-in-out normal forwards;
+}
+nav.nav_primary.toggled_off div.nav_wrap {
+	animation: animFade 360ms ease-in-out reverse backwards;
+}
+*/
+
 // --- Nav Wrap --- \\
 div.nav_wrap {
 	@include pos_cover(fixed, 400);
@@ -309,7 +310,7 @@ div.nav_wrap ul {
 	position: absolute;
 	top: 50%;
 	width: 100%;
-	transform: rotateX(10deg) translateY(-60%);
+	transform: rotateX(10deg) translate3d(0,-60%,0);
 }
 div.nav_wrap ul li {
 	margin-bottom: 2.4rem;
@@ -338,50 +339,49 @@ a.nav_toggle div.wrap_lines {
 	position: relative;
 	width: 100%;
 	height: 100%;
+	overflow: hidden;
+}
+html.ready a.nav_toggle div.wrap_lines {
+	overflow: visible;
 }
 a.nav_toggle div.wrap_lines div.nav_line {
 	position: absolute;
+	left: 0;
+	width: 100%;
 	height: 0.4rem;
 }
 a.nav_toggle div.wrap_lines div.nav_line div.line_bg {
-	width: 100%;
 	height: 100%;
 	background-color: $hsl_navy; // default background-color
 }
 // + each line + \\
 a.nav_toggle div.wrap_lines div.line-1 {
-	z-index: 404; // must be in front of line-2
 	top: 0;
-	left: 0;
 }
 a.nav_toggle div.wrap_lines div.line-2 {
-	z-index: 402;
 	top: 0.8rem;
-	right: 0;
 }
 a.nav_toggle div.wrap_lines div.line-3 {
-	z-index: 403;
 	top: 1.6rem;
-	left: 0;
 }
 // + toggled + \\
 nav.nav_primary.toggled a.nav_toggle div.wrap_lines {
 	transform: rotate(180deg);
 }
 nav.nav_primary.toggled a.nav_toggle div.wrap_lines div.line-1 {
-	transform: translateY(0.8rem) rotate(-45deg);
+	transform: translate3d(0,0.8rem,0) rotate(-45deg);
 }
 nav.nav_primary.toggled a.nav_toggle div.wrap_lines div.line-3 {
-	transform: translateY(-0.8rem) rotate(45deg);
+	transform: translate3d(0,-0.8rem,0) rotate(45deg);
 }
 nav.nav_primary.toggled a.nav_toggle div.wrap_lines div.line-2 div.line_bg {
-	background-color: $hsl_bone;
+	opacity: 0;
 }
 nav.nav_primary.toggled div.nav_wrap {
 	@include toggle_visibility(on);
 }
 nav.nav_primary.toggled div.nav_wrap ul {
-	transform: rotateX(0deg) translateY(-48%);
+	transform: rotateX(0deg) translate3d(0,-48%,0);
 }
 // + nav links do not cycle colours until 768 + \\
 nav.nav_primary ul li a:hover {
@@ -431,7 +431,7 @@ a.cat_trigger {
 	display: table;
 	width: 100%;
 	height: 4rem;
-	font-size: 1.5rem; // calibre: 1.6rem;
+	font-size: 1.5rem;
 	color: $hsl_red; // default color: red
 	border: 0.2rem solid $hsl_red; // default color: red
 	border-radius: 1.3rem;
@@ -478,7 +478,7 @@ div.wrap_dropdown ul li a {
 	color: $hsl_bone;
 	background-color: $hsl_red;
 }
-div.wrap_dropdown ul li a.selected {
+div.wrap_dropdown ul li.cat_current a {
 	pointer-events: none;
 	background-color: $hsl_yellow;
 }
@@ -547,6 +547,7 @@ div.wrap_dropdown ul li a:active {
 section.iso_container {
 	position: relative;
 	z-index: 100;
+	overflow-y: hidden; // required to prevent scrollbar on filter change
 }
 section.iso_container article,
 section.iso_container div.iso_sizer {
@@ -556,7 +557,6 @@ section.iso_container div.iso_gutter {
 	width: 2rem;
 }
 section.iso_container article {
-	// float: left;
 	position: relative;
 	z-index: 101;
 	margin-bottom: 2rem;
@@ -578,15 +578,17 @@ section.iso_container article a div.iso_logo {
 }
 section.iso_container article a div.iso_logo img.iso_logo-on {
 	@include pos_cover(absolute, 102);
-	@include toggle_visibility(off);
 }
 // + interaction + \\
+section.iso_container article a div.iso_logo img.iso_logo-on,
 section.iso_container article a:hover div.iso_logo img.iso_logo-off {
-	@include toggle_visibility(off);
+	opacity: 0;
 }
 section.iso_container article a:hover div.iso_logo img.iso_logo-on {
-	@include toggle_visibility(on);
+	opacity: 1;
 }
+
+// SHOULD I IMPLEMENT A FALLBACK FOR IS ISOTOPE FAILS TO LOAD / LAYOUT?
 
 // Isotope Loader
 // ----------------------------------------------------------------------------
@@ -601,9 +603,11 @@ div.iso_loader.visible {
 }
 div.wrap_graphics {
 	@include pos_cover(absolute, 301);
+	padding-top: 2rem;
 }
 div.wrap_graphics div.wrap_svg {
-	margin: 2rem auto;
+	margin-left: auto;
+	margin-right: auto;
 	width: 4.4rem;
 	height: 4.4rem;
 	animation: anim360 800ms linear infinite forwards;
@@ -613,6 +617,7 @@ div.wrap_graphics div.wrap_svg svg {
 	animation: animRbow_fill 1600ms linear infinite;
 }
 div.wrap_graphics div.wrap_txt p {
+	margin-top: 2rem;
 	font-size: 1.1rem;
 	font-weight: 800;
 	text-align: center;
@@ -628,103 +633,68 @@ html.ie9 div.iso_loader {
 
 // Alternating Colours
 // ----------------------------------------------------------------------------
-
-/*
-// + rainbow links + \\
-nav.nav_categories[data-color="random"] a.cat_trigger { animation: animRbow_color-border 0.6s ease-in-out infinite; }
-nav.nav_categories[data-color="random"] a.cat_trigger div.cat_icon { animation: animRbow_bg 0.6s ease-in-out infinite; }
-*/
-
 // + red links + \\
-/*
-nav.nav_categories[data-color="red"] a.cat_trigger { color: $hsl_red; border-color: $hsl_red; }
-nav.nav_categories[data-color="red"] a.cat_trigger div.cat_icon { background-color: $hsl_red; }
-*/
 footer h4 a.color_red:hover { color: $hsl_red; }
 footer h4 a.color_red:active { color: darken($hsl_red, 20%); }
-
 // + orange links + \\
-/*
-nav.nav_categories[data-color="orange"] a.cat_trigger { color: $hsl_orange; border-color: $hsl_orange; }
-nav.nav_categories[data-color="orange"] a.cat_trigger div.cat_icon { background-color: $hsl_orange; }
-*/
 footer h4 a.color_orange:hover { color: $hsl_orange; }
 footer h4 a.color_orange:active { color: darken($hsl_orange, 20%); }
-
 // + yellow links + \\
-/*
-nav.nav_categories[data-color="yellow"] a.cat_trigger { color: $hsl_yellow; border-color: $hsl_yellow; }
-nav.nav_categories[data-color="yellow"] a.cat_trigger div.cat_icon { background-color: $hsl_yellow; }
-*/
 footer h4 a.color_yellow:hover { color: $hsl_yellow; }
 footer h4 a.color_yellow:active { color: darken($hsl_yellow, 20%); }
-
 // + aqua links + \\
-/*
-nav.nav_categories[data-color="aqua"] a.cat_trigger { color: $hsl_aqua; border-color: $hsl_aqua; }
-nav.nav_categories[data-color="aqua"] a.cat_trigger div.cat_icon { background-color: $hsl_aqua; }
-*/
 footer h4 a.color_aqua:hover { color: $hsl_aqua; }
 footer h4 a.color_aqua:active { color: darken($hsl_aqua, 20%); }
-
 // + cyan links + \\
-/*
-nav.nav_categories[data-color="cyan"] a.cat_trigger { color: $hsl_cyan; border-color: $hsl_cyan; }
-nav.nav_categories[data-color="cyan"] a.cat_trigger div.cat_icon { background-color: $hsl_cyan; }
-*/
 footer h4 a.color_cyan:hover { color: $hsl_cyan; }
 footer h4 a.color_cyan:active { color: darken($hsl_cyan, 20%); }
 
-
-/*
-// + interaction + \\
-nav.nav_categories a.cat_trigger:hover {
-	color: $hsl_navy;
-	border-color: $hsl_navy;
-}
-nav.nav_categories a.cat_trigger:hover div.cat_icon {
-	background-color: $hsl_navy;
-}
-*/
-
-
 // Page Load
 // ----------------------------------------------------------------------------
-// + isotope loader + \\
-div.wrap_graphics {
-	animation: animShow 1000ms ease-in-out forwards;
-}
 // + header + \\
 .logo_main div.wrap_logo-sandwich {
-	animation: animShow 800ms ease-in-out 200ms both;
+	animation: animOpacity 800ms ease-in-out 200ms both;
 }
-/*
-.logo_main div.wrap_logo-sandwich svg.logo_sandwich {
-	animation: animRbow2Navy_fill 2400ms linear 200ms forwards;
-}
-*/
 $numDelay: 600;
 @for $i from 1 through 5 { // assumes 5 letters
-	path.video_#{$i} {
+	g.video_group-#{$i} {
+		animation: animOpacity 400ms ease-in-out #{$numDelay}ms both;
+	}
+	path.video_path-#{$i} {
 		animation: animBounceUp 400ms cubic-bezier(0.215,0.610,0.355,1) #{$numDelay}ms both;
 	}
 	$numDelay: $numDelay + 100;
 }
 div.wrap_txt-tagline {
-	animation: animShow 800ms ease-in-out 1000ms both; // could transition fill instead?
+	animation: animOpacity 800ms ease-in-out 1000ms both; // could transition fill instead?
 }
 // + nav primary + \\
-$numDelay: 600;
-@for $i from 1 through 3 {
-	a.nav_toggle div.wrap_lines div.line-#{$i} {
-		animation: animWidth 600ms ease-in-out #{$numDelay}ms both;
-	}
-	$numDelay: $numDelay + 300;
+a.nav_toggle div.wrap_lines div.line-1 {
+	animation: animSlideIn_left 400ms ease-out 1200ms both;
+}
+a.nav_toggle div.wrap_lines div.line-2 {
+	animation: animSlideIn_right 400ms ease-out 1500ms both;
+}
+a.nav_toggle div.wrap_lines div.line-3 {
+	animation: animSlideIn_left 400ms ease-out 1800ms both;
 }
 a.nav_toggle div.wrap_lines div.nav_line div.line_bg {
-	animation: animRbow2Navy_bg 1000ms linear 800ms; // forwards
+	animation: animRbow2Navy_bg 1000ms linear 1200ms;
+}
+@for $i from 1 through 3 {
+	html.ready a.nav_toggle div.wrap_lines div.line-#{$i} {
+		animation: none;
+	}
+}
+// + footer + \\
+footer {
+	animation: animOpacity 800ms ease-in-out 1800ms both; // final animated element
 }
 // + nav categories + \\
 nav.nav_categories {
-	animation: animShow 800ms ease-in-out 1200ms both;
+	animation: animOpacity 800ms ease-in-out 1200ms both;
+}
+// + isotope loader + \\
+div.wrap_graphics {
+	animation: animOpacity 1000ms ease-in-out forwards;
 }
