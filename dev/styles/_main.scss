@@ -18,19 +18,26 @@ body {
 	background-color: $hsl_cyan;
 }
 
-/*
 // + autoprefixer does not recognize placeholder + \\
 ::-webkit-input-placeholder {
-	color: $hsl_L0;
+	color: $hsl_L72;
+	transition: color 260ms ease-in-out;
 }
 ::-moz-placeholder {
-	color: $hsl_L0;
+	color: $hsl_L72;
 	opacity: 1;
+	transition: color 260ms ease-in-out;
 }
 :-ms-input-placeholder {
-	color: $hsl_L0;
+	color: $hsl_L72;
+	transition: color 260ms ease-in-out;
 }
-*/
+
+
+
+
+
+
 
 // --- Lock Scrolling On Load --- \\
 html[data-overflow="locked"],
@@ -58,11 +65,17 @@ a {
 svg {
 	transition: fill 260ms ease-in-out;
 }
+svg path {
+	transition: stroke 260ms ease-in-out;
+}
 div.nav_wrap ul,
+div.cat_icon,
+div.cat_icon div.cat_line,
 html.ready div.wrap_lines,
 html.ready div.wrap_lines div.nav_line {
 	transition: transform 260ms ease-in-out;
 }
+div.cat_icon div.line-2 div.line_bg,
 html.ready div.wrap_lines div.line-2 div.line_bg,
 section.iso_container article a div.iso_logo img,
 section.iso_container article a div.wrap_iso-image div.wrap_iso-title {
@@ -74,11 +87,15 @@ div.nav_wrap {
 div.iso_loader {
 	transition: opacity 720ms ease-in-out 360ms;
 }
+input[type="text"] {
+	transition: color 260ms ease-in-out;
+}
 
 
-// + TEMP + \\
-div.cat_icon {
-	transition: background-color 260ms ease-in-out; // temporary!
+
+div.cat_icon div.line-1 div.line_bg,
+div.cat_icon div.line-3 div.line_bg {
+	transition: background-color 260ms ease-in-out;
 }
 div.wrap_dropdown {
 	transition: opacity 360ms ease-in-out, visibility 360ms ease-in-out; // try to avoid using visibility
@@ -86,6 +103,9 @@ div.wrap_dropdown {
 
 
 // --- Animations --- \\
+@keyframes animSVGPath {
+	to { opacity: 1; stroke-dashoffset: 0; }
+}
 @keyframes anim360 {
 	to { transform: rotate(360deg); }
 }
@@ -149,6 +169,13 @@ div.wrap_dropdown {
 	100% { background-color: $hsl_navy;   }
 }
 
+
+@keyframes animVHSwipe {
+	  0% { opacity: 0; transform: translate3d(-1rem,0,0);  }
+	100% { opacity: 1; transform: translate3d(0,0,0); }
+}
+
+
 /*
 @keyframes animRbow2Navy_fill {
 
@@ -170,9 +197,6 @@ div.wrap_dropdown {
 */
 
 /*
-@keyframes animSVG {
-	to { stroke-dashoffset: 0; }
-}
 @keyframes animShake {
 	0%, 100% { transform: translate3d(0,0,0); }
 	10%, 30%, 50%, 70%, 90% { transform: translate3d(-1rem,0,0); }
@@ -189,10 +213,6 @@ div.wrap_dropdown {
 	position: relative;
 }
 // + SVGs + \\
-#svgInject {
-	display: none;
-	visibility: hidden;
-}
 .wrap_svg {
 	display: block;
 }
@@ -233,72 +253,54 @@ header {
 }
 .logo_main div.wrap_logo-sandwich {
 	margin-bottom: 0.8rem;
-	max-width: 34rem;
+	max-width: 34.6rem;
 	width: 84%; // adjust height for mobile
 }
 .logo_main div.wrap_logo-sandwich svg.logo_sandwich {
 	fill: $hsl_navy; // default fill (in case of animation)
 }
-.logo_main div.wrap_logo-video {
-	max-width: 19.8rem;
-	width: 50%; // adjust height for mobile
-}
-.logo_main div.wrap_logo-video svg.logo_video-rainbow {
-	overflow: visible; // otherwise, <path> animation will get chopped off
-}
-// + video letters + \\
-path.video_path-1 {
-	fill: $hsl_red; // default fill
-}
-path.video_path-2 {
-	fill: $hsl_orange; // default fill
-}
-path.video_path-3 {
-	fill: $hsl_yellow; // default fill
-}
-path.video_path-4 {
-	fill: $hsl_aqua; // default fill
-}
-path.video_path-5 {
-	fill: $hsl_cyan; // default fill
-}
 // --- Tagline --- \\
 div.wrap_txt-tagline {
 	margin-left: auto;
 	margin-right: auto;
-	max-width: 28.4rem;
+	max-width: 30.3rem;
 }
 div.wrap_txt-tagline svg {
 	fill: $hsl_navy;
 }
+// --- Video Logo: Rainbow --- \\
+.logo_main div.wrap_logo-video {
+	max-width: 20rem;
+	width: 50%; // adjust height for mobile
+}
+.logo_main div.wrap_logo-video svg {
+	overflow: visible; // otherwise, <path> animation will get chopped off
+}
+// + rainbow letters + \\
+g.rainbow_letter-1 path {
+	fill: $hsl_red; // default fill
+}
+g.rainbow_letter-2 path {
+	fill: $hsl_orange; // default fill
+}
+g.rainbow_letter-3 path {
+	fill: $hsl_yellow; // default fill
+}
+g.rainbow_letter-4 path {
+	fill: $hsl_aqua; // default fill
+}
+g.rainbow_letter-5 path {
+	fill: $hsl_cyan; // default fill
+}
+// + vhs letters + \\
+svg.logo_video-vhs path {
+	fill: $hsl_red; // default fill
+}
 
 // Nav Primary
 // ----------------------------------------------------------------------------
-
-/*
 nav.nav_primary {
 }
-div.nav_wrap {
-	position: fixed;
-	z-index: 400;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	// need to begin in the hidden state
-	opacity: 0;
-	transform: translate3d(-200%,0,0);
-	background-color: $hsl_bone;
-	perspective: 60rem;
-}
-nav.nav_primary.toggled div.nav_wrap {
-	animation: animFade 360ms ease-in-out normal forwards;
-}
-nav.nav_primary.toggled_off div.nav_wrap {
-	animation: animFade 360ms ease-in-out reverse backwards;
-}
-*/
-
 // --- Nav Wrap --- \\
 div.nav_wrap {
 	@include pos_cover(fixed, 400);
@@ -310,17 +312,84 @@ div.nav_wrap ul {
 	position: absolute;
 	top: 50%;
 	width: 100%;
-	transform: rotateX(10deg) translate3d(0,-60%,0);
+	transform: rotateX(10deg) translate3d(0,-55%,0);
 }
-div.nav_wrap ul li {
+div.nav_wrap ul li:nth-child(-n+5) {
 	margin-bottom: 2.4rem;
 }
 div.nav_wrap ul li.nav_twitter {
-	margin-bottom: 0;
+	margin-bottom: 4.8rem;
 }
 div.nav_wrap ul li a {
-	font-size: 2.2rem;
+	font-size: 2rem;
 	color: $hsl_navy;
+}
+// --- Search Form --- \\
+div.nav_wrap ul li.nav_search {
+	position: relative;
+	z-index: 1;
+	margin-left: auto;
+	margin-right: auto;
+	width: 26rem;
+	text-align: left;
+}
+div.nav_wrap ul li.nav_search form {
+}
+div.nav_wrap ul li.nav_search form::before,
+div.nav_wrap ul li.nav_search form::after {
+	content: " ";
+	pointer-events: none;
+	position: absolute;
+	top: 0;
+	width: 4.8rem;
+	height: calc(100% - 0.2rem);
+}
+div.nav_wrap ul li.nav_search form::before {
+	z-index: 5; // always above input
+	left: 0;
+	background: linear-gradient(to right, hsla(180,50%,99%,1), hsla(180,50%,99%,1) 40%, hsla(180,50%,99%,0));
+}
+div.nav_wrap ul li.nav_search form::after {
+	z-index: 3; // above until input focused
+	right: 0;
+	background: linear-gradient(to left, hsla(180,50%,99%,1), hsla(180,50%,99%,1) 40%, hsla(180,50%,99%,0));
+}
+div.nav_wrap ul li.nav_search form input[type="text"] {
+	position: relative;
+	z-index: 2;
+	padding: 0 0.4rem 1rem 0.4rem;
+	width: 100%;
+	font-size: 1.5rem;
+	text-align: center;
+	color: $hsl_L72;
+	background-color: $hsl_bone;
+	border-bottom: 0.2rem solid $hsl_navy;
+}
+div.nav_wrap ul li.nav_search form input[type="text"]:focus {
+	z-index: 4; // when typing, we want our input to be above the ::after fade-gradient
+	color: $hsl_L60;
+}
+div.nav_wrap ul li.nav_search form input[type="text"]:focus::-webkit-input-placeholder {
+	color: $hsl_L60;
+}
+div.nav_wrap ul li.nav_search form input[type="text"]:focus::-moz-placeholder {
+	color: $hsl_L60;
+}
+div.nav_wrap ul li.nav_search form input[type="text"]:focus:-ms-input-placeholder {
+	color: $hsl_L60;
+}
+div.nav_wrap ul li.nav_search form svg.ui_search {
+	pointer-events: none;
+	position: absolute;
+	z-index: 6;
+	top: 0;
+	left: 0;
+	width: 2.2rem;
+	height: 2.2rem;
+	overflow: visible; // top and left seem to get cutoff in FF... making this visible doesn't even fix it :(
+}
+div.nav_wrap ul li.nav_search form svg.ui_search path {
+	stroke: $hsl_navy;
 }
 // --- Nav Toggle --- \\
 a.nav_toggle {
@@ -381,7 +450,7 @@ nav.nav_primary.toggled div.nav_wrap {
 	@include toggle_visibility(on);
 }
 nav.nav_primary.toggled div.nav_wrap ul {
-	transform: rotateX(0deg) translate3d(0,-48%,0);
+	transform: rotateX(0deg) translate3d(0,-40%,0);
 }
 // + nav links do not cycle colours until 768 + \\
 nav.nav_primary ul li a:hover {
@@ -390,6 +459,12 @@ nav.nav_primary ul li a:hover {
 nav.nav_primary ul li a:active {
 	color: $hsl_yellow;
 }
+
+
+
+
+
+
 
 // Footer
 // ----------------------------------------------------------------------------
@@ -426,6 +501,10 @@ nav.nav_categories {
 	margin: 0 auto 3.2rem auto;
 	max-width: 20rem;
 }
+
+
+
+
 // --- Dropdown Trigger --- \\
 a.cat_trigger {
 	display: table;
@@ -442,21 +521,76 @@ a.cat_trigger span {
 	padding-left: 1.6rem;
 	padding-right: 4.2rem;
 }
-a.cat_trigger div.cat_icon {
+
+
+
+
+
+// --- Cat Icon --- \\
+div.cat_icon {
+	display: block;
 	position: absolute;
-	top: calc(4rem / 2 - 0.5rem); // half the height of the container minus half the height of the icon
+	z-index: 401;
+	top: 1.4rem;
 	right: 1.6rem;
-	width: 1rem;
-	height: 1rem;
-	background-color: $hsl_red; // default color: red
-	border-radius: 50%;
+	width: 2rem;
+	height: 1.2rem;
 }
+div.cat_icon div.cat_line {
+	position: absolute;
+	left: 0;
+	width: 100%;
+	height: 0.2rem;
+}
+div.cat_icon div.cat_line div.line_bg {
+	height: 100%;
+	background-color: $hsl_red; // default background-color
+}
+// + each line + \\
+div.cat_icon div.line-1 {
+	top: 0;
+}
+div.cat_icon div.line-2 {
+	top: 0.5rem;
+}
+div.cat_icon div.line-3 {
+	top: 1rem;
+}
+// + toggled + \\
+nav.nav_categories.toggled div.cat_icon {
+	transform: rotate(180deg);
+}
+nav.nav_categories.toggled div.cat_icon div.line-1 {
+	transform: translate3d(0,0.5rem,0) rotate(-45deg);
+}
+nav.nav_categories.toggled div.cat_icon div.line-3 {
+	transform: translate3d(0,-0.5rem,0) rotate(45deg);
+}
+nav.nav_categories.toggled div.cat_icon div.line-2 div.line_bg {
+	opacity: 0;
+}
+
+nav.nav_categories.toggled[data-color] div.cat_icon div.line-1 div.line_bg,
+nav.nav_categories.toggled[data-color] div.cat_icon div.line-3 div.line_bg {
+	background-color: $hsl_L100;
+}
+
+
+
+
+
+
+
+
+
 // --- Dropdown List --- \\
 div.wrap_dropdown,
 div.wrap_dropdown ul,
 div.wrap_dropdown div.fix_ios-scroll {
 	background-color: $hsl_red; // be sure there is no chance ios rubber band will show a difference background
 }
+
+
 div.wrap_dropdown {
 	@include toggle_visibility(off);
 	position: absolute;
@@ -476,15 +610,13 @@ div.wrap_dropdown ul li a {
 	padding: 1.2rem 1.6rem 1.3rem 1.6rem;
 	font-size: 1.5rem;
 	color: $hsl_bone;
-	background-color: $hsl_red;
 }
 div.wrap_dropdown ul li.cat_current a {
 	pointer-events: none;
-	background-color: $hsl_yellow;
 }
 // + dropdown scrollable + \\
 div.wrap_dropdown.scrollable {
-	height: 28rem;
+	height: 28rem; // height of row (40px) * 7
 }
 div.wrap_dropdown div.fix_ios-scroll { // required only get to iOS to behave
 /*
@@ -531,16 +663,13 @@ a.cat_trigger:hover {
 	color: $hsl_orange;
 	border-color: $hsl_orange;
 }
-a.cat_trigger:hover div.cat_icon {
-	background-color: $hsl_orange;
-}
-// + cat links do not cycle colours until 768 + \\
-div.wrap_dropdown ul li a:hover {
-	background-color: $hsl_orange;
-}
-div.wrap_dropdown ul li a:active {
-	background-color: $hsl_red;
-}
+
+
+
+
+
+
+
 
 // Isotope
 // ----------------------------------------------------------------------------
@@ -588,7 +717,7 @@ section.iso_container article a:hover div.iso_logo img.iso_logo-on {
 	opacity: 1;
 }
 
-// SHOULD I IMPLEMENT A FALLBACK FOR IS ISOTOPE FAILS TO LOAD / LAYOUT?
+// SHOULD I IMPLEMENT A FALLBACK FOR IF ISOTOPE FAILS TO LOAD / LAYOUT?
 
 // Isotope Loader
 // ----------------------------------------------------------------------------
@@ -634,20 +763,50 @@ html.ie9 div.iso_loader {
 // Alternating Colours
 // ----------------------------------------------------------------------------
 // + red links + \\
+nav.nav_categories[data-color="red"] a.cat_trigger { color: $hsl_red; border-color: $hsl_red; }
+div.wrap_dropdown ul li a.color_red,
+nav.nav_categories[data-color="red"] div.cat_icon div.cat_line div.line_bg { background-color: $hsl_red; }
 footer h4 a.color_red:hover { color: $hsl_red; }
 footer h4 a.color_red:active { color: darken($hsl_red, 20%); }
 // + orange links + \\
+nav.nav_categories[data-color="orange"] a.cat_trigger { color: $hsl_orange; border-color: $hsl_orange; }
+div.wrap_dropdown ul li a.color_orange,
+nav.nav_categories[data-color="orange"] div.cat_icon div.cat_line div.line_bg { background-color: $hsl_orange; }
 footer h4 a.color_orange:hover { color: $hsl_orange; }
 footer h4 a.color_orange:active { color: darken($hsl_orange, 20%); }
 // + yellow links + \\
+nav.nav_categories[data-color="yellow"] a.cat_trigger { color: $hsl_yellow; border-color: $hsl_yellow; }
+div.wrap_dropdown ul li a.color_yellow,
+nav.nav_categories[data-color="yellow"] div.cat_icon div.cat_line div.line_bg { background-color: $hsl_yellow; }
 footer h4 a.color_yellow:hover { color: $hsl_yellow; }
 footer h4 a.color_yellow:active { color: darken($hsl_yellow, 20%); }
 // + aqua links + \\
+nav.nav_categories[data-color="aqua"] a.cat_trigger,
+nav.nav_categories[data-current="*"] a.cat_trigger { color: $hsl_aqua; border-color: $hsl_aqua; }
+div.wrap_dropdown ul li a.color_aqua,
+div.wrap_dropdown ul li:nth-child(1) a,
+nav.nav_categories[data-color="aqua"] div.cat_icon div.cat_line div.line_bg,
+nav.nav_categories[data-current="*"] div.cat_icon div.cat_line div.line_bg { background-color: $hsl_aqua; }
 footer h4 a.color_aqua:hover { color: $hsl_aqua; }
 footer h4 a.color_aqua:active { color: darken($hsl_aqua, 20%); }
 // + cyan links + \\
+nav.nav_categories[data-color="cyan"] a.cat_trigger,
+nav.nav_categories[data-current=".curated"] a.cat_trigger { color: $hsl_cyan; border-color: $hsl_cyan; }
+div.wrap_dropdown ul li a.color_cyan,
+div.wrap_dropdown ul li:nth-child(2) a,
+nav.nav_categories[data-color="cyan"] div.cat_icon div.cat_line div.line_bg,
+nav.nav_categories[data-current=".curated"] div.cat_icon div.cat_line div.line_bg { background-color: $hsl_cyan; }
 footer h4 a.color_cyan:hover { color: $hsl_cyan; }
 footer h4 a.color_cyan:active { color: darken($hsl_cyan, 20%); }
+
+
+
+
+
+
+
+
+
 
 // Page Load
 // ----------------------------------------------------------------------------
@@ -655,19 +814,36 @@ footer h4 a.color_cyan:active { color: darken($hsl_cyan, 20%); }
 .logo_main div.wrap_logo-sandwich {
 	animation: animOpacity 800ms ease-in-out 200ms both;
 }
-$numDelay: 600;
-@for $i from 1 through 5 { // assumes 5 letters
-	g.video_group-#{$i} {
-		animation: animOpacity 400ms ease-in-out #{$numDelay}ms both;
-	}
-	path.video_path-#{$i} {
-		animation: animBounceUp 400ms cubic-bezier(0.215,0.610,0.355,1) #{$numDelay}ms both;
-	}
-	$numDelay: $numDelay + 100;
-}
 div.wrap_txt-tagline {
 	animation: animOpacity 800ms ease-in-out 1000ms both; // could transition fill instead?
 }
+// + rainbow letters + \\
+$numDelay: 600;
+@for $i from 1 through 5 { // assumes 5 letters
+	g.rainbow_letter-#{$i} {
+		animation: animOpacity 400ms ease-in-out #{$numDelay}ms both;
+	}
+	g.rainbow_letter-#{$i} path {
+		animation: animBounceUp 400ms $easeBounce #{$numDelay}ms both;
+	}
+	$numDelay: $numDelay + 100;
+}
+
+
+
+// + vhs letters + \\
+
+$numDelay: 800;
+@for $i from 1 through 5 { // assumes 5 letters
+	svg.logo_video-vhs g path.group_path-#{$i} {
+		animation: animVHSwipe 480ms $easeBounce #{$numDelay}ms both;
+	}
+	$numDelay: $numDelay + 100;
+}
+
+
+
+
 // + nav primary + \\
 a.nav_toggle div.wrap_lines div.line-1 {
 	animation: animSlideIn_left 400ms ease-out 1200ms both;

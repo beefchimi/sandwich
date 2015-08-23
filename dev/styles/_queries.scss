@@ -15,8 +15,14 @@
 	// Nav Primary
 	// ----------------------------------------------------------------------------
 	// --- Nav Wrap --- \\
-	div.nav_wrap ul li {
+	div.nav_wrap ul li:nth-child(-n+5) {
 		margin-bottom: 1.8rem;
+	}
+	div.nav_wrap ul li.nav_twitter {
+		margin-bottom: 2.8rem;
+	}
+	div.nav_wrap ul li a {
+		font-size: 1.8rem;
 	}
 	// --- Nav Toggle --- \\
 	a.nav_toggle {
@@ -77,6 +83,9 @@
 	nav.nav_primary {
 		transition: transform 260ms ease-in-out;
 	}
+	div.nav_wrap ul li.nav_search form input[type="text"] {
+		transition: width 600ms $easeInOutBack, opacity 600ms $easeInOutBack; // runs when entering 768px width... can i prevent?
+	}
 	// --- Animations --- \\
 	@keyframes animSlideUp {
 		  0% { opacity: 0; transform: translate3d(0,2rem,0); }
@@ -87,7 +96,6 @@
 		 60% { transform: translate3d(0,-0.8rem,0);            }
 		100% { transform: translate3d(0,0,0);      opacity: 1; }
 	}
-
 	@keyframes animRbow_color-border {
 		  0% { color: $hsl_red;    border-color: $hsl_red;    }
 		 20% { color: $hsl_orange; border-color: $hsl_orange; }
@@ -144,6 +152,18 @@
 		81%, 100% { fill: $hsl_aqua;   }
 	}
 
+	@keyframes animVHSwipe {
+/*
+		  0% { opacity: 0; transform: translate3d(-1.6rem,0,0);  }
+		 60% { transform: translate3d(0.2rem,0,0); }
+		100% { opacity: 1; transform: translate3d(0,0,0); }
+*/
+		  0% { opacity: 0; transform: translate3d(-1.6rem,0,0);  }
+		 50% { transform: translate3d(0.4rem,0,0); }
+		 75% { transform: translate3d(-0.2rem,0,0); }
+		100% { opacity: 1; transform: translate3d(0,0,0); }
+	}
+
 	// Header
 	// ----------------------------------------------------------------------------
 	header {
@@ -190,13 +210,15 @@
 	nav.nav_primary.toggled div.nav_wrap ul {
 		transform: none;
 	}
-	div.nav_wrap ul li {
+	div.nav_wrap ul li:nth-child(-n+5) {
 		display: inline-block;
-		margin-right: 3.2rem;
-		margin-bottom: 0;
 	}
-	div.nav_wrap ul li:nth-last-child(2) {
-		margin-right: 0;
+	div.nav_wrap ul li:nth-child(-n+4) {
+		margin-right: 3.2rem;
+	}
+	div.nav_wrap ul li:nth-child(-n+5),
+	div.nav_wrap ul li.nav_twitter {
+		margin-bottom: 0;
 	}
 	div.nav_wrap ul li.nav_twitter {
 		position: absolute;
@@ -206,6 +228,52 @@
 	}
 	div.nav_wrap ul li a {
 		font-size: 1.5rem;
+	}
+	// --- Search Form --- \\
+	div.nav_wrap ul li.nav_search {
+		position: absolute;
+		z-index: 1;
+		left: 0;
+		top: -0.2rem;
+		margin-left: 0;
+		margin-right: 0;
+		width: auto;
+	}
+	div.nav_wrap ul li.nav_search form::before,
+	div.nav_wrap ul li.nav_search form::after {
+		display: none;
+		width: auto;
+		height: auto;
+		background: transparent;
+	}
+	div.nav_wrap ul li.nav_search form input[type="text"] {
+		padding-left: 3.6rem;
+		width: 3.6rem;
+		text-align: left;
+		opacity: 0;
+		cursor: pointer;
+	}
+	div.nav_wrap ul li.nav_search form input[type="text"]:focus {
+		width: calc(100vw - 19rem); // only until 1024px
+		opacity: 1;
+		cursor: text;
+	}
+	div.nav_wrap ul li.nav_search form svg.ui_search {
+		top: -0.2rem;
+		left: -0.2rem;
+		width: 2.6rem;
+		height: 2.6rem;
+	}
+	div.nav_wrap ul li.nav_search form svg.ui_search path {
+		opacity: 0;
+		stroke-dasharray: 155;
+		stroke-dashoffset: 155;
+	}
+	div.nav_wrap ul li.nav_search form input[type="text"]:hover + svg.ui_search path {
+		stroke: $hsl_red;
+	}
+	div.nav_wrap ul li.nav_search form input[type="text"]:focus + svg.ui_search path {
+		stroke: $hsl_navy;
 	}
 	// --- Nav Toggle --- \\
 	a.nav_toggle {
@@ -235,7 +303,7 @@
 	// ----------------------------------------------------------------------------
 	nav.nav_categories {
 		margin-bottom: 6.4rem;
-		max-width: 70rem;
+		max-width: 80rem;
 	}
 	// --- Dropdown Trigger --- \\
 	a.cat_trigger {
@@ -269,13 +337,11 @@
 		padding: 0.8rem 1.2rem 1rem 1.2rem;
 		font-size: 1.4rem;
 		color: $hsl_navy;
-		background-color: transparent;
 		border: 0.1rem solid transparent; // does a border-color need to be applied for each cycle?
 		border-radius: 0.8rem;
 	}
 	div.wrap_dropdown ul li.cat_current a {
 		color: $hsl_red; // 0% state of animation ... without this, there is a jump on loop
-		background-color: transparent;
 		border-color: $hsl_red; // 0% state of animation ... without this, there is a jump on loop
 	}
 
@@ -323,11 +389,9 @@
 	// + default transitions + \\
 	div.wrap_dropdown ul li a:hover {
 		color: $hsl_red;
-		background-color: transparent;
 	}
 	div.wrap_dropdown ul li a:active {
 		color: darken($hsl_red, 10%);
-		background-color: transparent;
 	}
 
 	// Isotope
@@ -372,6 +436,13 @@
 
 	// Alternating Colours
 	// ----------------------------------------------------------------------------
+	div.wrap_dropdown ul li a.color_red,
+	div.wrap_dropdown ul li a.color_orange,
+	div.wrap_dropdown ul li a.color_yellow,
+	div.wrap_dropdown ul li a.color_aqua,
+	div.wrap_dropdown ul li a.color_cyan,
+	div.wrap_dropdown ul li:nth-child(1) a,
+	div.wrap_dropdown ul li:nth-child(2) a { background-color: transparent; }
 	// + rainbow links + \\
 	div.wrap_dropdown ul li a.color_rainbow:hover { animation: animRbow_color 600ms linear infinite; }
 	div.wrap_dropdown ul li.cat_current a.color_rainbow { animation: animRbow_color-border 600ms linear infinite; }
@@ -425,33 +496,36 @@
 	}
 	// + header + \\
 	@for $i from 1 through 5 { // assumes 5 letters
-		html.ready g.video_group-#{$i},
-		html.ready path.video_path-#{$i} {
+		html.ready g.rainbow_letter-#{$i},
+		html.ready g.rainbow_letter-#{$i} path {
 			animation: none;
 		}
-		html.ready div.wrap_logo-video:hover path.video_path-#{$i} {
+		html.ready div.wrap_video-rainbow:hover g.rainbow_letter-#{$i} path {
 			animation: animRbowInst_path-#{$i} 400ms linear infinite reverse;
 		}
 	}
 	div.wrap_txt-tagline {
-		animation: animSlideUp 400ms ease-in-out 1s both;
+		animation: animSlideUp 400ms ease-in-out 1000ms both;
 	}
 	// + nav primary + \\
 	$numDelay: 600;
-	@for $i from 1 through 5 { // assumes 5 nav items (excluding twitter)
+	@for $i from 1 through 5 { // assumes 5 nav items (excluding twitter and search)
 		div.nav_wrap ul li:nth-child(#{$i}) {
-			animation: animBounceUpFade 400ms cubic-bezier(0.215,0.610,0.355,1) #{$numDelay}ms both;
+			animation: animBounceUpFade 400ms $easeBounce #{$numDelay}ms both;
 		}
 		$numDelay: $numDelay + 100;
 	}
 	div.nav_wrap ul li.nav_twitter {
 		animation: animOpacity 600ms ease-in-out 1600ms both;
 	}
+	div.nav_wrap ul li.nav_search form svg.ui_search path {
+		animation: animSVGPath 1000ms $easeBounce 1600ms forwards;
+	}
 	// + nav categories + \\
 	$numDelay: 1000;
-	@for $i from 1 through 15 { // assumes 15 nav items
+	@for $i from 1 through 20 { // assume a maximum of 20 nav items
 		div.wrap_dropdown ul li:nth-child(#{$i}) {
-			animation: animBounceUpFade 300ms cubic-bezier(0.215,0.610,0.355,1) #{$numDelay}ms both;
+			animation: animBounceUpFade 300ms $easeBounce #{$numDelay}ms both;
 		}
 		$numDelay: $numDelay + 40;
 	}
@@ -471,6 +545,34 @@
 	}
 	section.iso_container div.iso_gutter {
 		width: 4.464286%; // 120 / 3 = 40 / 896 = 4.464286%
+	}
+
+}
+
+@media only screen and (min-width: 1024px) {
+
+	$easeInOutBack: cubic-bezier(0.680,-0.550,0.265,1.550);
+
+// ==|== primary styles =======================================================
+// ============================================================================
+
+	// Transitions & Animations
+	// ----------------------------------------------------------------------------
+	div.nav_wrap ul li.nav_search form input[type="text"] {
+		transition: width 600ms $easeInOutBack, opacity 800ms $easeInOutCirc; // redefine, since we have updated out easeing variable
+	}
+
+	// Nav Primary
+	// ----------------------------------------------------------------------------
+	// --- Search Form --- \\
+	div.nav_wrap ul li.nav_search {
+		width: 23.2rem;
+	}
+	div.nav_wrap ul li.nav_search form input[type="text"] {
+		transition-duration: 260ms;
+	}
+	div.nav_wrap ul li.nav_search form input[type="text"]:focus {
+		width: 100%;
 	}
 
 }
@@ -523,6 +625,16 @@
 }
 
 @media only screen and (min-width: 1736px) {
+
+// ==|== primary styles =======================================================
+// ============================================================================
+
+	// Nav Primary
+	// ----------------------------------------------------------------------------
+	// --- Search Form --- \\
+	div.nav_wrap ul li.nav_search {
+		width: 31.2rem;
+	}
 
 // ==|== main styles ==========================================================
 // ============================================================================

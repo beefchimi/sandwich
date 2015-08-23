@@ -14,31 +14,36 @@ var gulp       = require('gulp'),
 var paths = {
 
 	haml: {
-		src : 'dev/haml/',
-		dest: 'build/'
+		src  : 'dev/haml/',
+		dest : 'build/'
 	},
 	styles: {
-		src : 'dev/styles/',
-		dest: 'build/assets/css/'
+		src  : 'dev/styles/',
+		dest : 'build/assets/css/'
 	},
 	scripts: {
-		src : 'dev/scripts/*.js',
-		// vndr: 'dev/scripts/vendor/*.js',
-		dest: 'build/assets/js/'
+		src  : 'dev/scripts/scripts.js',
+		vndr : 'dev/scripts/vendor/*.js',
+		plgn : 'dev/scripts/plugins/*.js',
+		dest : 'build/assets/js/'
 	},
 	maps: {
-		src : 'build/assets/maps/src/'
+		src  : 'build/assets/maps/src/'
 	},
 	images: {
-		src : 'dev/media/images/*.{png,jpg,gif}',
-		dest: 'build/assets/img/'
+		src  : 'dev/media/images/*.{png,jpg,gif}',
+		dest : 'build/assets/img/'
 	},
 	svg: {
-		src : 'dev/media/svg/*.svg'
+		src  : 'dev/media/svg/*.svg'
 	},
-	extra: {
+	misc: {
 		root : 'dev/extra/root/',
 		dest : 'build/'
+	},
+	fonts: {
+		src  : 'dev/extra/fonts/*',
+		dest : 'build/assets/fonts/'
 	}
 
 };
@@ -76,37 +81,65 @@ gulp.task('styles', function() {
 });
 
 
-// Concat and Output Scripts
-gulp.task('scripts', function() { // ['copy-scripts'],
+// Concat and output plugins scripts
+gulp.task('plugins', function() {
 
-	// sourcemaps not working, for whatever fucking reason
+	// SHOULD BE CHECKING IF FILES ARE CHANGED:
+	// HOW DO I KNOW IF THE PRE-CONCATTED/MINIFIED FILES HAVE CHANGED?
 
-	return gulp.src(paths.scripts.src)
+	// sourcemaps straight up DO NOY WORK
+
+	return gulp.src(paths.scripts.plgn)
+
+		// .pipe(plugins.changed(paths.scripts.dest))
+
 		// .pipe(plugins.sourcemaps.init())
-			.pipe(plugins.concat('scripts.min.js'))
-			// .pipe(plugins.uglify())
+
+			.pipe(plugins.concat('plugins.min.js'))
+			.pipe(plugins.uglify())
+
+		// .pipe(plugins.sourcemaps.write('../maps'))
+
 /*
 		.pipe(plugins.sourcemaps.write('../maps', {
 			includeContent: false,
 			sourceRoot: 'src'
 		}))
 */
+
 		.pipe(gulp.dest(paths.scripts.dest))
 		.pipe(plugins.livereload());
 
 });
 
 
-// Copy dev scripts to source maps folder
-gulp.task('copy-scripts', function() {
+// Concat and output custom scripts
+gulp.task('scripts', function() { // ['copy-scripts'],
+
+	// sourcemaps straight up DO NOY WORK
 
 	return gulp.src(paths.scripts.src)
-		.pipe(gulp.dest(paths.maps.src));
+
+		// .pipe(plugins.sourcemaps.init())
+
+			.pipe(plugins.concat('scripts.min.js'))
+			.pipe(plugins.uglify())
+
+		// .pipe(plugins.sourcemaps.write('../maps'))
+
+/*
+		.pipe(plugins.sourcemaps.write('../maps', {
+			includeContent: false,
+			sourceRoot: 'src'
+		}))
+*/
+
+		.pipe(gulp.dest(paths.scripts.dest))
+		.pipe(plugins.livereload());
 
 });
 
 
-/*
 // Copy (if changed) all of our vendor scripts to the build js folder
 gulp.task('vendor', function() {
 
@@ -115,10 +148,20 @@ gulp.task('vendor', function() {
 		.pipe(gulp.dest(paths.scripts.dest));
 
 });
+
+
+/*
+// Copy dev scripts to source maps folder
+gulp.task('copy-scripts', function() {
+
+	return gulp.src(paths.scripts.src)
+		.pipe(gulp.dest(paths.maps.src));
+
+});
 */
 
 
-// Check for changed image files and compress them
+// Compress (if changed) all of our images
 gulp.task('images', function() {
 
 	return gulp.src(paths.images.src)
@@ -133,7 +176,7 @@ gulp.task('images', function() {
 });
 
 
-// Compress and built SVG sprite, then inject into build .html files (only after running HAML task)
+// Compress and build SVG sprite (make ready for injection)
 gulp.task('svg', function() {
 
 	return gulp.src(paths.svg.src)
@@ -151,10 +194,11 @@ gulp.task('svg', function() {
 });
 
 
-// Compile only main HAML files (ignore partials - included via the main files)
+// Compile only main HAML files (ignore partials - included via the main files), then inject SVG sprite
 gulp.task('haml', function() {
 
-	// should use an if statement to skip the injection if no SVGs are found
+	// should use an if statement to skip the injection if no SVGs are found...
+
 	var svgSource = gulp.src(paths.images.dest + 'svg.svg');
 
 	function fileContents(filePath, file) {
@@ -173,20 +217,29 @@ gulp.task('haml', function() {
 
 
 // Copy (if changed) all of our miscellaneous files to the build folder
-gulp.task('extras', function() {
+gulp.task('misc', ['fonts'], function() {
 
-	// currently manually copying fonts folder into assets
-	return gulp.src([paths.extra.root + '*.*', paths.extra.root + '.htaccess'])
-		.pipe(plugins.changed(paths.extra.dest)) // not sure how to check if this is working or not
-		.pipe(gulp.dest(paths.extra.dest));
+	return gulp.src(paths.misc.root + '*') // [paths.extra.root + '*.*', paths.extra.root + '.htaccess']
+		.pipe(plugins.changed(paths.misc.dest))
+		.pipe(gulp.dest(paths.misc.dest));
 
 });
 
 
-// Use rsync to deploy to server (no need to exclude files since everything comes from 'build' folder)
+// Copy (if changed) all of our fonts to the build folder
+gulp.task('fonts', function() {
+
+	return gulp.src(paths.fonts.src)
+		.pipe(plugins.changed(paths.fonts.dest))
+		.pipe(gulp.dest(paths.fonts.dest));
+
+});
+
+
+// Use rsync to deploy to server
 gulp.task('deploy', function() {
 
-	gulp.src('build/') // ['build/.htaccess', 'build/index.html', 'build/assets/**']
+	gulp.src('build/')
 		.pipe(plugins.rsync({
 			root: 'build',
 			hostname: secrets.server.host,
@@ -215,4 +268,4 @@ gulp.task('watch', function() {
 
 
 // Default gulp task
-gulp.task('default', ['svg', 'styles', 'scripts', 'extras', 'haml']); // remove 'images' task as it takes LONG
+gulp.task('default', ['svg', 'styles', 'scripts', 'misc', 'haml']); // haml comes last so SVGs can compile | remove 'images' task as it takes LONG

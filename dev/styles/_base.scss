@@ -68,6 +68,11 @@ textarea { overflow: auto; }
 optgroup { font-weight: bold; }
 button, input, textarea { outline: none; background: none; border: none;  } // added by me
 button, input, select, textarea { border-radius: 0; } // added by me
+// remove red border for invalid entries
+input, input:focus, input:invalid { box-shadow: none; }
+::-webkit-input-placeholder { box-shadow: none; }
+::-moz-placeholder { box-shadow: none; }
+:-ms-input-placeholder { box-shadow: none; }
 
 // Tables
 // ----------------------------------------------------------------------------

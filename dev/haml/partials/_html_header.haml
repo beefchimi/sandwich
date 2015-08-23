@@ -27,15 +27,23 @@
 					%a.color_random{:href => "#", :title => "Contact"} Contact
 				%li#nav_twitter.nav_twitter
 					%a.color_random{:href => "https://twitter.com/sandwich", :title => "Follow @sandwich", :target => "_blank"} @sandwich
+				%li#nav_search.nav_search
+					%form#search_posts.search_posts{:action => "/search", :method => "get", :role => "search"}
+						%input.search_text{:type => "text", :name => "search", :value => "", :autocomplete => "off", :placeholder => "Find a specific video", :required => true}
+						-# %input.search_submit{:type => "submit", :value => "Search"}
+						-# not using .wrap_svg because of pointer-event support
+						= Haml::Engine.new(File.read("dev/haml/partials/_svg_search.haml")).render
 
 	-# %a.logo_main{:href => "#", :title => "Back To Home"}
 	.logo_main
 		.wrap_svg.wrap_logo-sandwich
-			%svg.logo_sandwich{:viewBox => "0 0 340 48"}
+			%svg.logo_sandwich{:viewBox => "0 0 346 48"}
 				%use{"xlink:href" => "#logo_sandwich"}
-		.wrap_svg.wrap_logo-video
-			= Haml::Engine.new(File.read("dev/haml/partials/_svg_logo-video.haml")).render
+		.wrap_svg.wrap_logo-video.wrap_video-vhs
+			= Haml::Engine.new(File.read("dev/haml/partials/_svg_video-vhs.haml")).render
+		-# .wrap_svg.wrap_logo-video.wrap_video-rainbow
+			-# = Haml::Engine.new(File.read("dev/haml/partials/_svg_video-rainbow.haml")).render
 
 	.wrap_svg.wrap_txt-tagline
-		%svg.txt_tagline.svg_inline{:viewBox => "0 0 284 32"}
+		%svg.txt_tagline.svg_inline{:viewBox => "0 0 303 31"}
 			%use{"xlink:href" => "#txt_tagline"}

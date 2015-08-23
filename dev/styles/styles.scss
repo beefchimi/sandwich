@@ -3,18 +3,25 @@
 
 // HSL Colors
 $hsl_bone:   hsl(180, 50%,  99%);
-$hsl_red:    hsl(3,   85%,  56%);
+$hsl_red:    hsl(2,   80%,  56%);
 $hsl_orange: hsl(25, 100%,  58%);
 $hsl_yellow: hsl(52,  88%,  48%);
 $hsl_aqua:   hsl(171, 81%,  45%);
 $hsl_cyan:   hsl(194, 76%,  51%);
 $hsl_navy:   hsl(212, 59%,  22%);
+
 $hsl_L0:     hsl(0,    0%,   0%);
 $hsl_L60:    hsl(0,    0%,  60%);
+$hsl_L72:    hsl(0,    0%,  72%);
 $hsl_L100:   hsl(0,    0%, 100%);
 
 // HSLa Colors
 $hsla_bone-L98: hsla(180,50%,99%,0.98);
+
+// custom easting
+$easeBounce:    cubic-bezier(0.215,0.610,0.355,1);
+$easeInOutCirc: cubic-bezier(0.785,0.135,0.150,0.860);
+$easeInOutBack: cubic-bezier(0.680,-0.400,0.265,1.400); // was: -0.550 & 1.550 ... reduced because of :focus input overlap
 
 // SASS Mixins
 // ----------------------------------------------------------------------------

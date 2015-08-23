@@ -1,3 +1,95 @@
+/*!
+ * classie v1.0.1
+ * class helper functions
+ * from bonzo https://github.com/ded/bonzo
+ * MIT license
+ *
+ * classie.has( elem, 'my-class' ) -> true/false
+ * classie.add( elem, 'my-new-class' )
+ * classie.remove( elem, 'my-unwanted-class' )
+ * classie.toggle( elem, 'my-class' )
+ */
+
+/*jshint browser: true, strict: true, undef: true, unused: true */
+/*global define: false, module: false */
+
+( function( window ) {
+
+'use strict';
+
+// class helper functions from bonzo https://github.com/ded/bonzo
+
+function classReg( className ) {
+  return new RegExp("(^|\\s+)" + className + "(\\s+|$)");
+}
+
+// classList support for class management
+// altho to be fair, the api sucks because it won't accept multiple classes at once
+var hasClass, addClass, removeClass;
+
+if ( 'classList' in document.documentElement ) {
+  hasClass = function( elem, c ) {
+    return elem.classList.contains( c );
+  };
+  addClass = function( elem, c ) {
+    elem.classList.add( c );
+  };
+  removeClass = function( elem, c ) {
+    elem.classList.remove( c );
+  };
+}
+else {
+  hasClass = function( elem, c ) {
+    return classReg( c ).test( elem.className );
+  };
+  addClass = function( elem, c ) {
+    if ( !hasClass( elem, c ) ) {
+      elem.className = elem.className + ' ' + c;
+    }
+  };
+  removeClass = function( elem, c ) {
+    elem.className = elem.className.replace( classReg( c ), ' ' );
+  };
+}
+
+function toggleClass( elem, c ) {
+  var fn = hasClass( elem, c ) ? removeClass : addClass;
+  fn( elem, c );
+}
+
+var classie = {
+  // full names
+  hasClass: hasClass,
+  addClass: addClass,
+  removeClass: removeClass,
+  toggleClass: toggleClass,
+  // short names
+  has: hasClass,
+  add: addClass,
+  remove: removeClass,
+  toggle: toggleClass
+};
+
+// transport
+if ( typeof define === 'function' && define.amd ) {
+  // AMD
+  define( classie );
+} else if ( typeof exports === 'object' ) {
+  // CommonJS
+  module.exports = classie;
+} else {
+  // browser global
+  window.classie = classie;
+}
+
+})( window );
+
+
+console.log('scripts begin');
+
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
 
 
@@ -145,12 +237,13 @@ document.addEventListener('DOMContentLoaded', function() {
 	// ----------------------------------------------------------------------------
 	function categoryDropdown(pISO) {
 
-		// it does exist! define our remaining variables
 		var elNavCatTrigger   = document.getElementById('cat_trigger'),
 			elNavCatLabel     = elNavCatTrigger.getElementsByClassName('cat_label')[0],
 			elNavLinkCurrent  = elNavCat.getElementsByClassName('cat_current')[0], // elNavCat.querySelector('.cat_current'),
 			arrCatLinks       = elNavCat.getElementsByClassName('cat_link'),
 			numCatLinksLength = arrCatLinks.length;
+
+
 
 		// click elNavCatTrigger to toggle dropdown
 		elNavCatTrigger.addEventListener('click', function(e) {
@@ -159,19 +252,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 			classie.toggle(elNavCat, 'toggled'); // add / remove 'toggled' class from elNavCat
 
-/*
-			if ( classie.has(elNavCat, 'toggled') ) {
-
-				classie.remove(elNavCat, 'toggled');
-				unlockBody();
-
-			} else {
-
-				classie.add(elNavCat, 'toggled');
-				lockBody();
-
-			}
-*/
+			// if ( classie.has(elNavCat, 'toggled') ) { classie.remove(elNavCat, 'toggled'); unlockBody(); } else { classie.add(elNavCat, 'toggled'); lockBody(); }
 
 		});
 
@@ -196,11 +277,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		// register clickCatLink for each a.cat_link found
 		for (var i = 0; i < numCatLinksLength; i++) {
-			clickCatLink(arrCatLinks[i]);
+			clickCatLink(arrCatLinks[i], i);
 		}
 
 		// close dropdown and filter categories using Isotope
-		function clickCatLink(thisCatLink) {
+		function clickCatLink(thisCatLink, index) {
 
 			thisCatLink.addEventListener('click', function(e) {
 
@@ -232,39 +313,57 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		}
 
+
+
+		function positionDropdown() {
+
+			// elNavCatList.style.paddingTop = -numDropdownPos + 'px';
+
+			elNavCatList.style.transform = 'translate3d(0,' + -numDropdownPos + 'px,0)';
+
+			// get currently selected item from array
+			// multiply index number by height of row
+			// set top position
+
+		}
+
+		// positionDropdown();
+
+
+
+/*
+		var elNavCatList      = document.getElementById('cat_list'),
+			numCatCurrent     = 1, // 'curated' is the default option on page load...
+			numCatLinkHeight  = arrCatLinks[0].offsetHeight,
+			numDropdownPos    = numCatLinkHeight * numCatCurrent;
+*/
+
+
+
 	}
 
 
-/*
-	var elNavMobileLine3 = document.getElementById('line-3'),
-		elNavTwitter     = document.getElementById('nav_twitter'); // final animated element for desktop
-*/
 
-/*
-		// if < 768
-			// apply class '
 
-		if (numWinWidth < 768) {
-			elHTML.setAttribute('data-device', 'mobile');
-		} else {
-			elHTML.setAttribute('data-device', 'desktop');
-		}
+// rowHeight = 40px
+// rowsVisible = 7
+// dropdownHeight = 280px (rowHeight * rowsVisible)
+// rowCount = 14 (15 actual rows)
+// threshold = Math.floor(rowsVisible / 2)
+// topThreshold = first threshold rows [0,1,2]
+// bottomThreshold = last threshold rows [14,13,12]
+// defaultTopPos = rowHeight * threshold
 
-		if ( elHTML.getAttribute('data-device') == 'mobile' ) {
+// if - selected row is within the topThreshold :
+	// top = dropdownHeight * topThreshold[currentRow]
+// else if - selected row is within the bottomThreshold :
+	// top = dropdownHeight * bottomThreshold[currentRow]
+// else
+	// top = defaultTopPos + 'px'
 
-			elNavMobileLine3.addEventListener(animationEvent, mobileReadyState);
 
-		}
 
-		function mobileReadyState() {
 
-			classie.add(elHTML, 'ready');
-			elNavTwitter.removeEventListener(animationEvent, applyReadyState);
-
-			console.log('animations have ended');
-
-		}
-*/
 
 
 	// finalAnimate: Inform the document when we have finished our loading animations
