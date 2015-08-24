@@ -3,6 +3,7 @@
 
 // HSL Colors
 $hsl_bone:   hsl(180, 50%,  99%);
+$hsl_ash:    hsl(198, 5%,   60%);
 $hsl_red:    hsl(2,   80%,  56%);
 $hsl_orange: hsl(25, 100%,  58%);
 $hsl_yellow: hsl(52,  88%,  48%);
@@ -42,6 +43,13 @@ $easeInOutBack: cubic-bezier(0.680,-0.400,0.265,1.400); // was: -0.550 & 1.550 .
 	bottom: auto;
 	left: auto;
 	margin: 0;
+}
+@mixin flex_center() {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	text-align: center;
 }
 
 @mixin toggle_visibility($state) {

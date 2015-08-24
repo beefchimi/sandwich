@@ -1,95 +1,3 @@
-/*!
- * classie v1.0.1
- * class helper functions
- * from bonzo https://github.com/ded/bonzo
- * MIT license
- *
- * classie.has( elem, 'my-class' ) -> true/false
- * classie.add( elem, 'my-new-class' )
- * classie.remove( elem, 'my-unwanted-class' )
- * classie.toggle( elem, 'my-class' )
- */
-
-/*jshint browser: true, strict: true, undef: true, unused: true */
-/*global define: false, module: false */
-
-( function( window ) {
-
-'use strict';
-
-// class helper functions from bonzo https://github.com/ded/bonzo
-
-function classReg( className ) {
-  return new RegExp("(^|\\s+)" + className + "(\\s+|$)");
-}
-
-// classList support for class management
-// altho to be fair, the api sucks because it won't accept multiple classes at once
-var hasClass, addClass, removeClass;
-
-if ( 'classList' in document.documentElement ) {
-  hasClass = function( elem, c ) {
-    return elem.classList.contains( c );
-  };
-  addClass = function( elem, c ) {
-    elem.classList.add( c );
-  };
-  removeClass = function( elem, c ) {
-    elem.classList.remove( c );
-  };
-}
-else {
-  hasClass = function( elem, c ) {
-    return classReg( c ).test( elem.className );
-  };
-  addClass = function( elem, c ) {
-    if ( !hasClass( elem, c ) ) {
-      elem.className = elem.className + ' ' + c;
-    }
-  };
-  removeClass = function( elem, c ) {
-    elem.className = elem.className.replace( classReg( c ), ' ' );
-  };
-}
-
-function toggleClass( elem, c ) {
-  var fn = hasClass( elem, c ) ? removeClass : addClass;
-  fn( elem, c );
-}
-
-var classie = {
-  // full names
-  hasClass: hasClass,
-  addClass: addClass,
-  removeClass: removeClass,
-  toggleClass: toggleClass,
-  // short names
-  has: hasClass,
-  add: addClass,
-  remove: removeClass,
-  toggle: toggleClass
-};
-
-// transport
-if ( typeof define === 'function' && define.amd ) {
-  // AMD
-  define( classie );
-} else if ( typeof exports === 'object' ) {
-  // CommonJS
-  module.exports = classie;
-} else {
-  // browser global
-  window.classie = classie;
-}
-
-})( window );
-
-
-console.log('scripts begin');
-
-
-
-
 document.addEventListener('DOMContentLoaded', function() {
 
 
@@ -157,6 +65,10 @@ document.addEventListener('DOMContentLoaded', function() {
 	// ----------------------------------------------------------------------------
 	function onPageLoad() {
 
+		if (hasScrollbar) {
+			elHTML.setAttribute('data-scrollbar', numScrollbarWidth);
+		}
+
 		initIsotope();
 		finalAnimate();
 		fixedHeader();
@@ -204,13 +116,13 @@ document.addEventListener('DOMContentLoaded', function() {
 			categoryDropdown(objISO);
 
 			// IE9 does not support animations...
-			if ( !classie.has(elHTML, 'ie9') ) {
+			if ( !elHTML.classList.contains('ie9') ) {
 
 				// listen for CSS transitionEnd before removing the element
 				elIsoLoader.addEventListener(transitionEvent, removeLoader);
 
 				// hide loader
-				classie.remove(elIsoLoader, 'visible');
+				elIsoLoader.classList.remove('visible');
 
 			}
 
@@ -244,13 +156,12 @@ document.addEventListener('DOMContentLoaded', function() {
 			numCatLinksLength = arrCatLinks.length;
 
 
-
 		// click elNavCatTrigger to toggle dropdown
 		elNavCatTrigger.addEventListener('click', function(e) {
 
 			e.preventDefault(); // url is just a #, do not follow
 
-			classie.toggle(elNavCat, 'toggled'); // add / remove 'toggled' class from elNavCat
+			elNavCat.classList.toggle('toggled'); // add / remove 'toggled' class from elNavCat
 
 			// if ( classie.has(elNavCat, 'toggled') ) { classie.remove(elNavCat, 'toggled'); unlockBody(); } else { classie.add(elNavCat, 'toggled'); lockBody(); }
 
@@ -269,7 +180,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 				// unlockBody();
 
-				classie.remove(elNavCat, 'toggled'); // remove 'toggled' class from elNavCat
+				elNavCat.classList.remove('toggled'); // remove 'toggled' class from elNavCat
+
 
 			}
 
@@ -297,12 +209,12 @@ document.addEventListener('DOMContentLoaded', function() {
 				elNavCatLabel.innerHTML = strThisLabel;
 
 				// unlockBody();
-				classie.remove(elNavCat, 'toggled'); // remove 'toggled' class from elNavCat
+				elNavCat.classList.remove('toggled'); // remove 'toggled' class from elNavCat
 
 				// swap 'cat_current' class and redefine elNavLinkCurrent as new selection
-				classie.remove(elNavLinkCurrent, 'cat_current');
+				elNavLinkCurrent.classList.remove('cat_current');
 				elNavLinkCurrent = this.parentNode;
-				classie.add(elNavLinkCurrent, 'cat_current');
+				elNavLinkCurrent.classList.add('cat_current');
 
 				// now do all that Isotope shit
 				pISO.arrange({
@@ -370,13 +282,14 @@ document.addEventListener('DOMContentLoaded', function() {
 	// ----------------------------------------------------------------------------
 	function finalAnimate() {
 
-		var elFooter = document.getElementsByTagName('footer')[0];
+		var elFooter = document.getElementById('#page_footer');
 
 		elFooter.addEventListener(animationEvent, applyReadyState);
 
 		function applyReadyState() {
 
-			classie.add(elHTML, 'ready');
+			// elHTML.classList.add('ready');
+			elHTML.setAttribute('data-ready', 'ready');
 			elFooter.removeEventListener(animationEvent, applyReadyState);
 
 		}
@@ -393,9 +306,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		if (numWinWidth >= 768) {
 
 			if (numScrollPos >= numNavTravel) {
-				classie.add(elNavPrimary, 'scrolled');
+				elNavPrimary.classList.add('scrolled');
 			} else {
-				classie.remove(elNavPrimary, 'scrolled');
+				elNavPrimary.classList.remove('scrolled');
 			}
 
 		}
@@ -403,7 +316,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 
-	// navToggle: Toggle Mobile Navigation
+	// navToggle: Toggle mobile navigation
 	// ----------------------------------------------------------------------------
 	function navToggle() {
 
@@ -414,17 +327,17 @@ document.addEventListener('DOMContentLoaded', function() {
 			e.preventDefault();
 
 			// since we are removing the 'toggled' class if window is < 768...
-			// we cannot rely on classie.toggle to switch our nav class
-			if ( classie.has(elNavPrimary, 'toggled') ) {
+			// we cannot rely on 'toggle' to switch our nav class
+			if ( elNavPrimary.classList.contains('toggled') ) {
 
-				classie.remove(elNavPrimary, 'toggled');
+				elNavPrimary.classList.remove('toggled');
 				unlockBody();
 
 			} else {
 
-				window.scrollTo(0,0);
+				window.scrollTo(0,0); // scroll to top of document
 
-				classie.add(elNavPrimary, 'toggled');
+				elNavPrimary.classList.add('toggled');
 				lockBody();
 
 			}
@@ -432,52 +345,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		});
 
 	}
-
-
-/*
-	function navToggle() {
-
-		var elNavPrimaryTrigger = document.getElementById('nav_toggle');
-
-		elNavPrimaryTrigger.addEventListener('click', function(e) {
-
-			e.preventDefault();
-
-			// since we are removing the 'toggled' class if window is < 768...
-			// we cannot rely on classie.toggle to switch our nav class
-			if ( classie.has(elNavPrimary, 'toggled') ) {
-
-				// turn OFF navigation
-
-				classie.remove(elNavPrimary, 'toggled');
-				classie.add(elNavPrimary, 'toggled_off');
-				unlockBody();
-
-			} else if ( classie.has(elNavPrimary, 'toggled_off') ) {
-
-				// turn ON navigation
-
-				window.scrollTo(0,0); // scroll to top of document only so toggle button is in view
-
-				classie.remove(elNavPrimary, 'toggled_off')
-				classie.add(elNavPrimary, 'toggled');
-				lockBody();
-
-			} else {
-
-				// turn ON navigation
-
-				window.scrollTo(0,0);
-
-				classie.add(elNavPrimary, 'toggled');
-				lockBody();
-
-			}
-
-		});
-
-	}
-*/
 
 
 	// cycleLinkColors: Cycle through an array of colours on mouseenter of any link
@@ -512,7 +379,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				checkForClass(thisPageLink);
 
 				// if this is an isotope block...
-				if ( classie.has(e.target, 'iso_link') ) {
+				if ( e.target.classList.contains('iso_link') ) {
 
 					// we only want to cycle color classes on 'rainbow' categories,
 					// so exit the function if elNavCat is not 'data-color' => 'random'
@@ -526,7 +393,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				strCurrentColor = 'color_' + arrLinkColors[numCurrentColor];
 
 				// apply the 'color_*' class to 'this' hovered link
-				classie.add(thisPageLink, strCurrentColor);
+				thisPageLink.classList.add(strCurrentColor);
 
 			});
 
@@ -537,8 +404,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 			for (var i = 0; i < arrLinkColors.length; i++) {
 
-				if ( classie.has(pThisPageLink, 'color_' + arrLinkColors[i]) ) {
-					classie.remove(pThisPageLink, 'color_' + arrLinkColors[i]);
+				if ( pThisPageLink.classList.contains('color_' + arrLinkColors[i]) ) {
+					pThisPageLink.classList.remove('color_' + arrLinkColors[i]);
 					return;
 				}
 
@@ -562,12 +429,12 @@ document.addEventListener('DOMContentLoaded', function() {
 			if (numWinWidth >= 768) {
 
 				// remove 'toggled' class from nav_primary and restore body scrolling
-				classie.remove(elNavPrimary, 'toggled');
+				elNavPrimary.classList.remove('toggled');
 				unlockBody();
 
 			} else {
 
-				classie.remove(elNavPrimary, 'scrolled');
+				elNavPrimary.classList.remove('scrolled');
 
 			}
 

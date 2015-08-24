@@ -1,0 +1,71 @@
+%aside{"data-modal" => "youtube"}
+
+	.wrap_modal
+
+		%header.modal_header
+
+			.wrap_title
+				%h6#title_video.title_video "Sandwich Loves Slack"
+				%h6#title_company.title_company Slack
+
+			%ul.wrap_links.clearfix
+				%li.link_credits
+					%a{:href => "#", :title => ""} Credits
+				%li.link_post
+					%a{:href => "#", :title => ""} View Project Page
+				%li.link_share
+					%a{:href => "#", :title => ""} Share
+
+		%figure.modal_figure
+
+			.wrap_video
+				-# &html5=1 &wmode=transparent / :wmode => "Opaque",
+				%iframe#youtube_video{:type => "text/html", :width => "853", :height => "480", :src => "//www.youtube.com/embed/B6zVzWU95Sw?rel=0&showinfo=0&enablejsapi=1", :frameborder => "0", :allowfullscreen => true}
+
+			%figcaption.modal_caption
+				%ul
+					%li
+						%p
+							%strong Director
+						%p Adam Lisagor
+					%li
+						%p
+							%strong Producer
+						%p Shadie Elnashai
+						%p Greg Kindra
+					%li
+						%p
+							%strong Directory of Photography
+						%p Jeff Bierman
+					%li
+						%p
+							%strong Production Designer
+						%p Grace Alie
+					%li
+						%p
+							%strong Wardrobe
+						%p Erica Rice
+					%li
+						%p
+							%strong Editor
+						%p JP Bolles
+					%li
+						%p
+							%strong Motion Graphics
+						%p JP Bolles
+					%li
+						%p
+							%strong Visual Effects
+						%p JP Bolles
+					%li
+						%p
+							%strong Starring
+						%p Adam Lisagor
+						%p Shadie Elnashai
+						%p JP Bolles
+						%p Claude Zeins
+						%p Greg Kindra
+						%p Samantha Morris
+						%p Sabrina Skau
+						%p Roxana Altamirano
+						%p Lauren Mahoney

@@ -8,7 +8,7 @@
 
 	// Header
 	// ----------------------------------------------------------------------------
-	header {
+	header.page_header {
 		padding-top: 4rem;
 	}
 
@@ -45,6 +45,16 @@
 		width: 4.464286%; // 40 / 2 = 20 / 408 = 4.464286%
 	}
 
+	// YouTube Modal
+	// ----------------------------------------------------------------------------
+	// --- Modal Figure --- \\
+	figure.modal_figure figcaption ul {
+		column-count: 2;
+	}
+	figure.modal_figure figcaption ul li {
+		break-inside: avoid;
+	}
+
 }
 
 @media only screen and (max-height: 400px) {
@@ -75,9 +85,9 @@
 	// Transitions & Animations
 	// ----------------------------------------------------------------------------
 	div.wrap_dropdown,
-	html.ready div.wrap_lines,
-	html.ready div.wrap_lines div.nav_line,
-	html.ready div.wrap_lines div.line-2 div.line_bg {
+	html[data-ready="ready"] div.wrap_lines,
+	html[data-ready="ready"] div.wrap_lines div.nav_line,
+	html[data-ready="ready"] div.wrap_lines div.line-2 div.line_bg {
 		transition: none;
 	}
 	nav.nav_primary {
@@ -85,6 +95,9 @@
 	}
 	div.nav_wrap ul li.nav_search form input[type="text"] {
 		transition: width 600ms $easeInOutBack, opacity 600ms $easeInOutBack; // runs when entering 768px width... can i prevent?
+	}
+	div.wrap_dropdown ul li a.color_rainbow::before {
+		transition: opacity 260ms ease-in-out; // 600ms
 	}
 	// --- Animations --- \\
 	@keyframes animSlideUp {
@@ -166,7 +179,7 @@
 
 	// Header
 	// ----------------------------------------------------------------------------
-	header {
+	header.page_header {
 		position: relative;
 		padding-top: 18rem;
 		padding-bottom: 6.4rem;
@@ -291,7 +304,7 @@
 
 	// Footer
 	// ----------------------------------------------------------------------------
-	footer {
+	footer.page_footer {
 		padding-top: 10rem;
 		padding-bottom: 12rem;
 	}
@@ -345,9 +358,7 @@
 		border-color: $hsl_red; // 0% state of animation ... without this, there is a jump on loop
 	}
 
-	div.wrap_dropdown ul li a.color_rainbow::before {
-		transition: opacity 260ms ease-in-out; // 600ms
-	}
+
 	div.wrap_dropdown ul li a.color_rainbow {
 		position: relative;
 	}
@@ -367,7 +378,7 @@
 		opacity: 0;
 	}
 /*
-	html.ready div.wrap_dropdown ul li.cat_current a.color_rainbow::before {
+	html[data-ready="ready"] div.wrap_dropdown ul li.cat_current a.color_rainbow::before {
 		opacity: 0;
 	}
 */
@@ -434,6 +445,25 @@
 		opacity: 0.9;
 	}
 
+	// YouTube Modal
+	// ----------------------------------------------------------------------------
+	aside {
+		@include pos_cover(fixed, 998);
+		@include flex_center();
+		background-color: hsla(0,0%,0%,0.15);
+	}
+	html[data-scrollbar] aside {
+		padding-right: 1.5rem; // temporary value
+	}
+	aside div.wrap_modal {
+		width: 80%;
+		height: auto;
+
+		overflow-y: auto;
+		-webkit-overflow-scrolling: auto;
+
+	}
+
 	// Alternating Colours
 	// ----------------------------------------------------------------------------
 	div.wrap_dropdown ul li a.color_red,
@@ -496,11 +526,17 @@
 	}
 	// + header + \\
 	@for $i from 1 through 5 { // assumes 5 letters
-		html.ready g.rainbow_letter-#{$i},
-		html.ready g.rainbow_letter-#{$i} path {
+		html[data-ready="ready"] g.rainbow_letter-#{$i},
+		html[data-ready="ready"] g.rainbow_letter-#{$i} path {
 			animation: none;
 		}
-		html.ready div.wrap_video-rainbow:hover g.rainbow_letter-#{$i} path {
+		html[data-ready="ready"] div.wrap_video-rainbow:hover g.rainbow_letter-#{$i} path {
+			animation: animRbowInst_path-#{$i} 400ms linear infinite reverse;
+		}
+		html[data-ready="ready"] svg.logo_video-vhs g path {
+			animation: none;
+		}
+		html[data-ready="ready"] svg.logo_video-vhs:hover g path.group_path-#{$i} {
 			animation: animRbowInst_path-#{$i} 400ms linear infinite reverse;
 		}
 	}
@@ -591,7 +627,7 @@
 
 	// Header
 	// ----------------------------------------------------------------------------
-	header {
+	header.page_header {
 		padding-top: 24rem;
 		padding-bottom: 14rem;
 	}

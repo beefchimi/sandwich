@@ -1,6 +1,8 @@
-%footer
+%footer#page_footer.page_footer
 
 	%h4 Sandwich Video
 	%h4 Los Angeles
 	%h4
 		%a.color_random{:href => "https://twitter.com/sandwich", :title => "Follow @sandwich", :target => "_blank"} @sandwich
+
+= Haml::Engine.new(File.read("dev/haml/partials/_doc_scripts.haml")).render

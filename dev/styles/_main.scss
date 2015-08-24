@@ -71,12 +71,12 @@ svg path {
 div.nav_wrap ul,
 div.cat_icon,
 div.cat_icon div.cat_line,
-html.ready div.wrap_lines,
-html.ready div.wrap_lines div.nav_line {
+html[data-ready="ready"] div.wrap_lines,
+html[data-ready="ready"] div.wrap_lines div.nav_line {
 	transition: transform 260ms ease-in-out;
 }
 div.cat_icon div.line-2 div.line_bg,
-html.ready div.wrap_lines div.line-2 div.line_bg,
+html[data-ready="ready"] div.wrap_lines div.line-2 div.line_bg,
 section.iso_container article a div.iso_logo img,
 section.iso_container article a div.wrap_iso-image div.wrap_iso-title {
 	transition: opacity 260ms ease-in-out;
@@ -223,6 +223,20 @@ div.wrap_dropdown {
 svg.svg_inline {
 	display: inline; // chrome does not respect the [viewBox] selector
 }
+// --- Responsive Video Embeds --- \\
+div.wrap_video {
+	position: relative;
+	padding-bottom: 56.271981%; // 853:480 = 56.271981% ... 16:9 = 56.25%
+	// padding-top: 2.5rem;
+	height: 0;
+}
+div.wrap_video iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
 // --- Containers --- \\
 [data-container] {
 	margin-left: auto;
@@ -237,7 +251,7 @@ svg.svg_inline {
 
 // Header
 // ----------------------------------------------------------------------------
-header {
+header.page_header {
 	padding-top: 8rem;
 	padding-bottom: 3.2rem;
 	text-align: center;
@@ -410,7 +424,7 @@ a.nav_toggle div.wrap_lines {
 	height: 100%;
 	overflow: hidden;
 }
-html.ready a.nav_toggle div.wrap_lines {
+html[data-ready="ready"] a.nav_toggle div.wrap_lines {
 	overflow: visible;
 }
 a.nav_toggle div.wrap_lines div.nav_line {
@@ -468,24 +482,24 @@ nav.nav_primary ul li a:active {
 
 // Footer
 // ----------------------------------------------------------------------------
-footer {
+footer.page_footer {
 	padding-top: 6rem;
 	padding-bottom: 8rem;
 	text-align: center;
 }
-footer h4 {
+footer.page_footer h4 {
 	font-size: 1.3rem;
 	line-height: 1.4;
 	color: $hsl_navy;
 }
-footer h4 a {
+footer.page_footer h4 a {
 	color: $hsl_navy;
 }
 // + default transitions + \\
-footer h4 a:hover {
+footer.page_footer h4 a:hover {
 	color: $hsl_red;
 }
-footer h4 a:active {
+footer.page_footer h4 a:active {
 	color: darken($hsl_red, 10%);
 }
 
@@ -760,26 +774,119 @@ html.ie9 div.iso_loader {
 	visibility: hidden;
 }
 
+
+
+
+
+
+// YouTube Modal
+// ----------------------------------------------------------------------------
+aside {
+	@include pos_cover(fixed, 998);
+	@include flex_center();
+	background-color: hsla(0,0%,0%,0.15);
+}
+html[data-scrollbar] aside {
+	padding-right: 1.5rem; // temporary value
+}
+aside div.wrap_modal {
+	max-width: 85.3rem;
+	width: 100%;
+	height: 100%;
+	background-color: $hsl_cyan; // colour of figcaption in case content is shorter than viewport
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+}
+// --- Modal Header --- \\
+header.modal_header {
+	padding: 2rem 1.6rem;
+	background-color: $hsl_bone;
+}
+header.modal_header div.wrap_title {
+	margin-bottom: 2rem;
+}
+header.modal_header div.wrap_title h6 {
+	font-size: 1.7rem;
+	color: $hsl_navy;
+}
+header.modal_header div.wrap_title h6.title_video {
+	margin-bottom: 0.6rem;
+}
+header.modal_header ul.wrap_links {
+}
+header.modal_header ul.wrap_links li {
+	display: inline-block;
+}
+header.modal_header ul.wrap_links li a {
+	font-size: 1.3rem;
+	color: $hsl_ash;
+}
+header.modal_header ul.wrap_links li a:hover {
+	color: $hsl_cyan;
+}
+header.modal_header ul.wrap_links li a:active {
+	color: darken($hsl_cyan, 10%);
+}
+// + individual + \\
+header.modal_header ul.wrap_links li.link_credits {
+	display: none;
+}
+header.modal_header ul.wrap_links li.link_post {
+	float: left;
+}
+header.modal_header ul.wrap_links li.link_share {
+	float: right;
+}
+// --- Modal Figure --- \\
+figure.modal_figure figcaption {
+	padding: 3.2rem 1.6rem;
+	background-color: $hsl_cyan;
+}
+figure.modal_figure figcaption ul li {
+	margin-bottom: 2.2rem;
+	font-size: 1.5rem;
+	color: $hsl_L100;
+}
+figure.modal_figure figcaption ul li p {
+	margin-bottom: 0.6rem;
+}
+figure.modal_figure figcaption ul li p:first-child {
+	margin-bottom: 1rem;
+}
+figure.modal_figure figcaption ul li p strong {
+	font-weight: 500;
+	text-transform: uppercase;
+}
+figure.modal_figure figcaption ul li:last-child,
+figure.modal_figure figcaption ul li p:last-child {
+	margin-bottom: 0;
+}
+
+
+
+
+
+
 // Alternating Colours
 // ----------------------------------------------------------------------------
 // + red links + \\
 nav.nav_categories[data-color="red"] a.cat_trigger { color: $hsl_red; border-color: $hsl_red; }
 div.wrap_dropdown ul li a.color_red,
 nav.nav_categories[data-color="red"] div.cat_icon div.cat_line div.line_bg { background-color: $hsl_red; }
-footer h4 a.color_red:hover { color: $hsl_red; }
-footer h4 a.color_red:active { color: darken($hsl_red, 20%); }
+footer.page_footer h4 a.color_red:hover { color: $hsl_red; }
+footer.page_footer h4 a.color_red:active { color: darken($hsl_red, 20%); }
 // + orange links + \\
 nav.nav_categories[data-color="orange"] a.cat_trigger { color: $hsl_orange; border-color: $hsl_orange; }
 div.wrap_dropdown ul li a.color_orange,
 nav.nav_categories[data-color="orange"] div.cat_icon div.cat_line div.line_bg { background-color: $hsl_orange; }
-footer h4 a.color_orange:hover { color: $hsl_orange; }
-footer h4 a.color_orange:active { color: darken($hsl_orange, 20%); }
+footer.page_footer h4 a.color_orange:hover { color: $hsl_orange; }
+footer.page_footer h4 a.color_orange:active { color: darken($hsl_orange, 20%); }
 // + yellow links + \\
 nav.nav_categories[data-color="yellow"] a.cat_trigger { color: $hsl_yellow; border-color: $hsl_yellow; }
 div.wrap_dropdown ul li a.color_yellow,
 nav.nav_categories[data-color="yellow"] div.cat_icon div.cat_line div.line_bg { background-color: $hsl_yellow; }
-footer h4 a.color_yellow:hover { color: $hsl_yellow; }
-footer h4 a.color_yellow:active { color: darken($hsl_yellow, 20%); }
+footer.page_footer h4 a.color_yellow:hover { color: $hsl_yellow; }
+footer.page_footer h4 a.color_yellow:active { color: darken($hsl_yellow, 20%); }
 // + aqua links + \\
 nav.nav_categories[data-color="aqua"] a.cat_trigger,
 nav.nav_categories[data-current="*"] a.cat_trigger { color: $hsl_aqua; border-color: $hsl_aqua; }
@@ -787,8 +894,8 @@ div.wrap_dropdown ul li a.color_aqua,
 div.wrap_dropdown ul li:nth-child(1) a,
 nav.nav_categories[data-color="aqua"] div.cat_icon div.cat_line div.line_bg,
 nav.nav_categories[data-current="*"] div.cat_icon div.cat_line div.line_bg { background-color: $hsl_aqua; }
-footer h4 a.color_aqua:hover { color: $hsl_aqua; }
-footer h4 a.color_aqua:active { color: darken($hsl_aqua, 20%); }
+footer.page_footer h4 a.color_aqua:hover { color: $hsl_aqua; }
+footer.page_footer h4 a.color_aqua:active { color: darken($hsl_aqua, 20%); }
 // + cyan links + \\
 nav.nav_categories[data-color="cyan"] a.cat_trigger,
 nav.nav_categories[data-current=".curated"] a.cat_trigger { color: $hsl_cyan; border-color: $hsl_cyan; }
@@ -796,8 +903,8 @@ div.wrap_dropdown ul li a.color_cyan,
 div.wrap_dropdown ul li:nth-child(2) a,
 nav.nav_categories[data-color="cyan"] div.cat_icon div.cat_line div.line_bg,
 nav.nav_categories[data-current=".curated"] div.cat_icon div.cat_line div.line_bg { background-color: $hsl_cyan; }
-footer h4 a.color_cyan:hover { color: $hsl_cyan; }
-footer h4 a.color_cyan:active { color: darken($hsl_cyan, 20%); }
+footer.page_footer h4 a.color_cyan:hover { color: $hsl_cyan; }
+footer.page_footer h4 a.color_cyan:active { color: darken($hsl_cyan, 20%); }
 
 
 
@@ -858,12 +965,12 @@ a.nav_toggle div.wrap_lines div.nav_line div.line_bg {
 	animation: animRbow2Navy_bg 1000ms linear 1200ms;
 }
 @for $i from 1 through 3 {
-	html.ready a.nav_toggle div.wrap_lines div.line-#{$i} {
+	html[data-ready="ready"] a.nav_toggle div.wrap_lines div.line-#{$i} {
 		animation: none;
 	}
 }
 // + footer + \\
-footer {
+footer.page_footer {
 	animation: animOpacity 800ms ease-in-out 1800ms both; // final animated element
 }
 // + nav categories + \\

@@ -56,6 +56,30 @@ gulp.task('styles', function() {
 
 	// external sourcemaps not working, for whatever fucking reason
 
+
+/*
+	return plugins.rubySass(paths.styles.src + 'styles.scss', {
+			sourcemap: true,
+			style: 'compact'
+		})
+		.pipe(plugins.sourcemaps.init())
+			.pipe(plugins.autoprefixer({
+				browsers: ['last 3 version', 'ios 6', 'android 4']
+			}))
+			.pipe(plugins.minifyCss())
+			.pipe(plugins.rename({
+				suffix: '.min'
+			}))
+		.pipe(plugins.sourcemaps.write('../maps', {
+			debug: true,
+			includeContent: false,
+			sourceRoot: 'src'
+		}))
+		.pipe(gulp.dest(paths.styles.dest))
+		.pipe(plugins.livereload());
+*/
+
+
 	return plugins.rubySass(paths.styles.src + 'styles.scss', {
 			sourcemap: true,
 			style: 'compact'
@@ -69,14 +93,18 @@ gulp.task('styles', function() {
 				suffix: '.min'
 			}))
 		.pipe(plugins.sourcemaps.write('../maps'))
+
 /*
 		.pipe(plugins.sourcemaps.write('../maps', {
+			debug: true,
 			includeContent: false,
-			sourceRoot: 'src'
+			sourceRoot: 'src' // http://localhost/sandwich/build/assets/maps/src
 		}))
 */
+
 		.pipe(gulp.dest(paths.styles.dest))
 		.pipe(plugins.livereload());
+
 
 });
 
@@ -84,29 +112,19 @@ gulp.task('styles', function() {
 // Concat and output plugins scripts
 gulp.task('plugins', function() {
 
-	// SHOULD BE CHECKING IF FILES ARE CHANGED:
-	// HOW DO I KNOW IF THE PRE-CONCATTED/MINIFIED FILES HAVE CHANGED?
-
-	// sourcemaps straight up DO NOY WORK
+	// external sourcemaps don't work :(
 
 	return gulp.src(paths.scripts.plgn)
-
-		// .pipe(plugins.changed(paths.scripts.dest))
-
-		// .pipe(plugins.sourcemaps.init())
-
+		.pipe(plugins.sourcemaps.init())
 			.pipe(plugins.concat('plugins.min.js'))
-			.pipe(plugins.uglify())
-
-		// .pipe(plugins.sourcemaps.write('../maps'))
-
+			.pipe(plugins.uglify()) // firefox doesn't play nice, but Chrome is fine
+		.pipe(plugins.sourcemaps.write('../maps'))
 /*
 		.pipe(plugins.sourcemaps.write('../maps', {
 			includeContent: false,
 			sourceRoot: 'src'
 		}))
 */
-
 		.pipe(gulp.dest(paths.scripts.dest))
 		.pipe(plugins.livereload());
 
@@ -116,24 +134,19 @@ gulp.task('plugins', function() {
 // Concat and output custom scripts
 gulp.task('scripts', function() { // ['copy-scripts'],
 
-	// sourcemaps straight up DO NOY WORK
+	// external sourcemaps don't work :(
 
 	return gulp.src(paths.scripts.src)
-
-		// .pipe(plugins.sourcemaps.init())
-
+		.pipe(plugins.sourcemaps.init())
 			.pipe(plugins.concat('scripts.min.js'))
-			.pipe(plugins.uglify())
-
-		// .pipe(plugins.sourcemaps.write('../maps'))
-
+			.pipe(plugins.uglify()) // firefox doesn't play nice, but Chrome is fine
+		.pipe(plugins.sourcemaps.write('../maps'))
 /*
 		.pipe(plugins.sourcemaps.write('../maps', {
 			includeContent: false,
 			sourceRoot: 'src'
 		}))
 */
-
 		.pipe(gulp.dest(paths.scripts.dest))
 		.pipe(plugins.livereload());
 
@@ -262,7 +275,8 @@ gulp.task('watch', function() {
 	// watch dev files, rebuild when changed
 	gulp.watch(paths.haml.src + '**/*.haml', ['haml']);  // watch all HAML files, including partials (recursively)
 	gulp.watch(paths.styles.src + '*.scss', ['styles']); // watch all SCSS files, including partials
-	gulp.watch(paths.scripts.src, ['scripts']); // watch all JS files
+	gulp.watch(paths.scripts.src, ['scripts']); // watch main javascript file
+	gulp.watch(paths.scripts.plgn, ['plugins']); // watch all plugin files
 
 });
 

@@ -1,11 +1,8 @@
 !!!
 /[if IE 9] <html class="ie9" lang="en">
 <!--[if gt IE 9]><!-->
-%html{:lang => "en", "data-overflow" => "scrollable"}<>
+%html{:lang => "en", "data-ready" => "waiting", "data-overflow" => "locked"}<>
 	<!--<![endif]-->
-
-	-# "data-device" => "mobile"
-	-# are we using data-ready and data-overflow?
 
 	= Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render
 
@@ -20,68 +17,7 @@
 		%main{:role => "main", "data-container" => "width_1640"}
 
 			= Haml::Engine.new(File.read("dev/haml/partials/_nav_categories.haml")).render
-
-			%section#iso_container.iso_container{"data-color" => "random"}
-
-				.iso_sizer
-				.iso_gutter
-
-				- arrProjects = ['aereo', 'aeropress', 'airbnb-host', 'airbnb', 'being-geek', 'big-jambox', 'birdhouse', 'boku', 'bump']
-				- numProjects = 0
-				- numAdjustedLength = arrProjects.length - 1
-				- strCurrentProject = arrProjects[numProjects]
-
-				- (1..42).each do |i|
-
-					- if i % 2 == 0
-						- strIsoTitle = 'Even Number / Company Name on Multiple Lines #'
-						- strClasses = 'tv'
-						- if i == 4 || i == 8 || i == 16 || i == 24 || i == 36 || i == 42
-							- strClasses += ' curated'
-						- elsif i == 10 || i == 12 || i == 14 || i == 20 || i == 32 || i == 40
-							- strClasses += ' animation'
-						- else
-							- strClasses += ' hardware'
-					- else
-						- strIsoTitle = 'Odd Number / Company Name #'
-						- strClasses = 'comedy'
-						- if i == 3 || i == 7 || i == 13 || i == 21 || i == 27 || i == 39
-							- strClasses += ' curated'
-						- elsif i == 9 || i == 11 || i == 17 || i == 19 || i == 31 || i == 35
-							- strClasses += ' software'
-						- else
-							- strClasses += ' crowdfunding'
-
-					-# apply 'color_random' class to a.iso_link for cycleLinkColors()
-					%article{:id => "post_#{i}", :class => "iso_brick #{strClasses}"}
-						%a.iso_link.color_random{:href => "#", :title => "Company Name #{i}"}
-							.wrap_iso-image
-								%img.iso_image{:src => "assets/img/thumb_#{strCurrentProject}.jpg", :alt => ""}
-								.wrap_iso-title
-									.wrap_txt-center
-										%h3.iso_title "#{strIsoTitle}#{i}"
-							.iso_logo
-								%img.iso_logo-off{:src => "assets/img/iso_logo-off.png", :alt => ""}
-								%img.iso_logo-on{:src => "assets/img/iso_logo-on.png", :alt => ""}
-
-					- if numProjects < numAdjustedLength
-						- numProjects += 1
-					- else
-						- numProjects = 0
-
-					- strCurrentProject = arrProjects[numProjects]
-
-				#iso_loader.iso_loader.visible
-					.wrap_graphics
-						.wrap_svg
-							%svg.ui_loader
-								%use{"xlink:href" => "#ui_loader"}
-						.wrap_txt
-							%p Loading Videos
-
-				-# TEMPORARY ONLY TO ALLOW LOAD TIMES
-				= Haml::Engine.new(File.read("dev/haml/partials/_temp_images.haml")).render
+			= Haml::Engine.new(File.read("dev/haml/partials/_html_isotope.haml")).render
+			= Haml::Engine.new(File.read("dev/haml/partials/_modal_youtube.haml")).render
 
 		= Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render
-
-		= Haml::Engine.new(File.read("dev/haml/partials/_doc_scripts.haml")).render
