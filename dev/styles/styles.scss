@@ -11,6 +11,15 @@ $hsl_aqua:   hsl(171, 81%,  45%);
 $hsl_cyan:   hsl(194, 76%,  51%);
 $hsl_navy:   hsl(212, 59%,  22%);
 
+
+
+
+$hsla_cyan-L96: hsla(194, 76%, 51%, 0.96);
+
+
+
+
+
 $hsl_L0:     hsl(0,    0%,   0%);
 $hsl_L60:    hsl(0,    0%,  60%);
 $hsl_L72:    hsl(0,    0%,  72%);
@@ -52,7 +61,7 @@ $easeInOutBack: cubic-bezier(0.680,-0.400,0.265,1.400); // was: -0.550 & 1.550 .
 	text-align: center;
 }
 
-@mixin toggle_visibility($state) {
+@mixin toggle_visibility($state: on) {
 
 	@if $state == "off" {
 		opacity: 0;

@@ -97,9 +97,16 @@ div.cat_icon div.line-1 div.line_bg,
 div.cat_icon div.line-3 div.line_bg {
 	transition: background-color 260ms ease-in-out;
 }
+
 div.wrap_dropdown {
-	transition: opacity 360ms ease-in-out, visibility 360ms ease-in-out; // try to avoid using visibility
+	transition: opacity 360ms ease-in-out, visibility 360ms ease-in-out; // try to avoid using visibility? not as performant
 }
+
+
+aside[data-modal] {
+	transition: opacity 800ms ease-in-out, visibility 800ms ease-in-out; // try to avoid using visibility? not as performant
+}
+
 
 
 // --- Animations --- \\
@@ -248,6 +255,9 @@ div.wrap_video iframe {
 [data-container="width_1280"] {
 	max-width: 128rem;
 }
+[data-container="width_946"] {
+	max-width: 94.6rem;
+}
 
 // Header
 // ----------------------------------------------------------------------------
@@ -273,14 +283,20 @@ header.page_header {
 .logo_main div.wrap_logo-sandwich svg.logo_sandwich {
 	fill: $hsl_navy; // default fill (in case of animation)
 }
-// --- Tagline --- \\
-div.wrap_txt-tagline {
+// --- Subhead --- \\
+div.wrap_subhead {
 	margin-left: auto;
 	margin-right: auto;
+}
+div.wrap_subhead svg {
+	fill: $hsl_navy;
+}
+// + individual + \\
+div.wrap_subhead-home {
 	max-width: 30.3rem;
 }
-div.wrap_txt-tagline svg {
-	fill: $hsl_navy;
+div.wrap_subhead-projects {
+	max-width: 15.3rem;
 }
 // --- Video Logo: Rainbow --- \\
 .logo_main div.wrap_logo-video {
@@ -779,17 +795,145 @@ html.ie9 div.iso_loader {
 
 
 
+
+
+// Shared Content
+// ----------------------------------------------------------------------------
+// --- Video Details --- \\
+.video_details div.wrap_titles h6 {
+	font-size: 1.7rem;
+	color: $hsl_navy;
+}
+.video_details div.wrap_titles h6.title_video {
+	margin-bottom: 0.6rem;
+}
+
+// --- Video Credits --- \\
+ul.video_credits li {
+	margin-bottom: 2.2rem;
+	font-size: 1.5rem;
+}
+ul.video_credits li p {
+	margin-bottom: 0.6rem;
+}
+ul.video_credits li p:first-child {
+	margin-bottom: 1rem;
+}
+ul.video_credits li p strong {
+	font-weight: 500;
+	text-transform: uppercase;
+}
+ul.video_credits li:last-child,
+ul.video_credits li p:last-child {
+	margin-bottom: 0;
+}
+
+
+// Single Post
+// ----------------------------------------------------------------------------
+section.post {
+	margin-bottom: 2rem;
+}
+// --- Post Header --- \\
+div.post_header {
+	margin-bottom: 2rem;
+	text-align: center;
+}
+div.post_header a.link_projects {
+	display: inline-block;
+	font-size: 1.5rem;
+	color: $hsl_navy;
+	&:hover {
+		color: $hsl_cyan;
+	}
+	&:active {
+		color: darken($hsl_cyan, 10%);
+	}
+}
+// --- Post Figure --- \\
+figure.post_figure {
+	margin-bottom: 3.2rem;
+	border-bottom: 0.3rem solid $hsl_cyan;
+}
+figcaption.post_caption {
+	display: flex;
+	align-items: center;
+	padding-top: 2rem;
+	padding-bottom: 2rem;
+}
+figcaption.post_caption div.wrap_titles {
+	margin-right: 3.2rem;
+	width: calc(100% - 7.2rem);
+}
+figcaption.post_caption div.wrap_logo {
+	width: 4rem;
+	text-align: right;
+}
+figcaption.post_caption div.wrap_logo img {
+	display: inline-block;
+}
+// --- Post Content --- \\
+article.post_single div.wrap_content {
+	text-align: center;
+}
+article.post_single div.wrap_content h3 {
+	margin-bottom: 3.2rem;
+	font-size: 2.2rem;
+}
+// + credits + \\
+article.post_single div.wrap_content div.wrap_credits {
+	margin-bottom: 4rem;
+}
+article.post_single div.wrap_content div.wrap_credits h3,
+article.post_single div.wrap_content div.wrap_credits ul.video_credits li {
+	color: $hsl_navy;
+}
+// + related videos + \\
+article.post_single div.wrap_content div.wrap_related ul.post_related li {
+	margin-bottom: 1.6rem;
+	font-size: 1.5rem;
+}
+article.post_single div.wrap_content div.wrap_related ul.post_related li:last-child {
+	margin-bottom: 0;
+}
+article.post_single div.wrap_content div.wrap_related h3,
+article.post_single div.wrap_content div.wrap_related ul.post_related li a {
+	color: $hsl_cyan;
+}
+article.post_single div.wrap_content div.wrap_related ul.post_related li a:hover {
+	color: $hsl_navy;
+}
+article.post_single div.wrap_content div.wrap_related ul.post_related li a:active {
+	color: darken($hsl_navy, 10%);
+}
+
+
+
+
+
+
+
+
+
 // YouTube Modal
 // ----------------------------------------------------------------------------
-aside {
+aside[data-modal] {
 	@include pos_cover(fixed, 998);
-	@include flex_center();
+	@include flex_center;
 	background-color: hsla(0,0%,0%,0.15);
 }
-html[data-scrollbar] aside {
+aside[data-modal="hidden"] {
+	@include toggle_visibility(off);
+}
+aside[data-modal="visible"] {
+	@include toggle_visibility(on);
+}
+html[data-scrollbar] aside[data-modal] {
 	padding-right: 1.5rem; // temporary value
 }
-aside div.wrap_modal {
+
+
+aside[data-modal] div.wrap_modal {
 	max-width: 85.3rem;
 	width: 100%;
 	height: 100%;
@@ -797,25 +941,21 @@ aside div.wrap_modal {
 	overflow-y: scroll;
 	-webkit-overflow-scrolling: touch;
 }
+
+
+
+
+
 // --- Modal Header --- \\
 header.modal_header {
 	padding: 2rem 1.6rem;
 	background-color: $hsl_bone;
 }
-header.modal_header div.wrap_title {
+header.modal_header div.wrap_titles {
 	margin-bottom: 2rem;
 }
-header.modal_header div.wrap_title h6 {
-	font-size: 1.7rem;
-	color: $hsl_navy;
-}
-header.modal_header div.wrap_title h6.title_video {
-	margin-bottom: 0.6rem;
-}
 header.modal_header ul.wrap_links {
-}
-header.modal_header ul.wrap_links li {
-	display: inline-block;
+	display: flex;
 }
 header.modal_header ul.wrap_links li a {
 	font-size: 1.3rem;
@@ -832,37 +972,35 @@ header.modal_header ul.wrap_links li.link_credits {
 	display: none;
 }
 header.modal_header ul.wrap_links li.link_post {
-	float: left;
+	width: 50%;
+	text-align: left;
 }
 header.modal_header ul.wrap_links li.link_share {
-	float: right;
+	width: 50%;
+	text-align: right;
 }
+
+
+
+
 // --- Modal Figure --- \\
-figure.modal_figure figcaption {
-	padding: 3.2rem 1.6rem;
+figcaption.modal_caption {
 	background-color: $hsl_cyan;
 }
-figure.modal_figure figcaption ul li {
-	margin-bottom: 2.2rem;
-	font-size: 1.5rem;
+figcaption.modal_caption div.wrap_scroll ul.video_credits {
+	padding: 3.2rem 1.6rem; // apply padding to child of figcaption, as figcaption will eventually require scrolling (would cut off padding-bottom)
+}
+figcaption.modal_caption div.wrap_scroll ul.video_credits li {
 	color: $hsl_L100;
 }
-figure.modal_figure figcaption ul li p {
-	margin-bottom: 0.6rem;
+// + arrow button + \\
+figcaption.modal_caption a.wrap_ui-arrow {
+	display: none;
+	width: 3.2rem;
 }
-figure.modal_figure figcaption ul li p:first-child {
-	margin-bottom: 1rem;
+figcaption.modal_caption a.wrap_ui-arrow svg {
+	fill: $hsl_bone;
 }
-figure.modal_figure figcaption ul li p strong {
-	font-weight: 500;
-	text-transform: uppercase;
-}
-figure.modal_figure figcaption ul li:last-child,
-figure.modal_figure figcaption ul li p:last-child {
-	margin-bottom: 0;
-}
-
-
 
 
 
@@ -921,7 +1059,7 @@ footer.page_footer h4 a.color_cyan:active { color: darken($hsl_cyan, 20%); }
 .logo_main div.wrap_logo-sandwich {
 	animation: animOpacity 800ms ease-in-out 200ms both;
 }
-div.wrap_txt-tagline {
+div.wrap_subhead {
 	animation: animOpacity 800ms ease-in-out 1000ms both; // could transition fill instead?
 }
 // + rainbow letters + \\

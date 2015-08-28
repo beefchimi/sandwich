@@ -54,7 +54,7 @@ var paths = {
 // Compile and Output Styles
 gulp.task('styles', function() {
 
-	// external sourcemaps not working, for whatever fucking reason
+	// external sourcemaps not working, for whatever reason
 
 
 /*
@@ -282,4 +282,4 @@ gulp.task('watch', function() {
 
 
 // Default gulp task
-gulp.task('default', ['svg', 'styles', 'scripts', 'misc', 'haml']); // haml comes last so SVGs can compile | remove 'images' task as it takes LONG
+gulp.task('default', ['svg', 'styles', 'plugins', 'scripts', 'vendor', 'misc', 'haml']); // haml comes last so SVGs can compile | remove 'images' task as it takes LONG

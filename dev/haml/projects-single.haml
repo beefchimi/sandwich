@@ -1,0 +1,64 @@
+!!!
+/[if IE 9] <html class="ie9" lang="en">
+<!--[if gt IE 9]><!-->
+%html{:lang => "en", "data-ready" => "waiting", "data-overflow" => "scrollable"}<>
+	<!--<![endif]-->
+
+	= Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render
+
+	%body
+
+		#svgInject.visuallyhidden
+			/ inject:svg
+			/ endinject
+
+		= Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render
+
+		%main{:role => "main", "data-container" => "width_946"}
+
+			%section#post.post
+
+				%article#post_id.post_single
+
+					.post_header
+						%a.link_projects{:href => "#", :title => "Return to projects page"} See all projects
+
+					%figure.post_figure
+
+						.wrap_video
+							-# &html5=1 &wmode=transparent / :wmode => "Opaque",
+							-# &enablejsapi=1
+							%iframe#youtube_video{:type => "text/html", :width => "946", :height => "532", :src => "//www.youtube.com/embed/B6zVzWU95Sw?rel=0&showinfo=0", :frameborder => "0", :allowfullscreen => true}
+
+						%figcaption.post_caption.video_details
+
+							.wrap_titles
+								%h6.title_video.truncate "Sandwich Loves Slack"
+								%h6.title_company.truncate Slack
+
+							-# should this link to the client's website, if provided?
+							.wrap_logo
+								%img.logo_client{:src => "assets/img/logo_june-on.png", :alt => "Client Logo"}
+
+					.wrap_content.clearfix
+
+						.wrap_credits
+							%h3 Credits
+							= Haml::Engine.new(File.read("dev/haml/partials/_con_credits.haml")).render
+
+						.wrap_related
+							%h3 Related Videos
+							%ul.post_related
+								%li
+									%a{:href => "#", :title => "See related post"} "June 2.0"
+								%li
+									%a{:href => "#", :title => "See related post"} "More June Ovens Always"
+								%li
+									%a{:href => "#", :title => "See related post"} "It's June Again"
+								%li
+									%a{:href => "#", :title => "See related post"} "Christmas in... June"
+
+
+
+
+		= Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render

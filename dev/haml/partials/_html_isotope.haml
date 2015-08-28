@@ -31,7 +31,7 @@
 
 		-# apply 'color_random' class to a.iso_link for cycleLinkColors()
 		%article{:id => "post_#{i}", :class => "iso_brick #{strClasses}"}
-			%a.iso_link.color_random{:href => "#", :title => "Company Name #{i}"}
+			%a.iso_link.color_random.ajax_youtube{:href => "projects-single.html", :title => "Company Name #{i}", "data-youtube" => "B6zVzWU95Sw"}
 				.wrap_iso-image
 					%img.iso_image{:src => "assets/img/thumb_#{strCurrentProject}.jpg", :alt => ""}
 					.wrap_iso-title

@@ -45,13 +45,60 @@
 		width: 4.464286%; // 40 / 2 = 20 / 408 = 4.464286%
 	}
 
+	// Single Post
+	// ----------------------------------------------------------------------------
+	// --- Post Header --- \\
+	div.post_header {
+		text-align: right;
+	}
+	// --- Post Content --- \\
+	article.post_single div.wrap_content {
+		text-align: left;
+	}
+	article.post_single div.wrap_content > div {
+		float: left;
+	}
+	// + credits + \\
+	article.post_single div.wrap_content div.wrap_credits {
+		margin-bottom: 0;
+		width: 62%;
+	}
+	// + related videos + \\
+	article.post_single div.wrap_content div.wrap_related {
+		width: 38%;
+	}
+
 	// YouTube Modal
 	// ----------------------------------------------------------------------------
-	// --- Modal Figure --- \\
-	figure.modal_figure figcaption ul {
-		column-count: 2;
+	// --- Modal Header --- \\
+	header.modal_header {
+		display: flex;
 	}
-	figure.modal_figure figcaption ul li {
+	header.modal_header div.wrap_titles {
+		width: 70%;
+		margin-bottom: 0;
+		text-align: left;
+	}
+	header.modal_header ul.wrap_links {
+		display: block;
+		width: 30%;
+	}
+	// + individual + \\
+	header.modal_header ul.wrap_links li.link_credits,
+	header.modal_header ul.wrap_links li.link_post {
+		margin-bottom: 0.8rem;
+		text-align: right;
+	}
+	header.modal_header ul.wrap_links li.link_post,
+	header.modal_header ul.wrap_links li.link_share {
+		width: 100%;
+	}
+	// --- Modal Figure --- \\
+	figcaption.modal_caption div.wrap_scroll ul.video_credits {
+		column-count: 2;
+		text-align: left;
+	}
+	figcaption.modal_caption div.wrap_scroll ul.video_credits li {
 		break-inside: avoid;
 	}
 
@@ -90,7 +137,8 @@
 	html[data-ready="ready"] div.wrap_lines div.line-2 div.line_bg {
 		transition: none;
 	}
-	nav.nav_primary {
+	nav.nav_primary,
+	figcaption.modal_caption a.wrap_ui-arrow svg {
 		transition: transform 260ms ease-in-out;
 	}
 	div.nav_wrap ul li.nav_search form input[type="text"] {
@@ -98,6 +146,9 @@
 	}
 	div.wrap_dropdown ul li a.color_rainbow::before {
 		transition: opacity 260ms ease-in-out; // 600ms
+	}
+	figcaption.modal_caption {
+		transition: opacity 260ms ease-in-out, visibility 260ms ease-in-out;
 	}
 	// --- Animations --- \\
 	@keyframes animSlideUp {
@@ -445,23 +496,99 @@
 		opacity: 0.9;
 	}
 
+	// Single Post
+	// ----------------------------------------------------------------------------
+	section.post {
+		margin-bottom: 4.8rem;
+	}
+	// --- Post Header --- \\
+	div.post_header {
+		margin-bottom: 3.2rem;
+	}
+	// --- Post Figure --- \\
+	figure.post_figure {
+		margin-bottom: 4.8rem;
+	}
+	figcaption.post_caption {
+		padding-top: 3.2rem;
+		padding-bottom: 3.2rem;
+	}
+	figcaption.post_caption div.wrap_titles {
+		width: calc(100% - 10.8rem);
+	}
+	figcaption.post_caption div.wrap_titles h6 {
+		font-size: 2.7rem;
+	}
+	figcaption.post_caption div.wrap_titles h6.title_video {
+		margin-bottom: 1rem;
+	}
+	figcaption.post_caption div.wrap_logo {
+		width: 7.6rem;
+		line-height: 7.6rem;
+	}
+	// --- Post Content --- \\
+	article.post_single div.wrap_content h3 {
+		margin-bottom: 4.8rem;
+	}
+
 	// YouTube Modal
 	// ----------------------------------------------------------------------------
-	aside {
-		@include pos_cover(fixed, 998);
-		@include flex_center();
-		background-color: hsla(0,0%,0%,0.15);
-	}
-	html[data-scrollbar] aside {
-		padding-right: 1.5rem; // temporary value
-	}
 	aside div.wrap_modal {
+		display: flex;
+		flex-direction: column;
 		width: 80%;
 		height: auto;
-
+		background-color: $hsl_L0; // set to black in case of slow video load
 		overflow-y: auto;
 		-webkit-overflow-scrolling: auto;
-
+	}
+	// --- Modal Header --- \\
+	header.modal_header {
+		order: 2; // move below figure
+		padding-left: 2rem;
+		padding-right: 2rem;
+	}
+	// + individual + \\
+	header.modal_header ul.wrap_links li.link_credits {
+		display: block;
+	}
+	aside.toggle_credits header.modal_header ul.wrap_links li.link_credits a {
+		color: $hsl_cyan;
+	}
+	// --- Modal Figure --- \\
+	figure.modal_figure {
+		order: 1; // move above header
+		position: relative;
+	}
+	figcaption.modal_caption {
+		@include pos_cover(absolute, 1);
+		@include toggle_visibility(off);
+		background-color: $hsla_cyan-L96;
+	}
+	aside.toggle_credits figcaption.modal_caption {
+		@include toggle_visibility(on);
+	}
+	figcaption.modal_caption div.wrap_scroll {
+		height: 100%;
+		overflow-y: scroll;
+		-webkit-overflow-scrolling: touch;
+	}
+	figcaption.modal_caption div.wrap_scroll ul.video_credits {
+		padding-left: 2rem;
+		padding-right: 2rem;
+	}
+	// + arrow button + \\
+	figcaption.modal_caption a.wrap_ui-arrow {
+		display: block;
+		position: absolute;
+		right: 2rem;
+		bottom: 2rem;
+	}
+	figcaption.modal_caption a.wrap_ui-arrow:hover svg {
+		transform: translateY(0.4rem);
+	}
+	figcaption.modal_caption a.wrap_ui-arrow:active svg {
+		transform: translateY(0.2rem);
 	}
 
 	// Alternating Colours
@@ -540,7 +667,7 @@
 			animation: animRbowInst_path-#{$i} 400ms linear infinite reverse;
 		}
 	}
-	div.wrap_txt-tagline {
+	div.wrap_subhead {
 		animation: animSlideUp 400ms ease-in-out 1000ms both;
 	}
 	// + nav primary + \\
@@ -583,6 +710,60 @@
 		width: 4.464286%; // 120 / 3 = 40 / 896 = 4.464286%
 	}
 
+	// Shared Content
+	// ----------------------------------------------------------------------------
+	// --- Video Credits --- \\
+	ul.video_credits li {
+		margin-bottom: 3.2rem;
+	}
+	ul.video_credits li p {
+		margin-bottom: 0.7rem;
+	}
+	ul.video_credits li p:first-child {
+		margin-bottom: 1.2rem;
+	}
+
+	// Single Post
+	// ----------------------------------------------------------------------------
+	// --- Post Figure --- \\
+	figure.post_figure {
+		margin-bottom: 6rem;
+	}
+	figcaption.post_caption {
+		padding-top: 4rem;
+		padding-bottom: 4rem;
+	}
+	// --- Post Content --- \\
+	// + credits + \\
+	article.post_single div.wrap_content div.wrap_credits {
+		width: 70%;
+	}
+	article.post_single div.wrap_content div.wrap_credits ul.video_credits {
+		column-count: 2;
+	}
+	article.post_single div.wrap_content div.wrap_credits ul.video_credits li {
+		break-inside: avoid;
+	}
+	// + related videos + \\
+	article.post_single div.wrap_content div.wrap_related {
+		width: 30%;
+	}
+
+
+
+
+	// YouTube Modal
+	// ----------------------------------------------------------------------------
+	// --- Modal Header --- \\
+	header.modal_header {
+		padding-left: 2.6rem;
+		padding-right: 2.6rem;
+	}
+	// --- Modal Figure --- \\
+	figcaption.modal_caption div.wrap_scroll ul.video_credits {
+		padding: 4.8rem;
+	}
+
 }
 
 @media only screen and (min-width: 1024px) {
@@ -595,7 +776,7 @@
 	// Transitions & Animations
 	// ----------------------------------------------------------------------------
 	div.nav_wrap ul li.nav_search form input[type="text"] {
-		transition: width 600ms $easeInOutBack, opacity 800ms $easeInOutCirc; // redefine, since we have updated out easeing variable
+		transition: width 260ms $easeInOutBack, opacity 260ms $easeInOutCirc; // redefine, since we have updated our easeing variable
 	}
 
 	// Nav Primary
@@ -603,9 +784,6 @@
 	// --- Search Form --- \\
 	div.nav_wrap ul li.nav_search {
 		width: 23.2rem;
-	}
-	div.nav_wrap ul li.nav_search form input[type="text"] {
-		transition-duration: 260ms;
 	}
 	div.nav_wrap ul li.nav_search form input[type="text"]:focus {
 		width: 100%;

@@ -1,7 +1,7 @@
 !!!
 /[if IE 9] <html class="ie9" lang="en">
 <!--[if gt IE 9]><!-->
-%html{:lang => "en", "data-ready" => "waiting", "data-overflow" => "locked"}<>
+%html{:lang => "en", "data-ready" => "waiting", "data-overflow" => "scrollable"}<>
 	<!--<![endif]-->
 
 	= Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render
@@ -18,6 +18,6 @@
 
 			= Haml::Engine.new(File.read("dev/haml/partials/_nav_categories.haml")).render
 			= Haml::Engine.new(File.read("dev/haml/partials/_html_isotope.haml")).render
-			= Haml::Engine.new(File.read("dev/haml/partials/_modal_youtube.haml")).render
+			-# = Haml::Engine.new(File.read("dev/haml/partials/_modal_youtube.haml")).render
 
 		= Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render

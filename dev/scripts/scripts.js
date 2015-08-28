@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
 
 
-	// Global Variables
+	// Global Variables [kept from becoming window properties]
 	// ----------------------------------------------------------------------------
 	var elHTML       = document.documentElement,
 		elBody       = document.body,
@@ -13,59 +13,14 @@ document.addEventListener('DOMContentLoaded', function() {
 		numWinWidth       = window.innerWidth,
 		numClientWidth    = document.documentElement.clientWidth,
 		numScrollbarWidth = numWinWidth - numClientWidth,
-		hasScrollbar      = numScrollbarWidth > 0 ? true : false;
-
-
-	// Helper: Lock / Unlock Body Scrolling
-	// ----------------------------------------------------------------------------
-	function lockBody() {
-
-		// enable overflow-y: hidden on <body>
-		elHTML.setAttribute('data-overflow', 'locked');
-
-		// if necessary, accomodate for scrollbar width
-		if (hasScrollbar) {
-			elBody.style.paddingRight = numScrollbarWidth + 'px';
-		}
-
-	}
-
-	function unlockBody() {
-
-		// disable overflow-y: hidden on <body>
-		elHTML.setAttribute('data-overflow', 'scrollable');
-
-		// if necessary, remove scrollbar width styles
-		// should be expanded to restore original padding if needed
-		if (hasScrollbar) {
-			elBody.style.paddingRight = '0px';
-		}
-
-	}
-
-
-/*
-	// secretMail: Add mailto link to home section
-	// ----------------------------------------------------------------------------
-	function secretMail() {
-
-		var mailLink = document.getElementById('contact'),
-			prefix    = 'mailto',
-			local    = 'curtis',
-			domain   = 'dulmage',
-			suffix    = 'me';
-
-		mailLink.setAttribute('href', prefix + ':' + local + '@' + domain + '.' + suffix);
-
-	}
-*/
+		boolScrollbar     = numScrollbarWidth > 0 ? true : false;
 
 
 	// onPageLoad: Main Function To Fire on Window Load
 	// ----------------------------------------------------------------------------
 	function onPageLoad() {
 
-		if (hasScrollbar) {
+		if (boolScrollbar) {
 			elHTML.setAttribute('data-scrollbar', numScrollbarWidth);
 		}
 
@@ -74,6 +29,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		fixedHeader();
 		navToggle();
 		cycleLinkColors();
+
+		// modalYoutube();
 
 	}
 
@@ -91,11 +48,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		// lock body on initial page load
 		// (should be doing this only if images are NOT loaded)
-		// lockBody();
+		// lockBody(boolScrollbar, numScrollbarWidth);
 
 		// it does exist! continue on...
 		var elIsoLoader   = document.getElementById('iso_loader'),
-			strCurrentCat = elNavCat.getAttribute('data-current');
+			strCurrentCat = elNavCat.getAttribute('data-current'),
+			arrIsoLinks   = document.getElementsByClassName('iso_link');
+
+/*
+		// modal variables to be defined in createModal()
+		var elModal,
+			elModalHeader,
+			elModalFigure,
+			elWrapScroll,
+			elModalClose;
+*/
 
 		// layout Isotope after all images have loaded
 		imagesLoaded(elIsoContainer, function(instance) {
@@ -112,7 +79,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 			});
 
-			// initalize and pass objISO to categoryDropdown once ready
+			// initalize and pass objISO to isoFilterSearch and categoryDropdown once ready
+			// isoFilterSearch(objISO);
 			categoryDropdown(objISO);
 
 			// IE9 does not support animations...
@@ -128,12 +96,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		});
 
+		// iterate through every .iso_link and attach click event
+		for (var i = 0; i < arrIsoLinks.length; i++) {
+			isoLinkClick(arrIsoLinks[i]);
+		}
+
 		function removeLoader(e) {
 
 			// only listen for the opacity property
 			if (e.propertyName == 'opacity') {
 
-				// unlockBody();
+				// unlockBody(boolScrollbar);
 
 				elIsoContainer.removeChild(elIsoLoader);
 				elIsoLoader.removeEventListener(transitionEvent, removeLoader);
@@ -143,6 +116,58 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 
 	}
+
+
+	// isoLinkClick: Register click event for each .iso_link
+	// ----------------------------------------------------------------------------
+	function isoLinkClick(thisIsoLink) {
+
+		thisIsoLink.addEventListener('click', function(e) {
+
+			e.preventDefault();
+
+			var strThisLink  = thisIsoLink.getAttribute('href'),
+				strThisTitle = thisIsoLink.getAttribute('title'),
+				strThisID    = thisIsoLink.getAttribute('data-youtube');
+
+			ajaxProjectContent(strThisLink, strThisTitle, strThisID);
+
+		});
+
+	}
+
+
+	// isoFilterSearch: isoTope filter by search input
+	// ----------------------------------------------------------------------------
+	function isoFilterSearch(pISO) {
+
+		// FILTER 'TRUE' WILL RETURN EVERYTHING...
+		// DO SOMETHING ELSE INSTEAD, LIKE SET THE TAG FILTER TO CURRENT UNTIL A MATCH IS FOUND, THEN:
+
+		// NEEDS TO RESET TAG FILTER / SET CURRENT TAG TO 'ALL'
+
+		// quick search regex
+		var elSearchInput = document.getElementById('filter_search'),
+			qsRegex;
+
+		// use value of search field to filter
+		elSearchInput.addEventListener('input', debounce(function() {
+
+			qsRegex = new RegExp(elSearchInput.value, 'gi');
+
+			// rearrange our isotope bricks using this new filter
+			pISO.arrange({
+				filter: function(itemElem) {
+					return qsRegex ? itemElem.innerHTML.match(qsRegex) : true;
+				}
+			});
+
+		}, 250));
+
+	}
+
+
+
 
 
 	// categoryDropdown: isoTope Category Dropdown
@@ -163,7 +188,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 			elNavCat.classList.toggle('toggled'); // add / remove 'toggled' class from elNavCat
 
-			// if ( classie.has(elNavCat, 'toggled') ) { classie.remove(elNavCat, 'toggled'); unlockBody(); } else { classie.add(elNavCat, 'toggled'); lockBody(); }
+			/*
+				if ( elNavCat.classList.contains('toggled') ) {
+					elNavCat.classList.remove('toggled')
+					unlockBody(boolScrollbar);
+				} else {
+					elNavCat.classList.add('toggled')
+					lockBody(boolScrollbar, numScrollbarWidth);
+				}
+			*/
 
 		});
 
@@ -178,7 +211,7 @@ document.addEventListener('DOMContentLoaded', function() {
 					return;
 				}
 
-				// unlockBody();
+				// unlockBody(boolScrollbar);
 
 				elNavCat.classList.remove('toggled'); // remove 'toggled' class from elNavCat
 
@@ -208,7 +241,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				elNavCat.setAttribute('data-current', strThisFilter);
 				elNavCatLabel.innerHTML = strThisLabel;
 
-				// unlockBody();
+				// unlockBody(boolScrollbar);
 				elNavCat.classList.remove('toggled'); // remove 'toggled' class from elNavCat
 
 				// swap 'cat_current' class and redefine elNavLinkCurrent as new selection
@@ -278,11 +311,335 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+	// modalYoutube: All the code for the YouTube modal
+	// ----------------------------------------------------------------------------
+	function modalYoutube() {
+
+		var elTempModal     = document.getElementById('temp_modal'),
+			elToggleCaption = document.getElementById('caption_toggle'),
+			elCloseCaption  = document.getElementById('caption_close');
+
+		if (elTempModal === null) {
+			return;
+		}
+
+		elToggleCaption.addEventListener('click', function(e) {
+
+			e.preventDefault();
+			elTempModal.classList.toggle('toggle_credits');
+
+		});
+
+		elCloseCaption.addEventListener('click', function(e) {
+
+			e.preventDefault();
+			elTempModal.classList.remove('toggle_credits');
+
+		});
+
+	}
+*/
+
+
+
+
+
+
+
+
+
+	// Helper: Create modal element for AJAX loaded project content
+	// ----------------------------------------------------------------------------
+	function createModalYoutube() {
+
+		// console.log('execute createModalYoutube');
+
+		// create the document fragment to hold all of our created elements
+		var docFrag = document.createDocumentFragment();
+
+			// definied in initIsotope for scope
+			elModal = document.createElement('aside');
+			elModal.setAttribute('data-modal', 'hidden');
+
+				var elModalWrap = document.createElement('div');
+				elModalWrap.classList.add('wrap_modal');
+
+					elModalHeader = document.createElement('header');
+					elModalHeader.classList.add('modal_header', 'video_details');
+
+						// get .wrap_titles from AJAX response, use:
+						// elModalHeader.insertBefore('.wrap_titles', elModalHeader.firstChild);
+						// to add it before ul.wrap_links
+
+						var elWrapLinks = document.createElement('ul');
+						elWrapLinks.classList.add('wrap_links');
+
+						// define contents of links
+						var arrLinks = [
+								{ id: 'link_credits', title: 'Credits' },
+								{ id: 'link_post',    title: 'View Project Page' },
+								{ id: 'link_share',   title: 'Share' }
+							];
+
+						// iterate through each link and create
+						for (var i = 0; i < arrLinks.length; i++) {
+
+							var thisItem = document.createElement('li');
+							thisItem.id = arrLinks[i].title;
+
+								var thisLink = document.createElement('a');
+								thisLink.href      = '#';
+								thisLink.title     = arrLinks[i].title;
+								thisLink.innerHTML = arrLinks[i].title;
+
+								thisItem.appendChild(thisLink);
+
+							elWrapLinks.appendChild(thisItem);
+
+						}
+
+						elModalHeader.appendChild(elWrapLinks);
+
+					elModalWrap.appendChild(elModalHeader);
+
+					elModalFigure = document.createElement('figure');
+					elModalFigure.classList.add('modal_figure');
+
+						// get .wrap_video from AJAX response, use:
+						// elModalFigure.insertBefore('.wrap_video', elModalFigure.firstChild);
+						// to add it before figcaption
+
+						var elModalCaption = document.createElement('figcaption');
+						elModalCaption.classList.add('modal_caption');
+
+							elWrapScroll = document.createElement('wrap_scroll');
+							elWrapScroll.classList.add('wrap_scroll');
+
+								// get .video_credits from AJAX response, use:
+								// elWrapScroll.insertBefore('.video_credits', elWrapScroll.firstChild);
+								// to add it before figcaption
+
+							elModalClose = document.createElement('a');
+							elModalClose.classList.add('wrap_svg', 'wrap_ui-arrow');
+							elModalClose.href = '#';
+							elModalClose.title = 'Close Credits';
+
+								var elCloseSVG = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+								elCloseSVG.setAttribute('viewBox', '0 0 64 64'); // elCloseSVG.setAttributeNS('viewBox', '0 0 64 64');
+
+									var elCloseUse = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+									elCloseUse.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', '#ui_arrow');
+
+									elCloseSVG.appendChild(elCloseUse);
+
+								elModalClose.appendChild(elCloseSVG);
+
+							elModalCaption.appendChild(elModalClose);
+
+						elModalFigure.appendChild(elModalCaption);
+
+					elModalWrap.appendChild(elModalFigure);
+
+				elModal.appendChild(elModalWrap);
+
+			docFrag.appendChild(elModal);
+
+		// finally, empty contents of document fragment into <body>
+		elBody.appendChild(docFrag);
+
+		// is there a way to destroy the document fragment once we are done with it?
+
+		// we have now added the modal to the page, we do not need to create it again
+		// boolCreateModal = false;
+
+		// toggle modal visibility now that it is in the document (or should we wait until AJAX content is loaded?) ... (should we fade in with JS instead?)
+		// elModal.setAttribute('data-modal', 'visible');
+
+	}
+
+
+	// ajaxProjectContent: Get project content from single post page
+	// ----------------------------------------------------------------------------
+	function ajaxProjectContent(pLinkHREF, pLinkTitle, pLinkID) {
+
+		var ajaxXHR       = new XMLHttpRequest(),
+			docFrag       = document.createDocumentFragment(),
+			elPlaceholder = document.createElement('div');
+
+		// if modal has not been created:
+			// create modal
+			// become aware of its element variables
+
+		createModalYoutube();
+
+		// suspend modal it with a loading animation until our AJAX content has been added and is ready
+
+		ajaxXHR.onload = function() {
+
+			// successful status should only ever be 200... but be broad about it (why? not sure...)
+			if (ajaxXHR.status >= 200 && ajaxXHR.status < 400) {
+
+				// append fetched AJAX content to placeholder for insertion into document fragment
+				elPlaceholder.innerHTML = ajaxXHR.responseText;
+
+				// will need to be destroyed or emptied!
+				docFrag.appendChild(elPlaceholder);
+
+				// grab the content we will need to place in our document
+				var ajaxVideo   = elPlaceholder.getElementsByClassName('wrap_video')[0],
+					ajaxTitles  = elPlaceholder.getElementsByClassName('wrap_titles')[0],
+					ajaxCredits = elPlaceholder.getElementsByClassName('video_credits')[0];
+
+				console.log(ajaxVideo);
+
+				elModalFigure.insertBefore(ajaxVideo, elModalFigure.firstChild);
+				// elModalHeader.insertBefore(ajaxTitles, elModalHeader.firstChild);
+				// elWrapScroll.insertBefore('.video_credits', elWrapScroll.firstChild);
+
+				// li.link_post > a[href] = pLinkHREF
+				// li.link_share > a[href] = 'https://twitter.com/home?status=' + encodeURI(pLinkTitle) + '%20http%3A//y2u.be/' + pLinkID
+
+			} else {
+
+				console.log('We reached our target server, but it returned an error. Status was not between 200 and 400.');
+
+			}
+
+		};
+
+		ajaxXHR.onerror = function() {
+			console.log('There was a connection error of some sort');
+		};
+
+		// open the passed URL and 'send'
+		ajaxXHR.open('GET', pLinkHREF);
+		ajaxXHR.send();
+
+	}
+
+
+
+
+
+
+/*
+	// toggleModal: Open & Close modal windows
+	// ----------------------------------------------------------------------------
+	function toggleModal() {
+
+		var arrModalOpen   = document.getElementsByClassName('modal_open'),
+			arrModalClose  = document.getElementsByClassName('modal_close'),
+			elTargetModal;
+
+		// check if a.modal_open exists and is not empty
+		if (typeof arrModalOpen !== 'undefined' && arrModalOpen.length > 0) {
+
+			for (var i = 0; i < arrModalOpen.length; i++) {
+				arrModalOpen[i].addEventListener('click', openModal, false);
+			}
+
+			for (var i = 0; i < arrModalClose.length; i++) {
+				arrModalClose[i].addEventListener('click', closeModal, false);
+			}
+
+		} else {
+
+			return; // array not found or empty... exit function
+
+		}
+
+		function openModal(e) {
+
+			var dataTargetModal = this.getAttribute('href').substring(1); // capture the href of the clicked element, remove the # prefix
+
+			elTargetModal = document.getElementById(dataTargetModal); // get the modal we need to open
+
+			// create overlay element and fade in modal
+			createOverlay(false, 'modal');
+			elTargetModal.setAttribute('data-modal', 'active');
+
+			e.preventDefault();
+
+			document.addEventListener('click', documentClick);
+
+		}
+
+		function closeModal(e) {
+
+			var dataTargetModal = this.getAttribute('href').substring(1); // capture the href of the clicked element, remove the # prefix
+
+			elTargetModal = document.getElementById(dataTargetModal); // get the modal we need to open
+
+			// once we have found the desired parent element, hide that modal
+			elTargetModal.setAttribute('data-modal', 'inactive');
+			destroyOverlay();
+
+			e.preventDefault();
+
+			document.removeEventListener('click', documentClick);
+
+		}
+
+		function documentClick(e) {
+
+			// if this is not the currently toggled dropdown
+			if ( e.target === elOverlay ) {
+
+				// ignore this event if preventDefault has been called
+				if (e.defaultPrevented) {
+					return;
+				}
+
+				// once we have found the desired parent element, hide that modal (copied from closeModal)
+				elTargetModal.setAttribute('data-modal', 'inactive');
+				destroyOverlay();
+
+			}
+
+		}
+
+	}
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	// finalAnimate: Inform the document when we have finished our loading animations
 	// ----------------------------------------------------------------------------
 	function finalAnimate() {
 
-		var elFooter = document.getElementById('#page_footer');
+		var elFooter = document.getElementById('page_footer');
 
 		elFooter.addEventListener(animationEvent, applyReadyState);
 
@@ -331,14 +688,14 @@ document.addEventListener('DOMContentLoaded', function() {
 			if ( elNavPrimary.classList.contains('toggled') ) {
 
 				elNavPrimary.classList.remove('toggled');
-				unlockBody();
+				unlockBody(boolScrollbar);
 
 			} else {
 
 				window.scrollTo(0,0); // scroll to top of document
 
 				elNavPrimary.classList.add('toggled');
-				lockBody();
+				lockBody(boolScrollbar, numScrollbarWidth);
 
 			}
 
@@ -418,29 +775,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	// Window Events
 	// ----------------------------------------------------------------------------
-	window.addEventListener('resize', function(e) {
+	window.addEventListener('resize', debounce(function() {
 
-		// do not fire resize event for every pixel... wait until finished
-		waitForFinalEvent(function() {
+		// re-measure window width on resize
+		numWinWidth = window.innerWidth;
 
-			// re-measure window width on resize
-			numWinWidth = window.innerWidth;
+		if (numWinWidth >= 768) {
 
-			if (numWinWidth >= 768) {
+			// remove 'toggled' class from nav_primary and restore body scrolling
+			elNavPrimary.classList.remove('toggled');
+			unlockBody(boolScrollbar);
 
-				// remove 'toggled' class from nav_primary and restore body scrolling
-				elNavPrimary.classList.remove('toggled');
-				unlockBody();
+		} else {
 
-			} else {
+			elNavPrimary.classList.remove('scrolled');
 
-				elNavPrimary.classList.remove('scrolled');
+		}
 
-			}
-
-		}, 500, 'unique string');
-
-	}, false);
+	}, 500));
 
 	window.addEventListener('scroll', function(e) {
 
