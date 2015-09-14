@@ -42,11 +42,20 @@
 		}
 	}
 
-	// Single Post
+	// Projects Main
 	// ----------------------------------------------------------------------------
-	section.post {
-		article.post_single {
-			.post_header {
+	section.projects_main {
+		columns: 2;
+		article {
+			break-inside: avoid;
+		}
+	}
+
+	// Projects Single Post
+	// ----------------------------------------------------------------------------
+	section.projects_single {
+		article.projects_post {
+			.projects_header {
 				text-align: right;
 			}
 			.wrap_content {
@@ -99,12 +108,12 @@
 						}
 						&.item_link-close,
 						&.item_link-credits,
-						&.item_link-post {
+						&.item_link-project {
 							margin-bottom: 0.8rem;
 							text-align: right;
 						}
 						&.item_link-close,
-						&.item_link-post,
+						&.item_link-project,
 						&.item_link-share {
 							width: 100%;
 						}
@@ -582,22 +591,22 @@
 		}
 	}
 
-	// Single Post
+	// Projects Single Post
 	// ----------------------------------------------------------------------------
-	section.post {
+	section.projects_single {
 		margin-bottom: 4.8rem;
-		article.post_single {
-			.post_header {
+		article.projects_post {
+			.projects_header {
 				margin-bottom: 3.2rem;
 			}
-			figure.post_figure {
+			figure.projects_figure {
 				margin-bottom: 4.8rem;
-				figcaption.post_caption {
+				figcaption.projects_caption {
 					padding-top: 3.2rem;
 					padding-bottom: 3.2rem;
 					.wrap_titles {
 						width: calc(100% - 10.8rem);
-						h6 {
+						h3 {
 							font-size: 2.7rem;
 							&.title_video {
 								margin-bottom: 1rem;
@@ -610,7 +619,7 @@
 					}
 				}
 			}
-			.wrap_content h3 {
+			.wrap_content h4 {
 				margin-bottom: 4.8rem;
 			}
 		}
@@ -861,13 +870,19 @@
 		}
 	}
 
-	// Single Post
+	// Projects Main
 	// ----------------------------------------------------------------------------
-	section.post {
-		article.post_single {
-			figure.post_figure {
+	section.projects_main {
+		columns: 3;
+	}
+
+	// Projects Single Post
+	// ----------------------------------------------------------------------------
+	section.projects_single {
+		article.projects_post {
+			figure.projects_figure {
 				margin-bottom: 6rem;
-				figcaption.post_caption {
+				figcaption.projects_caption {
 					padding-top: 4rem;
 					padding-bottom: 4rem;
 				}

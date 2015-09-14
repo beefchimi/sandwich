@@ -293,7 +293,7 @@ footer.page_footer {
 	padding-top: 6rem;
 	padding-bottom: 8rem;
 	text-align: center;
-	h4 {
+	h6 {
 		font-size: 1.3rem;
 		line-height: 1.4;
 		color: $hsl_navy;
@@ -318,7 +318,7 @@ footer.page_footer {
 #home main {
 	@include container(1640);
 }
-#single main {
+#projects main {
 	@include container(946);
 }
 
@@ -327,7 +327,7 @@ footer.page_footer {
 // --- Video Details --- \\
 .video_details {
 	.wrap_titles {
-		h6 {
+		h3 {
 			font-size: 1.7rem;
 			color: $hsl_navy;
 			&.title_video {
@@ -613,13 +613,48 @@ section.iso_container {
 
 }
 
-// Single Post
+// Projects Main
 // ----------------------------------------------------------------------------
-section.post {
-	margin-bottom: 2rem;
-	article.post_single {
+section.projects_main {
+	text-align: center;
+	article {
+		margin-bottom: 3.2rem;
+		&:last-child {
+			margin-bottom: 0;
+		}
+		h3 {
+			margin-bottom: 0.6rem;
+			font-size: 1.5rem;
+			line-height: 1.3;
+			&:first-child {
+				font-weight: 800;
+				text-transform: uppercase;
+				color: $hsl_navy;
+			}
+			&:last-child {
+				margin-bottom: 0;
+			}
+			a {
+				color: $hsl_cyan;
+				transition: color 260ms ease-in-out;
+				&:hover {
+					color: $hsl_red;
+				}
+				&:active {
+					color: darken($hsl_red, 10%);
+				}
+			}
+		}
+	}
+}
 
-		.post_header {
+// Projects Single Post
+// ----------------------------------------------------------------------------
+section.projects_single {
+	margin-bottom: 2rem;
+	article.projects_post {
+
+		.projects_header {
 			margin-bottom: 2rem;
 			text-align: center;
 			a.link_projects {
@@ -636,10 +671,10 @@ section.post {
 			}
 		}
 
-		figure.post_figure {
+		figure.projects_figure {
 			margin-bottom: 3.2rem;
 			border-bottom: 0.3rem solid $hsl_cyan;
-			figcaption.post_caption {
+			figcaption.projects_caption {
 				display: flex;
 				align-items: center;
 				padding-top: 2rem;
@@ -660,23 +695,23 @@ section.post {
 
 		.wrap_content {
 			text-align: center;
-			h3 {
+			h4 {
 				margin-bottom: 3.2rem;
 				font-size: 2.2rem;
 			}
 			.wrap_credits {
 				margin-bottom: 4rem;
-				h3,
+				h4,
 				ul.video_credits li {
 					color: $hsl_navy;
 				}
 			}
 			.wrap_related {
 
-				h3 {
+				h4 {
 					color: $hsl_cyan;
 				}
-				ul.post_related li {
+				ul.projects_related li {
 					margin-bottom: 1.6rem;
 					font-size: 1.5rem;
 					&:last-child {
@@ -776,11 +811,11 @@ aside {
 					&.item_link-credits {
 						display: none;
 					}
-					&.item_link-post,
+					&.item_link-project,
 					&.item_link-share {
 						width: 50%;
 					}
-					&.item_link-post {
+					&.item_link-project {
 						text-align: left;
 					}
 					&.item_link-share {
@@ -860,7 +895,7 @@ aside {
 				padding: 0;
 			}
 			header.modal_header .wrap_titles,
-			header.modal_header ul.wrap_links li.item_link-post,
+			header.modal_header ul.wrap_links li.item_link-project,
 			header.modal_header ul.wrap_links li.item_link-share,
 			figure.modal_figure {
 				display: none;
@@ -903,20 +938,20 @@ aside {
 nav.nav_categories[data-color="red"] a.cat_trigger { color: $hsl_red; border-color: $hsl_red; }
 nav.nav_categories .wrap_dropdown ul li a.color_red,
 nav.nav_categories[data-color="red"] a.cat_trigger .cat_icon .cat_line .line_bg { background-color: $hsl_red; }
-footer.page_footer h4 a.color_red:hover { color: $hsl_red; }
-footer.page_footer h4 a.color_red:active { color: darken($hsl_red, 20%); }
+footer.page_footer h6 a.color_red:hover { color: $hsl_red; }
+footer.page_footer h6 a.color_red:active { color: darken($hsl_red, 20%); }
 // + orange links + \\
 nav.nav_categories[data-color="orange"] a.cat_trigger { color: $hsl_orange; border-color: $hsl_orange; }
 nav.nav_categories .wrap_dropdown ul li a.color_orange,
 nav.nav_categories[data-color="orange"] a.cat_trigger .cat_icon .cat_line .line_bg { background-color: $hsl_orange; }
-footer.page_footer h4 a.color_orange:hover { color: $hsl_orange; }
-footer.page_footer h4 a.color_orange:active { color: darken($hsl_orange, 20%); }
+footer.page_footer h6 a.color_orange:hover { color: $hsl_orange; }
+footer.page_footer h6 a.color_orange:active { color: darken($hsl_orange, 20%); }
 // + yellow links + \\
 nav.nav_categories[data-color="yellow"] a.cat_trigger { color: $hsl_yellow; border-color: $hsl_yellow; }
 nav.nav_categories .wrap_dropdown ul li a.color_yellow,
 nav.nav_categories[data-color="yellow"] a.cat_trigger .cat_icon .cat_line .line_bg { background-color: $hsl_yellow; }
-footer.page_footer h4 a.color_yellow:hover { color: $hsl_yellow; }
-footer.page_footer h4 a.color_yellow:active { color: darken($hsl_yellow, 20%); }
+footer.page_footer h6 a.color_yellow:hover { color: $hsl_yellow; }
+footer.page_footer h6 a.color_yellow:active { color: darken($hsl_yellow, 20%); }
 // + aqua links + \\
 nav.nav_categories[data-color="aqua"] a.cat_trigger,
 nav.nav_categories[data-current="*"] a.cat_trigger { color: $hsl_aqua; border-color: $hsl_aqua; }
@@ -924,8 +959,8 @@ nav.nav_categories .wrap_dropdown ul li a.color_aqua,
 nav.nav_categories .wrap_dropdown ul li:nth-child(1) a,
 nav.nav_categories[data-color="aqua"] a.cat_trigger .cat_icon .cat_line .line_bg,
 nav.nav_categories[data-current="*"] a.cat_trigger .cat_icon .cat_line .line_bg { background-color: $hsl_aqua; }
-footer.page_footer h4 a.color_aqua:hover { color: $hsl_aqua; }
-footer.page_footer h4 a.color_aqua:active { color: darken($hsl_aqua, 20%); }
+footer.page_footer h6 a.color_aqua:hover { color: $hsl_aqua; }
+footer.page_footer h6 a.color_aqua:active { color: darken($hsl_aqua, 20%); }
 // + cyan links + \\
 nav.nav_categories[data-color="cyan"] a.cat_trigger,
 nav.nav_categories[data-current=".curated"] a.cat_trigger { color: $hsl_cyan; border-color: $hsl_cyan; }
@@ -933,8 +968,8 @@ nav.nav_categories .wrap_dropdown ul li a.color_cyan,
 nav.nav_categories .wrap_dropdown ul li:nth-child(2) a,
 nav.nav_categories[data-color="cyan"] a.cat_trigger .cat_icon .cat_line .line_bg,
 nav.nav_categories[data-current=".curated"] a.cat_trigger .cat_icon .cat_line .line_bg { background-color: $hsl_cyan; }
-footer.page_footer h4 a.color_cyan:hover { color: $hsl_cyan; }
-footer.page_footer h4 a.color_cyan:active { color: darken($hsl_cyan, 20%); }
+footer.page_footer h6 a.color_cyan:hover { color: $hsl_cyan; }
+footer.page_footer h6 a.color_cyan:active { color: darken($hsl_cyan, 20%); }
 
 // Page Load
 // ----------------------------------------------------------------------------
@@ -1006,6 +1041,7 @@ section.iso_container .iso_loader .wrap_graphics {
 }
 
 // + page sections + \\
-section.post {
+section.projects_main,
+section.projects_single {
 	animation: animFadeIn 800ms ease-in-out 1200ms both;
 }

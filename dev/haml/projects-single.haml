@@ -6,7 +6,8 @@
 
 	= Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render
 
-	%body#single
+	-# shares the same id as projects main... reconsider this? (they do share the same container width... so CSS can be shared)
+	%body#projects
 
 		#svgInject.visuallyhidden
 			/ inject:svg
@@ -16,25 +17,25 @@
 
 		%main{:role => "main"}
 
-			%section#post.post
+			%section#projects_single.projects_single
 
-				%article#post_id.post_single
+				%article#post_id.projects_post
 
-					.post_header
-						%a.link_projects{:href => "#", :title => "Return to projects page"} See all projects
+					.projects_header
+						%a.link_projects{:href => "projects.html", :title => "Return to projects page"} See all projects
 
-					%figure.post_figure
+					%figure.projects_figure
 
 						.wrap_video
 							-# &html5=1 &wmode=transparent / :wmode => "Opaque",
 							-# &enablejsapi=1
 							%iframe{:type => "text/html", :width => "946", :height => "532", :src => "//www.youtube.com/embed/B6zVzWU95Sw?rel=0&showinfo=0", :frameborder => "0", :allowfullscreen => true}
 
-						%figcaption.post_caption.video_details
+						%figcaption.projects_caption.video_details
 
 							.wrap_titles
-								%h6.title_video.truncate "Sandwich Loves Slack"
-								%h6.title_client.truncate Slack
+								%h3.title_video.truncate "Sandwich Loves Slack"
+								%h3.title_client.truncate Slack
 
 							-# should this link to the client's website, if provided?
 							.wrap_logo
@@ -43,12 +44,12 @@
 					.wrap_content.clearfix
 
 						.wrap_credits
-							%h3 Credits
+							%h4 Credits
 							= Haml::Engine.new(File.read("dev/haml/partials/_con_credits.haml")).render
 
 						.wrap_related
-							%h3 Related Videos
-							%ul.post_related
+							%h4 Related Videos
+							%ul.projects_related
 								%li
 									%a{:href => "#", :title => "See related post"} "June 2.0"
 								%li

@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		elCaptionClose,
 		elModalLinkClose,
 		elModalLinkCredits,
-		elModalLinkPost,
+		elModalLinkProject,
 		elModalLinkShare,
 		elModalLoader,
 		boolModalCreated = false,
@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 
-	// ajaxProjectContent: Get project content from single post page
+	// ajaxProjectContent: Get project content from projects single post page
 	// ----------------------------------------------------------------------------
 	function ajaxProjectContent(pLinkHREF, pLinkTitle, pLinkClient, pLinkID) {
 
@@ -221,8 +221,8 @@ document.addEventListener('DOMContentLoaded', function() {
 				elModalClient.innerHTML = pLinkClient;
 
 				// attached our link destinations
-				elModalLinkPost.href  = pLinkHREF;
-				elModalLinkShare.href = 'https://twitter.com/home?status=' + encodeURI(pLinkTitle) + '%20http%3A//y2u.be/' + pLinkID;
+				elModalLinkProject.href = pLinkHREF;
+				elModalLinkShare.href   = 'https://twitter.com/home?status=' + encodeURI(pLinkTitle) + '%20http%3A//y2u.be/' + pLinkID;
 
 				// empty out contents of elAjaxHolder...
 				// this element is never appended to the document, so garbage collection can take care of it if / when needed
@@ -275,11 +275,11 @@ document.addEventListener('DOMContentLoaded', function() {
 						var elWrapTitles = document.createElement('div');
 						elWrapTitles.className = 'wrap_titles';
 
-							elModalTitle = document.createElement('h6');
+							elModalTitle = document.createElement('h3');
 							elModalTitle.className = 'title_video truncate';
 							elWrapTitles.appendChild(elModalTitle);
 
-							elModalClient = document.createElement('h6');
+							elModalClient = document.createElement('h3');
 							elModalClient.className = 'title_client truncate';
 							elWrapTitles.appendChild(elModalClient);
 
@@ -292,7 +292,7 @@ document.addEventListener('DOMContentLoaded', function() {
 							var arrLinks = [
 									{ id: 'close',   title: 'Close project' },
 									{ id: 'credits', title: 'Credits' },
-									{ id: 'post',    title: 'View Project Page' },
+									{ id: 'project', title: 'View Project Page' },
 									{ id: 'share',   title: 'Share' }
 								];
 
@@ -341,7 +341,7 @@ document.addEventListener('DOMContentLoaded', function() {
 											elModalLinkCredits = thisLink;
 										// if this is the 'single project page' link
 										} else if (i === 2) {
-											elModalLinkPost = thisLink;
+											elModalLinkProject = thisLink;
 										// if this is the 'tweet / share video' link
 										} else if (i === 3) {
 											elModalLinkShare = thisLink;
@@ -702,8 +702,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		elModalClient.innerHTML = '';
 
 		// reset link destinations
-		elModalLinkPost.href  = '#';
-		elModalLinkShare.href = '#';
+		elModalLinkProject.href = '#';
+		elModalLinkShare.href   = '#';
 
 		// declare our elModal as being 'empty', reset 'data-ajax', and re-apply 'visible' class to elModalLoader
 		elModal.setAttribute('data-content', 'empty'); // untoggles the display of .modal_content
@@ -1039,7 +1039,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			// remove 'toggled' class from nav_primary and restore body scrolling...
 			// nav_primary is the only element we should be concerned about with unlocking the body...
 			// but in case this changed, we need to be sure to update how this works
-			if ( elNavPrimary.classList.has('toggled') ) {
+			if ( elNavPrimary.classList.contains('toggled') ) {
 				elNavPrimary.classList.remove('toggled');
 				unlockBody(boolScrollbar);
 			}
