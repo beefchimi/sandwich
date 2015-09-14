@@ -49,9 +49,8 @@ var paths = {
 };
 
 
-// Gulp Tasks
-// ----------------------------------------------------------------------------
 // Compile and Output Styles
+// ----------------------------------------------------------------------------
 gulp.task('styles', function() {
 
 	// external sourcemaps not working, for whatever reason
@@ -88,7 +87,7 @@ gulp.task('styles', function() {
 			.pipe(plugins.autoprefixer({
 				browsers: ['last 3 version', 'ios 6', 'android 4']
 			}))
-			.pipe(plugins.minifyCss())
+			// .pipe(plugins.minifyCss())
 			.pipe(plugins.rename({
 				suffix: '.min'
 			}))
@@ -110,6 +109,7 @@ gulp.task('styles', function() {
 
 
 // Concat and output plugins scripts
+// ----------------------------------------------------------------------------
 gulp.task('plugins', function() {
 
 	// external sourcemaps don't work :(
@@ -132,6 +132,7 @@ gulp.task('plugins', function() {
 
 
 // Concat and output custom scripts
+// ----------------------------------------------------------------------------
 gulp.task('scripts', function() { // ['copy-scripts'],
 
 	// external sourcemaps don't work :(
@@ -139,7 +140,7 @@ gulp.task('scripts', function() { // ['copy-scripts'],
 	return gulp.src(paths.scripts.src)
 		.pipe(plugins.sourcemaps.init())
 			.pipe(plugins.concat('scripts.min.js'))
-			.pipe(plugins.uglify()) // firefox doesn't play nice, but Chrome is fine
+			// .pipe(plugins.uglify()) // firefox doesn't play nice, but Chrome is fine
 		.pipe(plugins.sourcemaps.write('../maps'))
 /*
 		.pipe(plugins.sourcemaps.write('../maps', {
@@ -154,6 +155,7 @@ gulp.task('scripts', function() { // ['copy-scripts'],
 
 
 // Copy (if changed) all of our vendor scripts to the build js folder
+// ----------------------------------------------------------------------------
 gulp.task('vendor', function() {
 
 	return gulp.src(paths.scripts.vndr)
@@ -175,6 +177,7 @@ gulp.task('copy-scripts', function() {
 
 
 // Compress (if changed) all of our images
+// ----------------------------------------------------------------------------
 gulp.task('images', function() {
 
 	return gulp.src(paths.images.src)
@@ -190,6 +193,7 @@ gulp.task('images', function() {
 
 
 // Compress and build SVG sprite (make ready for injection)
+// ----------------------------------------------------------------------------
 gulp.task('svg', function() {
 
 	return gulp.src(paths.svg.src)
@@ -208,6 +212,7 @@ gulp.task('svg', function() {
 
 
 // Compile only main HAML files (ignore partials - included via the main files), then inject SVG sprite
+// ----------------------------------------------------------------------------
 gulp.task('haml', function() {
 
 	// should use an if statement to skip the injection if no SVGs are found...
@@ -230,6 +235,7 @@ gulp.task('haml', function() {
 
 
 // Copy (if changed) all of our miscellaneous files to the build folder
+// ----------------------------------------------------------------------------
 gulp.task('misc', ['fonts'], function() {
 
 	return gulp.src(paths.misc.root + '*') // [paths.extra.root + '*.*', paths.extra.root + '.htaccess']
@@ -240,6 +246,7 @@ gulp.task('misc', ['fonts'], function() {
 
 
 // Copy (if changed) all of our fonts to the build folder
+// ----------------------------------------------------------------------------
 gulp.task('fonts', function() {
 
 	return gulp.src(paths.fonts.src)
@@ -250,6 +257,7 @@ gulp.task('fonts', function() {
 
 
 // Use rsync to deploy to server
+// ----------------------------------------------------------------------------
 gulp.task('deploy', function() {
 
 	gulp.src('build/')
@@ -268,6 +276,7 @@ gulp.task('deploy', function() {
 
 
 // Watch over specified files and run corresponding tasks...
+// ----------------------------------------------------------------------------
 gulp.task('watch', function() {
 
 	plugins.livereload.listen(); // start livereload server
@@ -275,11 +284,12 @@ gulp.task('watch', function() {
 	// watch dev files, rebuild when changed
 	gulp.watch(paths.haml.src + '**/*.haml', ['haml']);  // watch all HAML files, including partials (recursively)
 	gulp.watch(paths.styles.src + '*.scss', ['styles']); // watch all SCSS files, including partials
-	gulp.watch(paths.scripts.src, ['scripts']); // watch main javascript file
 	gulp.watch(paths.scripts.plgn, ['plugins']); // watch all plugin files
+	gulp.watch(paths.scripts.src, ['scripts']); // watch main javascript file
 
 });
 
 
 // Default gulp task
+// ----------------------------------------------------------------------------
 gulp.task('default', ['svg', 'styles', 'plugins', 'scripts', 'vendor', 'misc', 'haml']); // haml comes last so SVGs can compile | remove 'images' task as it takes LONG

@@ -25,7 +25,7 @@ dev/media/images
 
 # Ignore plugin scripts from any author other than 'beefchimi'
 dev/scripts/plugins/*.js
-!dev/scripts/plugins/0_helpers.js
+!dev/scripts/plugins/1_helpers.js
 # !dev/scripts/plugins/beefchimi.*.js
 
 # Ignore vendor scripts

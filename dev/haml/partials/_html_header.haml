@@ -5,7 +5,7 @@
 	%nav#nav_primary.nav_primary
 
 		%a#nav_toggle.nav_toggle{:href => "#", :title => "Toggle Menu"}
-			.wrap_lines
+			.nav_icon
 				.nav_line.line-1
 					.line_bg
 				.nav_line.line-2
@@ -13,7 +13,7 @@
 				.nav_line.line-3
 					.line_bg
 
-		.nav_wrap
+		.wrap_nav
 			%ul
 				%li
 					%a.color_random{:href => "#", :title => "Projects"} Projects
@@ -45,5 +45,5 @@
 			-# = Haml::Engine.new(File.read("dev/haml/partials/_svg_video-rainbow.haml")).render
 
 	-# different per page
-	-# = Haml::Engine.new(File.read("dev/haml/partials/_subhead_home.haml")).render
-	= Haml::Engine.new(File.read("dev/haml/partials/_subhead_projects.haml")).render
+	-# = Haml::Engine.new(File.read("dev/haml/partials/_tagline_home.haml")).render
+	= Haml::Engine.new(File.read("dev/haml/partials/_tagline_projects.haml")).render

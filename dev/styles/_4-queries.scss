@@ -1,0 +1,1014 @@
+// ==|== media queries ========================================================
+// ============================================================================
+
+@media only screen and (min-width: 480px) {
+
+// ==|== primary styles =======================================================
+// ============================================================================
+
+	// Primary Navigation (child of header)
+	// ----------------------------------------------------------------------------
+	nav.nav_primary {
+		a.nav_toggle {
+			top: 1rem;
+			left: 1.6rem;
+			right: auto;
+			margin: 0;
+		}
+		.wrap_nav ul li {
+			&:nth-child(-n+5) {
+				margin-bottom: 1.8rem;
+			}
+			&.nav_twitter {
+				margin-bottom: 2.8rem;
+			}
+			a {
+				font-size: 1.8rem;
+			}
+		}
+	}
+
+// ==|== main styles ==========================================================
+// ============================================================================
+
+	// Isotope
+	// ----------------------------------------------------------------------------
+	section.iso_container {
+		.iso_gutter {
+			width: 4.464286%; // 40 / 2 = 20 / 408 = 4.464286%
+		}
+		article {
+			width: 30.357143%; // 448 - 40 = 408 / 3 = 136 / 408 = 30.357143%
+		}
+	}
+
+	// Single Post
+	// ----------------------------------------------------------------------------
+	section.post {
+		article.post_single {
+			.post_header {
+				text-align: right;
+			}
+			.wrap_content {
+				text-align: left;
+				.wrap_credits,
+				.wrap_related {
+					float: left;
+				}
+				.wrap_credits {
+					margin-bottom: 0;
+					width: 62%;
+				}
+				.wrap_related {
+					width: 38%;
+				}
+			}
+		}
+	}
+
+	// YouTube Modal
+	// ----------------------------------------------------------------------------
+	aside {
+		.modal_content {
+			header.modal_header {
+				display: flex;
+				.wrap_titles {
+					width: 70%;
+					margin-bottom: 0;
+					text-align: left;
+				}
+				ul.wrap_links {
+					display: block;
+					width: 30%;
+					li {
+						&.item_link-close {
+							position: static;
+							top: auto;
+							right: auto;
+							a.wrap_ui-close {
+								display: inline;
+								padding: 0;
+								width: auto;
+								span {
+									display: inline;
+								}
+								svg {
+									display: none;
+								}
+							}
+						}
+						&.item_link-close,
+						&.item_link-credits,
+						&.item_link-post {
+							margin-bottom: 0.8rem;
+							text-align: right;
+						}
+						&.item_link-close,
+						&.item_link-post,
+						&.item_link-share {
+							width: 100%;
+						}
+					}
+				}
+			}
+			figure.modal_figure {
+				figcaption.modal_caption .wrap_scroll ul.video_credits {
+					column-count: 2;
+					text-align: left;
+					li {
+						break-inside: avoid;
+					}
+				}
+			}
+			.content_error {
+				padding: 6.4rem 3.2rem;
+			}
+		}
+		&[data-ajax="error"] {
+			.modal_content {
+				header.modal_header ul.wrap_links {
+					width: 100%;
+					li.item_link-close {
+						text-align: center;
+						transform: translateY(3.2rem);
+					}
+				}
+			}
+		}
+	}
+
+}
+
+@media only screen and (max-height: 400px) {
+
+// ==|== primary styles =======================================================
+// ============================================================================
+
+	// Primary Navigation (child of header)
+	// ----------------------------------------------------------------------------
+	nav.nav_primary .wrap_nav ul {
+		top: 45%;
+	}
+
+// ==|== main styles ==========================================================
+// =============================================================================
+
+	// Isotope
+	// ----------------------------------------------------------------------------
+	section.iso_container .iso_loader .wrap_graphics {
+		padding-top: 0;
+	}
+
+}
+
+@media only screen and (min-width: 768px) {
+
+// ==|== base =======================================================
+// ============================================================================
+
+	// Animations
+	// ----------------------------------------------------------------------------
+	@keyframes animSlideUp {
+		  0% { opacity: 0; transform: translate3d(0,2rem,0); }
+		100% { opacity: 1; transform: translate3d(0,0,0);    }
+	}
+	@keyframes animBounceUpFade {
+		  0% { transform: translate3d(0,4.8rem,0); opacity: 0; }
+		 60% { transform: translate3d(0,-0.8rem,0);            }
+		100% { transform: translate3d(0,0,0);      opacity: 1; }
+	}
+	@keyframes animRbow_color-border {
+		  0% { color: $hsl_red;    border-color: $hsl_red;    }
+		 20% { color: $hsl_orange; border-color: $hsl_orange; }
+		 40% { color: $hsl_yellow; border-color: $hsl_yellow; }
+		 60% { color: $hsl_aqua;   border-color: $hsl_aqua;   }
+		 80% { color: $hsl_cyan;   border-color: $hsl_cyan;   }
+		100% { color: $hsl_red;    border-color: $hsl_red;    }
+	}
+
+/*
+	@keyframes animRbow_border {
+		  0% { border-color: $hsl_red;    }
+		 20% { border-color: $hsl_orange; }
+		 40% { border-color: $hsl_yellow; }
+		 60% { border-color: $hsl_aqua;   }
+		 80% { border-color: $hsl_cyan;   }
+		100% { border-color: $hsl_red;    }
+	}
+*/
+
+	@keyframes animRbowInst_path-1 {
+		 0%,  20% { fill: $hsl_red;    }
+		21%,  40% { fill: $hsl_orange; }
+		41%,  60% { fill: $hsl_yellow; }
+		61%,  80% { fill: $hsl_aqua;   }
+		81%, 100% { fill: $hsl_cyan;   }
+	}
+	@keyframes animRbowInst_path-2 {
+		 0%,  20% { fill: $hsl_orange; }
+		21%,  40% { fill: $hsl_yellow; }
+		41%,  60% { fill: $hsl_aqua;   }
+		61%,  80% { fill: $hsl_cyan;   }
+		81%, 100% { fill: $hsl_red;    }
+	}
+	@keyframes animRbowInst_path-3 {
+		 0%,  20% { fill: $hsl_yellow; }
+		21%,  40% { fill: $hsl_aqua;   }
+		41%,  60% { fill: $hsl_cyan;   }
+		61%,  80% { fill: $hsl_red;    }
+		81%, 100% { fill: $hsl_orange; }
+	}
+	@keyframes animRbowInst_path-4 {
+		 0%,  20% { fill: $hsl_aqua;   }
+		21%,  40% { fill: $hsl_cyan;   }
+		41%,  60% { fill: $hsl_red;    }
+		61%,  80% { fill: $hsl_orange; }
+		81%, 100% { fill: $hsl_yellow; }
+	}
+	@keyframes animRbowInst_path-5 {
+		 0%,  20% { fill: $hsl_cyan;   }
+		21%,  40% { fill: $hsl_red;    }
+		41%,  60% { fill: $hsl_orange; }
+		61%,  80% { fill: $hsl_yellow; }
+		81%, 100% { fill: $hsl_aqua;   }
+	}
+
+	@keyframes animVHSwipe {
+/*
+		  0% { opacity: 0; transform: translate3d(-1.6rem,0,0);  }
+		 60% { transform: translate3d(0.2rem,0,0); }
+		100% { opacity: 1; transform: translate3d(0,0,0); }
+*/
+		  0% { transform: translate3d(-1.6rem,0,0); opacity: 0; }
+		 50% { transform: translate3d( 0.4rem,0,0);             }
+		 75% { transform: translate3d(-0.2rem,0,0);             }
+		100% { transform: translate3d(      0,0,0); opacity: 1; }
+	}
+
+	@keyframes animBounceInUp {
+		from {
+			opacity: 0;
+			transform: translate3d(0,300rem,0);
+		}
+		60% {
+			opacity: 1;
+			transform: translate3d(0,-2rem,0);
+		}
+		75% {
+			transform: translate3d(0,1rem,0);
+		}
+		90% {
+			transform: translate3d(0,-0.5rem,0);
+		}
+		to {
+			opacity: 1;
+			transform: translate3d(0,0,0);
+		}
+	}
+	@keyframes animBounceOutDown {
+		from {
+			opacity: 1;
+			transform: translate3d(0,0,0);
+		}
+		20% {
+			transform: translate3d(0,1rem,0);
+		}
+		40%, 45% {
+			opacity: 1;
+			transform: translate3d(0,-2rem,0);
+		}
+		to {
+			opacity: 0;
+			transform: translate3d(0,100rem,0); // less than initial value of 300rem... animation is too quick otherwise
+		}
+	}
+
+// ==|== primary styles =======================================================
+// ============================================================================
+
+	// Foundation
+	// ----------------------------------------------------------------------------
+	body {
+		padding-left: 3.2rem;
+		padding-right: 3.2rem;
+	}
+
+	// Header
+	// ----------------------------------------------------------------------------
+	header.page_header {
+		position: relative;
+		padding-top: 18rem;
+		padding-bottom: 6.4rem;
+		.logo_main {
+			margin-bottom: 6.4rem;
+			max-width: none; // or should I set this to the width of 'sandwich'?
+		}
+	}
+
+	// Primary Navigation (child of header)
+	// ----------------------------------------------------------------------------
+	nav.nav_primary {
+
+		position: fixed;
+		z-index: 900;
+		top: 0;
+		left: 0;
+		right: 0;
+		padding: 5.6rem 3.2rem 2rem 3.2rem; // 40px of extra top padding for scroll distance (set in JS - actually 60px)
+		background-color: $hsla_bone-L98;
+		transition: transform 260ms ease-in-out;
+
+		&.scrolled {
+			transform: translate3d(0,-4rem,0);
+		}
+
+		a.nav_toggle {
+			display: none;
+			position: static;
+			.nav_icon .nav_line {
+				position: static;
+			}
+			html[data-ready="ready"] & .nav_icon,
+			html[data-ready="ready"] & .nav_icon .nav_line,
+			html[data-ready="ready"] & .nav_icon .line-2 .line_bg {
+				transition: none;
+			}
+		}
+
+		.wrap_nav {
+			@include pos_cover(reset);
+			@include toggle_visibility(on);
+			position: relative; // is this needed, or is a stacking content retained?
+			perspective: none;
+			background-color: transparent;
+			ul {
+				@include container(1280);
+				position: static;
+				top: auto;
+				transform: none;
+				li {
+					a {
+						font-size: 1.5rem;
+					}
+					// + individual list items + \\
+					&:nth-child(-n+5) {
+						display: inline-block;
+					}
+					&:nth-child(-n+4) {
+						margin-right: 3.2rem;
+					}
+					&:nth-child(-n+5),
+					&.nav_twitter {
+						margin-bottom: 0;
+					}
+					&.nav_twitter {
+						position: absolute;
+						right: 0;
+						bottom: 0;
+						margin-right: 0;
+					}
+					&.nav_search {
+						position: absolute;
+						z-index: 1;
+						left: 0;
+						top: -0.2rem;
+						margin-left: 0;
+						margin-right: 0;
+						width: auto;
+						form {
+							&::before,
+							&::after {
+								display: none;
+								width: auto;
+								height: auto;
+								background: transparent;
+							}
+							input[type="text"] {
+								padding-left: 3.6rem;
+								width: 3.6rem;
+								text-align: left;
+								opacity: 0;
+								cursor: pointer;
+								transition: width 600ms $easeInOutBack, opacity 600ms $easeInOutBack; // runs when entering 768px width... can i prevent?
+								&:hover + svg.ui_search path {
+									stroke: $hsl_red;
+								}
+								&:focus {
+									width: calc(100vw - 19rem); // only until 1024px
+									opacity: 1;
+									cursor: text;
+									& + svg.ui_search path {
+										stroke: $hsl_navy;
+									}
+								}
+							}
+							svg.ui_search {
+								top: -0.2rem;
+								left: -0.2rem;
+								width: 2.6rem;
+								height: 2.6rem;
+								path {
+									opacity: 0;
+									stroke-dasharray: 155;
+									stroke-dashoffset: 155;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// + toggled navigation + \\
+		&.toggled {
+			.wrap_nav ul,
+			a.nav_toggle .nav_icon,
+			a.nav_toggle .nav_icon .line-1,
+			a.nav_toggle .nav_icon .line-3 {
+				transform: none; // just to be extra sure...
+			}
+		}
+
+	}
+
+	// Footer
+	// ----------------------------------------------------------------------------
+	footer.page_footer {
+		padding-top: 10rem;
+		padding-bottom: 12rem;
+	}
+
+// ==|== main styles ==========================================================
+// ============================================================================
+
+	// Nav Categories
+	// ----------------------------------------------------------------------------
+	nav.nav_categories {
+
+		margin-bottom: 6.4rem;
+		max-width: 80rem;
+
+		a.cat_trigger {
+			display: none; // will there be JS errors? should this be visually hidden instead?
+			visibility: hidden;
+		}
+
+		.wrap_dropdown,
+		.wrap_dropdown ul,
+		.wrap_dropdown .fix_ios-scroll {
+			background-color: transparent;
+		}
+		.wrap_dropdown {
+			@include toggle_visibility(on);
+			position: static;
+			top: auto;
+			border-radius: 0;
+			overflow: visible;
+			transition: none;
+			ul li {
+				display: inline-block;
+				margin: 0 0.4rem 0.6rem 0.4rem;
+				&:nth-child(n+3) a {
+					// do not apply the transition to our rainbow links (all & curated) since these use an animation
+					transition: color 260ms ease-in-out, background-color 260ms ease-in-out, border-color 260ms ease-in-out;
+				}
+				a {
+					padding: 0.8rem 1.2rem 1rem 1.2rem;
+					font-size: 1.4rem;
+					color: $hsl_navy;
+					border: 0.1rem solid transparent; // does a border-color need to be applied for each cycle?
+					border-radius: 0.8rem;
+					&.color_rainbow {
+						position: relative;
+						&::before {
+							content: "";
+							display: block;
+							position: absolute;
+							top: -0.2rem;
+							right: -0.2rem;
+							bottom: -0.2rem;
+							left: -0.2rem;
+							border: 0.4rem solid $hsl_bone;
+							border-radius: 0.8rem;
+							opacity: 1;
+							transition: opacity 260ms ease-in-out; // 600ms
+						}
+					}
+					&:hover {
+						color: $hsl_red; // default colour
+					}
+					&:active {
+						color: darken($hsl_red, 10%); // default colour
+					}
+				}
+				&.cat_current a {
+					color: $hsl_red; // 0% state of animation ... without this, there is a jump on loop
+					border-color: $hsl_red; // 0% state of animation ... without this, there is a jump on loop
+					&::before {
+						opacity: 0;
+					}
+				}
+			}
+			&.scrollable {
+				height: auto;
+				// required only get to iOS to behave
+				.fix_ios-scroll {
+					@include pos_cover(reset);
+					overflow: visible;
+					-webkit-mask-image: none;
+					ul {
+						height: auto;
+						overflow: visible;
+						-webkit-overflow-scrolling: auto;
+					}
+				}
+			}
+		}
+
+		&[data-index="0"],
+		&[data-index="1"],
+		&[data-index="2"],
+		&[data-index="14"],
+		&[data-index="15"],
+		&[data-index="16"] {
+			.wrap_dropdown {
+				top: auto;
+			}
+		}
+
+		// state the reason for this
+		html[data-ready="ready"] & .wrap_dropdown ul li.cat_current a.color_rainbow::before {
+			opacity: 0;
+		}
+
+	}
+
+	// Isotope
+	// ----------------------------------------------------------------------------
+	section.iso_container {
+		.iso_gutter {
+			width: 5.681818%; // 80 / 2 = 40 / 704 = 5.681818%
+		}
+		article {
+			margin-bottom: 4rem;
+			width: 29.545455%; // 704 - 80 = 624 / 3 = 208 / 704 = 29.545455%
+			a {
+				.wrap_iso-image .wrap_iso-title {
+					@include pos_cover(absolute, 103);
+					display: block;
+					opacity: 0;
+					.wrap_txt-center {
+						display: table;
+						width: 100%;
+						height: 100%;
+						text-align: center;
+						h3 {
+							display: table-cell;
+							vertical-align: middle;
+							padding-left: 1.6rem;
+							padding-right: 1.6rem;
+							font-size: 1.8rem;
+							color: $hsl_L100;
+						}
+					}
+				}
+				&:hover .wrap_iso-image .wrap_iso-title {
+					opacity: 1;
+				}
+				&:active .wrap_iso-image .wrap_iso-title {
+					opacity: 0.9;
+				}
+			}
+		}
+	}
+
+	// Single Post
+	// ----------------------------------------------------------------------------
+	section.post {
+		margin-bottom: 4.8rem;
+		article.post_single {
+			.post_header {
+				margin-bottom: 3.2rem;
+			}
+			figure.post_figure {
+				margin-bottom: 4.8rem;
+				figcaption.post_caption {
+					padding-top: 3.2rem;
+					padding-bottom: 3.2rem;
+					.wrap_titles {
+						width: calc(100% - 10.8rem);
+						h6 {
+							font-size: 2.7rem;
+							&.title_video {
+								margin-bottom: 1rem;
+							}
+						}
+					}
+					.wrap_logo {
+						width: 7.6rem;
+						line-height: 7.6rem;
+					}
+				}
+			}
+			.wrap_content h3 {
+				margin-bottom: 4.8rem;
+			}
+		}
+	}
+
+	// YouTube Modal
+	// ----------------------------------------------------------------------------
+	aside {
+
+		cursor: zoom-out;
+
+		.modal_content {
+			cursor: default;
+			display: flex;
+			flex-direction: column;
+			width: 80%;
+			height: auto;
+			box-shadow: 0 0 3.2rem hsla(0,0%,0%,0.32);
+			overflow-y: auto;
+			-webkit-overflow-scrolling: auto;
+			// last keyframe styles of animBounceOutDown
+			opacity: 0;
+			transform: translate3d(0,300rem,0);
+			header.modal_header {
+				order: 2; // move below figure
+				padding-left: 2rem;
+				padding-right: 2rem;
+				ul.wrap_links li {
+					&.item_link-close {
+						display: none;
+					}
+					&.item_link-credits {
+						display: block;
+					}
+				}
+			}
+			figure.modal_figure {
+				order: 1; // move above header
+				position: relative;
+				figcaption.modal_caption {
+					@include pos_cover(absolute, 1);
+					@include toggle_visibility(off);
+					overflow: hidden;
+					background-color: $hsla_cyan-L96;
+					transition: opacity 260ms ease-in-out, visibility 260ms ease-in-out;
+					.wrap_scroll {
+						height: 100%;
+						overflow-y: scroll;
+						-webkit-overflow-scrolling: touch;
+						ul.video_credits {
+							padding-left: 2rem;
+							padding-right: 2rem;
+						}
+					}
+					a.wrap_ui-arrow {
+						display: block;
+						position: absolute;
+						right: 2rem;
+						bottom: 2rem;
+						svg {
+							transition: transform 260ms ease-in-out; // no more 'fill'
+						}
+						&:hover svg {
+							transform: translateY(0.4rem);
+						}
+						&:active svg {
+							transform: translateY(0.2rem);
+						}
+					}
+				}
+			}
+			.content_error {
+				padding-left: 6.4rem;
+				padding-right: 6.4rem;
+			}
+		}
+
+		// bounce in / out of .modal_content
+		&[data-modal="hidden"] {
+			animation: animHide 400ms ease-in-out 400ms both; // delay the modal fade out just enough to be in sync with .modal_content
+			&[data-content="empty"] .modal_content,
+			&[data-content="loaded"] .modal_content {
+				animation: animBounceOutDown 800ms $easeBounce both;
+			}
+		}
+		&[data-modal="visible"] {
+			animation: animFadeIn 400ms ease-in-out both;
+			&[data-content="loaded"] .modal_content {
+				animation: animBounceInUp 800ms $easeBounce forwards;
+			}
+		}
+
+		&[data-ajax="error"] {
+			.modal_content {
+				header.modal_header ul.wrap_links li.item_link-credits {
+					display: none;
+				}
+			}
+		}
+
+		// toggled credits
+		&.toggle_credits .modal_content {
+			header.modal_header ul.wrap_links li.item_link-credits a {
+				color: $hsl_cyan;
+			}
+			figure.modal_figure figcaption.modal_caption {
+				@include toggle_visibility(on);
+			}
+		}
+
+		.modal_loader {
+			background-color: transparent;
+		}
+
+	}
+
+	// Alternating Colours
+	// ----------------------------------------------------------------------------
+	nav.nav_categories .wrap_dropdown ul li a.color_red,
+	nav.nav_categories .wrap_dropdown ul li a.color_orange,
+	nav.nav_categories .wrap_dropdown ul li a.color_yellow,
+	nav.nav_categories .wrap_dropdown ul li a.color_aqua,
+	nav.nav_categories .wrap_dropdown ul li a.color_cyan,
+	nav.nav_categories .wrap_dropdown ul li:nth-child(1) a,
+	nav.nav_categories .wrap_dropdown ul li:nth-child(2) a { background-color: transparent; }
+	// + rainbow links + \\
+	// NOT WORKING IN CHROME
+	nav.nav_categories .wrap_dropdown ul li a.color_rainbow:hover { animation: animRbow_color 600ms linear infinite; }
+	nav.nav_categories .wrap_dropdown ul li.cat_current a.color_rainbow { animation: animRbow_color-border 600ms linear infinite; }
+	// + red links + \\
+	nav.nav_categories[data-color="red"] + section.iso_container article a .wrap_iso-image .wrap_iso-title,
+	nav.nav_categories[data-color="random"] + section.iso_container article a.color_red .wrap_iso-image .wrap_iso-title { background-color: $hsl_red; }
+	nav.nav_categories .wrap_dropdown ul li.cat_current a.color_red { color: $hsl_red; border-color: $hsl_red; }
+	nav.nav_primary .wrap_nav ul li a.color_red:hover,
+	nav.nav_categories .wrap_dropdown ul li a.color_red:hover { color: $hsl_red; }
+	nav.nav_primary .wrap_nav ul li a.color_red:active,
+	nav.nav_categories .wrap_dropdown ul li a.color_red:active { color: darken($hsl_red, 20%); }
+	// + orange links + \\
+	nav.nav_categories[data-color="orange"] + section.iso_container article a .wrap_iso-image .wrap_iso-title,
+	nav.nav_categories[data-color="random"] + section.iso_container article a.color_orange .wrap_iso-image .wrap_iso-title { background-color: $hsl_orange; }
+	nav.nav_categories .wrap_dropdown ul li.cat_current a.color_orange { color: $hsl_orange; border-color: $hsl_orange; }
+	nav.nav_primary .wrap_nav ul li a.color_orange:hover,
+	nav.nav_categories .wrap_dropdown ul li a.color_orange:hover { color: $hsl_orange; }
+	nav.nav_primary .wrap_nav ul li a.color_orange:active,
+	nav.nav_categories .wrap_dropdown ul li a.color_orange:active { color: darken($hsl_orange, 20%); }
+	// + yellow links + \\
+	nav.nav_categories[data-color="yellow"] + section.iso_container article a .wrap_iso-image .wrap_iso-title,
+	nav.nav_categories[data-color="random"] + section.iso_container article a.color_yellow .wrap_iso-image .wrap_iso-title { background-color: $hsl_yellow; }
+	nav.nav_categories .wrap_dropdown ul li.cat_current a.color_yellow { color: $hsl_yellow; border-color: $hsl_yellow; }
+	nav.nav_primary .wrap_nav ul li a.color_yellow:hover,
+	nav.nav_categories .wrap_dropdown ul li a.color_yellow:hover { color: $hsl_yellow; }
+	nav.nav_primary .wrap_nav ul li a.color_yellow:active,
+	nav.nav_categories .wrap_dropdown ul li a.color_yellow:active { color: darken($hsl_yellow, 20%); }
+	// + aqua links + \\
+	nav.nav_categories[data-color="aqua"] + section.iso_container article a .wrap_iso-image .wrap_iso-title,
+	nav.nav_categories[data-color="random"] + section.iso_container article a.color_aqua .wrap_iso-image .wrap_iso-title { background-color: $hsl_aqua; }
+	nav.nav_categories .wrap_dropdown ul li.cat_current a.color_aqua { color: $hsl_aqua; border-color: $hsl_aqua; }
+	nav.nav_primary .wrap_nav ul li a.color_aqua:hover,
+	nav.nav_categories .wrap_dropdown ul li a.color_aqua:hover { color: $hsl_aqua; }
+	nav.nav_primary .wrap_nav ul li a.color_aqua:active,
+	nav.nav_categories .wrap_dropdown ul li a.color_aqua:active { color: darken($hsl_aqua, 20%); }
+	// + cyan links + \\
+	nav.nav_categories[data-color="cyan"] + section.iso_container article a .wrap_iso-image .wrap_iso-title,
+	nav.nav_categories[data-color="random"] + section.iso_container article a.color_cyan .wrap_iso-image .wrap_iso-title { background-color: $hsl_cyan; }
+	nav.nav_categories .wrap_dropdown ul li.cat_current a.color_cyan { color: $hsl_cyan; border-color: $hsl_cyan; }
+	nav.nav_primary .wrap_nav ul li a.color_cyan:hover,
+	nav.nav_categories .wrap_dropdown ul li a.color_cyan:hover { color: $hsl_cyan; }
+	nav.nav_primary .wrap_nav ul li a.color_cyan:active,
+	nav.nav_categories .wrap_dropdown ul li a.color_cyan:active { color: darken($hsl_cyan, 20%); }
+
+	// Page Load
+	// ----------------------------------------------------------------------------
+	nav.nav_categories,
+	nav.nav_primary a.nav_toggle .nav_icon .nav_line,
+	nav.nav_primary a.nav_toggle .nav_icon .nav_line .line_bg {
+		animation: none !important; // important seems to be required here...
+	}
+	// + header + \\
+	@for $i from 1 through 5 { // assumes 5 letters
+		html[data-ready="ready"] g.rainbow_letter-#{$i},
+		html[data-ready="ready"] g.rainbow_letter-#{$i} path {
+			animation: none;
+		}
+		html[data-ready="ready"] .wrap_video-rainbow:hover g.rainbow_letter-#{$i} path {
+			animation: animRbowInst_path-#{$i} 400ms linear infinite reverse;
+		}
+		html[data-ready="ready"] svg.logo_video-vhs g path {
+			animation: none;
+		}
+		html[data-ready="ready"] svg.logo_video-vhs:hover g path.group_path-#{$i} {
+			animation: animRbowInst_path-#{$i} 400ms linear infinite reverse;
+		}
+	}
+	header.page_header .wrap_tagline {
+		animation: animSlideUp 400ms ease-in-out 1000ms both;
+	}
+	// + nav primary + \\
+	$numDelay: 600;
+	@for $i from 1 through 5 { // assumes 5 nav items (excluding twitter and search)
+		nav.nav_primary .wrap_nav ul li:nth-child(#{$i}) {
+			animation: animBounceUpFade 400ms $easeBounce #{$numDelay}ms both;
+		}
+		$numDelay: $numDelay + 100;
+	}
+	nav.nav_primary .wrap_nav ul li.nav_twitter {
+		animation: animFadeIn 600ms ease-in-out 1600ms both;
+	}
+	nav.nav_primary .wrap_nav ul li.nav_search form svg.ui_search path {
+		animation: animSVGPath 1000ms $easeBounce 1600ms forwards;
+	}
+	// + nav categories + \\
+	$numDelay: 1000;
+	@for $i from 1 through 20 { // assume a maximum of 20 nav items
+		nav.nav_categories .wrap_dropdown ul li:nth-child(#{$i}) {
+			animation: animBounceUpFade 300ms $easeBounce #{$numDelay}ms both;
+		}
+		$numDelay: $numDelay + 40;
+	}
+
+}
+
+@media only screen and (min-width: 960px) {
+
+// ==|== main styles ==========================================================
+// ============================================================================
+
+	// Shared Content
+	// ----------------------------------------------------------------------------
+	// --- Video Credits --- \\
+	ul.video_credits li {
+		margin-bottom: 3.2rem;
+		p {
+			margin-bottom: 0.7rem;
+			&:first-child {
+				margin-bottom: 1.2rem;
+			}
+		}
+	}
+
+	// Isotope
+	// ----------------------------------------------------------------------------
+	section.iso_container {
+		.iso_gutter {
+			width: 4.464286%; // 120 / 3 = 40 / 896 = 4.464286%
+		}
+		article {
+			width: 21.651786%; // 896 - 120 = 776 / 4 = 194 / 704 = 21.651786%
+		}
+	}
+
+	// Single Post
+	// ----------------------------------------------------------------------------
+	section.post {
+		article.post_single {
+			figure.post_figure {
+				margin-bottom: 6rem;
+				figcaption.post_caption {
+					padding-top: 4rem;
+					padding-bottom: 4rem;
+				}
+			}
+			.wrap_content {
+				.wrap_credits {
+					width: 70%;
+					ul.video_credits {
+						column-count: 2;
+						li {
+							break-inside: avoid;
+						}
+					}
+				}
+				.wrap_related {
+					width: 30%;
+				}
+			}
+		}
+	}
+
+	// YouTube Modal
+	// ----------------------------------------------------------------------------
+	aside {
+		.modal_content {
+			header.modal_header {
+				padding-left: 2.6rem;
+				padding-right: 2.6rem;
+			}
+			figure.modal_figure {
+				figcaption.modal_caption .wrap_scroll ul.video_credits {
+					padding: 4.8rem;
+				}
+			}
+		}
+	}
+
+}
+
+@media only screen and (min-width: 1024px) {
+
+// ==|== base =================================================================
+// ============================================================================
+
+	// Variables
+	// ----------------------------------------------------------------------------
+	$easeInOutBack: cubic-bezier(0.680,-0.550,0.265,1.550); // redefine for
+
+// ==|== primary styles =======================================================
+// ============================================================================
+
+	// Primary Navigation (child of header)
+	// ----------------------------------------------------------------------------
+	nav.nav_primary .wrap_nav ul li.nav_search {
+		width: 23.2rem;
+		form input[type="text"] {
+			transition: width 260ms $easeInOutBack, opacity 260ms $easeInOutCirc; // redefine, since we have updated our easeing variable
+			&:focus {
+				width: 100%;
+			}
+		}
+	}
+
+}
+
+@media only screen and (min-width: 1200px) {
+
+// ==|== primary styles =======================================================
+// ============================================================================
+
+	// Foundation
+	// ----------------------------------------------------------------------------
+	body {
+		padding-left: 4.8rem;
+		padding-right: 4.8rem;
+	}
+
+	// Header
+	// ----------------------------------------------------------------------------
+	header.page_header {
+		padding-top: 24rem;
+		padding-bottom: 14rem;
+	}
+
+	// Primary Navigation (child of header)
+	// ----------------------------------------------------------------------------
+	nav.nav_primary .wrap_nav ul li {
+		margin-right: 4rem;
+	}
+
+// ==|== main styles ==========================================================
+// ============================================================================
+
+	// Nav Categories
+	// ----------------------------------------------------------------------------
+	nav.nav_categories {
+		margin-bottom: 12rem;
+	}
+
+	// Isotope
+	// ----------------------------------------------------------------------------
+	section.iso_container {
+		.iso_gutter {
+			width: 3.713768%; // 164 / 4 = 41 / 1104 = 3.713768%
+		}
+		article {
+			width: 17.028986%; // 1104 - 164 = 940 / 5 = 188 / 1104 = 17.028986%
+		}
+	}
+
+}
+
+@media only screen and (min-width: 1736px) {
+
+// ==|== primary styles =======================================================
+// ============================================================================
+
+	// Primary Navigation (child of header)
+	// ----------------------------------------------------------------------------
+	// --- Search Form --- \\
+	nav.nav_primary .wrap_nav ul li.nav_search {
+		width: 31.2rem;
+	}
+
+// ==|== main styles ==========================================================
+// ============================================================================
+
+	// Isotope
+	// ----------------------------------------------------------------------------
+	section.iso_container {
+		.iso_gutter {
+			width: 6.097561%; // 400 / 4 = 100 / 1640 = 6.097561%
+		}
+		article {
+			width: 15.121951%; // 1640 - 400 = 1240 / 5 = 248 / 1640 = 15.121951%
+		}
+	}
+
+}
+
+/*
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) { // IE10 & IE11
+}
+*/

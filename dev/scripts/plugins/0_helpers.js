@@ -104,35 +104,6 @@ function debounce(func, wait, immediate) {
 }
 
 
-// Helper: Get a random number between a min and max range
-// ----------------------------------------------------------------------------
-function getRandomInt(min, max) {
-	return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-
-// secretMail: Add mailto link to home section
-// ----------------------------------------------------------------------------
-function secretEmail(pStrLocal, pStrDomain, pStrSuffix) {
-
-	var arrLinks = document.getElementsByClassName('email_secret');
-
-	// update email address for each 'email_secret' found
-	for (var i = 0; i < arrLinks.length; i++) {
-
-		// do we need to replace the inner text as well?
-		if ( arrLinks[i].classList.contains('email_replace') ) {
-			arrLinks[i].innerHTML = pStrLocal + '@' + pStrDomain + '.' + pStrSuffix;
-		}
-
-		// update the href
-		arrLinks[i].setAttribute('href', 'mailto:' + pStrLocal + '@' + pStrDomain + '.' + pStrSuffix);
-
-	}
-
-}
-
-
 // Helper: Lock / Unlock Body Scrolling
 // ----------------------------------------------------------------------------
 function lockBody(pBoolScrollbar, pNumScrollbarWidth) {
@@ -159,6 +130,56 @@ function unlockBody(pBoolScrollbar) {
 	}
 
 }
+
+
+// Helper: Get the firstChild of an element that is not a textNode
+// ----------------------------------------------------------------------------
+function getFirstChild(el) {
+
+	var firstChild = el.firstChild;
+
+	while (firstChild != null && firstChild.nodeType == 3) { // skip TextNodes
+		firstChild = firstChild.nextSibling;
+	}
+
+	return firstChild;
+
+	// usage: getFirstChild( document.getElementById('element_id') );
+
+}
+
+
+/*
+// Helper: Get a random number between a min and max range
+// ----------------------------------------------------------------------------
+function getRandomInt(min, max) {
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+*/
+
+
+/*
+// secretMail: Add mailto link to home section
+// ----------------------------------------------------------------------------
+function secretEmail(pStrLocal, pStrDomain, pStrSuffix) {
+
+	var arrLinks = document.getElementsByClassName('email_secret');
+
+	// update email address for each 'email_secret' found
+	for (var i = 0; i < arrLinks.length; i++) {
+
+		// do we need to replace the inner text as well?
+		if ( arrLinks[i].classList.contains('email_replace') ) {
+			arrLinks[i].innerHTML = pStrLocal + '@' + pStrDomain + '.' + pStrSuffix;
+		}
+
+		// update the href
+		arrLinks[i].setAttribute('href', 'mailto:' + pStrLocal + '@' + pStrDomain + '.' + pStrSuffix);
+
+	}
+
+}
+*/
 
 
 /*

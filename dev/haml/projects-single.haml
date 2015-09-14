@@ -6,7 +6,7 @@
 
 	= Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render
 
-	%body
+	%body#single
 
 		#svgInject.visuallyhidden
 			/ inject:svg
@@ -14,7 +14,7 @@
 
 		= Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render
 
-		%main{:role => "main", "data-container" => "width_946"}
+		%main{:role => "main"}
 
 			%section#post.post
 
@@ -28,13 +28,13 @@
 						.wrap_video
 							-# &html5=1 &wmode=transparent / :wmode => "Opaque",
 							-# &enablejsapi=1
-							%iframe#youtube_video{:type => "text/html", :width => "946", :height => "532", :src => "//www.youtube.com/embed/B6zVzWU95Sw?rel=0&showinfo=0", :frameborder => "0", :allowfullscreen => true}
+							%iframe{:type => "text/html", :width => "946", :height => "532", :src => "//www.youtube.com/embed/B6zVzWU95Sw?rel=0&showinfo=0", :frameborder => "0", :allowfullscreen => true}
 
 						%figcaption.post_caption.video_details
 
 							.wrap_titles
 								%h6.title_video.truncate "Sandwich Loves Slack"
-								%h6.title_company.truncate Slack
+								%h6.title_client.truncate Slack
 
 							-# should this link to the client's website, if provided?
 							.wrap_logo
@@ -57,8 +57,5 @@
 									%a{:href => "#", :title => "See related post"} "It's June Again"
 								%li
 									%a{:href => "#", :title => "See related post"} "Christmas in... June"
-
-
-
 
 		= Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render

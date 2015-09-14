@@ -1,0 +1,1011 @@
+// ==|== primary styles =======================================================
+// ============================================================================
+
+// Foundation
+// ----------------------------------------------------------------------------
+html {
+	font-family: 'aktiv-grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif; // bug in FF causing 2 scrollbars with Helvetica?
+	background-color: $hsl_bone;
+	// lock scrolling
+	min-height: 100%;
+	overflow-y: scroll;
+	&[data-overflow="locked"],
+	&[data-overflow="locked"] body {
+		overflow-y: hidden;
+	}
+/*
+	&[data-ready="waiting"] body {
+		overflow-y: hidden;
+	}
+	&[data-ready="loaded"] body {
+		overflow-y: visible;
+	}
+*/
+}
+body {
+	position: relative;
+	padding-left: 1.6rem;
+	padding-right: 1.6rem;
+}
+::selection {
+	color: $hsl_L100;
+	background-color: $hsl_cyan;
+}
+// + autoprefixer does not recognize placeholder + \\
+::-webkit-input-placeholder {
+	color: $hsl_L72;
+	transition: color 260ms ease-in-out;
+}
+::-moz-placeholder {
+	color: $hsl_L72;
+	opacity: 1;
+	transition: color 260ms ease-in-out;
+}
+:-ms-input-placeholder {
+	color: $hsl_L72;
+	transition: color 260ms ease-in-out;
+}
+
+// Header
+// ----------------------------------------------------------------------------
+header.page_header {
+
+	padding-top: 9rem;
+	padding-bottom: 4.2rem;
+	text-align: center;
+
+	// [ nav_primary moved below for cleaner code ] \\
+
+	.logo_main {
+		@include container(288);
+		margin-bottom: 3.2rem;
+		.wrap_svg {
+			margin-left: auto;
+			margin-right: auto;
+			// + logo: sandwich + \\
+			&.wrap_logo-sandwich {
+				margin-bottom: 0.8rem;
+				max-width: 34.6rem;
+				width: 84%; // adjust height for mobile
+				& svg {
+					fill: $hsl_navy; // default fill (in case of animation)
+				}
+			}
+			// + logo: video + \\
+			&.wrap_logo-video {
+				max-width: 20rem;
+				width: 50%; // adjust height for mobile
+				svg {
+					overflow: visible; // otherwise, <path> animation will get chopped off
+					// + rainbow letters + \\
+					@for $i from 1 through length($arrColorValues) {
+						g.rainbow_letter-#{$i} path {
+							fill: nth($arrColorValues, $i); // default fill
+						}
+					}
+					// + vhs letters + \\
+					&.logo_video-vhs g path {
+						fill: $hsl_red; // default fill
+					}
+				}
+			}
+		}
+	}
+
+	.wrap_tagline {
+		margin-left: auto;
+		margin-right: auto;
+		svg {
+			fill: $hsl_navy;
+		}
+		&.wrap_tagline-home {
+			max-width: 30.3rem;
+		}
+		&.wrap_tagline-projects {
+			max-width: 15.3rem;
+		}
+	}
+
+}
+
+// Primary Navigation (child of header)
+// ----------------------------------------------------------------------------
+nav.nav_primary {
+
+	a.nav_toggle {
+		display: block;
+		position: absolute;
+		z-index: 401;
+		top: 2rem;
+		left: 0;
+		right: 0;
+		margin: auto;
+		padding: 1rem 0.4rem;
+		width: 4rem; // inner width: 3.2rem
+		height: 4rem; // inner height: 2rem
+		.nav_icon {
+			position: relative;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			html[data-ready="ready"] & {
+				overflow: visible;
+				transition: transform 260ms ease-in-out;
+			}
+			.nav_line {
+				position: absolute;
+				left: 0;
+				width: 100%;
+				height: 0.4rem;
+				.line_bg {
+					height: 100%;
+					background-color: $hsl_navy; // default background-color
+				}
+				// loop through each nav_line and offset from top by 8px (starting at 0px)
+				$numTop: 0;
+				@for $i from 1 through 3 {
+					&.line-#{$i} {
+						top: ($numTop / 10) + rem;
+					}
+					$numTop: $numTop + 8;
+				}
+				html[data-ready="ready"] & {
+					transition: transform 260ms ease-in-out;
+				}
+				html[data-ready="ready"] &.line-2 .line_bg {
+					transition: opacity 260ms ease-in-out;
+				}
+			}
+		}
+	}
+
+	.wrap_nav {
+		@include pos_cover(fixed, 400);
+		@include toggle_visibility(off);
+		perspective: 60rem;
+		background-color: $hsl_bone;
+		transition: opacity 360ms ease-in-out, visibility 360ms ease-in-out; // visibility is not very performant, would be ideal to avoid it
+		ul {
+			position: absolute;
+			top: 50%;
+			width: 100%;
+			transform: rotateX(10deg) translate3d(0,-55%,0);
+			transition: transform 260ms ease-in-out;
+			li {
+				a {
+					font-size: 2rem;
+					color: $hsl_navy;
+					transition: color 260ms ease-in-out;
+					// nav links do not cycle colours until 768
+					&:hover {
+						color: $hsl_red;
+					}
+					&:active {
+						color: $hsl_yellow;
+					}
+				}
+				// + individual list items + \\
+				&:nth-child(-n+5) {
+					margin-bottom: 2.4rem; // applied to first 5 nav items (assuming no other nav items will be added to the site)
+				}
+				&.nav_twitter {
+					margin-bottom: 4.8rem;
+				}
+				&.nav_search {
+					position: relative;
+					z-index: 1;
+					margin-left: auto;
+					margin-right: auto;
+					width: 26rem;
+					text-align: left;
+					form {
+						input[type="text"] {
+							position: relative;
+							z-index: 2;
+							padding: 0 0.4rem 1rem 0.4rem;
+							width: 100%;
+							font-size: 1.5rem;
+							text-align: center;
+							color: $hsl_L72;
+							background-color: $hsl_bone;
+							border-bottom: 0.2rem solid $hsl_navy;
+							transition: color 260ms ease-in-out;
+							&:focus {
+								z-index: 4; // when typing, we want our input to be above the ::after fade-gradient
+								color: $hsl_L60;
+							}
+							&:focus::-webkit-input-placeholder {
+								color: $hsl_L60;
+							}
+							&:focus::-moz-placeholder {
+								color: $hsl_L60;
+							}
+							&:focus:-ms-input-placeholder {
+								color: $hsl_L60;
+							}
+						}
+						svg.ui_search {
+							pointer-events: none;
+							position: absolute;
+							z-index: 6;
+							top: 0;
+							left: 0;
+							width: 2.2rem;
+							height: 2.2rem;
+							overflow: visible; // top and left seem to get cutoff in FF... making this visible doesn't even fix it :(
+							path {
+								stroke: $hsl_navy;
+							}
+						}
+						// + left and right gradient fade on text input + \\
+						&::before,
+						&::after {
+							content: " ";
+							pointer-events: none;
+							position: absolute;
+							top: 0;
+							width: 4.8rem;
+							height: calc(100% - 0.2rem);
+						}
+						&::before {
+							z-index: 5; // always above input
+							left: 0;
+							background: linear-gradient(to right, hsla(180,50%,99%,1), hsla(180,50%,99%,1) 40%, hsla(180,50%,99%,0));
+						}
+						&::after {
+							z-index: 3; // above until input focused
+							right: 0;
+							background: linear-gradient(to left, hsla(180,50%,99%,1), hsla(180,50%,99%,1) 40%, hsla(180,50%,99%,0));
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// + toggled navigation + \\
+	&.toggled {
+		a.nav_toggle .nav_icon {
+			transform: rotate(180deg);
+			.line-1 {
+				transform: translate3d(0,0.8rem,0) rotate(-45deg);
+			}
+			.line-2 .line_bg {
+				opacity: 0;
+			}
+			.line-3 {
+				transform: translate3d(0,-0.8rem,0) rotate(45deg);
+			}
+		}
+		.wrap_nav {
+			@include toggle_visibility(on);
+			ul {
+				transform: rotateX(0deg) translate3d(0,-40%,0);
+			}
+		}
+	}
+
+}
+
+// Footer
+// ----------------------------------------------------------------------------
+footer.page_footer {
+	padding-top: 6rem;
+	padding-bottom: 8rem;
+	text-align: center;
+	h4 {
+		font-size: 1.3rem;
+		line-height: 1.4;
+		color: $hsl_navy;
+		a {
+			color: $hsl_navy;
+			transition: color 260ms ease-in-out;
+			&:hover {
+				color: $hsl_red;
+			}
+			&:active {
+				color: darken($hsl_red, 10%);
+			}
+		}
+	}
+}
+
+// ==|== main styles ==========================================================
+// ============================================================================
+
+// Pages
+// ----------------------------------------------------------------------------
+#home main {
+	@include container(1640);
+}
+#single main {
+	@include container(946);
+}
+
+// Shared Content
+// ----------------------------------------------------------------------------
+// --- Video Details --- \\
+.video_details {
+	.wrap_titles {
+		h6 {
+			font-size: 1.7rem;
+			color: $hsl_navy;
+			&.title_video {
+				margin-bottom: 0.6rem;
+			}
+		}
+	}
+}
+// --- Video Credits --- \\
+ul.video_credits {
+	li {
+		margin-bottom: 2.2rem;
+		font-size: 1.5rem;
+		p {
+			margin-bottom: 0.6rem;
+			&:first-child {
+				margin-bottom: 1rem;
+			}
+			strong {
+				font-weight: 500;
+				text-transform: uppercase;
+			}
+		}
+		&:last-child,
+		p:last-child {
+			margin-bottom: 0;
+		}
+	}
+}
+// --- Loader: Spinner --- \\
+.loader_spinner {
+	@include pos_cover(absolute, 1);
+	opacity: 0;
+	overflow: hidden;
+	background-color: $hsl_bone;
+	transition: opacity 400ms ease-in-out 360ms;
+	&.visible {
+		opacity: 1;
+	}
+	.wrap_graphics {
+		@include pos_cover(absolute, 2);
+		.wrap_svg {
+			margin-left: auto;
+			margin-right: auto;
+			width: 4.4rem; // default size
+			height: 4.4rem; // default size
+			animation: anim360 800ms linear infinite forwards;
+			svg {
+				fill: $hsl_red; // default fill
+				animation: animRbow_fill 1600ms linear infinite;
+			}
+		}
+	}
+}
+
+// Nav Categories
+// ----------------------------------------------------------------------------
+nav.nav_categories {
+
+	@include container(200);
+	position: relative;
+	z-index: 200;
+	margin-bottom: 4.2rem;
+	text-align: center;
+
+	a.cat_trigger {
+		display: table;
+		width: 100%;
+		height: 4rem;
+		font-size: 1.5rem;
+		color: $hsl_red; // default color: red
+		border: 0.2rem solid $hsl_red; // default color: red
+		border-radius: 1.3rem;
+		&:hover {
+			color: $hsl_orange;
+			border-color: $hsl_orange;
+		}
+		span {
+			display: table-cell;
+			vertical-align: middle;
+			padding-left: 1.6rem;
+			padding-right: 1.6rem; // 4.2rem;
+		}
+		.cat_icon {
+			display: block;
+			position: absolute;
+			z-index: 202;
+			top: 1.4rem;
+			right: 1.6rem;
+			width: 2rem;
+			height: 1.2rem;
+			transition: opacity 260ms ease-in-out; // transform 260ms ease-in-out;
+			.cat_line {
+				position: absolute;
+				left: 0;
+				width: 100%;
+				height: 0.2rem;
+				transition: transform 260ms ease-in-out;
+				.line_bg {
+					height: 100%;
+					background-color: $hsl_red; // default background-color
+				}
+			/*
+				&.line-1 .line_bg,
+				&.line-3 .line_bg {
+					transition: background-color 260ms ease-in-out;
+				}
+				&.line-2 .line_bg {
+					transition: opacity 260ms ease-in-out;
+				}
+			*/
+				// loop through each cat_line and offset from top by 5px (starting at 0px)
+				$numTop: 0;
+				@for $i from 1 through 3 {
+					&.line-#{$i} {
+						top: ($numTop / 10) + rem;
+					}
+					$numTop: $numTop + 5;
+				}
+			}
+		}
+	}
+
+	// be sure there is no chance ios rubber band will show a different background
+	.wrap_dropdown,
+	.wrap_dropdown ul,
+	.wrap_dropdown .fix_ios-scroll {
+		background-color: $hsl_red;
+	}
+	.wrap_dropdown {
+		@include toggle_visibility(off);
+		position: absolute;
+		z-index: 201;
+		top: -12rem;
+		width: 100%;
+		border-radius: 1.3rem;
+		overflow: hidden;
+		transition: opacity 360ms ease-in-out, visibility 360ms ease-in-out; // try to avoid using visibility? not as performant
+		ul li {
+			a {
+				display: block;
+				padding: 1.2rem 1.6rem 1.3rem 1.6rem;
+				font-size: 1.5rem;
+				color: $hsl_bone;
+			}
+			&.cat_current a {
+				pointer-events: none;
+			}
+		}
+		&.scrollable {
+			height: 28rem; // height of row (40px) * 7
+			// required only get to iOS to behave
+			.fix_ios-scroll {
+			/*
+				position: absolute;
+				top: 4.8rem;
+				right: 0;
+				bottom: 0;
+				left: 0;
+			*/
+				@include pos_cover(absolute, 202);
+				border-radius: 1.3rem;
+				overflow: hidden;
+				-webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC); // required in order to get iOS Chrome to mask the overflow!
+				ul {
+					// padding-top: 0;
+					height: 100%;
+					overflow-x: hidden;
+					overflow-y: scroll;
+					-webkit-overflow-scrolling: touch;
+				/*
+					// + chrome scrollbar + \\
+					&::-webkit-scrollbar {
+						width: 0.4rem;
+						background-color: hsla(0,0%,0%,1);
+					}
+					&::-webkit-scrollbar-track {
+						background-color: darken($hsl_bone, 10%);
+					}
+					&::-webkit-scrollbar-thumb {
+						background-color: $hsl_yellow;
+					}
+				*/
+				}
+			}
+
+		}
+	}
+
+	// + toggled category dropdown + \\
+	&.toggled {
+		z-index: 500;
+		a.cat_trigger .cat_icon {
+			opacity: 0;
+		}
+		.wrap_dropdown {
+			@include toggle_visibility(on);
+			z-index: 501;
+		}
+	}
+
+	// collection is 0 based, so we actually have a total of 17 items...
+	// the assumption is there will only ever be this exact amount of categories
+	// everything between 2 and 14 is -120rem
+	&[data-index="0"]  .wrap_dropdown { top:  0rem;  }
+	&[data-index="1"]  .wrap_dropdown { top: -4rem;  }
+	&[data-index="2"]  .wrap_dropdown { top: -8rem;  }
+	&[data-index="14"] .wrap_dropdown { top: -16rem; }
+	&[data-index="15"] .wrap_dropdown { top: -20rem; }
+	&[data-index="16"] .wrap_dropdown { top: -24rem; }
+
+}
+
+// Isotope
+// ----------------------------------------------------------------------------
+section.iso_container {
+
+	position: relative;
+	z-index: 100;
+	overflow-y: hidden; // required to prevent scrollbar on filter change (horizontal scrollbar appears on resize... is this a concern?)
+
+	.iso_gutter {
+		width: 2rem; // isotope gutter width
+	}
+	article {
+		position: relative;
+		z-index: 101;
+		margin-bottom: 2rem;
+		width: calc(50% - 1rem); // isotope column width
+		a {
+			display: block;
+			.wrap_iso-image {
+				position: relative;
+				.wrap_iso-title {
+					display: none;
+					background-color: $hsl_red; // default background-color
+					transition: opacity 260ms ease-in-out;
+				}
+			}
+			.iso_logo {
+				position: relative;
+				img {
+					transition: opacity 260ms ease-in-out;
+				}
+				img.iso_logo-on {
+					@include pos_cover(absolute, 102);
+				}
+			}
+			.iso_logo img.iso_logo-on,
+			&:hover .iso_logo img.iso_logo-off {
+				opacity: 0;
+			}
+			&:hover .iso_logo img.iso_logo-on {
+				opacity: 1;
+			}
+		}
+	}
+
+	.iso_loader {
+		z-index: 300;
+		transition-duration: 720ms;
+		// transition-delay: 360ms;
+		.wrap_graphics {
+			z-index: 301;
+			padding-top: 2rem;
+			.wrap_txt p {
+				margin-top: 2rem;
+				font-size: 1.1rem;
+				font-weight: 800;
+				text-align: center;
+				text-transform: uppercase;
+				color: $hsl_navy; // default color
+				animation: animRbow_color 1600ms linear infinite;
+			}
+		}
+	}
+
+	// + internet explorer + \\
+	html.ie9 & .iso_loader {
+		display: none;
+		visibility: hidden;
+	}
+
+}
+
+// Single Post
+// ----------------------------------------------------------------------------
+section.post {
+	margin-bottom: 2rem;
+	article.post_single {
+
+		.post_header {
+			margin-bottom: 2rem;
+			text-align: center;
+			a.link_projects {
+				display: inline-block;
+				font-size: 1.5rem;
+				color: $hsl_navy;
+				transition: color 260ms ease-in-out;
+				&:hover {
+					color: $hsl_cyan;
+				}
+				&:active {
+					color: darken($hsl_cyan, 10%);
+				}
+			}
+		}
+
+		figure.post_figure {
+			margin-bottom: 3.2rem;
+			border-bottom: 0.3rem solid $hsl_cyan;
+			figcaption.post_caption {
+				display: flex;
+				align-items: center;
+				padding-top: 2rem;
+				padding-bottom: 2rem;
+				.wrap_titles {
+					margin-right: 3.2rem;
+					width: calc(100% - 7.2rem);
+				}
+				.wrap_logo {
+					width: 4rem;
+					text-align: right;
+					img {
+						display: inline-block;
+					}
+				}
+			}
+		}
+
+		.wrap_content {
+			text-align: center;
+			h3 {
+				margin-bottom: 3.2rem;
+				font-size: 2.2rem;
+			}
+			.wrap_credits {
+				margin-bottom: 4rem;
+				h3,
+				ul.video_credits li {
+					color: $hsl_navy;
+				}
+			}
+			.wrap_related {
+
+				h3 {
+					color: $hsl_cyan;
+				}
+				ul.post_related li {
+					margin-bottom: 1.6rem;
+					font-size: 1.5rem;
+					&:last-child {
+						margin-bottom: 0;
+					}
+					a {
+						color: $hsl_cyan;
+						transition: color 260ms ease-in-out;
+						&:hover {
+							color: $hsl_navy;
+						}
+						&:active {
+							color: darken($hsl_navy, 10%);
+						}
+					}
+				}
+			}
+		}
+
+	}
+}
+
+// YouTube Modal
+// ----------------------------------------------------------------------------
+aside {
+	@include flex_center;
+	position: fixed;
+	z-index: 998;
+	top: 0;
+	left: 0;
+	width: 100%; // cannot use right: 0; bottom: 0; because of animHide
+	height: 100%;
+	// opacity: 0; // might be required if we find the modal appearing instantly on initial load
+	background-color: hsla(0,0%,0%,0.15);
+
+	// fade in / out of modal
+	&[data-modal="hidden"] {
+		animation: animHide 600ms ease-in-out both;
+	}
+	&[data-modal="visible"] {
+		animation: animFadeIn 600ms ease-in-out both;
+	}
+	// better safe than sorry... changing z-index just in case of interaction issues
+	html[data-overflow="locked"] & {
+		z-index: 998; // allow correct z-index when modal is visible
+	}
+	html[data-overflow="scrollable"] & {
+		z-index: -1; // move to bottom layer so it does not overlap other elements once hidden
+	}
+
+	html[data-scrollbar] & {
+		padding-right: 1.5rem; // temporary value
+	}
+
+	.modal_content {
+
+		max-width: 85.3rem;
+		width: 100%;
+		height: 100%;
+		background-color: $hsl_cyan; // colour of figcaption in case content is shorter than viewport
+		overflow-y: scroll;
+		-webkit-overflow-scrolling: touch;
+
+		header.modal_header {
+			position: relative;
+			padding: 2rem 1.6rem;
+			background-color: $hsl_bone;
+			.wrap_titles {
+				margin-bottom: 2rem;
+				width: calc(100% - 4rem); // accomodate for close button
+				text-align: left;
+			}
+			ul.wrap_links {
+				display: flex;
+				li {
+					&.item_link-close {
+						position: absolute;
+						top: 0.9rem; // -10px padding-top
+						right: 0.6rem; // -10px padding-right
+						a.wrap_ui-close {
+							padding: 1rem; // used for easier hitbox
+							width: 4rem; // 10px padding all around results in 20px svg
+							span {
+								display: none;
+							}
+							svg {
+								fill: $hsl_ash;
+							}
+							&:hover svg {
+								fill: $hsl_cyan;
+							}
+							&:active svg {
+								fill: darken($hsl_cyan, 10%);
+							}
+						}
+					}
+					&.item_link-credits {
+						display: none;
+					}
+					&.item_link-post,
+					&.item_link-share {
+						width: 50%;
+					}
+					&.item_link-post {
+						text-align: left;
+					}
+					&.item_link-share {
+						text-align: right;
+					}
+					a {
+						font-size: 1.3rem;
+						color: $hsl_ash;
+						transition: color 260ms ease-in-out;
+						&:hover {
+							color: $hsl_cyan;
+						}
+						&:active {
+							color: darken($hsl_cyan, 10%);
+						}
+					}
+				}
+			}
+
+		}
+
+		figure.modal_figure {
+			.wrap_video {
+				background-color: $hsl_L0; // set to black in case of slow video load
+			}
+			figcaption.modal_caption {
+				background-color: $hsl_cyan;
+				.wrap_scroll {
+					ul.video_credits {
+						padding: 3.2rem 1.6rem; // apply padding to child of figcaption, as figcaption will eventually require scrolling (would cut off padding-bottom)
+						li {
+							color: $hsl_L100;
+						}
+					}
+				}
+				a.wrap_ui-arrow {
+					display: none;
+					width: 3.2rem;
+				}
+				a.wrap_ui-arrow svg {
+					fill: $hsl_bone;
+				}
+			}
+		}
+
+		.content_error {
+			display: none;
+			width: 100%;
+			height: 100%;
+			padding: 1.6rem;
+			background-color: $hsl_bone;
+			p {
+				font-size: 2rem;
+				line-height: 1.3;
+				color: $hsl_navy;
+				a {
+					color: $hsl_red;
+					transition: color 260ms ease-in-out;
+					&:hover {
+						color: $hsl_cyan;
+					}
+					&:active {
+						color: darken($hsl_cyan, 10%);
+					}
+				}
+			}
+		}
+
+	}
+
+	&[data-ajax="error"] {
+		.modal_content {
+			.content_error {
+				@include flex_center;
+			}
+			header.modal_header {
+				padding: 0;
+			}
+			header.modal_header .wrap_titles,
+			header.modal_header ul.wrap_links li.item_link-post,
+			header.modal_header ul.wrap_links li.item_link-share,
+			figure.modal_figure {
+				display: none;
+			}
+		}
+	}
+
+	.modal_loader {
+		z-index: -1;
+		pointer-events: none; // click event using stopPropagation
+		.wrap_graphics {
+			@include flex_center;
+			.wrap_svg {
+				width: 8rem;
+				height: 8rem;
+				animation-play-state: paused;
+				svg {
+					animation-play-state: paused;
+				}
+			}
+		}
+	}
+	// once content is loaded...
+	// we need to move the loader behind .modal_content layer and pause the animations
+	&[data-modal="visible"][data-content="empty"] .modal_loader {
+		z-index: 1;
+		.wrap_graphics .wrap_svg {
+			animation-play-state: running;
+			svg {
+				animation-play-state: running;
+			}
+		}
+	}
+
+}
+
+// Alternating Colours
+// ----------------------------------------------------------------------------
+// + red links + \\
+nav.nav_categories[data-color="red"] a.cat_trigger { color: $hsl_red; border-color: $hsl_red; }
+nav.nav_categories .wrap_dropdown ul li a.color_red,
+nav.nav_categories[data-color="red"] a.cat_trigger .cat_icon .cat_line .line_bg { background-color: $hsl_red; }
+footer.page_footer h4 a.color_red:hover { color: $hsl_red; }
+footer.page_footer h4 a.color_red:active { color: darken($hsl_red, 20%); }
+// + orange links + \\
+nav.nav_categories[data-color="orange"] a.cat_trigger { color: $hsl_orange; border-color: $hsl_orange; }
+nav.nav_categories .wrap_dropdown ul li a.color_orange,
+nav.nav_categories[data-color="orange"] a.cat_trigger .cat_icon .cat_line .line_bg { background-color: $hsl_orange; }
+footer.page_footer h4 a.color_orange:hover { color: $hsl_orange; }
+footer.page_footer h4 a.color_orange:active { color: darken($hsl_orange, 20%); }
+// + yellow links + \\
+nav.nav_categories[data-color="yellow"] a.cat_trigger { color: $hsl_yellow; border-color: $hsl_yellow; }
+nav.nav_categories .wrap_dropdown ul li a.color_yellow,
+nav.nav_categories[data-color="yellow"] a.cat_trigger .cat_icon .cat_line .line_bg { background-color: $hsl_yellow; }
+footer.page_footer h4 a.color_yellow:hover { color: $hsl_yellow; }
+footer.page_footer h4 a.color_yellow:active { color: darken($hsl_yellow, 20%); }
+// + aqua links + \\
+nav.nav_categories[data-color="aqua"] a.cat_trigger,
+nav.nav_categories[data-current="*"] a.cat_trigger { color: $hsl_aqua; border-color: $hsl_aqua; }
+nav.nav_categories .wrap_dropdown ul li a.color_aqua,
+nav.nav_categories .wrap_dropdown ul li:nth-child(1) a,
+nav.nav_categories[data-color="aqua"] a.cat_trigger .cat_icon .cat_line .line_bg,
+nav.nav_categories[data-current="*"] a.cat_trigger .cat_icon .cat_line .line_bg { background-color: $hsl_aqua; }
+footer.page_footer h4 a.color_aqua:hover { color: $hsl_aqua; }
+footer.page_footer h4 a.color_aqua:active { color: darken($hsl_aqua, 20%); }
+// + cyan links + \\
+nav.nav_categories[data-color="cyan"] a.cat_trigger,
+nav.nav_categories[data-current=".curated"] a.cat_trigger { color: $hsl_cyan; border-color: $hsl_cyan; }
+nav.nav_categories .wrap_dropdown ul li a.color_cyan,
+nav.nav_categories .wrap_dropdown ul li:nth-child(2) a,
+nav.nav_categories[data-color="cyan"] a.cat_trigger .cat_icon .cat_line .line_bg,
+nav.nav_categories[data-current=".curated"] a.cat_trigger .cat_icon .cat_line .line_bg { background-color: $hsl_cyan; }
+footer.page_footer h4 a.color_cyan:hover { color: $hsl_cyan; }
+footer.page_footer h4 a.color_cyan:active { color: darken($hsl_cyan, 20%); }
+
+// Page Load
+// ----------------------------------------------------------------------------
+
+// + header + \\
+header.page_header .logo_main .wrap_logo-sandwich {
+	animation: animFadeIn 800ms ease-in-out 200ms both;
+}
+header.page_header .wrap_tagline {
+	animation: animFadeIn 800ms ease-in-out 1000ms both; // could transition fill instead?
+}
+
+// + rainbow letters + \\
+$numDelay: 600;
+@for $i from 1 through 5 { // assumes 5 letters
+	// header.page_header .logo_main .wrap_logo-video svg g.rainbow_letter-
+	g.rainbow_letter-#{$i} {
+		animation: animFadeIn 400ms ease-in-out #{$numDelay}ms both;
+	}
+	g.rainbow_letter-#{$i} path {
+		animation: animBounceUp 400ms $easeBounce #{$numDelay}ms both;
+	}
+	$numDelay: $numDelay + 100;
+}
+
+// + vhs letters + \\
+$numDelay: 800;
+@for $i from 1 through 5 { // assumes 5 letters
+	svg.logo_video-vhs g path.group_path-#{$i} {
+		animation: animVHSwipe 480ms $easeBounce #{$numDelay}ms both;
+	}
+	$numDelay: $numDelay + 100;
+}
+
+// + nav primary + \\
+nav.nav_primary a.nav_toggle .nav_icon {
+	.line-1 {
+		animation: animSlideIn_left 400ms ease-out 1200ms both;
+	}
+	.line-2 {
+		animation: animSlideIn_right 400ms ease-out 1500ms both;
+	}
+	.line-3 {
+		animation: animSlideIn_left 400ms ease-out 1800ms both;
+	}
+	.nav_line .line_bg {
+		animation: animRbow2Navy_bg 1000ms linear 1200ms;
+	}
+	@for $i from 1 through 3 {
+		html[data-ready="ready"] & .line-#{$i} {
+			animation: none;
+		}
+	}
+}
+
+// + footer + \\
+footer.page_footer {
+	animation: animFadeIn 800ms ease-in-out 1800ms both; // final animated element
+}
+
+// + nav categories + \\
+nav.nav_categories {
+	animation: animFadeIn 800ms ease-in-out 1200ms both;
+}
+
+// + isotope loader + \\
+section.iso_container .iso_loader .wrap_graphics {
+	animation: animFadeIn 1000ms ease-in-out forwards;
+}
+
+// + page sections + \\
+section.post {
+	animation: animFadeIn 800ms ease-in-out 1200ms both;
+}

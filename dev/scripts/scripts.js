@@ -6,7 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	var elHTML       = document.documentElement,
 		elBody       = document.body,
 		elNavPrimary = document.getElementById('nav_primary'), // required to be global
-		elNavCat     = document.getElementById('nav_categories'); // required to be global
+		elNavCat     = document.getElementById('nav_categories'), // required to be global
+		objISO;
 
 	// window measurement variables
 	var numScrollPos      = window.pageYOffset,
@@ -15,22 +16,41 @@ document.addEventListener('DOMContentLoaded', function() {
 		numScrollbarWidth = numWinWidth - numClientWidth,
 		boolScrollbar     = numScrollbarWidth > 0 ? true : false;
 
+	// modal variables
+	var elModal,
+		elModalContent,
+		elModalHeader,
+		elModalTitle,
+		elModalClient,
+		elWrapVideo,
+		elWrapScroll,
+		elCaptionClose,
+		elModalLinkClose,
+		elModalLinkCredits,
+		elModalLinkPost,
+		elModalLinkShare,
+		elModalLoader,
+		boolModalCreated = false,
+		boolErrorCreated = false,
+		boolRetryRequest = false;
+
 
 	// onPageLoad: Main Function To Fire on Window Load
 	// ----------------------------------------------------------------------------
 	function onPageLoad() {
 
+/*
 		if (boolScrollbar) {
+			// store scrollbar width in markup in hopes that CSS can one day utilize it...
 			elHTML.setAttribute('data-scrollbar', numScrollbarWidth);
 		}
+*/
 
 		initIsotope();
 		finalAnimate();
 		fixedHeader();
 		navToggle();
 		cycleLinkColors();
-
-		// modalYoutube();
 
 	}
 
@@ -55,15 +75,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			strCurrentCat = elNavCat.getAttribute('data-current'),
 			arrIsoLinks   = document.getElementsByClassName('iso_link');
 
-/*
-		// modal variables to be defined in createModal()
-		var elModal,
-			elModalHeader,
-			elModalFigure,
-			elWrapScroll,
-			elModalClose;
-*/
-
 		// layout Isotope after all images have loaded
 		imagesLoaded(elIsoContainer, function(instance) {
 
@@ -72,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				itemSelector: '.iso_brick',
 				percentPosition: true,
 				masonry: {
-					columnWidth: '.iso_sizer',
+					columnWidth: '.iso_brick',
 					gutter: '.iso_gutter'
 				},
 				filter: strCurrentCat
@@ -80,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			});
 
 			// initalize and pass objISO to isoFilterSearch and categoryDropdown once ready
-			// isoFilterSearch(objISO);
+			isoFilterSearch(objISO);
 			categoryDropdown(objISO);
 
 			// IE9 does not support animations...
@@ -96,7 +107,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		});
 
-		// iterate through every .iso_link and attach click event
+		// iterate through every .iso_link...
+		// and attach click event for launching the YouTube modal
 		for (var i = 0; i < arrIsoLinks.length; i++) {
 			isoLinkClick(arrIsoLinks[i]);
 		}
@@ -114,25 +126,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			}
 
 		}
-
-	}
-
-
-	// isoLinkClick: Register click event for each .iso_link
-	// ----------------------------------------------------------------------------
-	function isoLinkClick(thisIsoLink) {
-
-		thisIsoLink.addEventListener('click', function(e) {
-
-			e.preventDefault();
-
-			var strThisLink  = thisIsoLink.getAttribute('href'),
-				strThisTitle = thisIsoLink.getAttribute('title'),
-				strThisID    = thisIsoLink.getAttribute('data-youtube');
-
-			ajaxProjectContent(strThisLink, strThisTitle, strThisID);
-
-		});
 
 	}
 
@@ -167,362 +160,91 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 
-
-
-
-	// categoryDropdown: isoTope Category Dropdown
+	// isoLinkClick: Register click event for each .iso_link
 	// ----------------------------------------------------------------------------
-	function categoryDropdown(pISO) {
+	function isoLinkClick(thisIsoLink) {
 
-		var elNavCatTrigger   = document.getElementById('cat_trigger'),
-			elNavCatLabel     = elNavCatTrigger.getElementsByClassName('cat_label')[0],
-			elNavLinkCurrent  = elNavCat.getElementsByClassName('cat_current')[0], // elNavCat.querySelector('.cat_current'),
-			arrCatLinks       = elNavCat.getElementsByClassName('cat_link'),
-			numCatLinksLength = arrCatLinks.length;
-
-
-		// click elNavCatTrigger to toggle dropdown
-		elNavCatTrigger.addEventListener('click', function(e) {
-
-			e.preventDefault(); // url is just a #, do not follow
-
-			elNavCat.classList.toggle('toggled'); // add / remove 'toggled' class from elNavCat
-
-			/*
-				if ( elNavCat.classList.contains('toggled') ) {
-					elNavCat.classList.remove('toggled')
-					unlockBody(boolScrollbar);
-				} else {
-					elNavCat.classList.add('toggled')
-					lockBody(boolScrollbar, numScrollbarWidth);
-				}
-			*/
-
-		});
-
-		// click outside of element to close dropdown
-		document.addEventListener('click', function(e) {
-
-			// if this is not the currently toggled dropdown
-			if (e.target != elNavCat) {
-
-				// ignore this event if preventDefault has been called
-				if (e.defaultPrevented) {
-					return;
-				}
-
-				// unlockBody(boolScrollbar);
-
-				elNavCat.classList.remove('toggled'); // remove 'toggled' class from elNavCat
-
-
-			}
-
-		});
-
-		// register clickCatLink for each a.cat_link found
-		for (var i = 0; i < numCatLinksLength; i++) {
-			clickCatLink(arrCatLinks[i], i);
-		}
-
-		// close dropdown and filter categories using Isotope
-		function clickCatLink(thisCatLink, index) {
-
-			thisCatLink.addEventListener('click', function(e) {
-
-				e.preventDefault(); // prevent navigation to url
-
-				var strThisLabel  = this.innerHTML,
-					strThisColor  = this.getAttribute('data-color'),
-					strThisFilter = this.getAttribute('data-filter');
-
-				// update elNavCat 'data-color', 'data-current', and elNavCatLabel innerHTML
-				elNavCat.setAttribute('data-color', strThisColor);
-				elNavCat.setAttribute('data-current', strThisFilter);
-				elNavCatLabel.innerHTML = strThisLabel;
-
-				// unlockBody(boolScrollbar);
-				elNavCat.classList.remove('toggled'); // remove 'toggled' class from elNavCat
-
-				// swap 'cat_current' class and redefine elNavLinkCurrent as new selection
-				elNavLinkCurrent.classList.remove('cat_current');
-				elNavLinkCurrent = this.parentNode;
-				elNavLinkCurrent.classList.add('cat_current');
-
-				// now do all that Isotope shit
-				pISO.arrange({
-					filter: strThisFilter
-				});
-
-			});
-
-		}
-
-
-
-		function positionDropdown() {
-
-			// elNavCatList.style.paddingTop = -numDropdownPos + 'px';
-
-			elNavCatList.style.transform = 'translate3d(0,' + -numDropdownPos + 'px,0)';
-
-			// get currently selected item from array
-			// multiply index number by height of row
-			// set top position
-
-		}
-
-		// positionDropdown();
-
-
-
-/*
-		var elNavCatList      = document.getElementById('cat_list'),
-			numCatCurrent     = 1, // 'curated' is the default option on page load...
-			numCatLinkHeight  = arrCatLinks[0].offsetHeight,
-			numDropdownPos    = numCatLinkHeight * numCatCurrent;
-*/
-
-
-
-	}
-
-
-
-
-// rowHeight = 40px
-// rowsVisible = 7
-// dropdownHeight = 280px (rowHeight * rowsVisible)
-// rowCount = 14 (15 actual rows)
-// threshold = Math.floor(rowsVisible / 2)
-// topThreshold = first threshold rows [0,1,2]
-// bottomThreshold = last threshold rows [14,13,12]
-// defaultTopPos = rowHeight * threshold
-
-// if - selected row is within the topThreshold :
-	// top = dropdownHeight * topThreshold[currentRow]
-// else if - selected row is within the bottomThreshold :
-	// top = dropdownHeight * bottomThreshold[currentRow]
-// else
-	// top = defaultTopPos + 'px'
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-	// modalYoutube: All the code for the YouTube modal
-	// ----------------------------------------------------------------------------
-	function modalYoutube() {
-
-		var elTempModal     = document.getElementById('temp_modal'),
-			elToggleCaption = document.getElementById('caption_toggle'),
-			elCloseCaption  = document.getElementById('caption_close');
-
-		if (elTempModal === null) {
-			return;
-		}
-
-		elToggleCaption.addEventListener('click', function(e) {
+		thisIsoLink.addEventListener('click', function(e) {
 
 			e.preventDefault();
-			elTempModal.classList.toggle('toggle_credits');
+
+			var strThisLink   = thisIsoLink.getAttribute('href'),
+				strThisTitle  = thisIsoLink.getAttribute('title'),
+				strThisClient = thisIsoLink.getAttribute('data-client'),
+				strThisID     = thisIsoLink.getAttribute('data-youtube');
+
+			ajaxProjectContent(strThisLink, strThisTitle, strThisClient, strThisID);
 
 		});
-
-		elCloseCaption.addEventListener('click', function(e) {
-
-			e.preventDefault();
-			elTempModal.classList.remove('toggle_credits');
-
-		});
-
-	}
-*/
-
-
-
-
-
-
-
-
-
-	// Helper: Create modal element for AJAX loaded project content
-	// ----------------------------------------------------------------------------
-	function createModalYoutube() {
-
-		// console.log('execute createModalYoutube');
-
-		// create the document fragment to hold all of our created elements
-		var docFrag = document.createDocumentFragment();
-
-			// definied in initIsotope for scope
-			elModal = document.createElement('aside');
-			elModal.setAttribute('data-modal', 'hidden');
-
-				var elModalWrap = document.createElement('div');
-				elModalWrap.classList.add('wrap_modal');
-
-					elModalHeader = document.createElement('header');
-					elModalHeader.classList.add('modal_header', 'video_details');
-
-						// get .wrap_titles from AJAX response, use:
-						// elModalHeader.insertBefore('.wrap_titles', elModalHeader.firstChild);
-						// to add it before ul.wrap_links
-
-						var elWrapLinks = document.createElement('ul');
-						elWrapLinks.classList.add('wrap_links');
-
-						// define contents of links
-						var arrLinks = [
-								{ id: 'link_credits', title: 'Credits' },
-								{ id: 'link_post',    title: 'View Project Page' },
-								{ id: 'link_share',   title: 'Share' }
-							];
-
-						// iterate through each link and create
-						for (var i = 0; i < arrLinks.length; i++) {
-
-							var thisItem = document.createElement('li');
-							thisItem.id = arrLinks[i].title;
-
-								var thisLink = document.createElement('a');
-								thisLink.href      = '#';
-								thisLink.title     = arrLinks[i].title;
-								thisLink.innerHTML = arrLinks[i].title;
-
-								thisItem.appendChild(thisLink);
-
-							elWrapLinks.appendChild(thisItem);
-
-						}
-
-						elModalHeader.appendChild(elWrapLinks);
-
-					elModalWrap.appendChild(elModalHeader);
-
-					elModalFigure = document.createElement('figure');
-					elModalFigure.classList.add('modal_figure');
-
-						// get .wrap_video from AJAX response, use:
-						// elModalFigure.insertBefore('.wrap_video', elModalFigure.firstChild);
-						// to add it before figcaption
-
-						var elModalCaption = document.createElement('figcaption');
-						elModalCaption.classList.add('modal_caption');
-
-							elWrapScroll = document.createElement('wrap_scroll');
-							elWrapScroll.classList.add('wrap_scroll');
-
-								// get .video_credits from AJAX response, use:
-								// elWrapScroll.insertBefore('.video_credits', elWrapScroll.firstChild);
-								// to add it before figcaption
-
-							elModalClose = document.createElement('a');
-							elModalClose.classList.add('wrap_svg', 'wrap_ui-arrow');
-							elModalClose.href = '#';
-							elModalClose.title = 'Close Credits';
-
-								var elCloseSVG = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-								elCloseSVG.setAttribute('viewBox', '0 0 64 64'); // elCloseSVG.setAttributeNS('viewBox', '0 0 64 64');
-
-									var elCloseUse = document.createElementNS('http://www.w3.org/2000/svg', 'use');
-									elCloseUse.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', '#ui_arrow');
-
-									elCloseSVG.appendChild(elCloseUse);
-
-								elModalClose.appendChild(elCloseSVG);
-
-							elModalCaption.appendChild(elModalClose);
-
-						elModalFigure.appendChild(elModalCaption);
-
-					elModalWrap.appendChild(elModalFigure);
-
-				elModal.appendChild(elModalWrap);
-
-			docFrag.appendChild(elModal);
-
-		// finally, empty contents of document fragment into <body>
-		elBody.appendChild(docFrag);
-
-		// is there a way to destroy the document fragment once we are done with it?
-
-		// we have now added the modal to the page, we do not need to create it again
-		// boolCreateModal = false;
-
-		// toggle modal visibility now that it is in the document (or should we wait until AJAX content is loaded?) ... (should we fade in with JS instead?)
-		// elModal.setAttribute('data-modal', 'visible');
 
 	}
 
 
 	// ajaxProjectContent: Get project content from single post page
 	// ----------------------------------------------------------------------------
-	function ajaxProjectContent(pLinkHREF, pLinkTitle, pLinkID) {
+	function ajaxProjectContent(pLinkHREF, pLinkTitle, pLinkClient, pLinkID) {
 
-		var ajaxXHR       = new XMLHttpRequest(),
-			docFrag       = document.createDocumentFragment(),
-			elPlaceholder = document.createElement('div');
+		var ajaxXHR      = new XMLHttpRequest(),
+			elAjaxHolder = document.createElement('div');
 
-		// if modal has not been created:
-			// create modal
-			// become aware of its element variables
+		// as long as we have not created the modal yet
+		if (!boolModalCreated) {
+			// create all of our empty modal elements, append it to elBody,
+			// and attach the correct references for our undefined modal variables
+			createModalYoutube();
+		}
 
-		createModalYoutube();
-
-		// suspend modal it with a loading animation until our AJAX content has been added and is ready
+		showModal(); // lock body scrolling and reveal modal
 
 		ajaxXHR.onload = function() {
 
 			// successful status should only ever be 200... but be broad about it (why? not sure...)
 			if (ajaxXHR.status >= 200 && ajaxXHR.status < 400) {
 
-				// append fetched AJAX content to placeholder for insertion into document fragment
-				elPlaceholder.innerHTML = ajaxXHR.responseText;
+				// lets tell the modal of our success
+				elModal.setAttribute('data-ajax', 'success');
 
-				// will need to be destroyed or emptied!
-				docFrag.appendChild(elPlaceholder);
+				// append fetched AJAX content to placeholder...
+				// this is the only way we can traverse the fetched content for insertion into the document
+				elAjaxHolder.innerHTML = ajaxXHR.responseText;
 
 				// grab the content we will need to place in our document
-				var ajaxVideo   = elPlaceholder.getElementsByClassName('wrap_video')[0],
-					ajaxTitles  = elPlaceholder.getElementsByClassName('wrap_titles')[0],
-					ajaxCredits = elPlaceholder.getElementsByClassName('video_credits')[0];
+				var ajaxVideo   = elAjaxHolder.getElementsByTagName('iframe')[0],
+					ajaxCredits = elAjaxHolder.getElementsByClassName('video_credits')[0];
 
-				console.log(ajaxVideo);
+				// insert our fetched content in all the right places
+				elWrapVideo.appendChild(ajaxVideo);
+				elWrapScroll.insertBefore(ajaxCredits, elWrapScroll.firstChild);
 
-				elModalFigure.insertBefore(ajaxVideo, elModalFigure.firstChild);
-				// elModalHeader.insertBefore(ajaxTitles, elModalHeader.firstChild);
-				// elWrapScroll.insertBefore('.video_credits', elWrapScroll.firstChild);
+				// pass in our project title and client name
+				elModalTitle.innerHTML  = '&ldquo;' + pLinkTitle + '&rdquo;';
+				elModalClient.innerHTML = pLinkClient;
 
-				// li.link_post > a[href] = pLinkHREF
-				// li.link_share > a[href] = 'https://twitter.com/home?status=' + encodeURI(pLinkTitle) + '%20http%3A//y2u.be/' + pLinkID
+				// attached our link destinations
+				elModalLinkPost.href  = pLinkHREF;
+				elModalLinkShare.href = 'https://twitter.com/home?status=' + encodeURI(pLinkTitle) + '%20http%3A//y2u.be/' + pLinkID;
+
+				// empty out contents of elAjaxHolder...
+				// this element is never appended to the document, so garbage collection can take care of it if / when needed
+				elAjaxHolder.innerHTML = '';
+
+				// start listening to modal_loader transition and remove visible class to fade out element
+				hideModalLoader();
+
+				// allow closing of modal only if iFrame has loaded?
+				// or maybe we leave the loader until the video has loaded?
+				// ajaxVideo.onload = function() { afterLoading(); }
 
 			} else {
 
-				console.log('We reached our target server, but it returned an error. Status was not between 200 and 400.');
+				ajaxFailed(pLinkHREF, pLinkTitle, pLinkClient, pLinkID); // we reached our target server, but it returned an error... status was not between 200 and 400
 
 			}
 
 		};
 
 		ajaxXHR.onerror = function() {
-			console.log('There was a connection error of some sort');
+			ajaxFailed(pLinkHREF, pLinkTitle, pLinkClient, pLinkID); // there was a connection error of some sort...
 		};
 
 		// open the passed URL and 'send'
@@ -532,107 +254,463 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 
+	// createModalYoutube: Create modal element for AJAX loaded project content
+	// ----------------------------------------------------------------------------
+	function createModalYoutube() {
+
+		// create the document fragment to hold all of our created elements
+		var docFrag = document.createDocumentFragment();
+
+			elModal = document.createElement('aside'); // created as undefined global variable for scope
+			elModal.setAttribute('data-modal', ''); // if using animate: does not require 'hidden' yet... opacity will be 0 default.
+			elModal.setAttribute('data-content', 'empty'); // will be set to 'loaded' once AJAX content has been inserted
+			elModal.setAttribute('data-ajax', ''); // will be set to either 'success' or 'error' based on the AJAX response
+
+				elModalContent = document.createElement('div'); // created as undefined global variable for scope
+				elModalContent.className = 'modal_content';
+
+					elModalHeader = document.createElement('header'); // created as undefined global variable for scope
+					elModalHeader.className = 'modal_header video_details';
+
+						var elWrapTitles = document.createElement('div');
+						elWrapTitles.className = 'wrap_titles';
+
+							elModalTitle = document.createElement('h6');
+							elModalTitle.className = 'title_video truncate';
+							elWrapTitles.appendChild(elModalTitle);
+
+							elModalClient = document.createElement('h6');
+							elModalClient.className = 'title_client truncate';
+							elWrapTitles.appendChild(elModalClient);
+
+						elModalHeader.appendChild(elWrapTitles);
+
+						var elWrapLinks = document.createElement('ul');
+						elWrapLinks.className = 'wrap_links';
+
+							// define contents of links
+							var arrLinks = [
+									{ id: 'close',   title: 'Close project' },
+									{ id: 'credits', title: 'Credits' },
+									{ id: 'post',    title: 'View Project Page' },
+									{ id: 'share',   title: 'Share' }
+								];
+
+							// iterate through each link and create a <li> and <a>
+							for (var i = 0; i < arrLinks.length; i++) {
+
+								var thisItem = document.createElement('li');
+								thisItem.className = 'item_link-' + arrLinks[i].id;
+
+									var thisLink = document.createElement('a');
+									thisLink.href  = '#';
+									// thisLink.id    = 'link_' + arrLinks[i].id;
+									thisLink.title = arrLinks[i].title;
+
+									// if this is the 'close' link...
+									if (i === 0) {
+
+										thisLink.className = 'wrap_svg wrap_ui-close';
+
+										var elModalCloseText = document.createElement('span');
+										elModalCloseText.innerHTML = 'Close Project';
+
+										thisLink.appendChild(elModalCloseText);
+
+										var elModalCloseSVG = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+										elModalCloseSVG.setAttribute('viewBox', '0 0 64 64');
+										elModalCloseSVG.className = 'ui_close';
+
+											var elModalCloseUse = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+											elModalCloseUse.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', '#ui_close');
+
+											elModalCloseSVG.appendChild(elModalCloseUse);
+
+										thisLink.appendChild(elModalCloseSVG);
+
+										// define global variable as this 'close' link
+										elModalLinkClose = thisLink;
+
+									// the rest of the links do not need any special treatment
+									} else {
+
+										thisLink.innerHTML = arrLinks[i].title;
+
+										// if this is the 'credits' link
+										if (i === 1) {
+											elModalLinkCredits = thisLink;
+										// if this is the 'single project page' link
+										} else if (i === 2) {
+											elModalLinkPost = thisLink;
+										// if this is the 'tweet / share video' link
+										} else if (i === 3) {
+											elModalLinkShare = thisLink;
+										}
+
+									}
+
+									thisItem.appendChild(thisLink);
+
+								elWrapLinks.appendChild(thisItem);
+
+							}
+
+						elModalHeader.appendChild(elWrapLinks);
+
+					elModalContent.appendChild(elModalHeader);
+
+					var elModalFigure = document.createElement('figure');
+					elModalFigure.className = 'modal_figure';
+
+						elWrapVideo = document.createElement('div'); // created as undefined global variable for scope
+						elWrapVideo.className = 'wrap_video';
+
+							// get iframe from AJAX response and elWrapVideo.appendChild
+
+						elModalFigure.appendChild(elWrapVideo);
+
+						var elModalCaption = document.createElement('figcaption');
+						elModalCaption.className = 'modal_caption';
+
+							elWrapScroll = document.createElement('div'); // created as undefined global variable for scope
+							elWrapScroll.className = 'wrap_scroll';
+
+								// get .video_credits from AJAX response and elWrapScroll.insertBefore('.video_credits', elWrapScroll.firstChild);
+
+								elCaptionClose = document.createElement('a'); // created as undefined global variable for scope
+								elCaptionClose.className = 'wrap_svg wrap_ui-arrow';
+								elCaptionClose.href = '#';
+								elCaptionClose.title = 'Close Credits';
+
+									var elCaptionCloseSVG = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+									elCaptionCloseSVG.setAttribute('viewBox', '0 0 64 64');
+									elCaptionCloseSVG.className = 'ui_arrow';
+
+										var elCaptionCloseUse = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+										elCaptionCloseUse.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', '#ui_arrow');
+
+										elCaptionCloseSVG.appendChild(elCaptionCloseUse);
+
+									elCaptionClose.appendChild(elCaptionCloseSVG);
+
+								elWrapScroll.appendChild(elCaptionClose);
+
+							elModalCaption.appendChild(elWrapScroll);
+
+						elModalFigure.appendChild(elModalCaption);
+
+					elModalContent.appendChild(elModalFigure);
+
+				elModal.appendChild(elModalContent);
+
+				elModalLoader = document.createElement('div'); // created as undefined global variable for scope
+				elModalLoader.className = 'modal_loader loader_spinner visible';
+
+					var elWrapGraphics = document.createElement('div');
+					elWrapGraphics.className = 'wrap_graphics';
+
+						var elWrapSVG = document.createElement('div');
+						elWrapSVG.className = 'wrap_svg';
+
+							var elLoaderSVG = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+							elLoaderSVG.setAttribute('viewBox', '0 0 64 64');
+							elLoaderSVG.className = 'ui_loader';
+
+								var elLoaderUse = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+								elLoaderUse.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', '#ui_loader');
+
+								elLoaderSVG.appendChild(elLoaderUse);
+
+							elWrapSVG.appendChild(elLoaderSVG);
+
+						elWrapGraphics.appendChild(elWrapSVG);
+
+					elModalLoader.appendChild(elWrapGraphics);
+
+				elModal.appendChild(elModalLoader);
+
+			docFrag.appendChild(elModal);
+
+		// finally, empty contents of document fragment into <body>
+		// docFrag does not need to be destroyed, garbage collection should take care of it
+		elBody.appendChild(docFrag);
+
+		// apply full transparency upon document insertion
+		elModal.style.opacity = 0;
+
+		// make sure the initial state is applied by computing the opacity value
+		window.getComputedStyle(elModal).opacity;
+
+		// showModal will then remove the style attribute (if present) and toggle visibility via 'data-modal'
+
+		// we have now added the modal to the page, we do not need to create it again
+		boolModalCreated = true;
+
+		// safe to enable click functionality now
+		toggleCredits();
+
+		// click to close modal
+		elModal.addEventListener('click', closeModal);
+		elModalLinkClose.addEventListener('click', closeModal);
+
+		// prevent elModal click event from triggering on undesired children
+		elModalContent.addEventListener('click', function(e) {
+			e.stopPropagation();
+		});
+
+		// prevent elModalLoader click event from triggering on undesired children (also using pointer-events: none;)
+		elModalLoader.addEventListener('click', function(e) {
+			e.stopPropagation();
+		});
+
+	}
 
 
+	// createModalError: Create modal error for AJAX failure response
+	// ----------------------------------------------------------------------------
+	function createModalError() {
 
+		// create the document fragment to hold all of our created elements
+		var docFrag = document.createDocumentFragment();
+
+			var elModalError = document.createElement('div');
+			elModalError.className = 'content_error'
+
+				var elModalErrorText = document.createElement('p');
+				elModalErrorText.innerHTML = 'Whoops! For whatever reason, a server error has occured and is preventing us from fetching the right video for you. Maybe if you <a href="#" class="link_retry" title="" data-client="" data-youtube="">try again</a> the server will have learned from its mistakes.';
+
+				elModalError.appendChild(elModalErrorText);
+
+			docFrag.appendChild(elModalError);
+
+		elModalContent.appendChild(docFrag);
 
 /*
-	// toggleModal: Open & Close modal windows
+		// GET COMPUTED STYLE SHOULD NOT BE NECESSARY, SINCE WE ARE NOT ANIMATING THIS ELEMENT
+
+		// apply full transparency upon document insertion
+		elModalError.style.opacity = 0;
+
+		// make sure the initial state is applied by computing the opacity value
+		window.getComputedStyle(elModalError).opacity;
+
+		// we can now set this element to full opacity
+		elModalError.style.opacity = 1;
+*/
+
+		// we have now added the error to the page, we do not need to create it again
+		boolErrorCreated = true;
+
+		// define our previously undefined retry link
+		elModalLinkRetry = elModalContent.getElementsByClassName('link_retry')[0];
+
+		// register click event to close the modal...
+		// which will then check of the target originated from this retry link,
+		// and allow us to perform the AJAX request again with the retained arguments
+		elModalLinkRetry.addEventListener('click', closeModal);
+
+	}
+
+
+	// hideModalLoader: Remove 'visible' class from elModalLoader and listen for transition end
 	// ----------------------------------------------------------------------------
-	function toggleModal() {
+	function hideModalLoader() {
 
-		var arrModalOpen   = document.getElementsByClassName('modal_open'),
-			arrModalClose  = document.getElementsByClassName('modal_close'),
-			elTargetModal;
+		elModalLoader.addEventListener(transitionEvent, listenLoaderFadeOut);
+		elModalLoader.classList.remove('visible');
 
-		// check if a.modal_open exists and is not empty
-		if (typeof arrModalOpen !== 'undefined' && arrModalOpen.length > 0) {
+		// wait until elModalLoader has faded out to declare content 'loaded'
+		function listenLoaderFadeOut(e) {
 
-			for (var i = 0; i < arrModalOpen.length; i++) {
-				arrModalOpen[i].addEventListener('click', openModal, false);
-			}
+			// transition event bubbles, and will trigger on all children...
+			// so make sure we are looking at the right target and propertyName
+			if (e.target === elModalLoader && e.propertyName === 'opacity') {
 
-			for (var i = 0; i < arrModalClose.length; i++) {
-				arrModalClose[i].addEventListener('click', closeModal, false);
-			}
+				// stop listening to the animation event
+				elModalLoader.removeEventListener(transitionEvent, listenLoaderFadeOut);
 
-		} else {
-
-			return; // array not found or empty... exit function
-
-		}
-
-		function openModal(e) {
-
-			var dataTargetModal = this.getAttribute('href').substring(1); // capture the href of the clicked element, remove the # prefix
-
-			elTargetModal = document.getElementById(dataTargetModal); // get the modal we need to open
-
-			// create overlay element and fade in modal
-			createOverlay(false, 'modal');
-			elTargetModal.setAttribute('data-modal', 'active');
-
-			e.preventDefault();
-
-			document.addEventListener('click', documentClick);
-
-		}
-
-		function closeModal(e) {
-
-			var dataTargetModal = this.getAttribute('href').substring(1); // capture the href of the clicked element, remove the # prefix
-
-			elTargetModal = document.getElementById(dataTargetModal); // get the modal we need to open
-
-			// once we have found the desired parent element, hide that modal
-			elTargetModal.setAttribute('data-modal', 'inactive');
-			destroyOverlay();
-
-			e.preventDefault();
-
-			document.removeEventListener('click', documentClick);
-
-		}
-
-		function documentClick(e) {
-
-			// if this is not the currently toggled dropdown
-			if ( e.target === elOverlay ) {
-
-				// ignore this event if preventDefault has been called
-				if (e.defaultPrevented) {
-					return;
-				}
-
-				// once we have found the desired parent element, hide that modal (copied from closeModal)
-				elTargetModal.setAttribute('data-modal', 'inactive');
-				destroyOverlay();
+				// declare content loaded
+				elModal.setAttribute('data-content', 'loaded');
 
 			}
 
 		}
 
 	}
+
+
+	// ajaxFailed: Reveal the modal and alert the user what the problem is
+	// ----------------------------------------------------------------------------
+	function ajaxFailed(pLinkHREF, pLinkTitle, pLinkClient, pLinkID) {
+
+		// as long as we have not created the error yet
+		if (!boolErrorCreated) {
+			createModalError(); // create the necessary elements and append to elModalContent
+		}
+
+		// inform the modal of our failure
+		elModal.setAttribute('data-ajax', 'error');
+
+		// update attributes to match original iso link
+		elModalLinkRetry.href  = pLinkHREF;
+		elModalLinkRetry.title = pLinkTitle;
+		elModalLinkRetry.setAttribute('data-client', pLinkClient);
+		elModalLinkRetry.setAttribute('data-youtube', pLinkID);
+
+		// start listening to modal_loader transition and remove visible class to fade out element
+		hideModalLoader();
+
+	}
+
+
+	// toggleCredits: Allow for hiding / showing the figcaption for the YouTube modal
+	// ----------------------------------------------------------------------------
+	function toggleCredits() {
+
+		elModalLinkCredits.addEventListener('click', function(e) {
+
+			e.preventDefault();
+			elModal.classList.toggle('toggle_credits');
+
+		});
+
+		elCaptionClose.addEventListener('click', function(e) {
+
+			e.preventDefault();
+			elModal.classList.remove('toggle_credits');
+
+		});
+
+	}
+
+
+	// showModal: Lock body scrolling and fade in modal overlay
+	// ----------------------------------------------------------------------------
+	function showModal() {
+
+		lockBody(boolScrollbar, numScrollbarWidth);
+
+		// if this is our first time toggling visibility...
+		if ( elModal.hasAttribute('style') ) {
+			elModal.removeAttribute('style'); // remove the opacity: 0; style
+		}
+
+/*
+		// apply full transparency upon document insertion
+		elModal.style.opacity = 0;
+
+		// make sure the initial state is applied by computing the opacity value
+		window.getComputedStyle(elModal).opacity;
+
+		// showModal will then remove the style attribute (if present) and toggle visibility via 'data-modal'
+		elModal.removeAttribute('style'); // remove the opacity: 0; style
 */
 
+		// toggle modal visibility now that it is in the document
+		elModal.setAttribute('data-modal', 'visible');
+
+		// AJAX content has not been added yet...
+		// modal will be informed via 'data-content' = 'loaded',
+		// which will hide the modal loader and reveal the modal wrap
+
+	}
 
 
+	// closeModal: Fade out modal overlay, empty content, and unlock body scrolling
+	// ----------------------------------------------------------------------------
+	function closeModal(e) {
+
+		e.preventDefault();
+
+		// start listening to the elModal animation event
+		elModal.addEventListener(animationEvent, fadeOutModalEnd);
+
+		// set modal to 'hidden', which will trigger our fade out animation (to opacity: 0;)
+		elModal.setAttribute('data-modal', 'hidden');
+
+		// untoggle our credits if visible
+		elModal.classList.remove('toggle_credits');
+
+		// if elModalLinkRetry has been defined and is an honest-to-goodness element...
+		if (typeof(elModalLinkRetry) != 'undefined' && elModalLinkRetry != null) {
+			// and only if we have clicked the try again link...
+			if (e.target === elModalLinkRetry) {
+				boolRetryRequest = true;// inform our boolean we intend to try again
+			}
+		}
+
+		function fadeOutModalEnd(e) {
+
+			// animation event bubbles, and will trigger on all children...
+			// so make sure we are looking at the right target
+			if (e.target === elModal) {
+
+				// stop listening to the animation event
+				elModal.removeEventListener(animationEvent, fadeOutModalEnd);
+
+				// restore scrolling to the document
+				unlockBody(boolScrollbar);
+
+				// empty out AJAX content areas
+				emptyModal();
+
+				// retry the ajax request
+				if (boolRetryRequest) {
+
+					// THERE IS AN ERROR WHERE 'TRYING AGAIN' CAN HAPPEN TOO QUICKLY FOR THE BROWSER TO COMPLETE THE TRANSITIONEVENT...
+					// CAUSING DATA-CONTENT TO NEVER BE DECLARED AS LOADED...
+					// IDEALLY WE NEED TO MAKE SURE THE LOADER HAS HAD THE CHANCE TO FULLY TRANSITION IN AND OUT OF 'VISIBLE'
+					ajaxProjectContent(elModalLinkRetry.href, elModalLinkRetry.title, elModalLinkRetry.getAttribute('data-client'), elModalLinkRetry.getAttribute('data-youtube'));
+					boolRetryRequest = false; // set back to false
+
+				}
+
+			}
+
+		}
+
+	}
 
 
+	// emptyModal: Clear out the content areas that will be updated later
+	// ----------------------------------------------------------------------------
+	function emptyModal() {
 
+		// capture the first children of the elements we need to delete from
+		var elVideoChild  = elWrapVideo.firstChild,
+			elScrollChild = elWrapScroll.firstChild;
 
+		// if the iFrame as been added, we can safely remove it
+		if (elVideoChild) {
+			elWrapVideo.removeChild(elVideoChild);
+		}
 
+/*
+		// previous method of removing iFrame if present... was causing errors - but not sure why
+		while (elVideoChild) {
+			elWrapVideo.removeChild(elVideoChild); // in case iFrame has not loaded in time, we remove while there are children
+		}
+*/
 
+		// in case of ajax failure, we need to be sure we are not removing our credits arrow
+		if (elScrollChild != elCaptionClose) {
+			elWrapScroll.removeChild(elScrollChild); // .video_credits will be the first child of elWrapScroll
+		}
 
+		// clear inner content
+		elModalTitle.innerHTML  = '';
+		elModalClient.innerHTML = '';
 
+		// reset link destinations
+		elModalLinkPost.href  = '#';
+		elModalLinkShare.href = '#';
 
+		// declare our elModal as being 'empty', reset 'data-ajax', and re-apply 'visible' class to elModalLoader
+		elModal.setAttribute('data-content', 'empty'); // untoggles the display of .modal_content
+		elModal.setAttribute('data-ajax', ''); // untoggles the display of .content_error
+		elModalLoader.classList.add('visible'); // allows our modal loader to be visible on next AJAX request
 
-
-
-
-
-
-
+	}
 
 
 	// finalAnimate: Inform the document when we have finished our loading animations
@@ -645,7 +723,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		function applyReadyState() {
 
-			// elHTML.classList.add('ready');
 			elHTML.setAttribute('data-ready', 'ready');
 			elFooter.removeEventListener(animationEvent, applyReadyState);
 
@@ -773,6 +850,183 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 
+
+
+
+
+
+
+
+
+
+	// categoryDropdown: isoTope Category Dropdown (NOT locking body once toggled)
+	// ----------------------------------------------------------------------------
+	function categoryDropdown(pISO) {
+
+		var elNavCatTrigger        = document.getElementById('cat_trigger'),
+			elNavCatLabel          = elNavCatTrigger.getElementsByClassName('cat_label')[0],
+			elNavCatList           = elNavCat.getElementsByTagName('ul')[0],
+			elNavLinkCurrent       = elNavCatList.getElementsByClassName('cat_current')[0],
+			strNavLinkCurrentID    = elNavLinkCurrent.id, // not really needed until we change a filter, but let's define it anyways
+			numNavLinkCurrentIndex = 1, // leaving this hard coded, since we will always show 'curated' on page load
+			arrCatItems            = elNavCatList.getElementsByTagName('li'),
+			numCatItemsLength      = arrCatItems.length;
+
+		// click elNavCatTrigger to toggle dropdown
+		elNavCatTrigger.addEventListener('click', function(e) {
+
+			e.preventDefault(); // url is just a #, do not follow
+			elNavCat.classList.add('toggled'); // since this button is hidden once the dropdown is toggled, it only needs to 'add'
+
+		});
+
+		// click outside of element to close dropdown
+		document.addEventListener('click', function(e) {
+
+			// if this is not the currently toggled dropdown
+			if (e.target != elNavCat) {
+
+				// ignore this event if preventDefault has been called
+				if (e.defaultPrevented) {
+					return;
+				}
+
+				elNavCat.classList.remove('toggled'); // remove 'toggled' class from elNavCat
+
+			}
+
+		});
+
+		// register clickCatLink for each a.cat_link found
+		for (var i = 0; i < numCatItemsLength; i++) {
+			clickCatLink(getFirstChild(arrCatItems[i]), i);
+		}
+
+		// close dropdown and filter categories using Isotope
+		function clickCatLink(thisCatLink, index) {
+
+			thisCatLink.addEventListener('click', function(e) {
+
+				e.preventDefault(); // prevent navigation to url
+
+				var strThisLabel  = this.innerHTML,
+					strThisColor  = this.getAttribute('data-color'),
+					strThisFilter = this.getAttribute('data-filter');
+
+				// update elNavCat 'data-color', 'data-current', and elNavCatLabel innerHTML
+				elNavCat.setAttribute('data-color', strThisColor);
+				elNavCat.setAttribute('data-current', strThisFilter);
+				elNavCatLabel.innerHTML = strThisLabel;
+
+				// close dropdown by removing 'toggled' class from elNavCat
+				elNavCat.classList.remove('toggled');
+
+				// swap 'cat_current' class and redefine elNavLinkCurrent as new selection
+				elNavLinkCurrent.classList.remove('cat_current');
+				elNavLinkCurrent = this.parentNode;
+				elNavLinkCurrent.classList.add('cat_current');
+
+				// capture the ID of the new 'cat_current' so we have trim off the index number from the id string...
+				// I don't seem to have a easy way to determine the index position of a HTMLCollection, so this is how I am doing it
+				strNavLinkCurrentID    = elNavLinkCurrent.id;
+				numNavLinkCurrentIndex = parseInt( strNavLinkCurrentID.substring(strNavLinkCurrentID.indexOf('-') + 1 ) ); // must parseInt from string to number
+
+				// we can now rearrange our isotope bricks with the new filter applied
+				pISO.arrange({
+					filter: strThisFilter
+				});
+
+				// isotope layoutComplete should be timed just so as to fire once our dropdown has faded out (could be using transitionEvent instead)
+				pISO.once('layoutComplete', function() {
+
+					// it is now safe to update the selected index number, so CSS can take care of our '.wrap_dropdown' top position
+					elNavCat.setAttribute('data-index', numNavLinkCurrentIndex);
+
+					// update the scroll Y position of our <ul>
+					if (numNavLinkCurrentIndex <= 3) {
+						elNavCatList.scrollTop = 0;
+					} else if (numNavLinkCurrentIndex >= 13) {
+						elNavCatList.scrollTop = 9999; // 40px * 17items = 680 ... but this can actually be set higher and scrollTop will calculate the max scrollY
+					} else {
+						elNavCatList.scrollTop = numNavLinkCurrentIndex * 40 - 120; // subtract a certain value...
+					}
+
+				});
+
+			});
+
+		}
+
+	}
+
+
+
+
+// rowHeight = 40px
+// rowsVisible = 7
+// dropdownHeight = 280px (rowHeight * rowsVisible)
+// rowCount = 14 (15 actual rows)
+// threshold = Math.floor(rowsVisible / 2)
+// topThreshold = first threshold rows [0,1,2]
+// bottomThreshold = last threshold rows [14,13,12]
+// defaultTopPos = rowHeight * threshold
+
+// if - selected row is within the topThreshold :
+	// top = dropdownHeight * topThreshold[currentRow]
+// else if - selected row is within the bottomThreshold :
+	// top = dropdownHeight * bottomThreshold[currentRow]
+// else
+	// top = defaultTopPos + 'px'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	// Window Events
 	// ----------------------------------------------------------------------------
 	window.addEventListener('resize', debounce(function() {
@@ -782,9 +1036,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		if (numWinWidth >= 768) {
 
-			// remove 'toggled' class from nav_primary and restore body scrolling
-			elNavPrimary.classList.remove('toggled');
-			unlockBody(boolScrollbar);
+			// remove 'toggled' class from nav_primary and restore body scrolling...
+			// nav_primary is the only element we should be concerned about with unlocking the body...
+			// but in case this changed, we need to be sure to update how this works
+			if ( elNavPrimary.classList.has('toggled') ) {
+				elNavPrimary.classList.remove('toggled');
+				unlockBody(boolScrollbar);
+			}
+
+			// also remove 'toggled' class from nav_categories
+			elNavCat.classList.remove('toggled');
 
 		} else {
 

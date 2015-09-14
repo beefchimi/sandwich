@@ -1,7 +1,7 @@
 -# 'data-animated' COULD be used to apply visible .selected styles once the list items have finished animating?
 -# if: "All" or "Curated" (.color_rainbow), 'data-color' => 'random'
 -# otherwise: 'data-color' = color array
-%nav#nav_categories.nav_categories{"data-dropdown" => "list", "data-current" => ".curated", "data-color" => "random", "data-animated" => "animating"}
+%nav#nav_categories.nav_categories{"data-dropdown" => "list", "data-current" => ".curated", "data-index" => "1", "data-color" => "random", "data-animated" => "animating"}
 
 	%a#cat_trigger.cat_trigger{:href => "#", :title => "Click To Select Category"}
 		%span.cat_label.truncate Curated
@@ -20,37 +20,37 @@
 		.fix_ios-scroll
 
 			%ul#cat_list
-				%li
+				%li#cat_item-0
 					%a.cat_link.color_rainbow{:href => "#", :title => "All", "data-color" => "random", "data-filter" => "*"} All
-				%li.cat_current
+				%li#cat_item-1.cat_current
 					%a.cat_link.color_rainbow{:href => "#", :title => "Curated", "data-color" => "random", "data-filter" => ".curated"} Curated
-				%li
+				%li#cat_item-2
 					%a.cat_link.color_solid.color_red{:href => "#", :title => "TV", "data-color" => "red", "data-filter" => ".tv"} TV
-				%li
+				%li#cat_item-3
 					%a.cat_link.color_solid.color_orange{:href => "#", :title => "Animation", "data-color" => "orange", "data-filter" => ".animation"} Animation
-				%li
+				%li#cat_item-4
 					%a.cat_link.color_solid.color_yellow{:href => "#", :title => "Hardware", "data-color" => "yellow", "data-filter" => ".hardware"} Hardware
-				%li
+				%li#cat_item-5
 					%a.cat_link.color_solid.color_aqua{:href => "#", :title => "Software", "data-color" => "aqua", "data-filter" => ".software"} Software
-				%li
+				%li#cat_item-6
 					%a.cat_link.color_solid.color_cyan{:href => "#", :title => "Crowdfunding", "data-color" => "cyan", "data-filter" => ".crowdfunding"} Crowdfunding
-				%li
+				%li#cat_item-7
 					%a.cat_link.color_solid.color_red{:href => "#", :title => "Comedy", "data-color" => "red", "data-filter" => ".comedy"} Comedy
-				%li
+				%li#cat_item-8
 					%a.cat_link.color_solid.color_orange{:href => "#", :title => "Game", "data-color" => "orange", "data-filter" => ".curated"} Game
-				%li
+				%li#cat_item-9
 					%a.cat_link.color_solid.color_yellow{:href => "#", :title => "Platform", "data-color" => "yellow", "data-filter" => ".tv"} Platform
-				%li
+				%li#cat_item-10
 					%a.cat_link.color_solid.color_aqua{:href => "#", :title => "Social", "data-color" => "aqua", "data-filter" => ".animation"} Social
-				%li
+				%li#cat_item-11
 					%a.cat_link.color_solid.color_cyan{:href => "#", :title => "Smart Home", "data-color" => "cyan", "data-filter" => ".hardware"} Smart Home
-				%li
+				%li#cat_item-12
 					%a.cat_link.color_solid.color_red{:href => "#", :title => "Medical", "data-color" => "red", "data-filter" => ".software"} Medical
-				%li
+				%li#cat_item-13
 					%a.cat_link.color_solid.color_orange{:href => "#", :title => "Business", "data-color" => "orange", "data-filter" => ".crowdfunding"} Business
-				%li
+				%li#cat_item-14
 					%a.cat_link.color_solid.color_yellow{:href => "#", :title => "Kids", "data-color" => "yellow", "data-filter" => ".comedy"} Kids
-				%li
+				%li#cat_item-15
 					%a.cat_link.color_solid.color_red{:href => "#", :title => "Money", "data-color" => "red", "data-filter" => ".curated"} Money
-				%li
+				%li#cat_item-16
 					%a.cat_link.color_solid.color_orange{:href => "#", :title => "News", "data-color" => "orange", "data-filter" => ".tv"} News

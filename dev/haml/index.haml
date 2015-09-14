@@ -6,7 +6,7 @@
 
 	= Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render
 
-	%body
+	%body#home
 
 		#svgInject.visuallyhidden
 			/ inject:svg
@@ -14,10 +14,10 @@
 
 		= Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render
 
-		%main{:role => "main", "data-container" => "width_1640"}
+		%main{:role => "main"}
 
 			= Haml::Engine.new(File.read("dev/haml/partials/_nav_categories.haml")).render
 			= Haml::Engine.new(File.read("dev/haml/partials/_html_isotope.haml")).render
-			-# = Haml::Engine.new(File.read("dev/haml/partials/_modal_youtube.haml")).render
+			-# = Haml::Engine.new(File.read("dev/haml/partials/_temp_modal-youtube.haml")).render
 
 		= Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render

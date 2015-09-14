@@ -1,6 +1,5 @@
 %section#iso_container.iso_container{"data-color" => "random"}
 
-	.iso_sizer
 	.iso_gutter
 
 	- arrProjects = ['aereo', 'aeropress', 'airbnb-host', 'airbnb', 'being-geek', 'big-jambox', 'birdhouse', 'boku', 'bump']
@@ -31,7 +30,7 @@
 
 		-# apply 'color_random' class to a.iso_link for cycleLinkColors()
 		%article{:id => "post_#{i}", :class => "iso_brick #{strClasses}"}
-			%a.iso_link.color_random.ajax_youtube{:href => "projects-single.html", :title => "Company Name #{i}", "data-youtube" => "B6zVzWU95Sw"}
+			%a.iso_link.color_random{:href => "projects-single.html", :title => "Company Name #{i}", "data-client" => "Client Name", "data-youtube" => "B6zVzWU95Sw"}
 				.wrap_iso-image
 					%img.iso_image{:src => "assets/img/thumb_#{strCurrentProject}.jpg", :alt => ""}
 					.wrap_iso-title
@@ -48,10 +47,11 @@
 
 		- strCurrentProject = arrProjects[numProjects]
 
-	#iso_loader.iso_loader.visible
+	-# would probably be better to create this on page load, so it is not sitting the markup
+	#iso_loader.iso_loader.loader_spinner.visible
 		.wrap_graphics
 			.wrap_svg
-				%svg.ui_loader
+				%svg.ui_loader{:viewBox => "0 0 64 64"}
 					%use{"xlink:href" => "#ui_loader"}
 			.wrap_txt
 				%p Loading Videos
