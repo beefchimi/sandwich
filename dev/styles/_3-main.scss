@@ -56,6 +56,9 @@ header.page_header {
 
 	// [ nav_primary moved below for cleaner code ] \\
 
+	a.logo_main {
+		display: block;
+	}
 	.logo_main {
 		@include container(288);
 		margin-bottom: 3.2rem;
@@ -73,8 +76,8 @@ header.page_header {
 			}
 			// + logo: video + \\
 			&.wrap_logo-video {
-				max-width: 20rem;
-				width: 50%; // adjust height for mobile
+				max-width: 22.8rem;
+				width: 56%; // adjust height for mobile
 				svg {
 					overflow: visible; // otherwise, <path> animation will get chopped off
 					// + rainbow letters + \\
@@ -87,7 +90,15 @@ header.page_header {
 					&.logo_video-vhs g path {
 						fill: $hsl_red; // default fill
 					}
+					// + record letters + \\
+					&.logo_video-record g path {
+						fill: $hsl_red; // default fill
+					}
 				}
+			}
+			// + record logo: adjust for visual center * \\
+			&.wrap_video-record {
+				transform: translateX(1.1rem);
 			}
 		}
 	}
@@ -103,6 +114,9 @@ header.page_header {
 		}
 		&.wrap_tagline-projects {
 			max-width: 15.3rem;
+		}
+		&.wrap_tagline-people {
+			max-width: 30.2rem;
 		}
 	}
 
@@ -612,6 +626,72 @@ section.iso_container {
 	}
 
 }
+
+// Projects Main
+// ----------------------------------------------------------------------------
+section.people {
+	article {
+		max-width: 22rem;
+
+		margin: 0 auto;
+		text-align: center;
+
+		img {
+			margin-bottom: 2rem;
+		}
+		h3 {
+			font-size: 1.8rem;
+			color: $hsl_navy;
+			&.person_name {
+				margin-bottom: 0.6rem;
+			}
+			&.person_role {
+				margin-bottom: 1.6rem;
+			}
+		}
+		.person_bio p {
+			margin-bottom: 2rem;
+			font-size: 1.5rem;
+			line-height: 1.2;
+			color: $hsl_navy;
+
+		}
+		a {
+			color: $hsl_cyan;
+			transition: color 260ms ease-in-out;
+			&.person_twitter {
+				font-size: 1.5rem;
+			}
+			&:hover {
+				color: $hsl_red;
+			}
+			&:active {
+				color: darken($hsl_red, 10%);
+			}
+		}
+
+
+	}
+}
+
+
+
+/*
+			%section.people
+
+				%article#people-1.person
+
+					%img{:src => "assets/img/temp_people.jpg", :alt => ""}
+
+					%h3.person_name Adam Lisagor
+					%h3.person_role Founder
+
+					.person_bio
+						%p Adam started making these on accident. He literally didn't know what a camera was, nor that it was recording, but sure enough, the industry came clamoring for more.
+
+					%a.person_twitter{:href => "#", :title => "Follow on Twitter"} @lonelysandwich
+*/
+
 
 // Projects Main
 // ----------------------------------------------------------------------------

@@ -1044,8 +1044,10 @@ document.addEventListener('DOMContentLoaded', function() {
 				unlockBody(boolScrollbar);
 			}
 
-			// also remove 'toggled' class from nav_categories
-			elNavCat.classList.remove('toggled');
+			// also remove 'toggled' class from nav_categories (if it exists)
+			if (typeof(elNavCat) != 'undefined' && elNavCat != null) {
+				elNavCat.classList.remove('toggled');
+			}
 
 		} else {
 

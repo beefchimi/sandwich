@@ -1,0 +1,33 @@
+!!!
+/[if IE 9] <html class="ie9" lang="en">
+<!--[if gt IE 9]><!-->
+%html{:lang => "en", "data-ready" => "waiting", "data-overflow" => "scrollable"}<>
+	<!--<![endif]-->
+
+	= Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render(Object.new, :locals => 'People')
+
+	%body#people
+
+		#svgInject.visuallyhidden
+			/ inject:svg
+			/ endinject
+
+		= Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render(Object.new, :locals => 'people')
+
+		%main{:role => "main"}
+
+			%section.people
+
+				%article#people-1.person
+
+					%img{:src => "assets/img/temp_people.jpg", :alt => ""}
+
+					%h3.person_name Adam Lisagor
+					%h3.person_role Founder
+
+					.person_bio
+						%p Adam started making these on accident. He literally didn't know what a camera was, nor that it was recording, but sure enough, the industry came clamoring for more.
+
+					%a.person_twitter{:href => "#", :title => "Follow on Twitter"} @lonelysandwich
+
+		= Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render

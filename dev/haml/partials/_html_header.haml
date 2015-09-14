@@ -16,9 +16,9 @@
 		.wrap_nav
 			%ul
 				%li
-					%a.color_random{:href => "#", :title => "Projects"} Projects
+					%a.color_random{:href => "projects.html", :title => "Projects"} Projects
 				%li
-					%a.color_random{:href => "#", :title => "People"} People
+					%a.color_random{:href => "people.html", :title => "People"} People
 				%li
 					%a.color_random{:href => "#", :title => "How it Works"} How it Works
 				%li
@@ -34,16 +34,39 @@
 						-# not using .wrap_svg because of pointer-event support
 						= Haml::Engine.new(File.read("dev/haml/partials/_svg_search.haml")).render
 
-	-# %a.logo_main{:href => "#", :title => "Back To Home"}
-	.logo_main
+
+	-# determine which video SVG to use based on locals variable
+	- if locals == 'home' || locals == 'projects'
+		- classVideoSVG = 'vhs'
+	- elsif locals == 'people'
+		- classVideoSVG = 'record'
+	- else
+		- classVideoSVG = 'rainbow'
+
+	-# only output a div on the home page,
+	-# use a <a> for everything else
+	- if locals == 'home'
+		- tagLogoMain = 'div.logo_main'
+	- else
+		- tagLogoMain = 'a.logo_main'
+
+
+	-# if text content is required, use:
+	-# haml_tag tagLogoMain, "Hello There!"
+
+	-# could not figure out how to pass attributes conditionally... so the <div> will contain a :href and :title as well :(
+	- haml_tag tagLogoMain, href: "index.html", title: "Back To Home" do
 		.wrap_svg.wrap_logo-sandwich
 			%svg.logo_sandwich{:viewBox => "0 0 346 48"}
 				%use{"xlink:href" => "#logo_sandwich"}
-		.wrap_svg.wrap_logo-video.wrap_video-vhs
-			= Haml::Engine.new(File.read("dev/haml/partials/_svg_video-vhs.haml")).render
-		-# .wrap_svg.wrap_logo-video.wrap_video-rainbow
-			-# = Haml::Engine.new(File.read("dev/haml/partials/_svg_video-rainbow.haml")).render
+		%div{:class => "wrap_svg wrap_logo-video wrap_video-#{classVideoSVG}"}
+			= Haml::Engine.new(File.read("dev/haml/partials/_svg_video-#{classVideoSVG}.haml")).render
 
-	-# different per page
-	-# = Haml::Engine.new(File.read("dev/haml/partials/_tagline_home.haml")).render
-	= Haml::Engine.new(File.read("dev/haml/partials/_tagline_projects.haml")).render
+
+	-# determine which tagline markup to use based on locals variable
+	- arrTaglines = { 'home' => ['We make videos and TV commercials. Here are some below.', '0 0 303 31'], 'projects' => ['So many projects.', '0 0 153 11'], 'people' => ['These are the core people who make Sandwich Video what it is.', '0 0 302 31'] }
+
+	%div{:class => "wrap_svg wrap_tagline wrap_tagline-#{locals}"}
+		%h2.visuallyhidden #{arrTaglines[locals][0]}
+		%svg.tagline_home{:viewBox => "#{arrTaglines[locals][1]}"}
+			%use{"xlink:href" => "#tagline_#{locals}"}

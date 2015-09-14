@@ -308,9 +308,19 @@
 		position: relative;
 		padding-top: 18rem;
 		padding-bottom: 6.4rem;
+		a.logo_main {
+			transition: opacity 260ms ease-in-out;
+			&:active {
+				opacity: 0.8;
+			}
+		}
 		.logo_main {
 			margin-bottom: 6.4rem;
-			max-width: none; // or should I set this to the width of 'sandwich'?
+			max-width: 34.6rem; // width of the widest SVG (sandwich)
+			.wrap_svg.wrap_logo-sandwich,
+			.wrap_svg.wrap_logo-video {
+				width: 100%;
+			}
 		}
 	}
 
@@ -798,18 +808,18 @@
 		animation: none !important; // important seems to be required here...
 	}
 	// + header + \\
+	html[data-ready="ready"] svg.logo_video-vhs g path {
+		animation: none;
+	}
 	@for $i from 1 through 5 { // assumes 5 letters
 		html[data-ready="ready"] g.rainbow_letter-#{$i},
 		html[data-ready="ready"] g.rainbow_letter-#{$i} path {
 			animation: none;
 		}
-		html[data-ready="ready"] .wrap_video-rainbow:hover g.rainbow_letter-#{$i} path {
+		html[data-ready="ready"] .logo_main:hover .wrap_video-rainbow svg g.rainbow_letter-#{$i} path {
 			animation: animRbowInst_path-#{$i} 400ms linear infinite reverse;
 		}
-		html[data-ready="ready"] svg.logo_video-vhs g path {
-			animation: none;
-		}
-		html[data-ready="ready"] svg.logo_video-vhs:hover g path.group_path-#{$i} {
+		html[data-ready="ready"] .logo_main:hover .wrap_video-vhs svg g path.group_path-#{$i} {
 			animation: animRbowInst_path-#{$i} 400ms linear infinite reverse;
 		}
 	}

@@ -4,7 +4,7 @@
 %html{:lang => "en", "data-ready" => "waiting", "data-overflow" => "scrollable"}<>
 	<!--<![endif]-->
 
-	= Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render
+	= Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render(Object.new, :locals => 'Projects Single')
 
 	-# shares the same id as projects main... reconsider this? (they do share the same container width... so CSS can be shared)
 	%body#projects
@@ -13,11 +13,11 @@
 			/ inject:svg
 			/ endinject
 
-		= Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render
+		= Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render(Object.new, :locals => 'projects')
 
 		%main{:role => "main"}
 
-			%section#projects_single.projects_single
+			%section.projects_single
 
 				%article#post_id.projects_post
 

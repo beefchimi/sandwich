@@ -4,7 +4,7 @@
 %html{:lang => "en", "data-ready" => "waiting", "data-overflow" => "scrollable"}<>
 	<!--<![endif]-->
 
-	= Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render
+	= Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render(Object.new, :locals => 'Projects')
 
 	%body#projects
 
@@ -12,13 +12,11 @@
 			/ inject:svg
 			/ endinject
 
-		= Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render
+		= Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render(Object.new, :locals => 'projects')
 
 		%main{:role => "main"}
 
-			%section#projects_main.projects_main
-
-
+			%section.projects_main
 
 				%article#client-1.projects_client
 					%h3 1Password

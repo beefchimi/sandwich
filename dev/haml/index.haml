@@ -4,7 +4,7 @@
 %html{:lang => "en", "data-ready" => "waiting", "data-overflow" => "scrollable"}<>
 	<!--<![endif]-->
 
-	= Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render
+	= Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render(Object.new, :locals => '')
 
 	%body#home
 
@@ -12,7 +12,7 @@
 			/ inject:svg
 			/ endinject
 
-		= Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render
+		= Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render(Object.new, :locals => 'home')
 
 		%main{:role => "main"}
 
