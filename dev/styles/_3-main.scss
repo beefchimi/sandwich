@@ -91,9 +91,15 @@ header.page_header {
 						fill: $hsl_red; // default fill
 					}
 					// + record letters + \\
-					&.logo_video-record g path {
+					&.logo_video-record {
+					// &.logo_video-record g path {
 						fill: $hsl_red; // default fill
 					}
+/*
+					&.logo_video-record {
+						fill: url('#video-tracking'); // 'http://localhost/sandwich/build/assets/img/test.svg#video-tracking'
+					}
+*/
 				}
 			}
 			// + record logo: adjust for visual center * \\
@@ -117,6 +123,9 @@ header.page_header {
 		}
 		&.wrap_tagline-people {
 			max-width: 30.2rem;
+		}
+		&.wrap_tagline-press {
+			max-width: 22.8rem;
 		}
 	}
 
@@ -304,7 +313,7 @@ nav.nav_primary {
 // Footer
 // ----------------------------------------------------------------------------
 footer.page_footer {
-	padding-top: 6rem;
+	padding-top: 10rem;
 	padding-bottom: 8rem;
 	text-align: center;
 	h6 {
@@ -326,15 +335,6 @@ footer.page_footer {
 
 // ==|== main styles ==========================================================
 // ============================================================================
-
-// Pages
-// ----------------------------------------------------------------------------
-#home main {
-	@include container(1640);
-}
-#projects main {
-	@include container(946);
-}
 
 // Shared Content
 // ----------------------------------------------------------------------------
@@ -394,6 +394,178 @@ ul.video_credits {
 				animation: animRbow_fill 1600ms linear infinite;
 			}
 		}
+	}
+}
+// --- Nav: Sidebar --- \\
+nav.nav_sidebar {
+	h4 {
+		margin-bottom: 3.2rem;
+		font-size: 2.2rem;
+		color: $hsl_cyan;
+	}
+	ul li {
+		margin-bottom: 1.6rem;
+		font-size: 1.5rem;
+		&:last-child {
+			margin-bottom: 0;
+		}
+		a {
+			line-height: 1.2;
+			color: $hsl_cyan;
+			transition: color 260ms ease-in-out;
+			&:hover {
+				color: $hsl_red; // tried navy, was too dark!
+			}
+			&:active {
+				color: darken($hsl_red, 10%);
+			}
+		}
+	}
+}
+// --- The Content --- \\
+.the_content {
+	color: $hsl_navy;
+	a {
+		color: $hsl_cyan;
+		transition: color 260ms ease-in-out;
+		&:hover {
+			color: $hsl_red; // default :hover color
+		}
+		&:active {
+			color: darken($hsl_red, 10%); // default :active color
+		}
+	}
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		margin-bottom: 2rem;
+		line-height: 1.3;
+	}
+	h1,
+	h2,
+	h3 {
+		font-size: 1.8rem;
+	}
+	h4,
+	h5,
+	h6 {
+		font-size: 1.4rem;
+	}
+	p,
+	ol,
+	ul,
+	img,
+	div,
+	table {
+		margin-bottom: 2rem;
+	}
+	p,
+	li {
+		font-size: 1.4rem;
+	}
+	p {
+		line-height: 1.4;
+	}
+	li,
+	th,
+	td {
+		line-height: 1.2;
+	}
+	li {
+		position: relative;
+		margin-bottom: 1rem;
+		padding-left: 1.6rem;
+		& > ol,
+		& > ul {
+			margin-top: 1rem;
+		}
+		&::before {
+			display: block;
+			position: absolute;
+			// top: 0;
+			left: 0;
+		}
+	}
+	ol {
+		counter-reset: ordered-counter;
+		& > li::before {
+			content: counter(ordered-counter, decimal) ".";
+			counter-increment: ordered-counter;
+			top: 0.2rem;
+			font-weight: 800;
+			font-size: 0.8em;
+			vertical-align: top;
+		}
+	}
+	ul {
+		& > li::before {
+			content: "\2022"; // bullet
+			top: -0.2rem;
+			font-size: 1.8rem;
+		}
+	}
+	hr {
+		margin-top: 3.2rem;
+		margin-bottom: 3.2rem;
+		border-color: $hsl_navy;
+	}
+	table {
+		table-layout: fixed;
+		width: 100%;
+		tr {
+			th,
+			td {
+				vertical-align: top;
+				padding: 1rem;
+				font-size: 1.3rem;
+				text-align: left;
+				border: 0.1rem solid $hsl_navy;
+			}
+			th {
+				font-weight: 800;
+			}
+			td {
+				color: $hsl_L20;
+			}
+			&:first-child th {
+				text-transform: uppercase;
+				color: $hsl_L100;
+				background-color: $hsl_navy;
+			}
+		}
+	}
+	blockquote {
+		margin-bottom: 3.2rem;
+		padding-left: 2rem;
+		padding-right: 2rem;
+		border-left: 0.1rem solid $hsl_navy;
+		p {
+			font-style: italic;
+			cite {
+				display: block;
+				position: relative;
+				padding-top: 1rem;
+				font-weight: 800;
+				&::before {
+					content: '\2014 \00a0'; // emdash + space
+				}
+			}
+
+		}
+	}
+	p:last-child,
+	ol:last-child,
+	ul:last-child,
+	li:last-child,
+	hr:last-child,
+	img:last-child,
+	div:last-child,
+	table:last-child,
+	blockquote:last-child {
+		margin-bottom: 0;
 	}
 }
 
@@ -627,193 +799,6 @@ section.iso_container {
 
 }
 
-// Projects Main
-// ----------------------------------------------------------------------------
-section.people {
-	article {
-		max-width: 22rem;
-
-		margin: 0 auto;
-		text-align: center;
-
-		img {
-			margin-bottom: 2rem;
-		}
-		h3 {
-			font-size: 1.8rem;
-			color: $hsl_navy;
-			&.person_name {
-				margin-bottom: 0.6rem;
-			}
-			&.person_role {
-				margin-bottom: 1.6rem;
-			}
-		}
-		.person_bio p {
-			margin-bottom: 2rem;
-			font-size: 1.5rem;
-			line-height: 1.2;
-			color: $hsl_navy;
-
-		}
-		a {
-			color: $hsl_cyan;
-			transition: color 260ms ease-in-out;
-			&.person_twitter {
-				font-size: 1.5rem;
-			}
-			&:hover {
-				color: $hsl_red;
-			}
-			&:active {
-				color: darken($hsl_red, 10%);
-			}
-		}
-
-
-	}
-}
-
-
-
-/*
-			%section.people
-
-				%article#people-1.person
-
-					%img{:src => "assets/img/temp_people.jpg", :alt => ""}
-
-					%h3.person_name Adam Lisagor
-					%h3.person_role Founder
-
-					.person_bio
-						%p Adam started making these on accident. He literally didn't know what a camera was, nor that it was recording, but sure enough, the industry came clamoring for more.
-
-					%a.person_twitter{:href => "#", :title => "Follow on Twitter"} @lonelysandwich
-*/
-
-
-// Projects Main
-// ----------------------------------------------------------------------------
-section.projects_main {
-	text-align: center;
-	article {
-		margin-bottom: 3.2rem;
-		&:last-child {
-			margin-bottom: 0;
-		}
-		h3 {
-			margin-bottom: 0.6rem;
-			font-size: 1.5rem;
-			line-height: 1.3;
-			&:first-child {
-				font-weight: 800;
-				text-transform: uppercase;
-				color: $hsl_navy;
-			}
-			&:last-child {
-				margin-bottom: 0;
-			}
-			a {
-				color: $hsl_cyan;
-				transition: color 260ms ease-in-out;
-				&:hover {
-					color: $hsl_red;
-				}
-				&:active {
-					color: darken($hsl_red, 10%);
-				}
-			}
-		}
-	}
-}
-
-// Projects Single Post
-// ----------------------------------------------------------------------------
-section.projects_single {
-	margin-bottom: 2rem;
-	article.projects_post {
-
-		.projects_header {
-			margin-bottom: 2rem;
-			text-align: center;
-			a.link_projects {
-				display: inline-block;
-				font-size: 1.5rem;
-				color: $hsl_navy;
-				transition: color 260ms ease-in-out;
-				&:hover {
-					color: $hsl_cyan;
-				}
-				&:active {
-					color: darken($hsl_cyan, 10%);
-				}
-			}
-		}
-
-		figure.projects_figure {
-			margin-bottom: 3.2rem;
-			border-bottom: 0.3rem solid $hsl_cyan;
-			figcaption.projects_caption {
-				display: flex;
-				align-items: center;
-				padding-top: 2rem;
-				padding-bottom: 2rem;
-				.wrap_titles {
-					margin-right: 3.2rem;
-					width: calc(100% - 7.2rem);
-				}
-				.wrap_logo {
-					width: 4rem;
-					text-align: right;
-					img {
-						display: inline-block;
-					}
-				}
-			}
-		}
-
-		.wrap_content {
-			text-align: center;
-			h4 {
-				margin-bottom: 3.2rem;
-				font-size: 2.2rem;
-			}
-			.wrap_credits {
-				margin-bottom: 4rem;
-				h4,
-				ul.video_credits li {
-					color: $hsl_navy;
-				}
-			}
-			.wrap_related {
-
-				h4 {
-					color: $hsl_cyan;
-				}
-				ul.projects_related li {
-					margin-bottom: 1.6rem;
-					font-size: 1.5rem;
-					&:last-child {
-						margin-bottom: 0;
-					}
-					a {
-						color: $hsl_cyan;
-						transition: color 260ms ease-in-out;
-						&:hover {
-							color: $hsl_navy;
-						}
-						&:active {
-							color: darken($hsl_navy, 10%);
-						}
-					}
-				}
-			}
-		}
-
-	}
-}
-
 // YouTube Modal
 // ----------------------------------------------------------------------------
 aside {
@@ -893,7 +878,8 @@ aside {
 					}
 					&.item_link-project,
 					&.item_link-share {
-						width: 50%;
+						// width: 50%;
+						flex: 0 1 50%;
 					}
 					&.item_link-project {
 						text-align: left;
@@ -1012,6 +998,372 @@ aside {
 
 }
 
+
+// ==|== projects =============================================================
+// ============================================================================
+
+// Projects Main
+// ----------------------------------------------------------------------------
+section.projects_main {
+	text-align: center;
+	article {
+		margin-bottom: 3.2rem;
+		&:last-child {
+			margin-bottom: 0;
+		}
+		h3 {
+			margin-bottom: 0.6rem;
+			font-size: 1.5rem;
+			line-height: 1.3;
+			&:first-child {
+				font-weight: 800;
+				text-transform: uppercase;
+				color: $hsl_navy;
+			}
+			&:last-child {
+				margin-bottom: 0;
+			}
+			a {
+				color: $hsl_cyan;
+				transition: color 260ms ease-in-out;
+				&:hover {
+					color: $hsl_red;
+				}
+				&:active {
+					color: darken($hsl_red, 10%);
+				}
+			}
+		}
+	}
+}
+
+// Projects Single Post
+// ----------------------------------------------------------------------------
+section.projects_single {
+	article.projects_post {
+
+		.projects_header {
+			margin-bottom: 2rem;
+			text-align: center;
+			a.link_projects {
+				display: inline-block;
+				font-size: 1.5rem;
+				color: $hsl_navy;
+				transition: color 260ms ease-in-out;
+				&:hover {
+					color: $hsl_cyan;
+				}
+				&:active {
+					color: darken($hsl_cyan, 10%);
+				}
+			}
+		}
+
+		figure.projects_figure {
+			margin-bottom: 3.2rem;
+			border-bottom: 0.3rem solid $hsl_cyan;
+			figcaption.projects_caption {
+				display: flex;
+				align-items: center;
+				padding-top: 2rem;
+				padding-bottom: 2rem;
+				.wrap_titles {
+					// flex: 0 1 calc(100% - 7.2rem); // cannot use flex... truncate no longer works and text pushes the container wider
+					margin-right: 3.2rem;
+					width: calc(100% - 7.2rem);
+				}
+				.wrap_logo {
+					// flex: 0 0 4rem;
+					// object-fit: scale-down;
+					width: 4rem; // required to set width instead of flex... image will not scale if using flex
+					text-align: right;
+				}
+			}
+		}
+
+		.wrap_content {
+			text-align: center;
+			.wrap_credits {
+				margin-bottom: 4rem;
+				h4,
+				ul.video_credits li {
+					color: $hsl_navy;
+				}
+				// + same <h4> styles as nav.nav_sidebar + \\
+				h4 {
+					margin-bottom: 3.2rem;
+					font-size: 2.2rem;
+				}
+			}
+		}
+
+	}
+}
+
+
+// ==|== press ================================================================
+// ============================================================================
+
+// Press Shared
+// ----------------------------------------------------------------------------
+article.press_post {
+
+	margin-bottom: 3.2rem;
+	padding-bottom: 3.2rem;
+	border-bottom: 0.1rem solid $hsl_red;
+
+	.press_feature {
+		margin-bottom: 2rem;
+	}
+
+	header {
+		margin-bottom: 2rem;
+		h3 {
+			margin-bottom: 1rem;
+			font-size: 1.9rem;
+			line-height: 1.2;
+			color: $hsl_navy;
+			a {
+				color: $hsl_navy;
+				transition: color 260ms ease-in-out;
+				&:hover {
+					color: $hsl_cyan; // default :hover color
+				}
+				&:active {
+					color: darken($hsl_cyan, 10%); // default :active color
+				}
+			}
+		}
+		time {
+			font-size: 1.2rem;
+			color: $hsl_ash;
+		}
+	}
+
+	.press_content {
+		margin-bottom: 3.2rem;
+	}
+	.press_author p {
+		font-size: 1.4rem;
+		color: $hsl_navy;
+	}
+
+}
+section.press_sidebar {
+	nav.wrap_press-links {
+		margin-bottom: 6.4rem;
+	}
+	a.link_story {
+		@include block_circle(120, $hsl_cyan);
+	}
+}
+
+// Press Main
+// ----------------------------------------------------------------------------
+section.press_main {
+
+	margin-bottom: 3.2rem;
+
+	article.press_post {
+		border-bottom: 0.1rem solid $hsl_red; // default border-bottom-color
+		@for $i from 1 through length($arrColorValues) {
+			&:nth-child(#{$i}) {
+				border-bottom-color: nth($arrColorValues, $i);
+				& header h3 a {
+					&:hover {
+						color: nth($arrColorValues, $i);
+					}
+					&:active {
+						color: darken(nth($arrColorValues, $i), 10%);
+					}
+				}
+				// content links are 'cyan', so we need to choose a different :hover/:active style for the 5th iteration
+				$contentLinkColor: if($i == 5, $hsl_navy, nth($arrColorValues, $i));
+				& .the_content a {
+					&:hover {
+						color: $contentLinkColor;
+					}
+					&:active {
+						color: darken($contentLinkColor, 10%);
+					}
+				}
+			}
+		}
+		a.press_feature {
+			display: block;
+			transition: opacity 260ms ease-in-out;
+			&:hover {
+				opacity: 0.9;
+			}
+			&:active {
+				opacity: 1;
+			}
+		}
+	}
+
+	nav.press_pagination {
+		ul {
+			display: flex;
+			flex-wrap: nowrap;
+			li {
+				flex: 1 1 auto;
+				.pagi_link {
+					font-size: 1.3rem;
+					color: $hsl_ash;
+					text-transform: uppercase;
+				}
+				a.pagi_link {
+					transition: color 260ms ease-in-out;
+					&:hover {
+						color: $hsl_cyan;
+					}
+					&:active {
+						color: darken($hsl_cyan, 10%);
+					}
+				}
+				// + individual list items + \\
+				&.pagi_next {
+					text-align: right;
+				}
+				&.pagi_prev span.pagi_link,
+				&.pagi_next span.pagi_link {
+					color: lighten($hsl_ash, 20%);
+				}
+				&.pagi_page,
+				&.pagi_more {
+					text-align: center;
+				}
+				&.pagi_page.pagi_current a {
+					pointer-events: none;
+					color: $hsl_navy
+				}
+				// if there are at least 9 items (including back and next), hide li.pagi_page elements
+				&:nth-last-child(n+9) ~ li.pagi_page {
+					display: none;
+				}
+				// then force visible the first and last 4 nav items, as well as the current nav item (no way to skip prev / next?)
+				&:nth-last-child(n+9) ~ li:nth-child(-n+4),
+				&:nth-last-child(n+9) ~ li:nth-last-child(-n+4),
+				&:nth-last-child(n+9) ~ li.pagi_page.pagi_current {
+					display: block;
+				}
+			}
+		}
+		// js will add the 'appended_ellipsis' class if conditions are met...
+		// which we can then use to reveal our ellipsis list item
+		&.appended_ellipsis ul li:nth-last-child(n+9) ~ li.pagi_more {
+			display: block;
+		}
+	}
+
+}
+
+
+// ==|== page styles ==========================================================
+// ============================================================================
+
+// Pages IDs
+// ----------------------------------------------------------------------------
+#home main,
+#people main {
+	@include container(1640);
+}
+#press main,
+#projects main {
+	@include container(946);
+}
+// need to compensate for both #home iso and #people article margin-bottoms with the footer padding-top
+#home footer.page_footer {
+	padding-top: 8rem; // 100px - 20px
+}
+#people footer.page_footer {
+	padding-top: 5.2rem; // 100px - 48px
+}
+
+// People
+// ----------------------------------------------------------------------------
+section.people {
+	article {
+		@include container(320);
+		margin-bottom: 4.8rem;
+		text-align: center;
+		img {
+			@include container(220);
+			margin-bottom: 2rem;
+		}
+		h3 {
+			font-size: 1.8rem;
+			line-height: 1.2;
+			color: $hsl_navy;
+			&.person_name {
+				margin-bottom: 0.8rem;
+			}
+			&.person_role {
+				margin-bottom: 1.6rem;
+			}
+		}
+		.person_bio p {
+			margin-bottom: 2rem;
+			font-size: 1.5rem;
+			line-height: 1.3;
+			color: $hsl_navy;
+		}
+		a {
+			color: $hsl_cyan;
+			transition: color 260ms ease-in-out;
+			&.person_twitter {
+				font-size: 1.5rem;
+			}
+			&:hover {
+				color: $hsl_red;
+			}
+			&:active {
+				color: darken($hsl_red, 10%);
+			}
+		}
+	}
+}
+a.link_people-all {
+	@include block_circle(120, $hsl_navy);
+	margin-bottom: 4.2rem;
+	transition: background-color 260ms ease-in-out;
+
+	.wrap_txt-helped {
+		@include container(86);
+		position: relative;
+		top: 3.2rem;
+		svg {
+			fill: $hsl_L100;
+		}
+	}
+	.wrap_ui-hand {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: -1.6rem;
+		margin-left: auto;
+		margin-right: auto;
+		width: 3.6rem;
+		transform: translate3d(0,0,0);
+		transition: transform 260ms ease-in-out;
+		svg {
+			fill: $hsl_L100;
+		}
+	}
+	&:hover {
+		background-color: $hsl_red;
+		.wrap_ui-hand {
+			transform: translate3d(0,-0.6rem,0);
+		}
+	}
+	&:active {
+		background-color: darken($hsl_red, 10%);
+		.wrap_ui-hand {
+			transform: translate3d(0,-0.2rem,0);
+		}
+	}
+}
+
 // Alternating Colours
 // ----------------------------------------------------------------------------
 // + red links + \\
@@ -1065,11 +1417,23 @@ header.page_header .wrap_tagline {
 // + rainbow letters + \\
 $numDelay: 600;
 @for $i from 1 through 5 { // assumes 5 letters
-	// header.page_header .logo_main .wrap_logo-video svg g.rainbow_letter-
-	g.rainbow_letter-#{$i} {
+	// webkit does not seem to handle the animations being paired together, so we split them into 2 selectors
+	svg.logo_video-rainbow g.rainbow_letter-#{$i} {
 		animation: animFadeIn 400ms ease-in-out #{$numDelay}ms both;
 	}
-	g.rainbow_letter-#{$i} path {
+	svg.logo_video-rainbow g.rainbow_letter-#{$i} path {
+		animation: animBounceUp 400ms $easeBounce #{$numDelay}ms both;
+	}
+	$numDelay: $numDelay + 100;
+}
+
+// + record letters + \\
+$numDelay: 600;
+@for $i from 1 through 6 { // assumes 6 letters
+	svg.logo_video-record g.record_letter-#{$i} {
+		animation: animFadeIn 400ms ease-in-out #{$numDelay}ms both;
+	}
+	svg.logo_video-record g.record_letter-#{$i} path {
 		animation: animBounceUp 400ms $easeBounce #{$numDelay}ms both;
 	}
 	$numDelay: $numDelay + 100;
@@ -1121,7 +1485,24 @@ section.iso_container .iso_loader .wrap_graphics {
 }
 
 // + page sections + \\
+section.people,
 section.projects_main,
 section.projects_single {
 	animation: animFadeIn 800ms ease-in-out 1200ms both;
+}
+
+
+// section.people {
+// 	$numDelay: 1200;
+// 	@for $i from 1 through 20 {
+// 		article:nth-child(#{$i}) {
+// 			animation: animFadeIn 600ms ease-in-out #{$numDelay}ms both, animBounceUp 600ms $easeBounce #{$numDelay}ms both;
+// 		}
+// 		$numDelay: $numDelay + 100;
+// 	}
+// }
+
+
+a.link_people-all {
+	animation: animFadeIn 600ms ease-in-out 1200ms both, animBounceUp 600ms $easeBounce 1200ms both;
 }

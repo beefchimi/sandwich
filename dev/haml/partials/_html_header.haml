@@ -22,17 +22,18 @@
 				%li
 					%a.color_random{:href => "#", :title => "How it Works"} How it Works
 				%li
-					%a.color_random{:href => "#", :title => "Press"} Press
+					%a.color_random{:href => "press.html", :title => "Press"} Press
 				%li
 					%a.color_random{:href => "#", :title => "Contact"} Contact
 				%li#nav_twitter.nav_twitter
 					%a.color_random{:href => "https://twitter.com/sandwich", :title => "Follow @sandwich", :target => "_blank"} @sandwich
-				%li#nav_search.nav_search
-					%form#search_projects{:action => "/search", :method => "get", :role => "search"}
-						%input#filter_search{:type => "text", :name => "search", :value => "", :autocomplete => "off", :placeholder => "Find a specific video", :required => true}
-						-# %input.search_submit{:type => "submit", :value => "Search"}
-						-# not using .wrap_svg because of pointer-event support
-						= Haml::Engine.new(File.read("dev/haml/partials/_svg_search.haml")).render
+				- if locals == 'home'
+					%li#nav_search.nav_search
+						%form#search_projects{:action => "/search", :method => "get", :role => "search"}
+							%input#filter_search{:type => "text", :name => "search", :value => "", :autocomplete => "off", :placeholder => "Find a specific video", :required => true}
+							-# %input.search_submit{:type => "submit", :value => "Search"}
+							-# not using .wrap_svg because of pointer-event support
+							= Haml::Engine.new(File.read("dev/haml/partials/_svg_search.haml")).render
 
 
 	-# determine which video SVG to use based on locals variable
@@ -63,8 +64,17 @@
 			= Haml::Engine.new(File.read("dev/haml/partials/_svg_video-#{classVideoSVG}.haml")).render
 
 
+	- taglineHome     = 'We make videos and TV commercials. Here are some below.'
+	- viewboxHome     = '0 0 303 31'
+	- taglineProjects = 'So many projects.'
+	- viewboxProjects = '0 0 153 11'
+	- taglinePeople   = 'These are the core people who make Sandwich Video what it is.'
+	- viewboxPeople   = '0 0 302 31'
+	- taglinePress    = 'Catch up on how we\'re doing here at Sandwich.'
+	- viewboxPress    = '0 0 228 31'
+
 	-# determine which tagline markup to use based on locals variable
-	- arrTaglines = { 'home' => ['We make videos and TV commercials. Here are some below.', '0 0 303 31'], 'projects' => ['So many projects.', '0 0 153 11'], 'people' => ['These are the core people who make Sandwich Video what it is.', '0 0 302 31'] }
+	- arrTaglines = { 'home' => [taglineHome, viewboxHome], 'projects' => [taglineProjects, viewboxProjects], 'people' => [taglinePeople, viewboxPeople], 'press' => [taglinePress, viewboxPress] }
 
 	%div{:class => "wrap_svg wrap_tagline wrap_tagline-#{locals}"}
 		%h2.visuallyhidden #{arrTaglines[locals][0]}

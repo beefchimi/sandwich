@@ -1,0 +1,114 @@
+!!!
+/[if IE 9] <html class="ie9" lang="en">
+<!--[if gt IE 9]><!-->
+%html{:lang => "en", "data-ready" => "waiting", "data-overflow" => "scrollable"}<>
+	<!--<![endif]-->
+
+	= Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render(Object.new, :locals => 'Press')
+
+	%body#press
+
+		#svgInject.visuallyhidden
+			/ inject:svg
+			/ endinject
+
+		= Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render(Object.new, :locals => 'press')
+
+		%main{:role => "main"}
+
+			%section.press_main
+
+				- (1..5).each do |i|
+					%article{:id => "press-#{i}", :class => "press_post"}
+
+						- if i % 2 == 0
+							%a.press_feature{:href => "#", :title => ""}
+								%img{:src => "assets/img/temp_press.jpg", :alt => ""}
+
+						%header
+							%h3
+								- if i % 2 == 0
+									%a{:href => "#", :title => "Read more"} This is a Very Long, Multi-Line Headline for a Piece of News
+								- else
+									%a{:href => "#", :title => "Read more"} Short and Sweet
+							%time{:datetime => "2016-08-13T23:59:59-02:00"} July 13, 2016
+
+						.the_content.press_content
+
+							- if i == 2
+								= Haml::Engine.new(File.read("dev/haml/partials/_html_press-content.haml")).render
+							- else
+								%p While no one was looking, Apple just took possession of a word no one expected could be owned. Apple of seven years ago might not have been able to just do that. They probably would have defaulted to iWatch. But they’ve shown they can so <a href="#" title="">completely reinvent</a> and dominate a space that the is just an honorific, not a part of the name. In six months, when most people refer to their watch, they&rsquo;ll most likely be talking about their Watch.
+								%p In 2001, the iPod was a new entrant in a new space littered with false starts, attempting to disrupt a well-established product category. Using it necessitated owning a separate, more robust device as a hub. It would be the precursor to the iPhone six years later, which would eclipse its predecessor and eventually overtake the hub device in market significance.
+
+						.press_author
+							%p by Adam
+
+				%nav#pagination.nav_pagi.press_pagination
+					%ul
+						%li.pagi_prev
+							%span.pagi_link Back
+
+						-# requires at least 7 li.pagi_page items for CSS to hide anything (would be the middle item - #4)
+						- (1..13).each do |i|
+
+							- if i == 6
+								- strClassCurrent = ' pagi_current'
+							- else
+								- strClassCurrent = ''
+
+							- if i < 10
+								- strLeadingZero = '0'
+							- else
+								- strLeadingZero = ''
+
+							%li{:class => "pagi_page pagi-#{i}#{strClassCurrent}"}
+								%a.pagi_link{:href => "#", :title => "Page #{i}"} #{strLeadingZero}#{i}
+
+
+						%li.pagi_next
+							%a.pagi_link{:href => "#", :title => "Older Posts"} Next
+
+						-# %li.pagi_page
+							-# %span.pagi_link.pagi_ellipsis &#8230;
+
+
+			%section.press_sidebar
+
+				%nav.wrap_press-links.nav_sidebar
+					%h4 Press
+					%ul.press_links
+						%li
+							%a{:href => "#", :title => "See press article"} <strong>Bloomberg Business:</strong> Adam Lisagor, Silicon Valley Startups' Favorite Video Director
+						%li
+							%a{:href => "#", :title => "See press article"} <strong>Entrepreneur:</strong> This Bearded Guy Has Unintentionally Become the Face of Tech Startups
+						%li
+							%a{:href => "#", :title => "See press article"} <strong>FastCompany:</strong> Adam Lisagor is Advertising’s Quietest Pitchman
+						%li
+							%a{:href => "#", :title => "See press article"} <strong>Mashable:</strong> Who is Adam Lisagor and why is he in every tech ad right now?
+						%li
+							%a{:href => "#", :title => "See press article"} <strong>The Great Discontent:</strong> Adam Lisagor
+						%li
+							%a{:href => "#", :title => "See press article"} <strong>The Verge:</strong> Small Empires – The startup that makes your startup look cool
+
+
+
+				%a.link_story{:href => "#", :title => "Want a story? Get in touch."}
+					-# .wrap_svg.wrap_txt-helped
+						-# %svg.txt_helped{:viewBox => "0 0 120 61"}
+							-# %use{"xlink:href" => "#txt_helped"}
+					-# .wrap_svg.wrap_ui-hand
+						-# %svg.ui_hand{:viewBox => "0 0 45 64"}
+							-# %use{"xlink:href" => "#ui_hand"}
+
+
+			.press_corner
+				- (1..5).each do |i|
+					%div{:class => "corner-#{i}"}
+
+
+
+
+
+
+		= Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render

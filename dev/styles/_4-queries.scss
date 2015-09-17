@@ -1,6 +1,28 @@
 // ==|== media queries ========================================================
 // ============================================================================
 
+@media only screen and (max-height: 400px) {
+
+// ==|== primary styles =======================================================
+// ============================================================================
+
+	// Primary Navigation (child of header)
+	// ----------------------------------------------------------------------------
+	nav.nav_primary .wrap_nav ul {
+		top: 45%;
+	}
+
+// ==|== main styles ==========================================================
+// =============================================================================
+
+	// Isotope
+	// ----------------------------------------------------------------------------
+	section.iso_container .iso_loader .wrap_graphics {
+		padding-top: 0;
+	}
+
+}
+
 @media only screen and (min-width: 480px) {
 
 // ==|== primary styles =======================================================
@@ -16,14 +38,15 @@
 			margin: 0;
 		}
 		.wrap_nav ul li {
+			a {
+				font-size: 1.8rem;
+			}
+			// + individual list items + \\
 			&:nth-child(-n+5) {
 				margin-bottom: 1.8rem;
 			}
 			&.nav_twitter {
 				margin-bottom: 2.8rem;
-			}
-			a {
-				font-size: 1.8rem;
 			}
 		}
 	}
@@ -42,53 +65,23 @@
 		}
 	}
 
-	// Projects Main
-	// ----------------------------------------------------------------------------
-	section.projects_main {
-		columns: 2;
-		article {
-			break-inside: avoid;
-		}
-	}
-
-	// Projects Single Post
-	// ----------------------------------------------------------------------------
-	section.projects_single {
-		article.projects_post {
-			.projects_header {
-				text-align: right;
-			}
-			.wrap_content {
-				text-align: left;
-				.wrap_credits,
-				.wrap_related {
-					float: left;
-				}
-				.wrap_credits {
-					margin-bottom: 0;
-					width: 62%;
-				}
-				.wrap_related {
-					width: 38%;
-				}
-			}
-		}
-	}
-
 	// YouTube Modal
 	// ----------------------------------------------------------------------------
 	aside {
 		.modal_content {
 			header.modal_header {
 				display: flex;
+				.wrap_titles,
 				.wrap_titles {
-					width: 70%;
+					// width: 70%;
+					flex: 0 1 70%;
 					margin-bottom: 0;
 					text-align: left;
 				}
 				ul.wrap_links {
 					display: block;
-					width: 30%;
+					// width: 30%;
+					flex: 0 1 30%;
 					li {
 						&.item_link-close {
 							position: static;
@@ -106,13 +99,17 @@
 								}
 							}
 						}
+						&.item_link-project,
+						&.item_link-share {
+							flex: none;
+						}
 						&.item_link-close,
 						&.item_link-credits,
 						&.item_link-project {
 							margin-bottom: 0.8rem;
 							text-align: right;
 						}
-						&.item_link-close,
+						// &.item_link-close,
 						&.item_link-project,
 						&.item_link-share {
 							width: 100%;
@@ -136,7 +133,8 @@
 		&[data-ajax="error"] {
 			.modal_content {
 				header.modal_header ul.wrap_links {
-					width: 100%;
+					// width: 100%;
+					flex: 0 1 100%;
 					li.item_link-close {
 						text-align: center;
 						transform: translateY(3.2rem);
@@ -146,33 +144,100 @@
 		}
 	}
 
-}
-
-@media only screen and (max-height: 400px) {
-
-// ==|== primary styles =======================================================
+// ==|== projects =============================================================
 // ============================================================================
 
-	// Primary Navigation (child of header)
+	// Projects Main
 	// ----------------------------------------------------------------------------
-	nav.nav_primary .wrap_nav ul {
-		top: 45%;
+	section.projects_main {
+		columns: 2;
+		article {
+			break-inside: avoid;
+		}
 	}
 
-// ==|== main styles ==========================================================
-// =============================================================================
-
-	// Isotope
+	// Projects Single Post
 	// ----------------------------------------------------------------------------
-	section.iso_container .iso_loader .wrap_graphics {
-		padding-top: 0;
+	section.projects_single {
+		article.projects_post {
+			.projects_header {
+				text-align: right;
+			}
+			.wrap_content {
+				text-align: left;
+				.wrap_credits,
+				nav.wrap_related {
+					float: left;
+				}
+				.wrap_credits {
+					margin-bottom: 0;
+					width: 62%;
+				}
+				nav.wrap_related {
+					width: 38%;
+				}
+			}
+		}
+	}
+
+// ==|== page styles ==========================================================
+// ============================================================================
+
+	// Pages IDs
+	// ----------------------------------------------------------------------------
+	// need to compensate for both #home iso and #people article margin-bottoms with the footer padding-top
+	#people footer.page_footer {
+		padding-top: 6.8rem; // 100px - 32px
+	}
+
+	// People
+	// ----------------------------------------------------------------------------
+	section.people {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-around; // center; // space-between; // space-around;
+		// margin-top: -3.2rem;
+		margin-left: -3.2rem;
+		article {
+			@include container(reset);
+			flex: 0 1 calc(50% - 3.2rem);
+			max-width: 22rem;
+			margin-left: 3.2rem;
+			margin-bottom: 3.2rem;
+			text-align: left;
+			img {
+				// max-width: 100%; does not seem to play nice with flexbox
+				@include container(reset);
+				width: 100%;
+				height: auto;
+			}
+		}
 	}
 
 }
+
+
+@media only screen and (min-width: 568px) {
+
+// ==|== page styles ==========================================================
+// ============================================================================
+
+	// People
+	// ----------------------------------------------------------------------------
+	section.people {
+		margin-left: -2rem;
+		article {
+			flex: 0 1 calc(33.3333333% - 2rem);
+			margin-left: 2rem;
+		}
+	}
+
+}
+
 
 @media only screen and (min-width: 768px) {
 
-// ==|== base =======================================================
+// ==|== base =================================================================
 // ============================================================================
 
 	// Animations
@@ -188,24 +253,12 @@
 	}
 	@keyframes animRbow_color-border {
 		  0% { color: $hsl_red;    border-color: $hsl_red;    }
-		 20% { color: $hsl_orange; border-color: $hsl_orange; }
-		 40% { color: $hsl_yellow; border-color: $hsl_yellow; }
-		 60% { color: $hsl_aqua;   border-color: $hsl_aqua;   }
-		 80% { color: $hsl_cyan;   border-color: $hsl_cyan;   }
+		 26% { color: $hsl_orange; border-color: $hsl_orange; }
+		 44% { color: $hsl_yellow; border-color: $hsl_yellow; }
+		 74% { color: $hsl_aqua;   border-color: $hsl_aqua;   }
+		 82% { color: $hsl_cyan;   border-color: $hsl_cyan;   }
 		100% { color: $hsl_red;    border-color: $hsl_red;    }
 	}
-
-/*
-	@keyframes animRbow_border {
-		  0% { border-color: $hsl_red;    }
-		 20% { border-color: $hsl_orange; }
-		 40% { border-color: $hsl_yellow; }
-		 60% { border-color: $hsl_aqua;   }
-		 80% { border-color: $hsl_cyan;   }
-		100% { border-color: $hsl_red;    }
-	}
-*/
-
 	@keyframes animRbowInst_path-1 {
 		 0%,  20% { fill: $hsl_red;    }
 		21%,  40% { fill: $hsl_orange; }
@@ -241,19 +294,12 @@
 		61%,  80% { fill: $hsl_yellow; }
 		81%, 100% { fill: $hsl_aqua;   }
 	}
-
 	@keyframes animVHSwipe {
-/*
-		  0% { opacity: 0; transform: translate3d(-1.6rem,0,0);  }
-		 60% { transform: translate3d(0.2rem,0,0); }
-		100% { opacity: 1; transform: translate3d(0,0,0); }
-*/
 		  0% { transform: translate3d(-1.6rem,0,0); opacity: 0; }
 		 50% { transform: translate3d( 0.4rem,0,0);             }
 		 75% { transform: translate3d(-0.2rem,0,0);             }
 		100% { transform: translate3d(      0,0,0); opacity: 1; }
 	}
-
 	@keyframes animBounceInUp {
 		from {
 			opacity: 0;
@@ -427,6 +473,7 @@
 								width: 2.6rem;
 								height: 2.6rem;
 								path {
+									// beginning animation state
 									opacity: 0;
 									stroke-dasharray: 155;
 									stroke-dashoffset: 155;
@@ -453,12 +500,42 @@
 	// Footer
 	// ----------------------------------------------------------------------------
 	footer.page_footer {
-		padding-top: 10rem;
+		padding-top: 14rem;
 		padding-bottom: 12rem;
 	}
 
 // ==|== main styles ==========================================================
 // ============================================================================
+
+	// Shared Content
+	// ----------------------------------------------------------------------------
+	// --- The Content --- \\
+	.the_content {
+		h1,
+		h2,
+		h3 {
+			font-size: 2rem;
+		}
+		h4,
+		h5,
+		h6 {
+			font-size: 1.6rem;
+		}
+		p,
+		li {
+			font-size: 1.5rem;
+		}
+		img {
+			width: 100%; // required for FF to behave with flexbox
+		}
+		table {
+			tr th,
+			tr td {
+				padding: 1.6rem;
+				font-size: 1.4rem;
+			}
+		}
+	}
 
 	// Nav Categories
 	// ----------------------------------------------------------------------------
@@ -601,40 +678,6 @@
 		}
 	}
 
-	// Projects Single Post
-	// ----------------------------------------------------------------------------
-	section.projects_single {
-		margin-bottom: 4.8rem;
-		article.projects_post {
-			.projects_header {
-				margin-bottom: 3.2rem;
-			}
-			figure.projects_figure {
-				margin-bottom: 4.8rem;
-				figcaption.projects_caption {
-					padding-top: 3.2rem;
-					padding-bottom: 3.2rem;
-					.wrap_titles {
-						width: calc(100% - 10.8rem);
-						h3 {
-							font-size: 2.7rem;
-							&.title_video {
-								margin-bottom: 1rem;
-							}
-						}
-					}
-					.wrap_logo {
-						width: 7.6rem;
-						line-height: 7.6rem;
-					}
-				}
-			}
-			.wrap_content h4 {
-				margin-bottom: 4.8rem;
-			}
-		}
-	}
-
 	// YouTube Modal
 	// ----------------------------------------------------------------------------
 	aside {
@@ -746,6 +789,146 @@
 
 	}
 
+// ==|== projects =============================================================
+// ============================================================================
+
+	// Projects Single Post
+	// ----------------------------------------------------------------------------
+	section.projects_single {
+		margin-bottom: 4.8rem;
+		article.projects_post {
+			.projects_header {
+				margin-bottom: 3.2rem;
+			}
+			figure.projects_figure {
+				margin-bottom: 4.8rem;
+				figcaption.projects_caption {
+					padding-top: 3.2rem;
+					padding-bottom: 3.2rem;
+					.wrap_titles {
+						width: calc(100% - 10.8rem);
+						h3 {
+							font-size: 2.7rem;
+							&.title_video {
+								margin-bottom: 1rem;
+							}
+						}
+					}
+					.wrap_logo {
+						width: 7.6rem;
+						line-height: 7.6rem;
+					}
+				}
+			}
+			.wrap_content {
+				.wrap_credits h4,
+				.wrap_related h4 {
+					margin-bottom: 4.8rem;
+				}
+			}
+		}
+	}
+
+// ==|== press ================================================================
+// ============================================================================
+
+	// Press Shared
+	// ----------------------------------------------------------------------------
+	#press main {
+		display: flex;
+		flex-wrap: nowrap;
+	}
+	section.press_main,
+	section.press_single {
+		flex: 1;
+		padding-right: 4rem;
+	}
+	article.press_post {
+		.press_feature img {
+			width: 100%; // required to get FF to scale images within flex container
+		}
+		header {
+			h3 {
+				font-size: 2.2rem;
+				line-height: 1.2;
+				color: $hsl_navy;
+			}
+			time {
+				font-size: 1.3rem
+			}
+		}
+		.press_author p {
+			font-size: 1.5rem;
+		}
+	}
+	section.press_sidebar {
+		flex: 0 0 18.8rem;
+		nav.wrap_press-links ul li a {
+			font-size: 1.3rem;
+		}
+		a.link_story {
+			width: 18.8rem;
+			height: 18.8rem;
+		}
+	}
+
+	// Press Main
+	// ----------------------------------------------------------------------------
+	section.press_main {
+		nav.press_pagination {
+			ul {
+				li {
+					flex: 1;
+					max-width: 4.4rem;
+					&:last-child {
+						margin-right: 0;
+					}
+					// if there are at least 9 items (including back and next), set li.pagi_page elements back to visible
+					&:nth-last-child(n+9) ~ li.pagi_page {
+						display: block;
+					}
+				}
+			}
+			// we now need to force our ellipsis elements back to hidden
+			&.appended_ellipsis ul li:nth-last-child(n+9) ~ li.pagi_more {
+				display: none;
+			}
+		}
+	}
+
+// ==|== page styles ==========================================================
+// ============================================================================
+
+	// Pages IDs
+	// ----------------------------------------------------------------------------
+	// need to compensate for both #home iso and #people article margin-bottoms with the footer padding-top
+	#home footer.page_footer {
+		padding-top: 10rem; // 140px - 40px
+	}
+	#people footer.page_footer {
+		padding-top: 7.6rem; // 140px - 64px
+	}
+
+	// People
+	// ----------------------------------------------------------------------------
+	#people main {
+		position: relative;
+	}
+	section.people {
+		margin-left: -4rem;
+		article {
+			flex: 0 1 calc(33.3333333% - 4rem);
+			margin-left: 4rem;
+			margin-bottom: 6.4rem;
+		}
+	}
+	a.link_people-all {
+		position: absolute;
+		top: -17rem;
+		right: 0;
+		margin: 0;
+	}
+
 	// Alternating Colours
 	// ----------------------------------------------------------------------------
 	nav.nav_categories .wrap_dropdown ul li a.color_red,
@@ -807,15 +990,14 @@
 	nav.nav_primary a.nav_toggle .nav_icon .nav_line .line_bg {
 		animation: none !important; // important seems to be required here...
 	}
+
 	// + header + \\
+	html[data-ready="ready"] svg.logo_video-rainbow g,
+	html[data-ready="ready"] svg.logo_video-rainbow g path,
 	html[data-ready="ready"] svg.logo_video-vhs g path {
 		animation: none;
 	}
 	@for $i from 1 through 5 { // assumes 5 letters
-		html[data-ready="ready"] g.rainbow_letter-#{$i},
-		html[data-ready="ready"] g.rainbow_letter-#{$i} path {
-			animation: none;
-		}
 		html[data-ready="ready"] .logo_main:hover .wrap_video-rainbow svg g.rainbow_letter-#{$i} path {
 			animation: animRbowInst_path-#{$i} 400ms linear infinite reverse;
 		}
@@ -823,9 +1005,17 @@
 			animation: animRbowInst_path-#{$i} 400ms linear infinite reverse;
 		}
 	}
+	html[data-ready="ready"] .logo_main .wrap_video-record svg {
+		animation: animRbow_fill 1600ms linear infinite;
+		animation-play-state: paused;
+	}
+	html[data-ready="ready"] .logo_main:hover .wrap_video-record svg {
+		animation-play-state: running;
+	}
 	header.page_header .wrap_tagline {
 		animation: animSlideUp 400ms ease-in-out 1000ms both;
 	}
+
 	// + nav primary + \\
 	$numDelay: 600;
 	@for $i from 1 through 5 { // assumes 5 nav items (excluding twitter and search)
@@ -840,6 +1030,16 @@
 	nav.nav_primary .wrap_nav ul li.nav_search form svg.ui_search path {
 		animation: animSVGPath 1000ms $easeBounce 1600ms forwards;
 	}
+	html[data-ready="ready"] nav.nav_primary .wrap_nav ul li.nav_search form svg.ui_search path {
+/*
+		opacity: 1;
+		stroke-dasharray: 0;
+		stroke-dashoffset: 0;
+		animation: none;
+*/
+		transition: stroke 260ms ease-in-out;
+	}
+
 	// + nav categories + \\
 	$numDelay: 1000;
 	@for $i from 1 through 20 { // assume a maximum of 20 nav items
@@ -880,6 +1080,25 @@
 		}
 	}
 
+	// YouTube Modal
+	// ----------------------------------------------------------------------------
+	aside {
+		.modal_content {
+			header.modal_header {
+				padding-left: 2.6rem;
+				padding-right: 2.6rem;
+			}
+			figure.modal_figure {
+				figcaption.modal_caption .wrap_scroll ul.video_credits {
+					padding: 4.8rem;
+				}
+			}
+		}
+	}
+
+// ==|== projects =============================================================
+// ============================================================================
+
 	// Projects Main
 	// ----------------------------------------------------------------------------
 	section.projects_main {
@@ -907,26 +1126,34 @@
 						}
 					}
 				}
-				.wrap_related {
+				nav.wrap_related {
 					width: 30%;
 				}
 			}
 		}
 	}
 
-	// YouTube Modal
+// ==|== page styles ==========================================================
+// ============================================================================
+
+	// People
 	// ----------------------------------------------------------------------------
-	aside {
-		.modal_content {
-			header.modal_header {
-				padding-left: 2.6rem;
-				padding-right: 2.6rem;
-			}
-			figure.modal_figure {
-				figcaption.modal_caption .wrap_scroll ul.video_credits {
-					padding: 4.8rem;
-				}
-			}
+	section.people {
+		article {
+			flex: 0 1 calc(25% - 4rem);
+		}
+	}
+	a.link_people-all {
+		top: -27.2rem;
+		width: 16.8rem;
+		height: 16.8rem;
+		.wrap_txt-helped {
+			max-width: 12rem;
+			top: 4.8rem;
+		}
+		.wrap_ui-hand {
+			bottom: -2.4rem;
+			width: 4.5rem;
 		}
 	}
 
@@ -956,6 +1183,63 @@
 		}
 	}
 
+
+// ==|== main styles ==========================================================
+// ============================================================================
+
+	// Shared Content
+	// ----------------------------------------------------------------------------
+	// --- The Content --- \\
+	.the_content {
+		blockquote {
+			padding-left: 3.2rem;
+			padding-right: 3.2rem;
+		}
+	}
+
+
+// ==|== press ================================================================
+// ============================================================================
+
+	// Press Shared
+	// ----------------------------------------------------------------------------
+	section.press_main,
+	section.press_single {
+		padding-right: 9.8rem;
+	}
+	article.press_post {
+		margin-bottom: 6.4rem;
+		padding-bottom: 6.4rem;
+		.press_feature {
+			margin-bottom: 4.8rem;
+		}
+		header {
+			display: flex;
+			flex-wrap: nowrap;
+			margin-bottom: 4.2rem;
+			h3 {
+				flex: 1;
+				margin-bottom: 0;
+			}
+			time {
+				flex: 0 0 22rem;
+				text-align: right;
+			}
+		}
+	}
+	section.press_sidebar {
+		flex: 0 0 24.8rem;
+		nav.wrap_press-links {
+			h4 {
+				margin-bottom: 4.8rem;
+			}
+			ul li a {
+				font-size: 1.5rem;
+			}
+		}
+
+	}
+
 }
 
 @media only screen and (min-width: 1200px) {
@@ -979,8 +1263,12 @@
 
 	// Primary Navigation (child of header)
 	// ----------------------------------------------------------------------------
-	nav.nav_primary .wrap_nav ul li {
-		margin-right: 4rem;
+	nav.nav_primary {
+		padding-left: 4.8rem;
+		padding-right: 4.8rem;
+		.wrap_nav ul li {
+			margin-right: 4rem;
+		}
 	}
 
 // ==|== main styles ==========================================================
@@ -1002,6 +1290,122 @@
 			width: 17.028986%; // 1104 - 164 = 940 / 5 = 188 / 1104 = 17.028986%
 		}
 	}
+
+// ==|== page styles ==========================================================
+// ============================================================================
+
+	// People
+	// ----------------------------------------------------------------------------
+	section.people {
+		article {
+			flex: 0 1 calc(20% - 4rem);
+		}
+	}
+	a.link_people-all {
+		top: -34.8rem;
+	}
+
+
+
+
+/*
+	body {
+		&::before {
+			content: " ";
+			display: block;
+			position: absolute;
+			z-index: 999;
+			top: -14.8rem;
+			left: -4.8rem; // -4.8rem;
+			width: 4.8rem;
+			height: 36rem;
+			background-color: $hsl_navy;
+			transform: rotate(45deg) translate3d(0,360rem,0);
+			transform-origin: bottom left;
+			transition: transform 1000ms ease-in-out;
+			html[data-ready="ready"] & {
+				transform: rotate(45deg) translate3d(0,0rem,0);
+			}
+		}
+	}
+*/
+
+
+	@keyframes animCornerSlide {
+		from {
+			transform: translate3d(0,60rem,0);
+		}
+		to {
+			transform: translate3d(0,0rem,0);
+		}
+	}
+
+
+
+	.press_corner {
+		display: flex;
+		flex-wrap: nowrap;
+		position: absolute;
+		z-index: 999;
+		top: -31rem;
+		left: -14rem;
+		width: 19rem;
+		height: 58rem;
+		transform: rotate(45deg);
+		transform-origin: bottom left;
+
+		// transform: rotate(45deg) translate3d(0,0rem,0); // 360rem
+
+		div {
+			flex: 0 0 20%;
+			position: relative;
+			height: 100%;
+
+			transform: translate3d(0,0rem,0);
+
+			// transform: translate3d(0,60rem,0);
+			// transition: transform 1000ms ease-in-out;
+
+			// animation: animCornerSlide 800ms ease-in-out both;
+
+			$numDelay: 600;
+			@for $i from 1 through length($arrPressValues) {
+				&.corner-#{$i} {
+					background-color: nth($arrPressValues, $i);
+
+					transform: translate3d(0,0rem,0);
+
+					// animation-delay: #{$numDelay}ms;
+
+					@if $i > 1 {
+						left: -#{$i}px; // resolve aliasing issues where a 1px white gap would appear
+						// transition-delay: #{$numDelay}ms;
+					}
+				}
+				$numDelay: $numDelay + 260;
+			}
+
+// 42rem
+	// 36px difference
+// 45.6rem
+	// 38px difference
+// 49.4rem
+	// 36px difference
+// 53rem
+	// 38px difference
+// 56.8rem
+
+/*
+			html[data-ready="ready"] & {
+				transform: translate3d(0,0rem,0);
+			}
+*/
+
+		}
+
+	}
+
+
 
 }
 
@@ -1028,6 +1432,20 @@
 		}
 		article {
 			width: 15.121951%; // 1640 - 400 = 1240 / 5 = 248 / 1640 = 15.121951%
+		}
+	}
+
+// ==|== page styles ==========================================================
+// ============================================================================
+
+	// People
+	// ----------------------------------------------------------------------------
+	section.people {
+		margin-left: -13.5rem;
+		// breaks into 6 columns right before this... would love to address that so it never exceeds 5
+		article {
+			flex: 0 1 22rem;
+			margin-left: 13.5rem;
 		}
 	}
 

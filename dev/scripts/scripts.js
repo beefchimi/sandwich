@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		elBody       = document.body,
 		elNavPrimary = document.getElementById('nav_primary'), // required to be global
 		elNavCat     = document.getElementById('nav_categories'), // required to be global
+		boolPagiRun  = false,
 		objISO;
 
 	// window measurement variables
@@ -51,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		fixedHeader();
 		navToggle();
 		cycleLinkColors();
+		paginationEllipsis(7); // will not run if window width is above 768px
 
 	}
 
@@ -474,7 +476,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		var docFrag = document.createDocumentFragment();
 
 			var elModalError = document.createElement('div');
-			elModalError.className = 'content_error'
+			elModalError.className = 'content_error';
 
 				var elModalErrorText = document.createElement('p');
 				elModalErrorText.innerHTML = 'Whoops! For whatever reason, a server error has occured and is preventing us from fetching the right video for you. Maybe if you <a href="#" class="link_retry" title="" data-client="" data-youtube="">try again</a> the server will have learned from its mistakes.';
@@ -987,44 +989,120 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+	function paginationEllipsis(numAtleastItems) {
 
+/*
+		// exit this function if we are above 768
+		if (numWinWidth >= 768) {
+			return;
+		}
+*/
 
+		// get <nav>, then <li>'s within, and count the number of <li>'s
+		var elPagination = document.getElementById('pagination'),
+			arrPagiItems = elPagination.getElementsByClassName('pagi_page'),
+			numPagiItems = arrPagiItems.length;
 
+		// we only want to run this code if we have 7 (numAtleastItems) or more li.pagi_page items...
+		// CSS specifys :nth-last-child(n+9) because it must include prev / next links
+		if (numPagiItems < numAtleastItems) {
+			// we have now run this function for the first time,
+			// and determined that there are not enough list items to warrant adding an ellipsis...
+			// so lets set boolPagiRun to 'true' so there will be need to run it again,
+			// and then exit out of here
+			boolPagiRun = true;
+			return;
+		}
 
+		// declare that we have not found the current page yet
+		var boolAddedFirstEllipsis = false,
+			boolPagiFoundCurrent   = false;
 
+		// for each <li> found within nav#pagination...
+		for (var i = 0; i < arrPagiItems.length; i++) {
 
+			// get the current iteration of <li> and its 'display' value
+			var elPagiLinkCurrent = arrPagiItems[i],
+				dataComputedStyle = window.getComputedStyle(elPagiLinkCurrent).getPropertyValue('display');
 
+			// if boolPagiFoundCurrent has not yet been set to 'true' (continue if boolPagiFoundCurrent === false),
+			// we can then check to see if this iteration of list item is the 'current' page
+			if ( !boolPagiFoundCurrent && elPagiLinkCurrent.classList.contains('pagi_current') ) {
+				boolPagiFoundCurrent = true; // update our boolean to know our answer
+			}
 
+			// check to see if this current list item has been set to display: none;
+			if (dataComputedStyle === 'none') {
 
+				// if we have not yet added an ellipsis (conditional evaluates to false)
+				if (!boolAddedFirstEllipsis) {
 
+					// if so...
+					pagiAppendEllipsis(arrPagiItems[i]);
 
+					// add the class 'appended_ellipsis', and CSS will target :nth-child(5) and set display: block;
+					elPagination.classList.add('appended_ellipsis');
 
+					// we have now added our first ellipsis
+					boolAddedFirstEllipsis = true;
 
+					// we have not only run this function for the first time, but have allowed it to run long enough to complete its job...
+					// we can not safely set boolPagiRun to 'true', so it will not be run again on window resize
+					boolPagiRun = true;
 
+				}
 
+				// if we have passed the 'current' page ('pagi_current' is forced to display: block; so it will not register as 'none')
+				if (boolPagiFoundCurrent) {
 
+					// and we have already added 1 ellipsis...
+					if (boolAddedFirstEllipsis) {
+						pagiAppendEllipsis(arrPagiItems[i]); // that means there are more hidden items which follow, so add a final ellipsis
+					}
 
+					// we have added at least 1 ellipsis and found the current pagi item,
+					// so we can not exit this function (no need to continue iterating)
+					return;
 
+				}
 
+			}
 
+		}
 
+		function pagiCreateEllipsis() {
 
+			// create the document fragment to hold all of our created elements
+			var docFrag = document.createDocumentFragment();
 
+				var elPagiItem = document.createElement('li');
+				elPagiItem.className = 'pagi_more';
 
+					var elPagiSpan = document.createElement('span');
+					elPagiSpan.className = 'pagi_link pagi_ellipsis';
+					elPagiSpan.innerHTML = '&#8230'; // character entity for an ellipsis (...)
 
+					elPagiItem.appendChild(elPagiSpan);
 
+				docFrag.appendChild(elPagiItem);
 
+			return docFrag;
 
+		}
 
+		function pagiAppendEllipsis(currentPagiItem) {
 
+			// run function to create the required elements and pass in our document fragment
+			var dataDocFrag = pagiCreateEllipsis();
 
+			// empty our returned document fragment directly before the first list item set to display: none;
+			currentPagiItem.parentNode.insertBefore(dataDocFrag, currentPagiItem);
 
+			// we cannot use insertAdjacentHTML('beforebegin') as it does not seem to parse the document fragment?
 
+		}
 
-
-
-
-
+	}
 
 
 	// Window Events
@@ -1051,7 +1129,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		} else {
 
+			// remove 'fixed' positioning from header
 			elNavPrimary.classList.remove('scrolled');
+
+			// if we have not run our paginationEllipsis() function yet,
+			// then we must have started above 768px, so we will need run this now
+			if (!boolPagiRun) {
+				paginationEllipsis(7);
+			}
 
 		}
 

@@ -1,4 +1,14 @@
 %svg#logo_video-record.logo_video-record{:xmlns => "http://www.w3.org/2000/svg", :viewBox => "0 0 228 49"}
+
+	-# %defs
+		-# FF requires :fill => "url(#video-tracking)" to be set inline on the SVG element
+		-# try using: :preserveAspectRatio => "none" | or | :patternUnits => "userSpaceOnUse"
+		-# try using: :width => "1", :height => "1"  | or | :width => "228", :height => "49"
+		-# try using: :viewBox => "0 0 228 49"
+		-# try using: absolute href instead of a relative
+		-# %pattern#video-tracking{:width => "228", :height => "49", :patternUnits => "userSpaceOnUse"}
+			-# %image{"xlink:href" => "http://localhost/sandwich/build/assets/img/video-tracking.gif", :width => "228", :height => "49"}
+
 	%g.record_letter-1
 		%path.group_path-1{:d => "M49.624 1.427L32.13 46.597H18.234L.74 1.427h17.134l5.99 20.548c.66 2.217 1.14 4.433 1.14 6.71h.358c0-2.277.48-4.494 1.138-6.71l5.99-20.548h17.134z"}
 	%g.record_letter-2

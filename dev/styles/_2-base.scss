@@ -11,6 +11,7 @@ a.wrap_svg {
 	width: 100%;
 	height: 100%;
 }
+/*
 svg {
 	transition: fill 260ms ease-in-out;
 	path {
@@ -18,6 +19,7 @@ svg {
 	}
 	// &.svg_inline { display: inline; }
 }
+*/
 // --- Responsive Video Embeds --- \\
 .wrap_video {
 	position: relative;
@@ -63,19 +65,27 @@ svg {
 
 // Variables
 // ----------------------------------------------------------------------------
-$hsl_bone:   hsl(180, 50%,  99%);
-$hsl_ash:    hsl(198, 5%,   60%);
-$hsl_red:    hsl(2,   80%,  56%);
-$hsl_orange: hsl(25, 100%,  58%);
-$hsl_yellow: hsl(52,  88%,  48%);
-$hsl_aqua:   hsl(171, 81%,  45%);
-$hsl_cyan:   hsl(194, 76%,  51%);
-$hsl_navy:   hsl(212, 59%,  22%);
+$hsl_bone:    hsl(180, 50%,  99%); // #fcfefe
+$hsl_ash:     hsl(198, 5%,   60%); // #939a9d
+$hsl_navy:    hsl(212, 59%,  22%); // #17365a
+// rainbow colours
+$hsl_red:     hsl(2,   80%,  56%); // #ea3836
+$hsl_orange:  hsl(25, 100%,  58%); // #fc8335
+$hsl_yellow:  hsl(52,  88%,  48%); // #e2c52a
+$hsl_aqua:    hsl(171, 81%,  45%); // #31cdb0
+$hsl_cyan:    hsl(194, 76%,  51%); // #34b7de
+// press colours
+$hsl_press-1: hsl(313, 53%,  27%); // #682059
+$hsl_press-2: hsl(334, 87%,  38%); // #b40d54
+$hsl_press-3: hsl(343,100%,  45%); // #e50041
+$hsl_press-4: hsl(1,   87%,  56%); // #f0332f
+$hsl_press-5: hsl(40,  90%,  55%); // #f3ad23
 // HSL Shades
-$hsl_L0:     hsl(0,    0%,   0%);
-$hsl_L60:    hsl(0,    0%,  60%);
-$hsl_L72:    hsl(0,    0%,  72%);
-$hsl_L100:   hsl(0,    0%, 100%);
+$hsl_L0:      hsl(0,    0%,   0%);
+$hsl_L20:     hsl(0,    0%,  20%);
+$hsl_L60:     hsl(0,    0%,  60%);
+$hsl_L72:     hsl(0,    0%,  72%);
+$hsl_L100:    hsl(0,    0%, 100%);
 // HSLa Variations
 $hsla_bone-L98: hsla(180, 50%, 99%, 0.98);
 $hsla_cyan-L96: hsla(194, 76%, 51%, 0.96);
@@ -86,18 +96,17 @@ $easeInOutBack: cubic-bezier(0.680,-0.400,0.265,1.400); // was: -0.550 & 1.550 .
 // arrays (lists)
 $arrColorNames: "red", "orange", "yellow", "aqua", "cyan";
 $arrColorValues: $hsl_red, $hsl_orange, $hsl_yellow, $hsl_aqua, $hsl_cyan;
+$arrPressValues: $hsl_press-1, $hsl_press-2, $hsl_press-3, $hsl_press-4, $hsl_press-5;
 
 // Mixins
 // ----------------------------------------------------------------------------
-@mixin container($max-width: none) {
-	@if $max-width == "reset" {
-		margin-left: 0;
-		margin-right: 0;
-		max-width: none;
+@mixin toggle_visibility($state) {
+	@if ($state == "off") or ($state == "none") or ($state == "hide") or ($state == "hidden") {
+		opacity: 0;
+		visibility: hidden;
 	} @else {
-		margin-left: auto;
-		margin-right: auto;
-		max-width: ($max-width / 10) + rem;
+		opacity: 1;
+		visibility: visible;
 	}
 }
 @mixin pos_cover($pos: static, $index: 1) {
@@ -118,6 +127,21 @@ $arrColorValues: $hsl_red, $hsl_orange, $hsl_yellow, $hsl_aqua, $hsl_cyan;
 		margin: auto;
 	}
 }
+@mixin container($max-width: none) {
+	@if $max-width == "reset" {
+		margin-left: 0;
+		margin-right: 0;
+		max-width: none;
+	} @else if $max-width == "reset-img" {
+		margin-left: 0;
+		margin-right: 0;
+		max-width: 100%;
+	} @else {
+		margin-left: auto;
+		margin-right: auto;
+		max-width: ($max-width / 10) + rem;
+	}
+}
 @mixin flex_center() {
 	display: flex;
 	align-items: center;
@@ -125,14 +149,17 @@ $arrColorValues: $hsl_red, $hsl_orange, $hsl_yellow, $hsl_aqua, $hsl_cyan;
 	flex-direction: column;
 	text-align: center;
 }
-@mixin toggle_visibility($state) {
-	@if ($state == "off") or ($state == "none") or ($state == "hide") or ($state == "hidden") {
-		opacity: 0;
-		visibility: hidden;
-	} @else {
-		opacity: 1;
-		visibility: visible;
-	}
+@mixin block_circle($diameter: 100%, $bgColor: transparent) {
+	$diameter: ($diameter / 10) + rem;
+	display: block;
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	width: $diameter;
+	height: $diameter;
+	background-color: $bgColor;
+	border-radius: 50%;
+	overflow: hidden;
 }
 
 // Animations
@@ -143,24 +170,15 @@ $arrColorValues: $hsl_red, $hsl_orange, $hsl_yellow, $hsl_aqua, $hsl_cyan;
 @keyframes anim360 {
 	to { transform: rotate(360deg); }
 }
-
 @keyframes animFadeIn {
 	  0% { opacity: 0; }
 	100% { opacity: 1; }
 }
-/*
-@keyframes animFadeOut {
-	  0% { opacity: 1; }
-	100% { opacity: 0; }
-}
-*/
 @keyframes animHide {
 	0%   { opacity: 1; left: 0; }
 	99%  { opacity: 0; left: 0; }
 	100% { opacity: 0; left: -200%; }
 }
-
-
 @keyframes animSlideIn_left {
 	  0% { transform: translate3d(-100%,0,0); }
 	100% { transform: translate3d(0%,0,0);    }
@@ -174,24 +192,22 @@ $arrColorValues: $hsl_red, $hsl_orange, $hsl_yellow, $hsl_aqua, $hsl_cyan;
 	 60% { transform: translate3d(0,-1.2rem,0); }
 	100% { transform: translate3d(0,0,0);       }
 }
-
 @keyframes animRbow_color {
 	  0% { color: $hsl_red;    }
-	 20% { color: $hsl_orange; }
-	 40% { color: $hsl_yellow; }
-	 60% { color: $hsl_aqua;   }
-	 80% { color: $hsl_cyan;   }
+	 26% { color: $hsl_orange; }
+	 44% { color: $hsl_yellow; }
+	 74% { color: $hsl_aqua;   }
+	 82% { color: $hsl_cyan;   }
 	100% { color: $hsl_red;    }
 }
 @keyframes animRbow_fill {
 	  0% { fill: $hsl_red;    }
-	 20% { fill: $hsl_orange; }
-	 40% { fill: $hsl_yellow; }
-	 60% { fill: $hsl_aqua;   }
-	 80% { fill: $hsl_cyan;   }
+	 26% { fill: $hsl_orange; }
+	 44% { fill: $hsl_yellow; }
+	 74% { fill: $hsl_aqua;   }
+	 82% { fill: $hsl_cyan;   }
 	100% { fill: $hsl_red;    }
 }
-
 @keyframes animRbow2Navy_bg {
 	  0% { background-color: $hsl_red;    }
 	 20% { background-color: $hsl_orange; }
@@ -204,49 +220,3 @@ $arrColorValues: $hsl_red, $hsl_orange, $hsl_yellow, $hsl_aqua, $hsl_cyan;
 	  0% { opacity: 0; transform: translate3d(-1rem,0,0);  }
 	100% { opacity: 1; transform: translate3d(0,0,0); }
 }
-
-/*
-
-@keyframes animRbow_bg {
-	  0% { background-color: $hsl_red;    }
-	 20% { background-color: $hsl_orange; }
-	 40% { background-color: $hsl_yellow; }
-	 60% { background-color: $hsl_aqua;   }
-	 80% { background-color: $hsl_cyan;   }
-	100% { background-color: $hsl_red;    }
-}
-
-@keyframes animRbow2Navy_fill {
-
-	  0% { fill: $hsl_red;    }
-	 20% { fill: $hsl_orange; }
-	 40% { fill: $hsl_yellow; }
-	 60% { fill: $hsl_aqua;   }
-	 80% { fill: $hsl_cyan;   }
-	100% { fill: $hsl_navy;   }
-
-	  0% { fill: $hsl_red;    }
-	 10% { fill: $hsl_orange; }
-	 23% { fill: $hsl_yellow; }
-	 80% { fill: $hsl_aqua;   }
-	 91% { fill: $hsl_cyan;   }
-	100% { fill: $hsl_navy;   }
-
-}
-
-@keyframes animHide {
-	0%   { opacity: 1; left: 0; }
-	99%  { opacity: 0; left: 0; }
-	100% { opacity: 0; left: -200%; }
-}
-
-@keyframes animShake {
-	0%, 100% { transform: translate3d(0,0,0); }
-	10%, 30%, 50%, 70%, 90% { transform: translate3d(-1rem,0,0); }
-	20%, 40%, 60%, 80% { transform: translate3d(1rem,0,0); }
-}
-.animate_shake {
-	animation: animShake 0.7s ease-in-out both;
-}
-
-*/
