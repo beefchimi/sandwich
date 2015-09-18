@@ -244,14 +244,36 @@
 	// ----------------------------------------------------------------------------
 	@keyframes animSlideUp {
 		  0% { opacity: 0; transform: translate3d(0,2rem,0); }
-		100% { opacity: 1; transform: translate3d(0,0,0);    }
+		100% { opacity: 1; transform: translate3d(0,0rem,0); }
 	}
 	@keyframes animBounceUpFade {
-		  0% { transform: translate3d(0,4.8rem,0); opacity: 0; }
-		 60% { transform: translate3d(0,-0.8rem,0);            }
-		100% { transform: translate3d(0,0,0);      opacity: 1; }
+		  0% { transform: translate3d(0, 4.8rem,0); opacity: 0; }
+		 60% { transform: translate3d(0,-0.8rem,0);             }
+		100% { transform: translate3d(0,   0rem,0); opacity: 1; }
 	}
-	@keyframes animRbow_color-border {
+	@keyframes animBounceInUp {
+		  0% { transform: translate3d(0, 300rem,0); opacity: 0; }
+		 60% { transform: translate3d(0,  -2rem,0); opacity: 1; }
+		 75% { transform: translate3d(0,   1rem,0);             }
+		 90% { transform: translate3d(0,-0.5rem,0);             }
+		100% { transform: translate3d(0,   0rem,0); opacity: 1; }
+	}
+	@keyframes animBounceOutDown {
+		  0% { transform: translate3d(0,  0rem,0); opacity: 1; }
+		 20% { transform: translate3d(0,  1rem,0);             }
+		 40%,
+		 45% { transform: translate3d(0, -2rem,0); opacity: 1; }
+		100% { transform: translate3d(0,100rem,0); opacity: 0; }
+		// less than initial value of 300rem... animation is too quick otherwise
+	}
+	@keyframes animVHSwipe {
+		// update animation from its initial values
+		  0% { transform: translate3d(-1.6rem,0,0); opacity: 0; }
+		 50% { transform: translate3d( 0.4rem,0,0);             }
+		 75% { transform: translate3d(-0.2rem,0,0);             }
+		100% { transform: translate3d(   0rem,0,0); opacity: 1; }
+	}
+	@keyframes animRainbowColorBorder {
 		  0% { color: $hsl_red;    border-color: $hsl_red;    }
 		 26% { color: $hsl_orange; border-color: $hsl_orange; }
 		 44% { color: $hsl_yellow; border-color: $hsl_yellow; }
@@ -259,83 +281,29 @@
 		 82% { color: $hsl_cyan;   border-color: $hsl_cyan;   }
 		100% { color: $hsl_red;    border-color: $hsl_red;    }
 	}
-	@keyframes animRbowInst_path-1 {
-		 0%,  20% { fill: $hsl_red;    }
-		21%,  40% { fill: $hsl_orange; }
-		41%,  60% { fill: $hsl_yellow; }
-		61%,  80% { fill: $hsl_aqua;   }
-		81%, 100% { fill: $hsl_cyan;   }
-	}
-	@keyframes animRbowInst_path-2 {
-		 0%,  20% { fill: $hsl_orange; }
-		21%,  40% { fill: $hsl_yellow; }
-		41%,  60% { fill: $hsl_aqua;   }
-		61%,  80% { fill: $hsl_cyan;   }
-		81%, 100% { fill: $hsl_red;    }
-	}
-	@keyframes animRbowInst_path-3 {
-		 0%,  20% { fill: $hsl_yellow; }
-		21%,  40% { fill: $hsl_aqua;   }
-		41%,  60% { fill: $hsl_cyan;   }
-		61%,  80% { fill: $hsl_red;    }
-		81%, 100% { fill: $hsl_orange; }
-	}
-	@keyframes animRbowInst_path-4 {
-		 0%,  20% { fill: $hsl_aqua;   }
-		21%,  40% { fill: $hsl_cyan;   }
-		41%,  60% { fill: $hsl_red;    }
-		61%,  80% { fill: $hsl_orange; }
-		81%, 100% { fill: $hsl_yellow; }
-	}
-	@keyframes animRbowInst_path-5 {
-		 0%,  20% { fill: $hsl_cyan;   }
-		21%,  40% { fill: $hsl_red;    }
-		41%,  60% { fill: $hsl_orange; }
-		61%,  80% { fill: $hsl_yellow; }
-		81%, 100% { fill: $hsl_aqua;   }
-	}
-	@keyframes animVHSwipe {
-		  0% { transform: translate3d(-1.6rem,0,0); opacity: 0; }
-		 50% { transform: translate3d( 0.4rem,0,0);             }
-		 75% { transform: translate3d(-0.2rem,0,0);             }
-		100% { transform: translate3d(      0,0,0); opacity: 1; }
-	}
-	@keyframes animBounceInUp {
-		from {
-			opacity: 0;
-			transform: translate3d(0,300rem,0);
-		}
-		60% {
-			opacity: 1;
-			transform: translate3d(0,-2rem,0);
-		}
-		75% {
-			transform: translate3d(0,1rem,0);
-		}
-		90% {
-			transform: translate3d(0,-0.5rem,0);
-		}
-		to {
-			opacity: 1;
-			transform: translate3d(0,0,0);
+	@keyframes animRainbowFill-steps {
+		$numAnimPercent: 0;
+		@each $color in $arrRainbowValues {
+			#{$numAnimPercent}% {
+				fill: $color;
+			}
+			$numAnimPercent: $numAnimPercent + 20;
 		}
 	}
-	@keyframes animBounceOutDown {
-		from {
-			opacity: 1;
-			transform: translate3d(0,0,0);
+	// cascading rainbow letters 1 - 5
+	$numRainbowStepIndex: 1;
+	@for $i from 1 through length($arrRainbowValues) {
+		@keyframes animRainbowFill-step#{$i} {
+			$numAnimPercent: 0;
+			@each $color in $arrRainbowValues {
+				#{$numAnimPercent}% {
+					fill: nth($arrRainbowValues, $numRainbowStepIndex);
+				}
+				$numAnimPercent: $numAnimPercent + 20;
+				$numRainbowStepIndex: if($numRainbowStepIndex == length($arrRainbowValues), 1, $numRainbowStepIndex + 1); // once our array has reached its max, reset
+			}
 		}
-		20% {
-			transform: translate3d(0,1rem,0);
-		}
-		40%, 45% {
-			opacity: 1;
-			transform: translate3d(0,-2rem,0);
-		}
-		to {
-			opacity: 0;
-			transform: translate3d(0,100rem,0); // less than initial value of 300rem... animation is too quick otherwise
-		}
+		$numRainbowStepIndex: $numRainbowStepIndex + 1; // increment $numRainbowStepIndex by 1 so we can offset each animation
 	}
 
 // ==|== primary styles =======================================================
@@ -354,6 +322,7 @@
 		position: relative;
 		padding-top: 18rem;
 		padding-bottom: 6.4rem;
+		// UNTIL WEBKIT FIXES SVG ANIMATIONS WITHIN AN <a> TAG, THIS CAN'T BE USED...
 		a.logo_main {
 			transition: opacity 260ms ease-in-out;
 			&:active {
@@ -363,6 +332,7 @@
 		.logo_main {
 			margin-bottom: 6.4rem;
 			max-width: 34.6rem; // width of the widest SVG (sandwich)
+			// a.fix_webkit-svg {} with Page Load section for hover + active styles
 			.wrap_svg.wrap_logo-sandwich,
 			.wrap_svg.wrap_logo-video {
 				width: 100%;
@@ -401,8 +371,8 @@
 		}
 
 		.wrap_nav {
-			@include pos_cover(reset);
-			@include toggle_visibility(on);
+			@include posCover(reset);
+			@include toggleVisibility(on);
 			position: relative; // is this needed, or is a stacking content retained?
 			perspective: none;
 			background-color: transparent;
@@ -555,7 +525,7 @@
 			background-color: transparent;
 		}
 		.wrap_dropdown {
-			@include toggle_visibility(on);
+			@include toggleVisibility(on);
 			position: static;
 			top: auto;
 			border-radius: 0;
@@ -609,7 +579,7 @@
 				height: auto;
 				// required only get to iOS to behave
 				.fix_ios-scroll {
-					@include pos_cover(reset);
+					@include posCover(reset);
 					overflow: visible;
 					-webkit-mask-image: none;
 					ul {
@@ -650,7 +620,7 @@
 			width: 29.545455%; // 704 - 80 = 624 / 3 = 208 / 704 = 29.545455%
 			a {
 				.wrap_iso-image .wrap_iso-title {
-					@include pos_cover(absolute, 103);
+					@include posCover(absolute, 103);
 					display: block;
 					opacity: 0;
 					.wrap_txt-center {
@@ -713,8 +683,8 @@
 				order: 1; // move above header
 				position: relative;
 				figcaption.modal_caption {
-					@include pos_cover(absolute, 1);
-					@include toggle_visibility(off);
+					@include posCover(absolute, 1);
+					@include toggleVisibility(off);
 					overflow: hidden;
 					background-color: $hsla_cyan-L96;
 					transition: opacity 260ms ease-in-out, visibility 260ms ease-in-out;
@@ -779,7 +749,7 @@
 				color: $hsl_cyan;
 			}
 			figure.modal_figure figcaption.modal_caption {
-				@include toggle_visibility(on);
+				@include toggleVisibility(on);
 			}
 		}
 
@@ -940,8 +910,8 @@
 	nav.nav_categories .wrap_dropdown ul li:nth-child(2) a { background-color: transparent; }
 	// + rainbow links + \\
 	// NOT WORKING IN CHROME
-	nav.nav_categories .wrap_dropdown ul li a.color_rainbow:hover { animation: animRbow_color 600ms linear infinite; }
-	nav.nav_categories .wrap_dropdown ul li.cat_current a.color_rainbow { animation: animRbow_color-border 600ms linear infinite; }
+	nav.nav_categories .wrap_dropdown ul li a.color_rainbow:hover { animation: animRainbowColor 600ms linear infinite; }
+	nav.nav_categories .wrap_dropdown ul li.cat_current a.color_rainbow { animation: animRainbowColorBorder 600ms linear infinite; }
 	// + red links + \\
 	nav.nav_categories[data-color="red"] + section.iso_container article a .wrap_iso-image .wrap_iso-title,
 	nav.nav_categories[data-color="random"] + section.iso_container article a.color_red .wrap_iso-image .wrap_iso-title { background-color: $hsl_red; }
@@ -992,30 +962,53 @@
 	}
 
 	// + header + \\
+	html[data-ready="ready"] .logo_main .wrap_logo-sandwich,
 	html[data-ready="ready"] svg.logo_video-rainbow g,
 	html[data-ready="ready"] svg.logo_video-rainbow g path,
 	html[data-ready="ready"] svg.logo_video-vhs g path {
 		animation: none;
 	}
-	@for $i from 1 through 5 { // assumes 5 letters
-		html[data-ready="ready"] .logo_main:hover .wrap_video-rainbow svg g.rainbow_letter-#{$i} path {
-			animation: animRbowInst_path-#{$i} 400ms linear infinite reverse;
+	html[data-ready="ready"] #home .logo_main:hover {
+		@for $i from 1 through 5 { // assumes 5 letters
+			.wrap_video-rainbow svg g.rainbow_letter-#{$i} path {
+				animation: animRainbowFill-step#{$i} 400ms steps(1) infinite reverse;
+			}
+			.wrap_video-vhs svg g path.group_path-#{$i} {
+				animation: animRainbowFill-step#{$i} 400ms steps(1) infinite reverse;
+			}
 		}
-		html[data-ready="ready"] .logo_main:hover .wrap_video-vhs svg g path.group_path-#{$i} {
-			animation: animRbowInst_path-#{$i} 400ms linear infinite reverse;
+		.wrap_video-record svg {
+			animation: animRainbowFill-steps 600ms steps(1) infinite;
 		}
 	}
-	html[data-ready="ready"] .logo_main .wrap_video-record svg {
-		animation: animRbow_fill 1600ms linear infinite;
-		animation-play-state: paused;
+	html[data-ready="ready"] body:not(#home) .logo_main {
+		.wrap_logo-sandwich,
+		.wrap_logo-video {
+			transition: opacity 260ms ease-in-out;
+		}
 	}
-	html[data-ready="ready"] .logo_main:hover .wrap_video-record svg {
-		animation-play-state: running;
+	html[data-ready="ready"] body:not(#home) .logo_main a.fix_webkit-svg {
+		&:hover {
+			@for $i from 1 through 5 { // assumes 5 letters
+				& ~ .wrap_video-rainbow svg g.rainbow_letter-#{$i} path {
+					animation: animRainbowFill-step#{$i} 400ms steps(1) infinite reverse;
+				}
+				& ~ .wrap_video-vhs svg g path.group_path-#{$i} {
+					animation: animRainbowFill-step#{$i} 400ms steps(1) infinite reverse;
+				}
+			}
+			& ~ .wrap_video-record svg {
+				animation: animRainbowFill-steps 600ms steps(1) infinite;
+			}
+		}
+		&:active + .wrap_logo-sandwich,
+		&:active ~ .wrap_logo-video {
+			opacity: 0.8;
+		}
 	}
 	header.page_header .wrap_tagline {
 		animation: animSlideUp 400ms ease-in-out 1000ms both;
 	}
-
 	// + nav primary + \\
 	$numDelay: 600;
 	@for $i from 1 through 5 { // assumes 5 nav items (excluding twitter and search)
@@ -1222,7 +1215,7 @@
 				margin-bottom: 0;
 			}
 			time {
-				flex: 0 0 22rem;
+				flex: 0 0 16rem;
 				text-align: right;
 			}
 		}
@@ -1243,6 +1236,43 @@
 }
 
 @media only screen and (min-width: 1200px) {
+
+// ==|== base =================================================================
+// ============================================================================
+
+	// Animations
+	// ----------------------------------------------------------------------------
+	@keyframes animCornerStripeSlide {
+		// initial (from) values set per element
+		to { opacity: 1; transform: translate3d(0,0rem,0); }
+	}
+
+
+
+
+
+
+	// cascading corner stripes 1 - 5
+	$numPressStepIndex: 1;
+	@for $i from 1 through length($arrPressValues) {
+		@keyframes animCornerStripeBG-step#{$i} {
+			$numAnimPercent: 0;
+			@each $color in $arrPressValues {
+				#{$numAnimPercent}% {
+					background-color: nth($arrPressValues, $numPressStepIndex);
+				}
+				$numAnimPercent: $numAnimPercent + 20;
+				$numPressStepIndex: if($numPressStepIndex == length($arrPressValues), 1, $numPressStepIndex + 1); // once our array has reached its max, reset
+			}
+		}
+		$numPressStepIndex: $numPressStepIndex + 1; // increment $numPressStepIndex by 1 so we can offset each animation
+	}
+
+
+
+
+
+
 
 // ==|== primary styles =======================================================
 // ============================================================================
@@ -1305,43 +1335,8 @@
 		top: -34.8rem;
 	}
 
-
-
-
-/*
-	body {
-		&::before {
-			content: " ";
-			display: block;
-			position: absolute;
-			z-index: 999;
-			top: -14.8rem;
-			left: -4.8rem; // -4.8rem;
-			width: 4.8rem;
-			height: 36rem;
-			background-color: $hsl_navy;
-			transform: rotate(45deg) translate3d(0,360rem,0);
-			transform-origin: bottom left;
-			transition: transform 1000ms ease-in-out;
-			html[data-ready="ready"] & {
-				transform: rotate(45deg) translate3d(0,0rem,0);
-			}
-		}
-	}
-*/
-
-
-	@keyframes animCornerSlide {
-		from {
-			transform: translate3d(0,60rem,0);
-		}
-		to {
-			transform: translate3d(0,0rem,0);
-		}
-	}
-
-
-
+	// Press
+	// ----------------------------------------------------------------------------
 	.press_corner {
 		display: flex;
 		flex-wrap: nowrap;
@@ -1353,57 +1348,56 @@
 		height: 58rem;
 		transform: rotate(45deg);
 		transform-origin: bottom left;
-
-		// transform: rotate(45deg) translate3d(0,0rem,0); // 360rem
-
 		div {
 			flex: 0 0 20%;
 			position: relative;
 			height: 100%;
-
-			transform: translate3d(0,0rem,0);
-
-			// transform: translate3d(0,60rem,0);
-			// transition: transform 1000ms ease-in-out;
-
-			// animation: animCornerSlide 800ms ease-in-out both;
-
-			$numDelay: 600;
+			opacity: 0.4; // full transparency just doesn't feel right
+			animation: animCornerStripeSlide $easeInQuart both;
+			// loop through each corner stripe
+			$numDuration: 600;
+			$numDelay: 400;
+			$numTranslateY: 432; // was 420, but found that the first stripe spent too long on screen during its first few frames, so pushed it off screen even further
 			@for $i from 1 through length($arrPressValues) {
-				&.corner-#{$i} {
+				&.corner_stripe-#{$i} {
 					background-color: nth($arrPressValues, $i);
-
-					transform: translate3d(0,0rem,0);
-
-					// animation-delay: #{$numDelay}ms;
-
+					transform: translate3d(0, (($numTranslateY / 10) + rem), 0);
+					animation-duration: #{$numDuration}ms;
+					animation-delay: #{$numDelay}ms;
+/*
+					@if $i == 5 {
+						animation-timing-function: cubic-bezier(0.390, 0.575, 0.565, 1.000);
+					}
+*/
 					@if $i > 1 {
-						left: -#{$i}px; // resolve aliasing issues where a 1px white gap would appear
-						// transition-delay: #{$numDelay}ms;
+						left: (-($i - 1) / 10) + rem; // resolve aliasing issues where a 1px white gap would appear
 					}
 				}
-				$numDelay: $numDelay + 260;
+				$numDuration: $numDuration - 80;
+				$numDelay: $numDelay + 180;
+				$numTranslateY: $numTranslateY + 38;
 			}
-
-// 42rem
-	// 36px difference
-// 45.6rem
-	// 38px difference
-// 49.4rem
-	// 36px difference
-// 53rem
-	// 38px difference
-// 56.8rem
-
-/*
-			html[data-ready="ready"] & {
-				transform: translate3d(0,0rem,0);
-			}
-*/
-
 		}
-
 	}
+
+	// Page Load
+	// ----------------------------------------------------------------------------
+	html[data-ready="ready"] .press_corner {
+		div {
+			opacity: 1;
+			transform: translate3d(0,0,0);
+			@for $i from 1 through length($arrPressValues) {
+				&.corner_stripe-#{$i} {
+					animation: animCornerStripeBG-step#{$i} 400ms steps(1) infinite reverse;
+					animation-play-state: paused;
+				}
+			}
+		}
+		&:hover div {
+			animation-play-state: running;
+		}
+	}
+
 
 
 

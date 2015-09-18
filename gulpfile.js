@@ -140,7 +140,7 @@ gulp.task('scripts', function() { // ['copy-scripts'],
 	return gulp.src(paths.scripts.src)
 		.pipe(plugins.sourcemaps.init())
 			.pipe(plugins.concat('scripts.min.js'))
-			// .pipe(plugins.uglify()) // firefox doesn't play nice, but Chrome is fine
+			.pipe(plugins.uglify()) // firefox doesn't play nice, but Chrome is fine
 		.pipe(plugins.sourcemaps.write('../maps'))
 /*
 		.pipe(plugins.sourcemaps.write('../maps', {

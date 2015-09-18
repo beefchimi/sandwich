@@ -56,12 +56,17 @@ header.page_header {
 
 	// [ nav_primary moved below for cleaner code ] \\
 
+
 	a.logo_main {
-		display: block;
+		display: block; // UNTIL WEBKIT FIXES SVG ANIMATIONS WITHIN AN <a> TAG, THIS CAN'T BE USED :(
 	}
 	.logo_main {
 		@include container(288);
+		position: relative;
 		margin-bottom: 3.2rem;
+		a.fix_webkit-svg {
+			@include posCover(absolute);
+		}
 		.wrap_svg {
 			margin-left: auto;
 			margin-right: auto;
@@ -69,7 +74,7 @@ header.page_header {
 			&.wrap_logo-sandwich {
 				margin-bottom: 0.8rem;
 				max-width: 34.6rem;
-				width: 84%; // adjust height for mobile
+				width: 84%; // adjust size for mobile
 				& svg {
 					fill: $hsl_navy; // default fill (in case of animation)
 				}
@@ -77,13 +82,13 @@ header.page_header {
 			// + logo: video + \\
 			&.wrap_logo-video {
 				max-width: 22.8rem;
-				width: 56%; // adjust height for mobile
+				width: 56%; // adjust size for mobile
 				svg {
 					overflow: visible; // otherwise, <path> animation will get chopped off
 					// + rainbow letters + \\
-					@for $i from 1 through length($arrColorValues) {
+					@for $i from 1 through length($arrRainbowValues) {
 						g.rainbow_letter-#{$i} path {
-							fill: nth($arrColorValues, $i); // default fill
+							fill: nth($arrRainbowValues, $i); // default fill
 						}
 					}
 					// + vhs letters + \\
@@ -183,8 +188,8 @@ nav.nav_primary {
 	}
 
 	.wrap_nav {
-		@include pos_cover(fixed, 400);
-		@include toggle_visibility(off);
+		@include posCover(fixed, 400);
+		@include toggleVisibility(off);
 		perspective: 60rem;
 		background-color: $hsl_bone;
 		transition: opacity 360ms ease-in-out, visibility 360ms ease-in-out; // visibility is not very performant, would be ideal to avoid it
@@ -301,7 +306,7 @@ nav.nav_primary {
 			}
 		}
 		.wrap_nav {
-			@include toggle_visibility(on);
+			@include toggleVisibility(on);
 			ul {
 				transform: rotateX(0deg) translate3d(0,-40%,0);
 			}
@@ -373,7 +378,7 @@ ul.video_credits {
 }
 // --- Loader: Spinner --- \\
 .loader_spinner {
-	@include pos_cover(absolute, 1);
+	@include posCover(absolute, 1);
 	opacity: 0;
 	overflow: hidden;
 	background-color: $hsl_bone;
@@ -382,7 +387,7 @@ ul.video_credits {
 		opacity: 1;
 	}
 	.wrap_graphics {
-		@include pos_cover(absolute, 2);
+		@include posCover(absolute, 2);
 		.wrap_svg {
 			margin-left: auto;
 			margin-right: auto;
@@ -391,7 +396,7 @@ ul.video_credits {
 			animation: anim360 800ms linear infinite forwards;
 			svg {
 				fill: $hsl_red; // default fill
-				animation: animRbow_fill 1600ms linear infinite;
+				animation: animRainbowFill 1600ms linear infinite;
 			}
 		}
 	}
@@ -644,7 +649,7 @@ nav.nav_categories {
 		background-color: $hsl_red;
 	}
 	.wrap_dropdown {
-		@include toggle_visibility(off);
+		@include toggleVisibility(off);
 		position: absolute;
 		z-index: 201;
 		top: -12rem;
@@ -674,7 +679,7 @@ nav.nav_categories {
 				bottom: 0;
 				left: 0;
 			*/
-				@include pos_cover(absolute, 202);
+				@include posCover(absolute, 202);
 				border-radius: 1.3rem;
 				overflow: hidden;
 				-webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC); // required in order to get iOS Chrome to mask the overflow!
@@ -710,7 +715,7 @@ nav.nav_categories {
 			opacity: 0;
 		}
 		.wrap_dropdown {
-			@include toggle_visibility(on);
+			@include toggleVisibility(on);
 			z-index: 501;
 		}
 	}
@@ -759,7 +764,7 @@ section.iso_container {
 					transition: opacity 260ms ease-in-out;
 				}
 				img.iso_logo-on {
-					@include pos_cover(absolute, 102);
+					@include posCover(absolute, 102);
 				}
 			}
 			.iso_logo img.iso_logo-on,
@@ -786,7 +791,7 @@ section.iso_container {
 				text-align: center;
 				text-transform: uppercase;
 				color: $hsl_navy; // default color
-				animation: animRbow_color 1600ms linear infinite;
+				animation: animRainbowColor 1600ms linear infinite;
 			}
 		}
 	}
@@ -802,7 +807,7 @@ section.iso_container {
 // YouTube Modal
 // ----------------------------------------------------------------------------
 aside {
-	@include flex_center;
+	@include flexCenter;
 	position: fixed;
 	z-index: 998;
 	top: 0;
@@ -955,7 +960,7 @@ aside {
 	&[data-ajax="error"] {
 		.modal_content {
 			.content_error {
-				@include flex_center;
+				@include flexCenter;
 			}
 			header.modal_header {
 				padding: 0;
@@ -973,7 +978,7 @@ aside {
 		z-index: -1;
 		pointer-events: none; // click event using stopPropagation
 		.wrap_graphics {
-			@include flex_center;
+			@include flexCenter;
 			.wrap_svg {
 				width: 8rem;
 				height: 8rem;
@@ -1154,7 +1159,7 @@ section.press_sidebar {
 		margin-bottom: 6.4rem;
 	}
 	a.link_story {
-		@include block_circle(120, $hsl_cyan);
+		@include blockCircle(120, $hsl_cyan);
 	}
 }
 
@@ -1166,19 +1171,19 @@ section.press_main {
 
 	article.press_post {
 		border-bottom: 0.1rem solid $hsl_red; // default border-bottom-color
-		@for $i from 1 through length($arrColorValues) {
+		@for $i from 1 through length($arrRainbowValues) {
 			&:nth-child(#{$i}) {
-				border-bottom-color: nth($arrColorValues, $i);
+				border-bottom-color: nth($arrRainbowValues, $i);
 				& header h3 a {
 					&:hover {
-						color: nth($arrColorValues, $i);
+						color: nth($arrRainbowValues, $i);
 					}
 					&:active {
-						color: darken(nth($arrColorValues, $i), 10%);
+						color: darken(nth($arrRainbowValues, $i), 10%);
 					}
 				}
 				// content links are 'cyan', so we need to choose a different :hover/:active style for the 5th iteration
-				$contentLinkColor: if($i == 5, $hsl_navy, nth($arrColorValues, $i));
+				$contentLinkColor: if($i == 5, $hsl_navy, nth($arrRainbowValues, $i));
 				& .the_content a {
 					&:hover {
 						color: $contentLinkColor;
@@ -1324,7 +1329,7 @@ section.people {
 	}
 }
 a.link_people-all {
-	@include block_circle(120, $hsl_navy);
+	@include blockCircle(120, $hsl_navy);
 	margin-bottom: 4.2rem;
 	transition: background-color 260ms ease-in-out;
 
@@ -1451,16 +1456,16 @@ $numDelay: 800;
 // + nav primary + \\
 nav.nav_primary a.nav_toggle .nav_icon {
 	.line-1 {
-		animation: animSlideIn_left 400ms ease-out 1200ms both;
+		animation: animSlideInLeft 400ms ease-out 1200ms both;
 	}
 	.line-2 {
-		animation: animSlideIn_right 400ms ease-out 1500ms both;
+		animation: animSlideInRight 400ms ease-out 1500ms both;
 	}
 	.line-3 {
-		animation: animSlideIn_left 400ms ease-out 1800ms both;
+		animation: animSlideInLeft 400ms ease-out 1800ms both;
 	}
 	.nav_line .line_bg {
-		animation: animRbow2Navy_bg 1000ms linear 1200ms;
+		animation: animRainbow2NavyBG 1000ms linear 1200ms;
 	}
 	@for $i from 1 through 3 {
 		html[data-ready="ready"] & .line-#{$i} {

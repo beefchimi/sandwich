@@ -22,15 +22,15 @@
 					%article{:id => "press-#{i}", :class => "press_post"}
 
 						- if i % 2 == 0
+							- strTitle = 'This is a Very Long, Multi-Line Headline for a Piece of News'
 							%a.press_feature{:href => "#", :title => ""}
 								%img{:src => "assets/img/temp_press.jpg", :alt => ""}
+						- else
+							- strTitle = 'Short and Sweet'
 
 						%header
 							%h3
-								- if i % 2 == 0
-									%a{:href => "#", :title => "Read more"} This is a Very Long, Multi-Line Headline for a Piece of News
-								- else
-									%a{:href => "#", :title => "Read more"} Short and Sweet
+								%a{:href => "#", :title => "Read more"} #{strTitle}
 							%time{:datetime => "2016-08-13T23:59:59-02:00"} July 13, 2016
 
 						.the_content.press_content
@@ -104,7 +104,7 @@
 
 			.press_corner
 				- (1..5).each do |i|
-					%div{:class => "corner-#{i}"}
+					%div{:class => "corner_stripe-#{i}"}
 
 
 

@@ -90,17 +90,19 @@ $hsl_L100:    hsl(0,    0%, 100%);
 $hsla_bone-L98: hsla(180, 50%, 99%, 0.98);
 $hsla_cyan-L96: hsla(194, 76%, 51%, 0.96);
 // custom easing
-$easeBounce:    cubic-bezier(0.215,0.610,0.355,1);
-$easeInOutCirc: cubic-bezier(0.785,0.135,0.150,0.860);
-$easeInOutBack: cubic-bezier(0.680,-0.400,0.265,1.400); // was: -0.550 & 1.550 ... reduced because of :focus input overlap
+$easeBounce:    cubic-bezier(0.215,  0.610, 0.355, 1.000);
+$easeInQuart:   cubic-bezier(0.895,  0.030, 0.685, 0.220);
+$easeInOutCirc: cubic-bezier(0.785,  0.135, 0.150, 0.860);
+$easeInOutBack: cubic-bezier(0.680, -0.400, 0.265, 1.400); // was: -0.550 & 1.550 ... reduced because of :focus input overlap
 // arrays (lists)
-$arrColorNames: "red", "orange", "yellow", "aqua", "cyan";
-$arrColorValues: $hsl_red, $hsl_orange, $hsl_yellow, $hsl_aqua, $hsl_cyan;
+// $arrRainbowNames: "red", "orange", "yellow", "aqua", "cyan";
+$arrRainbowKeyframes: 0, 26, 44, 74, 82, 100;
+$arrRainbowValues: $hsl_red, $hsl_orange, $hsl_yellow, $hsl_aqua, $hsl_cyan;
 $arrPressValues: $hsl_press-1, $hsl_press-2, $hsl_press-3, $hsl_press-4, $hsl_press-5;
 
 // Mixins
 // ----------------------------------------------------------------------------
-@mixin toggle_visibility($state) {
+@mixin toggleVisibility($state) {
 	@if ($state == "off") or ($state == "none") or ($state == "hide") or ($state == "hidden") {
 		opacity: 0;
 		visibility: hidden;
@@ -109,7 +111,7 @@ $arrPressValues: $hsl_press-1, $hsl_press-2, $hsl_press-3, $hsl_press-4, $hsl_pr
 		visibility: visible;
 	}
 }
-@mixin pos_cover($pos: static, $index: 1) {
+@mixin posCover($pos: static, $index: 1) {
 	z-index: $index;
 	@if $pos == "reset" {
 		position: static;
@@ -142,14 +144,14 @@ $arrPressValues: $hsl_press-1, $hsl_press-2, $hsl_press-3, $hsl_press-4, $hsl_pr
 		max-width: ($max-width / 10) + rem;
 	}
 }
-@mixin flex_center() {
+@mixin flexCenter() {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
 	text-align: center;
 }
-@mixin block_circle($diameter: 100%, $bgColor: transparent) {
+@mixin blockCircle($diameter: 100%, $bgColor: transparent) {
 	$diameter: ($diameter / 10) + rem;
 	display: block;
 	position: relative;
@@ -161,6 +163,9 @@ $arrPressValues: $hsl_press-1, $hsl_press-2, $hsl_press-3, $hsl_press-4, $hsl_pr
 	border-radius: 50%;
 	overflow: hidden;
 }
+
+// Research SASS Mixins with dynamic / variable parameters...
+// I want to make a keyframe mixin that will accept a dynamic number of properties
 
 // Animations
 // ----------------------------------------------------------------------------
@@ -175,40 +180,30 @@ $arrPressValues: $hsl_press-1, $hsl_press-2, $hsl_press-3, $hsl_press-4, $hsl_pr
 	100% { opacity: 1; }
 }
 @keyframes animHide {
-	0%   { opacity: 1; left: 0; }
-	99%  { opacity: 0; left: 0; }
+	  0% { opacity: 1; left: 0; }
+	 99% { opacity: 0; left: 0; }
 	100% { opacity: 0; left: -200%; }
 }
-@keyframes animSlideIn_left {
+@keyframes animSlideInLeft {
 	  0% { transform: translate3d(-100%,0,0); }
-	100% { transform: translate3d(0%,0,0);    }
+	100% { transform: translate3d(   0%,0,0); }
 }
-@keyframes animSlideIn_right {
+@keyframes animSlideInRight {
 	  0% { transform: translate3d(100%,0,0); }
-	100% { transform: translate3d(0%,0,0);   }
+	100% { transform: translate3d(  0%,0,0); }
 }
 @keyframes animBounceUp {
-	  0% { transform: translate3d(0,4.8rem,0);  }
+	  0% { transform: translate3d(0, 4.8rem,0); }
 	 60% { transform: translate3d(0,-1.2rem,0); }
-	100% { transform: translate3d(0,0,0);       }
+	100% { transform: translate3d(0,   0rem,0); }
 }
-@keyframes animRbow_color {
-	  0% { color: $hsl_red;    }
-	 26% { color: $hsl_orange; }
-	 44% { color: $hsl_yellow; }
-	 74% { color: $hsl_aqua;   }
-	 82% { color: $hsl_cyan;   }
-	100% { color: $hsl_red;    }
+@keyframes animVHSwipe {
+	// updated at 768px
+	  0% { opacity: 0; transform: translate3d(-1rem,0,0); }
+	100% { opacity: 1; transform: translate3d( 0rem,0,0); }
 }
-@keyframes animRbow_fill {
-	  0% { fill: $hsl_red;    }
-	 26% { fill: $hsl_orange; }
-	 44% { fill: $hsl_yellow; }
-	 74% { fill: $hsl_aqua;   }
-	 82% { fill: $hsl_cyan;   }
-	100% { fill: $hsl_red;    }
-}
-@keyframes animRbow2Navy_bg {
+@keyframes animRainbow2NavyBG {
+	// this animation is used as only 1 iteration (never repeats)
 	  0% { background-color: $hsl_red;    }
 	 20% { background-color: $hsl_orange; }
 	 40% { background-color: $hsl_yellow; }
@@ -216,7 +211,21 @@ $arrPressValues: $hsl_press-1, $hsl_press-2, $hsl_press-3, $hsl_press-4, $hsl_pr
 	 80% { background-color: $hsl_cyan;   }
 	100% { background-color: $hsl_navy;   }
 }
-@keyframes animVHSwipe {
-	  0% { opacity: 0; transform: translate3d(-1rem,0,0);  }
-	100% { opacity: 1; transform: translate3d(0,0,0); }
+@keyframes animRainbowColor {
+	$numRainbowIndex: 1;
+	@each $keyframe in $arrRainbowKeyframes {
+		#{$keyframe}% {
+			color: nth($arrRainbowValues, $numRainbowIndex);
+		}
+		$numRainbowIndex: if($numRainbowIndex == length($arrRainbowValues), 1, $numRainbowIndex + 1); // once our array has reached its max, reset to beginning
+	}
+}
+@keyframes animRainbowFill {
+	$numRainbowIndex: 1;
+	@each $keyframe in $arrRainbowKeyframes {
+		#{$keyframe}% {
+			fill: nth($arrRainbowValues, $numRainbowIndex);
+		}
+		$numRainbowIndex: if($numRainbowIndex == length($arrRainbowValues), 1, $numRainbowIndex + 1); // once our array has reached its max, reset to beginning
+	}
 }

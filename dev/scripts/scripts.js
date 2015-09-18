@@ -999,8 +999,14 @@ document.addEventListener('DOMContentLoaded', function() {
 */
 
 		// get <nav>, then <li>'s within, and count the number of <li>'s
-		var elPagination = document.getElementById('pagination'),
-			arrPagiItems = elPagination.getElementsByClassName('pagi_page'),
+		var elPagination = document.getElementById('pagination');
+
+		// exit this function if we do not have #pagination
+		if (elPagination === null) {
+			return;
+		}
+
+		var arrPagiItems = elPagination.getElementsByClassName('pagi_page'),
 			numPagiItems = arrPagiItems.length;
 
 		// we only want to run this code if we have 7 (numAtleastItems) or more li.pagi_page items...

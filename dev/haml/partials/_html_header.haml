@@ -46,23 +46,28 @@
 
 	-# only output a div on the home page,
 	-# use a <a> for everything else
-	- if locals == 'home'
-		- tagLogoMain = 'div.logo_main'
-	- else
-		- tagLogoMain = 'a.logo_main'
+	-# - if locals == 'home'
+		-# - tagLogoMain = 'div.logo_main'
+	-# - else
+		-# - tagLogoMain = 'a.logo_main'
 
 
 	-# if text content is required, use:
 	-# haml_tag tagLogoMain, "Hello There!"
 
 	-# could not figure out how to pass attributes conditionally... so the <div> will contain a :href and :title as well :(
-	- haml_tag tagLogoMain, href: "index.html", title: "Back To Home" do
+	-# - haml_tag tagLogoMain, href: "index.html", title: "Back To Home" do
+
+	-# DISCOVERED THAT WEBKIT CANNOT ANIMATE SVGs WITHIN A <a> TAG, SO I HAVE COMMENTED OUT MY LOGIC AND DONE THIS THE STUPID WAY
+
+	.logo_main
+		- if locals != 'home'
+			%a.fix_webkit-svg{:href => "index.html", title: "Back To Home"}
 		.wrap_svg.wrap_logo-sandwich
 			%svg.logo_sandwich{:viewBox => "0 0 346 48"}
 				%use{"xlink:href" => "#logo_sandwich"}
 		%div{:class => "wrap_svg wrap_logo-video wrap_video-#{classVideoSVG}"}
 			= Haml::Engine.new(File.read("dev/haml/partials/_svg_video-#{classVideoSVG}.haml")).render
-
 
 	- taglineHome     = 'We make videos and TV commercials. Here are some below.'
 	- viewboxHome     = '0 0 303 31'
