@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	// ----------------------------------------------------------------------------
 	var elHTML       = document.documentElement,
 		elBody       = document.body,
-		elNavPrimary = document.getElementById('nav_primary'), // required to be global
-		elNavCat     = document.getElementById('nav_categories'), // required to be global
+		elNavPrimary = document.getElementById('nav_primary'),
+		elNavFilter  = document.getElementById('nav_filter'),
 		boolPagiRun  = false,
 		objISO;
 
@@ -73,9 +73,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		// lockBody(boolScrollbar, numScrollbarWidth);
 
 		// it does exist! continue on...
-		var elIsoLoader   = document.getElementById('iso_loader'),
-			strCurrentCat = elNavCat.getAttribute('data-current'),
-			arrIsoLinks   = document.getElementsByClassName('iso_link');
+		var elMain           = document.getElementsByTagName('main')[0],
+			elIsoLoader      = document.getElementById('iso_loader'),
+			strCurrentFilter = elNavFilter.getAttribute('data-current'),
+			arrIsoLinks      = document.getElementsByClassName('iso_link');
 
 		// layout Isotope after all images have loaded
 		imagesLoaded(elIsoContainer, function(instance) {
@@ -88,13 +89,16 @@ document.addEventListener('DOMContentLoaded', function() {
 					columnWidth: '.iso_brick',
 					gutter: '.iso_gutter'
 				},
-				filter: strCurrentCat
+				filter: strCurrentFilter
 
 			});
 
-			// initalize and pass objISO to isoFilterSearch and categoryDropdown once ready
+			// images are now loaded, so let our <main> know so we can enable use of the filterDropdown
+			elMain.setAttribute('data-isotope', 'loaded');
+
+			// initalize and pass objISO to isoFilterSearch and filterDropdown once ready
 			isoFilterSearch(objISO);
-			categoryDropdown(objISO);
+			filterDropdown(objISO);
 
 			// IE9 does not support animations...
 			if ( !elHTML.classList.contains('ie9') ) {
@@ -817,9 +821,9 @@ document.addEventListener('DOMContentLoaded', function() {
 				// if this is an isotope block...
 				if ( e.target.classList.contains('iso_link') ) {
 
-					// we only want to cycle color classes on 'rainbow' categories,
-					// so exit the function if elNavCat is not 'data-color' => 'random'
-					if ( elNavCat.getAttribute('data-color') != 'random' ) {
+					// we only want to cycle color classes on 'rainbow' filters,
+					// so exit the function if elNavFilter is not 'data-color' => 'random'
+					if ( elNavFilter.getAttribute('data-color') != 'random' ) {
 						return;
 					}
 
@@ -861,74 +865,58 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-	// categoryDropdown: isoTope Category Dropdown (NOT locking body once toggled)
+	// filterDropdown: isoTope Filter Dropdown (NOT locking body once toggled)
 	// ----------------------------------------------------------------------------
-	function categoryDropdown(pISO) {
+	function filterDropdown(pISO) {
 
-		var elNavCatTrigger        = document.getElementById('cat_trigger'),
-			elNavCatLabel          = elNavCatTrigger.getElementsByClassName('cat_label')[0],
-			elNavCatList           = elNavCat.getElementsByTagName('ul')[0],
-			elNavLinkCurrent       = elNavCatList.getElementsByClassName('cat_current')[0],
+		var elNavFilterTrigger     = document.getElementById('filter_trigger'),
+			elNavFilterLabel       = elNavFilterTrigger.getElementsByClassName('filter_label')[0],
+			elNavFilterList        = elNavFilter.getElementsByTagName('ul')[0],
+			elNavLinkCurrent       = elNavFilterList.getElementsByClassName('filter_current')[0],
 			strNavLinkCurrentID    = elNavLinkCurrent.id, // not really needed until we change a filter, but let's define it anyways
 			numNavLinkCurrentIndex = 1, // leaving this hard coded, since we will always show 'curated' on page load
-			arrCatItems            = elNavCatList.getElementsByTagName('li'),
-			numCatItemsLength      = arrCatItems.length;
+			arrFilterItems         = elNavFilterList.getElementsByTagName('li'),
+			numFilterItemsLength   = arrFilterItems.length;
 
-		// click elNavCatTrigger to toggle dropdown
-		elNavCatTrigger.addEventListener('click', function(e) {
+		// click elNavFilterTrigger to toggle dropdown
+		elNavFilterTrigger.addEventListener('click', function(e) {
 
 			e.preventDefault(); // url is just a #, do not follow
-			elNavCat.classList.add('toggled'); // since this button is hidden once the dropdown is toggled, it only needs to 'add'
+			elNavFilter.classList.toggle('toggled');
 
 		});
 
-		// click outside of element to close dropdown
-		document.addEventListener('click', function(e) {
-
-			// if this is not the currently toggled dropdown
-			if (e.target != elNavCat) {
-
-				// ignore this event if preventDefault has been called
-				if (e.defaultPrevented) {
-					return;
-				}
-
-				elNavCat.classList.remove('toggled'); // remove 'toggled' class from elNavCat
-
-			}
-
-		});
-
-		// register clickCatLink for each a.cat_link found
-		for (var i = 0; i < numCatItemsLength; i++) {
-			clickCatLink(getFirstChild(arrCatItems[i]), i);
+		// register clickFilterLink for each a.filter_link found
+		for (var i = 0; i < numFilterItemsLength; i++) {
+			clickFilterLink(getFirstChild(arrFilterItems[i]), i);
 		}
 
-		// close dropdown and filter categories using Isotope
-		function clickCatLink(thisCatLink, index) {
+		// close dropdown and filter tags using Isotope
+		function clickFilterLink(thisFilterLink, index) {
 
-			thisCatLink.addEventListener('click', function(e) {
+			thisFilterLink.addEventListener('click', function(e) {
 
-				e.preventDefault(); // prevent navigation to url
+				// NOT PREVENTING... since we had to turn these into <span>s for Chrome to respect animations
+				// e.preventDefault(); // prevent navigation to url
 
 				var strThisLabel  = this.innerHTML,
 					strThisColor  = this.getAttribute('data-color'),
 					strThisFilter = this.getAttribute('data-filter');
 
-				// update elNavCat 'data-color', 'data-current', and elNavCatLabel innerHTML
-				elNavCat.setAttribute('data-color', strThisColor);
-				elNavCat.setAttribute('data-current', strThisFilter);
-				elNavCatLabel.innerHTML = strThisLabel;
+				// update elNavFilter 'data-color', 'data-current', and elNavFilterLabel innerHTML
+				elNavFilter.setAttribute('data-color', strThisColor);
+				elNavFilter.setAttribute('data-current', strThisFilter);
+				elNavFilterLabel.innerHTML = strThisLabel;
 
-				// close dropdown by removing 'toggled' class from elNavCat
-				elNavCat.classList.remove('toggled');
+				// close dropdown by removing 'toggled' class from elNavFilter
+				elNavFilter.classList.remove('toggled');
 
-				// swap 'cat_current' class and redefine elNavLinkCurrent as new selection
-				elNavLinkCurrent.classList.remove('cat_current');
+				// swap 'filter_current' class and redefine elNavLinkCurrent as new selection
+				elNavLinkCurrent.classList.remove('filter_current');
 				elNavLinkCurrent = this.parentNode;
-				elNavLinkCurrent.classList.add('cat_current');
+				elNavLinkCurrent.classList.add('filter_current');
 
-				// capture the ID of the new 'cat_current' so we have trim off the index number from the id string...
+				// capture the ID of the new 'filter_current' so we have trim off the index number from the id string...
 				// I don't seem to have a easy way to determine the index position of a HTMLCollection, so this is how I am doing it
 				strNavLinkCurrentID    = elNavLinkCurrent.id;
 				numNavLinkCurrentIndex = parseInt( strNavLinkCurrentID.substring(strNavLinkCurrentID.indexOf('-') + 1 ) ); // must parseInt from string to number
@@ -942,15 +930,17 @@ document.addEventListener('DOMContentLoaded', function() {
 				pISO.once('layoutComplete', function() {
 
 					// it is now safe to update the selected index number, so CSS can take care of our '.wrap_dropdown' top position
-					elNavCat.setAttribute('data-index', numNavLinkCurrentIndex);
+					elNavFilter.setAttribute('data-index', numNavLinkCurrentIndex);
 
 					// update the scroll Y position of our <ul>
+					// this is the only thing that doesn't update when resizing... doesn't make much sense to do the additional work, but...
+					// essentially if we select an item at desktop view, we could then listen for resize and apply scroll position once below 768px
 					if (numNavLinkCurrentIndex <= 3) {
-						elNavCatList.scrollTop = 0;
+						elNavFilterList.scrollTop = 0;
 					} else if (numNavLinkCurrentIndex >= 13) {
-						elNavCatList.scrollTop = 9999; // 40px * 17items = 680 ... but this can actually be set higher and scrollTop will calculate the max scrollY
+						elNavFilterList.scrollTop = 9999; // 40px * 17items = 680 ... but this can actually be set higher and scrollTop will calculate the max scrollY
 					} else {
-						elNavCatList.scrollTop = numNavLinkCurrentIndex * 40 - 120; // subtract a certain value...
+						elNavFilterList.scrollTop = numNavLinkCurrentIndex * 40 - 120; // subtract a certain value...
 					}
 
 				});
@@ -959,36 +949,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		}
 
+		// NO LONGER WORRYING ABOUT DOCUMENT CLICK, SINCE TOGGLE ICON IS OUTSIDE OF DROPDOWN LABEL
+
+/*
+		// click outside of element to close dropdown
+		document.addEventListener('click', function(e) {
+
+			// if this is not the currently toggled dropdown
+			if (e.target != elNavFilter) {
+
+				// ignore this event if preventDefault has been called
+				if (e.defaultPrevented) {
+					return;
+				}
+
+				elNavFilter.classList.remove('toggled'); // remove 'toggled' class from elNavFilter
+
+			}
+
+		});
+*/
+
 	}
 
 
-
-
-// rowHeight = 40px
-// rowsVisible = 7
-// dropdownHeight = 280px (rowHeight * rowsVisible)
-// rowCount = 14 (15 actual rows)
-// threshold = Math.floor(rowsVisible / 2)
-// topThreshold = first threshold rows [0,1,2]
-// bottomThreshold = last threshold rows [14,13,12]
-// defaultTopPos = rowHeight * threshold
-
-// if - selected row is within the topThreshold :
-	// top = dropdownHeight * topThreshold[currentRow]
-// else if - selected row is within the bottomThreshold :
-	// top = dropdownHeight * bottomThreshold[currentRow]
-// else
-	// top = defaultTopPos + 'px'
-
-
-
-
-
-
-
-
-
-
+	// paginationEllipsis: Add an ellipsis before / after current pagi link
+	// ----------------------------------------------------------------------------
 	function paginationEllipsis(numAtleastItems) {
 
 /*
@@ -1128,9 +1114,9 @@ document.addEventListener('DOMContentLoaded', function() {
 				unlockBody(boolScrollbar);
 			}
 
-			// also remove 'toggled' class from nav_categories (if it exists)
-			if (typeof(elNavCat) != 'undefined' && elNavCat != null) {
-				elNavCat.classList.remove('toggled');
+			// also remove 'toggled' class from nav_filter (if it exists)
+			if (typeof(elNavFilter) != 'undefined' && elNavFilter != null) {
+				elNavFilter.classList.remove('toggled');
 			}
 
 		} else {

@@ -6,7 +6,7 @@
 
 	= Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render(Object.new, :locals => '')
 
-	%body#home
+	%body#home.home
 
 		#svgInject.visuallyhidden
 			/ inject:svg
@@ -14,9 +14,9 @@
 
 		= Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render(Object.new, :locals => 'home')
 
-		%main{:role => "main"}
+		%main{:role => "main", "data-isotope" => "waiting"}
 
-			= Haml::Engine.new(File.read("dev/haml/partials/_nav_categories.haml")).render
+			= Haml::Engine.new(File.read("dev/haml/partials/_nav_filter.haml")).render
 			= Haml::Engine.new(File.read("dev/haml/partials/_html_isotope.haml")).render
 			-# = Haml::Engine.new(File.read("dev/haml/partials/_temp_modal-youtube.haml")).render
 

@@ -1,0 +1,30 @@
+-# should expand this to use a data-pagi attribute to track the current page... then use a 'page#' + 'min/max' value to toggle prev/next links
+%nav#pagination.nav_pagi.press_pagination
+	%ul
+		%li.pagi_prev
+			-# should really leave this as a link perhaps, in the event of it being ajaxed, and set point-events: none;
+			%span.pagi_link Back
+
+		-# requires at least 7 li.pagi_page items for CSS to hide anything (would be the middle item - #4)
+		-# could potentially make this even more interesting using flex-order ... but only if compatibility was of no concern
+
+		- (1..13).each do |i|
+
+			- if i == 6
+				- strClassCurrent = ' pagi_current'
+			- else
+				- strClassCurrent = ''
+
+			- if i < 10
+				- strLeadingZero = '0'
+			- else
+				- strLeadingZero = ''
+
+			%li{:class => "pagi_page pagi-#{i}#{strClassCurrent}"}
+				%a.pagi_link{:href => "#", :title => "Page #{i}"} #{strLeadingZero}#{i}
+
+		%li.pagi_next
+			%a.pagi_link{:href => "#", :title => "Older Posts"} Next
+
+		-# %li.pagi_page
+			-# %span.pagi_link.pagi_ellipsis &#8230;

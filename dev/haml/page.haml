@@ -1,0 +1,28 @@
+!!!
+/[if IE 9] <html class="ie9" lang="en">
+<!--[if gt IE 9]><!-->
+%html{:lang => "en", "data-ready" => "waiting", "data-overflow" => "scrollable"}<>
+	<!--<![endif]-->
+
+	= Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render(Object.new, :locals => 'Page')
+
+	%body#how-it-works.page.page-id-1.page-template-default
+
+		#svgInject.visuallyhidden
+			/ inject:svg
+			/ endinject
+
+		= Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render(Object.new, :locals => 'page')
+
+		%main{:role => "main"}
+
+			%section.page_main
+
+				%article.page_post
+
+					.the_content.page_content
+
+						= Haml::Engine.new(File.read("dev/haml/partials/_html_content-page.haml")).render
+						-# = Haml::Engine.new(File.read("dev/haml/partials/_html_content-press.haml")).render
+
+		= Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render

@@ -6,8 +6,7 @@
 
 	= Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render(Object.new, :locals => 'Projects Single')
 
-	-# shares the same id as projects main... reconsider this? (they do share the same container width... so CSS can be shared)
-	%body#projects
+	%body#projects.single.single-projects.postid-01
 
 		#svgInject.visuallyhidden
 			/ inject:svg
@@ -17,7 +16,7 @@
 
 		%main{:role => "main"}
 
-			%section.projects_single
+			%section.projects_single.projects_section
 
 				%article#post_id.projects_post
 

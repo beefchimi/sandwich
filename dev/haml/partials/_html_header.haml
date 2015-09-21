@@ -2,39 +2,7 @@
 
 	%h1.visuallyhidden Sandwich Video
 
-	%nav#nav_primary.nav_primary
-
-		%a#nav_toggle.nav_toggle{:href => "#", :title => "Toggle Menu"}
-			.nav_icon
-				.nav_line.line-1
-					.line_bg
-				.nav_line.line-2
-					.line_bg
-				.nav_line.line-3
-					.line_bg
-
-		.wrap_nav
-			%ul
-				%li
-					%a.color_random{:href => "projects.html", :title => "Projects"} Projects
-				%li
-					%a.color_random{:href => "people.html", :title => "People"} People
-				%li
-					%a.color_random{:href => "#", :title => "How it Works"} How it Works
-				%li
-					%a.color_random{:href => "press.html", :title => "Press"} Press
-				%li
-					%a.color_random{:href => "#", :title => "Contact"} Contact
-				%li#nav_twitter.nav_twitter
-					%a.color_random{:href => "https://twitter.com/sandwich", :title => "Follow @sandwich", :target => "_blank"} @sandwich
-				- if locals == 'home'
-					%li#nav_search.nav_search
-						%form#search_projects{:action => "/search", :method => "get", :role => "search"}
-							%input#filter_search{:type => "text", :name => "search", :value => "", :autocomplete => "off", :placeholder => "Find a specific video", :required => true}
-							-# %input.search_submit{:type => "submit", :value => "Search"}
-							-# not using .wrap_svg because of pointer-event support
-							= Haml::Engine.new(File.read("dev/haml/partials/_svg_search.haml")).render
-
+	= Haml::Engine.new(File.read("dev/haml/partials/_nav_primary.haml")).render(Object.new, :locals => locals)
 
 	-# determine which video SVG to use based on locals variable
 	- if locals == 'home' || locals == 'projects'
@@ -50,7 +18,6 @@
 		-# - tagLogoMain = 'div.logo_main'
 	-# - else
 		-# - tagLogoMain = 'a.logo_main'
-
 
 	-# if text content is required, use:
 	-# haml_tag tagLogoMain, "Hello There!"
@@ -81,7 +48,8 @@
 	-# determine which tagline markup to use based on locals variable
 	- arrTaglines = { 'home' => [taglineHome, viewboxHome], 'projects' => [taglineProjects, viewboxProjects], 'people' => [taglinePeople, viewboxPeople], 'press' => [taglinePress, viewboxPress] }
 
-	%div{:class => "wrap_svg wrap_tagline wrap_tagline-#{locals}"}
-		%h2.visuallyhidden #{arrTaglines[locals][0]}
-		%svg.tagline_home{:viewBox => "#{arrTaglines[locals][1]}"}
-			%use{"xlink:href" => "#tagline_#{locals}"}
+	- if locals != 'page'
+		%div{:class => "wrap_svg wrap_tagline wrap_tagline-#{locals}"}
+			%h2.visuallyhidden #{arrTaglines[locals][0]}
+			%svg.tagline_home{:viewBox => "#{arrTaglines[locals][1]}"}
+				%use{"xlink:href" => "#tagline_#{locals}"}

@@ -6,7 +6,7 @@
 
 	= Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render(Object.new, :locals => 'Projects')
 
-	%body#projects
+	%body#projects.archive.post-type-archive.post-type-archive-projects
 
 		#svgInject.visuallyhidden
 			/ inject:svg
@@ -16,234 +16,43 @@
 
 		%main{:role => "main"}
 
-			%section.projects_main
+			%section.projects_main.projects_section
 
-				%article#client-1.projects_client
-					%h3 1Password
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;No More Sticky Notes&rdquo;
+				- numColumns  = 3.0
+				- numArticles = 40
+				- numArticlesPerColumn = (numArticles / numColumns).ceil
 
-				%article#client-2.projects_client
-					%h3 Aereo
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;There's TV&rdquo;
+				- (1..numColumns).each do |a|
 
-				%article#client-2.projects_client
-					%h3 Aeropress
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Ritual (Spec)&rdquo;
+					%div{:class => "wrap_column column-#{a}"}
 
-				%article#client-2.projects_client
-					%h3 AirBnB
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;How to Airbnb&rdquo;
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Why We Host&rdquo;
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Fake Title #3&rdquo;
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;We Didn't Really Direct This Many Videos&rdquo;
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Last One I Promise&rdquo;
+						- (1..numArticlesPerColumn).each do |b|
 
-				%article#client-2.projects_client
-					%h3 American Well
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;The Doctor Will See You Now&rdquo;
+							- if numArticles > 0
 
-				%article#client-2.projects_client
-					%h3 Arrow
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Moving Target&rdquo;
+								%article{:id => "client-#{numArticles}", :class => "projects_client"}
+									%h3 Client ##{numArticles}
 
-				%article#client-2.projects_client
-					%h3 Authy
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Authentication for the Future&rdquo;
+									- if numArticles % 3.0 == 0
+										%h3
+											%a{:href => "projects-single.html", :title => "View Project"} &ldquo;No More Sticky Notes&rdquo;
+									- elsif numArticles % 2.0 == 0
+										%h3
+											%a{:href => "projects-single.html", :title => "View Project"} &ldquo;How to Airbnb&rdquo;
+										%h3
+											%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Why We Host&rdquo;
+										%h3
+											%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Fake Title #3&rdquo;
+										%h3
+											%a{:href => "projects-single.html", :title => "View Project"} &ldquo;We Didn't Really Direct This Many Videos&rdquo;
+										%h3
+											%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Last One I Promise&rdquo;
+									- else
+										%h3
+											%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Questions & Answers&rdquo;
+										%h3
+											%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Think About Your Business&rdquo;
 
-				%article#client-2.projects_client
-					%h3 Beep
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Your Music All Over&rdquo;
-
-				%article#client-2.projects_client
-					%h3 Bigcommerce
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Dream Big&rdquo;
-
-				%article#client-2.projects_client
-					%h3 Birdhouse
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;A Notepad for Twitter&rdquo;
-
-				%article#client-2.projects_client
-					%h3 Boku
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Boku Accounts&rdquo;
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Fake Title #2&rdquo;
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;More Sandwich&rdquo;
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Boku Is Love&rdquo;
-
-				%article#client-2.projects_client
-					%h3 Bond
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Hello&rdquo;
-
-				%article#client-2.projects_client
-					%h3 Breaking News
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Time Was&rdquo;
-
-				%article#client-2.projects_client
-					%h3 Bump
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Just Bump&rdquo;
-
-				%article#client-2.projects_client
-					%h3 Candy House
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Open Sesame&rdquo;
-
-				%article#client-2.projects_client
-					%h3 Casper
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;I am Reborn&rdquo;
-
-				%article#client-2.projects_client
-					%h3 CenturyLink
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Questions & Answers&rdquo;
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Think About Your Business&rdquo;
-
-				%article#client-2.projects_client
-					%h3 Change The Course
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Life Without Water&rdquo;
-
-				%article#client-2.projects_client
-					%h3 ChartCube
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;In One Place&rdquo;
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;MindCube&rdquo;
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;TimeCube&rdquo;
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;FaceCube&rdquo;
-
-				%article#client-2.projects_client
-					%h3 Coin
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;One Card&rdquo;
-
-				%article#client-2.projects_client
-					%h3 Couple
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;An App for Two&rdquo;
-
-				%article#client-2.projects_client
-					%h3 CrushPath
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Pitch Yourself&rdquo;
-
-				%article#client-2.projects_client
-					%h3 Cur
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;A Life Without Pain&rdquo;
-
-				%article#client-2.projects_client
-					%h3 Day One
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Tell Your Story&rdquo;
-
-				%article#client-2.projects_client
-					%h3 Deputy
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Love Your Business Again&rdquo;
-
-				%article#client-2.projects_client
-					%h3 Detour
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Stories That Take You Places&rdquo;
-
-				%article#client-2.projects_client
-					%h3 DigiSocial
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Instant Voice Messaging&rdquo;
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Sunshine&rdquo;
-
-				%article#client-2.projects_client
-					%h3 Dreamworks Animation
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Intro to Ptch&rdquo;
-
-				%article#client-2.projects_client
-					%h3 Ebay
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;This is My Garage&rdquo;
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;These are My Gadgets&rdquo;
-
-				%article#client-2.projects_client
-					%h3 eFurb
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Just Like New&rdquo;
-
-				%article#client-2.projects_client
-					%h3 Embark
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Let's Embark&rdquo;
-
-				%article#client-2.projects_client
-					%h3 Embue
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;A Brain for Your Home&rdquo;
-
-				%article#client-2.projects_client
-					%h3 Everyday
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Everyday for iPhone&rdquo;
-
-				%article#client-2.projects_client
-					%h3 Experience
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Make It Memorable&rdquo;
-
-				%article#client-2.projects_client
-					%h3 Felt Tip Software
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Couch to 5K&rdquo;
-
-				%article#client-2.projects_client
-					%h3 Final
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Take Back Control&rdquo;
-
-				%article#client-2.projects_client
-					%h3 Five Details
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Seamless&rdquo;
-
-				%article#client-2.projects_client
-					%h3 Flag
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;No Jibber-Jabber&rdquo;
-
-				%article#client-2.projects_client
-					%h3 Flipboard
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;This is my Flipboard&rdquo;
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Getting More Social&rdquo;
-
-				%article#client-2.projects_client
-					%h3 Flutter
-					%h3
-						%a{:href => "projects-single.html", :title => "View Project"} &ldquo;The Future is in Your Hands&rdquo;
+								- numArticles -= 1
 
 		= Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render

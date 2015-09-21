@@ -1,0 +1,11 @@
+%section.press_sidebar
+
+	= Haml::Engine.new(File.read("dev/haml/partials/_nav_sidebar.haml")).render
+
+	%a.link_story{:href => "#", :title => "Want a story? Get in touch."}
+		-# .wrap_svg.wrap_txt-helped
+			-# %svg.txt_helped{:viewBox => "0 0 120 61"}
+				-# %use{"xlink:href" => "#txt_helped"}
+		-# .wrap_svg.wrap_ui-hand
+			-# %svg.ui_hand{:viewBox => "0 0 45 64"}
+				-# %use{"xlink:href" => "#ui_hand"}

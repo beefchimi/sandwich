@@ -63,7 +63,6 @@ header.page_header {
 	.logo_main {
 		@include container(288);
 		position: relative;
-		margin-bottom: 3.2rem;
 		a.fix_webkit-svg {
 			@include posCover(absolute);
 		}
@@ -115,8 +114,7 @@ header.page_header {
 	}
 
 	.wrap_tagline {
-		margin-left: auto;
-		margin-right: auto;
+		margin: 3.2rem auto 0 auto;
 		svg {
 			fill: $hsl_navy;
 		}
@@ -440,44 +438,8 @@ nav.nav_sidebar {
 			color: darken($hsl_red, 10%); // default :active color
 		}
 	}
-	h1,
-	h2,
-	h3,
-	h4,
-	h5,
-	h6 {
-		margin-bottom: 2rem;
-		line-height: 1.3;
-	}
-	h1,
-	h2,
-	h3 {
-		font-size: 1.8rem;
-	}
-	h4,
-	h5,
-	h6 {
-		font-size: 1.4rem;
-	}
-	p,
-	ol,
-	ul,
-	img,
-	div,
-	table {
-		margin-bottom: 2rem;
-	}
-	p,
-	li {
-		font-size: 1.4rem;
-	}
 	p {
 		line-height: 1.4;
-	}
-	li,
-	th,
-	td {
-		line-height: 1.2;
 	}
 	li {
 		position: relative;
@@ -513,8 +475,6 @@ nav.nav_sidebar {
 		}
 	}
 	hr {
-		margin-top: 3.2rem;
-		margin-bottom: 3.2rem;
 		border-color: $hsl_navy;
 	}
 	table {
@@ -543,10 +503,10 @@ nav.nav_sidebar {
 		}
 	}
 	blockquote {
-		margin-bottom: 3.2rem;
 		padding-left: 2rem;
 		padding-right: 2rem;
-		border-left: 0.1rem solid $hsl_navy;
+		color: lighten($hsl_navy, 10%);
+		border-left: 0.1rem solid lighten($hsl_navy, 10%);
 		p {
 			font-style: italic;
 			cite {
@@ -561,30 +521,30 @@ nav.nav_sidebar {
 
 		}
 	}
-	p:last-child,
-	ol:last-child,
-	ul:last-child,
-	li:last-child,
-	hr:last-child,
-	img:last-child,
-	div:last-child,
-	table:last-child,
-	blockquote:last-child {
-		margin-bottom: 0;
-	}
+	// + bulk element styles + \\
+	h1, h2, h3, h4, h5, h6 { line-height: 1.3; }
+	h1, h2, h3 { font-size: 1.8rem; }
+	h4, h5, h6 { font-size: 1.4rem; }
+	h1, h2, h3, h4, h5, h6, p, ol, ul, img, div, table { margin-bottom: 2rem; }
+	hr, blockquote { margin-top: 3.2rem; margin-bottom: 3.2rem; }
+	p, li { font-size: 1.4rem; }
+	li, th, td { line-height: 1.2; }
+	h1, h2, h3, h4, h5, h6, p, ol, ul, table { @include container(860); }
+	h1:last-child, h2:last-child, h3:last-child, h4:last-child, h5:last-child, h6:last-child,
+	p:last-child, ol:last-child, ul:last-child, li:last-child, hr:last-child, img:last-child, div:last-child, table:last-child, blockquote:last-child { margin-bottom: 0; }
 }
 
-// Nav Categories
+// Nav Filter
 // ----------------------------------------------------------------------------
-nav.nav_categories {
+nav.nav_filter {
 
-	@include container(200);
+	@include container(180); // 200
 	position: relative;
 	z-index: 200;
 	margin-bottom: 4.2rem;
 	text-align: center;
 
-	a.cat_trigger {
+	a.filter_trigger {
 		display: table;
 		width: 100%;
 		height: 4rem;
@@ -592,6 +552,7 @@ nav.nav_categories {
 		color: $hsl_red; // default color: red
 		border: 0.2rem solid $hsl_red; // default color: red
 		border-radius: 1.3rem;
+		transition: color 260ms ease-in-out, border-color 260ms ease-in-out;
 		&:hover {
 			color: $hsl_orange;
 			border-color: $hsl_orange;
@@ -602,44 +563,59 @@ nav.nav_categories {
 			padding-left: 1.6rem;
 			padding-right: 1.6rem; // 4.2rem;
 		}
-		.cat_icon {
+		.wrap_toggle {
 			display: block;
 			position: absolute;
 			z-index: 202;
-			top: 1.4rem;
-			right: 1.6rem;
-			width: 2rem;
-			height: 1.2rem;
-			transition: opacity 260ms ease-in-out; // transform 260ms ease-in-out;
-			.cat_line {
-				position: absolute;
-				left: 0;
+			top: 0;
+			right: -4rem; // 1.6rem
+			padding: 1.4rem 1rem;
+			width: 4rem; // inner width: 2rem
+			height: 4rem; // inner height: 1.2rem
+			.filter_icon {
+				position: relative;
 				width: 100%;
-				height: 0.2rem;
+				height: 100%;
 				transition: transform 260ms ease-in-out;
-				.line_bg {
-					height: 100%;
-					background-color: $hsl_red; // default background-color
-				}
-			/*
-				&.line-1 .line_bg,
-				&.line-3 .line_bg {
-					transition: background-color 260ms ease-in-out;
-				}
-				&.line-2 .line_bg {
-					transition: opacity 260ms ease-in-out;
-				}
-			*/
-				// loop through each cat_line and offset from top by 5px (starting at 0px)
-				$numTop: 0;
-				@for $i from 1 through 3 {
-					&.line-#{$i} {
-						top: ($numTop / 10) + rem;
+				.filter_line {
+					position: absolute;
+					left: 0;
+					width: 100%;
+					height: 0.2rem;
+					transition: transform 260ms ease-in-out;
+					.line_bg {
+						height: 100%;
+						background-color: $hsl_red; // default background-color
 					}
-					$numTop: $numTop + 5;
+					&.line-1 .line_bg,
+					&.line-3 .line_bg {
+						transition: transform 260ms ease-in-out, background-color 260ms ease-in-out;
+					}
+					&.line-2 .line_bg {
+						transition: opacity 260ms ease-in-out, background-color 260ms ease-in-out;
+					}
+					// loop through each .filter_line and offset from top by 5px (starting at 0px)
+					$numTop: 0;
+					@for $i from 1 through 3 {
+						&.line-#{$i} {
+							top: ($numTop / 10) + rem;
+						}
+						$numTop: $numTop + 5;
+					}
 				}
 			}
 		}
+
+		// disable use of dropdown nav until iso images have loaded and filterDropdown() has been fired
+		main[data-isotope="waiting"] & {
+			pointer-events: none;
+			color: $hsl_L60;
+			border-color: $hsl_L72;
+			.wrap_toggle .filter_icon .filter_line .line_bg {
+				background-color: $hsl_L72;
+			}
+		}
+
 	}
 
 	// be sure there is no chance ios rubber band will show a different background
@@ -648,71 +624,83 @@ nav.nav_categories {
 	.wrap_dropdown .fix_ios-scroll {
 		background-color: $hsl_red;
 	}
+
 	.wrap_dropdown {
+
 		@include toggleVisibility(off);
 		position: absolute;
 		z-index: 201;
 		top: -12rem;
 		width: 100%;
+		height: 28rem; // height of row (40px) * 7
 		border-radius: 1.3rem;
 		overflow: hidden;
 		transition: opacity 360ms ease-in-out, visibility 360ms ease-in-out; // try to avoid using visibility? not as performant
-		ul li {
-			a {
-				display: block;
-				padding: 1.2rem 1.6rem 1.3rem 1.6rem;
-				font-size: 1.5rem;
-				color: $hsl_bone;
-			}
-			&.cat_current a {
-				pointer-events: none;
-			}
-		}
-		&.scrollable {
-			height: 28rem; // height of row (40px) * 7
-			// required only get to iOS to behave
-			.fix_ios-scroll {
-			/*
-				position: absolute;
-				top: 4.8rem;
-				right: 0;
-				bottom: 0;
-				left: 0;
-			*/
-				@include posCover(absolute, 202);
-				border-radius: 1.3rem;
-				overflow: hidden;
-				-webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC); // required in order to get iOS Chrome to mask the overflow!
-				ul {
-					// padding-top: 0;
-					height: 100%;
-					overflow-x: hidden;
-					overflow-y: scroll;
-					-webkit-overflow-scrolling: touch;
-				/*
-					// + chrome scrollbar + \\
-					&::-webkit-scrollbar {
-						width: 0.4rem;
-						background-color: hsla(0,0%,0%,1);
+
+		// required only get to iOS to behave
+		.fix_ios-scroll {
+
+			@include posCover(absolute, 202);
+			border-radius: 1.3rem;
+			overflow: hidden;
+			-webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC); // required in order to get iOS Chrome to mask the overflow!
+
+			ul {
+				// padding-top: 0;
+				height: 100%;
+				overflow-x: hidden;
+				overflow-y: scroll;
+				-webkit-overflow-scrolling: touch;
+
+				li {
+					span {
+						cursor: pointer;
+						display: block;
+						padding: 1.2rem 1.6rem 1.3rem 1.6rem;
+						font-size: 1.5rem;
+						color: $hsl_bone;
 					}
-					&::-webkit-scrollbar-track {
-						background-color: darken($hsl_bone, 10%);
+					&.filter_current span {
+						pointer-events: none;
 					}
-					&::-webkit-scrollbar-thumb {
-						background-color: $hsl_yellow;
-					}
-				*/
 				}
+
+
+/*
+				// + chrome scrollbar + \\
+				&::-webkit-scrollbar {
+					width: 0.4rem;
+					background-color: hsla(0,0%,0%,1);
+				}
+				&::-webkit-scrollbar-track {
+					background-color: darken($hsl_bone, 10%);
+				}
+				&::-webkit-scrollbar-thumb {
+					background-color: $hsl_yellow;
+				}
+*/
+
+
 			}
 
 		}
+
 	}
 
-	// + toggled category dropdown + \\
+	// + toggled filter dropdown + \\
 	&.toggled {
 		z-index: 500;
-		a.cat_trigger .cat_icon {
-			opacity: 0;
+		a.filter_trigger .wrap_toggle .filter_icon {
+			transform: rotate(180deg);
+			.line-1 {
+				transform: translate3d(0,0.5rem,0) rotate(-45deg);
+			}
+			.line-2 .line_bg {
+				opacity: 0;
+			}
+			.line-3 {
+				transform: translate3d(0,-0.5rem,0) rotate(45deg);
+			}
 		}
 		.wrap_dropdown {
 			@include toggleVisibility(on);
@@ -721,7 +709,7 @@ nav.nav_categories {
 	}
 
 	// collection is 0 based, so we actually have a total of 17 items...
-	// the assumption is there will only ever be this exact amount of categories
+	// the assumption is there will only ever be this exact amount of tags/filters
 	// everything between 2 and 14 is -120rem
 	&[data-index="0"]  .wrap_dropdown { top:  0rem;  }
 	&[data-index="1"]  .wrap_dropdown { top: -4rem;  }
@@ -1010,32 +998,38 @@ aside {
 // Projects Main
 // ----------------------------------------------------------------------------
 section.projects_main {
-	text-align: center;
-	article {
+	.wrap_column {
 		margin-bottom: 3.2rem;
+		text-align: center;
 		&:last-child {
 			margin-bottom: 0;
 		}
-		h3 {
-			margin-bottom: 0.6rem;
-			font-size: 1.5rem;
-			line-height: 1.3;
-			&:first-child {
-				font-weight: 800;
-				text-transform: uppercase;
-				color: $hsl_navy;
-			}
+		article {
+			margin-bottom: 3.2rem;
 			&:last-child {
 				margin-bottom: 0;
 			}
-			a {
-				color: $hsl_cyan;
-				transition: color 260ms ease-in-out;
-				&:hover {
-					color: $hsl_red;
+			h3 {
+				margin-bottom: 0.6rem;
+				font-size: 1.5rem;
+				line-height: 1.3;
+				&:first-child {
+					font-weight: 800;
+					text-transform: uppercase;
+					color: $hsl_navy;
 				}
-				&:active {
-					color: darken($hsl_red, 10%);
+				&:last-child {
+					margin-bottom: 0;
+				}
+				a {
+					color: $hsl_cyan;
+					transition: color 260ms ease-in-out;
+					&:hover {
+						color: $hsl_red;
+					}
+					&:active {
+						color: darken($hsl_red, 10%);
+					}
 				}
 			}
 		}
@@ -1046,7 +1040,6 @@ section.projects_main {
 // ----------------------------------------------------------------------------
 section.projects_single {
 	article.projects_post {
-
 		.projects_header {
 			margin-bottom: 2rem;
 			text-align: center;
@@ -1063,7 +1056,6 @@ section.projects_single {
 				}
 			}
 		}
-
 		figure.projects_figure {
 			margin-bottom: 3.2rem;
 			border-bottom: 0.3rem solid $hsl_cyan;
@@ -1085,7 +1077,6 @@ section.projects_single {
 				}
 			}
 		}
-
 		.wrap_content {
 			text-align: center;
 			.wrap_credits {
@@ -1101,7 +1092,6 @@ section.projects_single {
 				}
 			}
 		}
-
 	}
 }
 
@@ -1111,48 +1101,43 @@ section.projects_single {
 
 // Press Shared
 // ----------------------------------------------------------------------------
-article.press_post {
-
+section.press_section {
 	margin-bottom: 3.2rem;
-	padding-bottom: 3.2rem;
-	border-bottom: 0.1rem solid $hsl_red;
-
-	.press_feature {
-		margin-bottom: 2rem;
-	}
-
-	header {
-		margin-bottom: 2rem;
-		h3 {
-			margin-bottom: 1rem;
-			font-size: 1.9rem;
-			line-height: 1.2;
-			color: $hsl_navy;
-			a {
+	article.press_post {
+		.press_feature {
+			margin-bottom: 2rem;
+		}
+		header {
+			margin-bottom: 2rem;
+			h3 {
+				margin-bottom: 1rem;
+				font-size: 1.9rem;
+				line-height: 1.2;
 				color: $hsl_navy;
-				transition: color 260ms ease-in-out;
-				&:hover {
-					color: $hsl_cyan; // default :hover color
-				}
-				&:active {
-					color: darken($hsl_cyan, 10%); // default :active color
+				a {
+					color: $hsl_navy;
+					transition: color 260ms ease-in-out;
+					&:hover {
+						color: $hsl_cyan; // default :hover color
+					}
+					&:active {
+						color: darken($hsl_cyan, 10%); // default :active color
+					}
 				}
 			}
+			time {
+				font-size: 1.2rem;
+				color: $hsl_ash;
+			}
 		}
-		time {
-			font-size: 1.2rem;
-			color: $hsl_ash;
+		.the_content.press_content {
+			margin-bottom: 3.2rem;
+		}
+		.press_author p {
+			font-size: 1.4rem;
+			color: $hsl_navy;
 		}
 	}
-
-	.press_content {
-		margin-bottom: 3.2rem;
-	}
-	.press_author p {
-		font-size: 1.4rem;
-		color: $hsl_navy;
-	}
-
 }
 section.press_sidebar {
 	nav.wrap_press-links {
@@ -1166,10 +1151,9 @@ section.press_sidebar {
 // Press Main
 // ----------------------------------------------------------------------------
 section.press_main {
-
-	margin-bottom: 3.2rem;
-
 	article.press_post {
+		margin-bottom: 3.2rem;
+		padding-bottom: 3.2rem;
 		border-bottom: 0.1rem solid $hsl_red; // default border-bottom-color
 		@for $i from 1 through length($arrRainbowValues) {
 			&:nth-child(#{$i}) {
@@ -1184,7 +1168,7 @@ section.press_main {
 				}
 				// content links are 'cyan', so we need to choose a different :hover/:active style for the 5th iteration
 				$contentLinkColor: if($i == 5, $hsl_navy, nth($arrRainbowValues, $i));
-				& .the_content a {
+				& .the_content.press_content a {
 					&:hover {
 						color: $contentLinkColor;
 					}
@@ -1205,7 +1189,6 @@ section.press_main {
 			}
 		}
 	}
-
 	nav.press_pagination {
 		ul {
 			display: flex;
@@ -1260,7 +1243,11 @@ section.press_main {
 			display: block;
 		}
 	}
+}
 
+// Press Single
+// ----------------------------------------------------------------------------
+section.press_single {
 }
 
 
@@ -1269,20 +1256,27 @@ section.press_main {
 
 // Pages IDs
 // ----------------------------------------------------------------------------
-#home main,
-#people main {
+body.home main,
+body.post-type-archive-people main {
 	@include container(1640);
 }
-#press main,
-#projects main {
+body.page main,
+body.single main, // assuming the 'people single' page uses the same width container
+body.post-type-archive-press main,
+body.post-type-archive-projects main {
 	@include container(946);
 }
 // need to compensate for both #home iso and #people article margin-bottoms with the footer padding-top
-#home footer.page_footer {
+body.home footer.page_footer {
 	padding-top: 8rem; // 100px - 20px
 }
-#people footer.page_footer {
+body.post-type-archive-people footer.page_footer {
 	padding-top: 5.2rem; // 100px - 48px
+}
+
+// Page Default
+// ----------------------------------------------------------------------------
+.the_content.page_content {
 }
 
 // People
@@ -1372,39 +1366,39 @@ a.link_people-all {
 // Alternating Colours
 // ----------------------------------------------------------------------------
 // + red links + \\
-nav.nav_categories[data-color="red"] a.cat_trigger { color: $hsl_red; border-color: $hsl_red; }
-nav.nav_categories .wrap_dropdown ul li a.color_red,
-nav.nav_categories[data-color="red"] a.cat_trigger .cat_icon .cat_line .line_bg { background-color: $hsl_red; }
+nav.nav_filter[data-color="red"] a.filter_trigger { color: $hsl_red; border-color: $hsl_red; }
+nav.nav_filter .wrap_dropdown ul li span.color_red,
+nav.nav_filter[data-color="red"] a.filter_trigger .wrap_toggle .filter_icon .filter_line .line_bg { background-color: $hsl_red; }
 footer.page_footer h6 a.color_red:hover { color: $hsl_red; }
 footer.page_footer h6 a.color_red:active { color: darken($hsl_red, 20%); }
 // + orange links + \\
-nav.nav_categories[data-color="orange"] a.cat_trigger { color: $hsl_orange; border-color: $hsl_orange; }
-nav.nav_categories .wrap_dropdown ul li a.color_orange,
-nav.nav_categories[data-color="orange"] a.cat_trigger .cat_icon .cat_line .line_bg { background-color: $hsl_orange; }
+nav.nav_filter[data-color="orange"] a.filter_trigger { color: $hsl_orange; border-color: $hsl_orange; }
+nav.nav_filter .wrap_dropdown ul li span.color_orange,
+nav.nav_filter[data-color="orange"] a.filter_trigger .wrap_toggle .filter_icon .filter_line .line_bg { background-color: $hsl_orange; }
 footer.page_footer h6 a.color_orange:hover { color: $hsl_orange; }
 footer.page_footer h6 a.color_orange:active { color: darken($hsl_orange, 20%); }
 // + yellow links + \\
-nav.nav_categories[data-color="yellow"] a.cat_trigger { color: $hsl_yellow; border-color: $hsl_yellow; }
-nav.nav_categories .wrap_dropdown ul li a.color_yellow,
-nav.nav_categories[data-color="yellow"] a.cat_trigger .cat_icon .cat_line .line_bg { background-color: $hsl_yellow; }
+nav.nav_filter[data-color="yellow"] a.filter_trigger { color: $hsl_yellow; border-color: $hsl_yellow; }
+nav.nav_filter .wrap_dropdown ul li span.color_yellow,
+nav.nav_filter[data-color="yellow"] a.filter_trigger .wrap_toggle .filter_icon .filter_line .line_bg { background-color: $hsl_yellow; }
 footer.page_footer h6 a.color_yellow:hover { color: $hsl_yellow; }
 footer.page_footer h6 a.color_yellow:active { color: darken($hsl_yellow, 20%); }
 // + aqua links + \\
-nav.nav_categories[data-color="aqua"] a.cat_trigger,
-nav.nav_categories[data-current="*"] a.cat_trigger { color: $hsl_aqua; border-color: $hsl_aqua; }
-nav.nav_categories .wrap_dropdown ul li a.color_aqua,
-nav.nav_categories .wrap_dropdown ul li:nth-child(1) a,
-nav.nav_categories[data-color="aqua"] a.cat_trigger .cat_icon .cat_line .line_bg,
-nav.nav_categories[data-current="*"] a.cat_trigger .cat_icon .cat_line .line_bg { background-color: $hsl_aqua; }
+nav.nav_filter[data-color="aqua"] a.filter_trigger,
+nav.nav_filter[data-current="*"] a.filter_trigger { color: $hsl_aqua; border-color: $hsl_aqua; }
+nav.nav_filter .wrap_dropdown ul li span.color_aqua,
+nav.nav_filter .wrap_dropdown ul li:nth-child(1) span,
+nav.nav_filter[data-color="aqua"] a.filter_trigger .wrap_toggle .filter_icon .filter_line .line_bg,
+nav.nav_filter[data-current="*"] a.filter_trigger .wrap_toggle .filter_icon .filter_line .line_bg { background-color: $hsl_aqua; }
 footer.page_footer h6 a.color_aqua:hover { color: $hsl_aqua; }
 footer.page_footer h6 a.color_aqua:active { color: darken($hsl_aqua, 20%); }
 // + cyan links + \\
-nav.nav_categories[data-color="cyan"] a.cat_trigger,
-nav.nav_categories[data-current=".curated"] a.cat_trigger { color: $hsl_cyan; border-color: $hsl_cyan; }
-nav.nav_categories .wrap_dropdown ul li a.color_cyan,
-nav.nav_categories .wrap_dropdown ul li:nth-child(2) a,
-nav.nav_categories[data-color="cyan"] a.cat_trigger .cat_icon .cat_line .line_bg,
-nav.nav_categories[data-current=".curated"] a.cat_trigger .cat_icon .cat_line .line_bg { background-color: $hsl_cyan; }
+nav.nav_filter[data-color="cyan"] a.filter_trigger,
+nav.nav_filter[data-current=".curated"] a.filter_trigger { color: $hsl_cyan; border-color: $hsl_cyan; }
+nav.nav_filter .wrap_dropdown ul li span.color_cyan,
+nav.nav_filter .wrap_dropdown ul li:nth-child(2) span,
+nav.nav_filter[data-color="cyan"] a.filter_trigger .wrap_toggle .filter_icon .filter_line .line_bg,
+nav.nav_filter[data-current=".curated"] a.filter_trigger .wrap_toggle .filter_icon .filter_line .line_bg { background-color: $hsl_cyan; }
 footer.page_footer h6 a.color_cyan:hover { color: $hsl_cyan; }
 footer.page_footer h6 a.color_cyan:active { color: darken($hsl_cyan, 20%); }
 
@@ -1479,8 +1473,8 @@ footer.page_footer {
 	animation: animFadeIn 800ms ease-in-out 1800ms both; // final animated element
 }
 
-// + nav categories + \\
-nav.nav_categories {
+// + nav filter + \\
+nav.nav_filter {
 	animation: animFadeIn 800ms ease-in-out 1200ms both;
 }
 
@@ -1491,11 +1485,13 @@ section.iso_container .iso_loader .wrap_graphics {
 
 // + page sections + \\
 section.people,
-section.projects_main,
-section.projects_single {
+section.press_section,
+section.projects_section {
 	animation: animFadeIn 800ms ease-in-out 1200ms both;
 }
-
+section.press_sidebar {
+	animation: animFadeIn 800ms ease-in-out 1600ms both;
+}
 
 // section.people {
 // 	$numDelay: 1200;
@@ -1511,3 +1507,8 @@ section.projects_single {
 a.link_people-all {
 	animation: animFadeIn 600ms ease-in-out 1200ms both, animBounceUp 600ms $easeBounce 1200ms both;
 }
+
+
+
+
+// SHOULD I DECLARE ANIMATION NONE FOR THINGS LIKE SECTION FADES ???

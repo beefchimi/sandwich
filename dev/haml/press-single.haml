@@ -1,0 +1,46 @@
+!!!
+/[if IE 9] <html class="ie9" lang="en">
+<!--[if gt IE 9]><!-->
+%html{:lang => "en", "data-ready" => "waiting", "data-overflow" => "scrollable"}<>
+	<!--<![endif]-->
+
+	= Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render(Object.new, :locals => 'Press')
+
+	%body#press.single.single-press.postid-03
+
+		#svgInject.visuallyhidden
+			/ inject:svg
+			/ endinject
+
+		= Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render(Object.new, :locals => 'press')
+
+		%main{:role => "main"}
+
+			%section.press_single.press_section
+
+				%article{:id => "press-01", :class => "press_post"}
+
+					.press_feature
+						%img{:src => "assets/img/temp_press.jpg", :alt => ""}
+
+					%header
+						%h3 This is a Very Long, Multi-Line Headline for a Piece of News
+						%time{:datetime => "2016-08-13T23:59:59-02:00"} July 13, 2016
+
+					.the_content.press_content
+						-# = Haml::Engine.new(File.read("dev/haml/partials/_html_content-page.haml")).render
+						= Haml::Engine.new(File.read("dev/haml/partials/_html_content-press.haml")).render
+
+					.press_author
+						%p by Adam
+
+				-# consider a back/next pagi nav
+				-# = Haml::Engine.new(File.read("dev/haml/partials/_nav_pagination.haml")).render
+
+			= Haml::Engine.new(File.read("dev/haml/partials/_html_sidebar.haml")).render
+
+			.press_corner
+				- (1..5).each do |i|
+					%div{:class => "corner_stripe-#{i}"}
+
+		= Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render

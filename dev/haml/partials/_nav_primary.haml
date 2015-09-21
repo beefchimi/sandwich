@@ -1,0 +1,32 @@
+%nav#nav_primary.nav_primary
+
+	%a#nav_toggle.nav_toggle{:href => "#", :title => "Toggle Menu"}
+		.nav_icon
+			.nav_line.line-1
+				.line_bg
+			.nav_line.line-2
+				.line_bg
+			.nav_line.line-3
+				.line_bg
+
+	.wrap_nav
+		%ul
+			%li
+				%a.color_random{:href => "projects.html", :title => "Projects"} Projects
+			%li
+				%a.color_random{:href => "people.html", :title => "People"} People
+			%li
+				%a.color_random{:href => "page.html", :title => "How it Works"} How it Works
+			%li
+				%a.color_random{:href => "press.html", :title => "Press"} Press
+			%li
+				%a.color_random{:href => "contact.html", :title => "Contact"} Contact
+			%li#nav_twitter.nav_twitter
+				%a.color_random{:href => "https://twitter.com/sandwich", :title => "Follow @sandwich", :target => "_blank"} @sandwich
+			- if locals == 'home'
+				%li#nav_search.nav_search
+					%form#search_projects{:action => "/search", :method => "get", :role => "search"}
+						%input#filter_search{:type => "text", :name => "search", :value => "", :autocomplete => "off", :placeholder => "Find a specific video", :required => true}
+						-# %input.search_submit{:type => "submit", :value => "Search"}
+						-# not using .wrap_svg because of pointer-event support
+						= Haml::Engine.new(File.read("dev/haml/partials/_svg_search.haml")).render
