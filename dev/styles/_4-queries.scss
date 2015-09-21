@@ -183,24 +183,31 @@
 
 	// People
 	// ----------------------------------------------------------------------------
-	section.people {
+	section.people_main {
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: space-around; // center; // space-between; // space-around;
-		// margin-top: -3.2rem;
-		margin-left: -3.2rem;
+		justify-content: center; // center; // space-between; // space-around;
+		// margin-left: -3.2rem;
 		article {
 			@include container(reset);
-			flex: 0 1 calc(50% - 3.2rem);
-			max-width: 22rem;
-			margin-left: 3.2rem;
+			// flex: 0 1 calc(50% - 3.2rem);
+			// margin-left: 3.2rem;
+			// max-width: 22rem;
 			margin-bottom: 3.2rem;
+			width: calc(50% - 1.6rem); // 46.428571%;
 			text-align: left;
+			&:nth-child(odd) {
+				margin-right: 3.2rem; // 7.142857%;
+			}
+			&:last-child {
+				margin-right: 0;
+			}
 			img {
+				max-width: 100%;
 				// max-width: 100%; does not seem to play nice with flexbox
-				@include container(reset);
-				width: 100%;
-				height: auto;
+				// @include container(reset);
+				// width: 100%;
+				// height: auto;
 			}
 		}
 	}
@@ -210,13 +217,14 @@
 
 @media only screen and (min-width: 568px) {
 
-// ==|== projects =============================================================
+// ==|== main styles ==========================================================
 // ============================================================================
 
-	// Projects Main
+	// Shared Content
 	// ----------------------------------------------------------------------------
+
 /*
-	section.projects_main {
+	section.archive_list {
 		columns: 2;
 		article {
 			break-inside: avoid;
@@ -224,7 +232,8 @@
 	}
 */
 
-	section.projects_main {
+	// --- Archive List --- \\
+	section.archive_list {
 		display: flex;
 		flex-wrap: nowrap;
 		.wrap_column {
@@ -247,11 +256,22 @@
 
 	// People
 	// ----------------------------------------------------------------------------
-	section.people {
-		margin-left: -2rem;
+	section.people_main {
+		// margin-left: -2rem;
 		article {
-			flex: 0 1 calc(33.3333333% - 2rem);
-			margin-left: 2rem;
+			// flex: 0 1 calc(33.3333333% - 2rem);
+			// margin-left: 2rem;
+			width: calc(33.3333333% - 2rem);
+			&:nth-child(odd) {
+				margin-right: 0;
+			}
+			&:nth-child(3n-1),
+			&:nth-child(3n-2) {
+				margin-right: 3rem;
+			}
+			&:last-child {
+				margin-right: 0;
+			}
 		}
 	}
 
@@ -914,12 +934,20 @@
 	body.post-type-archive-people main {
 		position: relative;
 	}
-	section.people {
-		margin-left: -4rem;
+	section.people_main {
+		// margin-left: -4rem;
 		article {
-			flex: 0 1 calc(33.3333333% - 4rem);
-			margin-left: 4rem;
+			// flex: 0 1 calc(33.3333333% - 4rem);
+			// margin-left: 4rem;
 			margin-bottom: 6.4rem;
+			width: calc(33.3333333% - 4rem);
+			&:nth-child(3n-1),
+			&:nth-child(3n-2) {
+				margin-right: 6rem;
+			}
+			&:last-child {
+				margin-right: 0;
+			}
 		}
 	}
 	a.link_people-all {
@@ -1084,6 +1112,26 @@
 			}
 		}
 	}
+	// --- Archive List --- \\
+
+/*
+	section.archive_list {
+		columns: 3;
+	}
+*/
+
+	section.archive_list .wrap_column {
+		&.column-1 {
+			padding-right: 4rem;
+		}
+		&.column-2 {
+			padding-left: 2rem;
+			padding-right: 2rem;
+		}
+		&.column-3 {
+			padding-left: 4rem;
+		}
+	}
 
 	// Isotope
 	// ----------------------------------------------------------------------------
@@ -1114,27 +1162,6 @@
 
 // ==|== projects =============================================================
 // ============================================================================
-
-	// Projects Main
-	// ----------------------------------------------------------------------------
-/*
-	section.projects_main {
-		columns: 3;
-	}
-*/
-
-	section.projects_main .wrap_column {
-		&.column-1 {
-			padding-right: 4rem;
-		}
-		&.column-2 {
-			padding-left: 2rem;
-			padding-right: 2rem;
-		}
-		&.column-3 {
-			padding-left: 4rem;
-		}
-	}
 
 	// Projects Single Post
 	// ----------------------------------------------------------------------------
@@ -1169,9 +1196,22 @@
 
 	// People
 	// ----------------------------------------------------------------------------
-	section.people {
+	section.people_main {
 		article {
-			flex: 0 1 calc(25% - 4rem);
+			// flex: 0 1 calc(25% - 4rem);
+			width: calc(25% - 4rem);
+			&:nth-child(3n-1),
+			&:nth-child(3n-2) {
+				margin-right: 0;
+			}
+			&:nth-child(4n-1),
+			&:nth-child(4n-2),
+			&:nth-child(4n-3) {
+				margin-right: 5.3rem;
+			}
+			&:last-child {
+				margin-right: 0;
+			}
 		}
 	}
 	a.link_people-all {
@@ -1358,9 +1398,24 @@
 
 	// People
 	// ----------------------------------------------------------------------------
-	section.people {
+	section.people_main {
 		article {
-			flex: 0 1 calc(20% - 4rem);
+			// flex: 0 1 calc(20% - 4rem);
+			width: calc(20% - 4rem);
+			&:nth-child(4n-1),
+			&:nth-child(4n-2),
+			&:nth-child(4n-3) {
+				margin-right: 0rem;
+			}
+			&:nth-child(5n-1),
+			&:nth-child(5n-2),
+			&:nth-child(5n-3),
+			&:nth-child(5n-4) {
+				margin-right: 5rem;
+			}
+			&:last-child {
+				margin-right: 0;
+			}
 		}
 	}
 	a.link_people-all {
@@ -1475,12 +1530,23 @@
 
 	// People
 	// ----------------------------------------------------------------------------
-	section.people {
+	section.people_main {
+/*
 		margin-left: -13.5rem;
 		// breaks into 6 columns right before this... would love to address that so it never exceeds 5
 		article {
 			flex: 0 1 22rem;
 			margin-left: 13.5rem;
+		}
+*/
+		article {
+			width: calc(20% - 10.8rem); // 220px / 1640px = 13.414634%
+			&:nth-child(5n-1),
+			&:nth-child(5n-2),
+			&:nth-child(5n-3),
+			&:nth-child(5n-4) {
+				margin-right: 13.5rem;
+			}
 		}
 	}
 

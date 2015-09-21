@@ -16,7 +16,7 @@
 
 		%main{:role => "main"}
 
-			%a.link_people-all{:href => "#", :title => "See more people"}
+			%a.link_people-all{:href => "people-everyone.html", :title => "See more people"}
 				.wrap_svg.wrap_txt-helped
 					%svg.txt_helped{:viewBox => "0 0 120 61"}
 						%use{"xlink:href" => "#txt_helped"}
@@ -24,7 +24,7 @@
 					%svg.ui_hand{:viewBox => "0 0 45 64"}
 						%use{"xlink:href" => "#ui_hand"}
 
-			%section.people
+			%section.people_main.people_section
 
 				- strBio1 = 'Adam started making these on accident. He literally didn\'t know what a camera was, nor that it was <a href="#">recording</a>, but sure enough, the industry came clamoring for more.'
 				- strBio2 = 'This is a very short and sweet bio about a very special person.'
@@ -47,9 +47,6 @@
 						- if i % 3 == 0
 							%a.person_twitter{:href => "#", :title => "Follow on Twitter"} @twittername
 
-						- if numIndex >= 3
-							- numIndex = 0
-						- else
-							- numIndex = numIndex + 1
+						- numIndex = numIndex >= 3 ? 0 : numIndex += 1
 
 		= Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render

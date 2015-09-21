@@ -127,6 +127,9 @@ header.page_header {
 		&.wrap_tagline-people {
 			max-width: 30.2rem;
 		}
+		&.wrap_tagline-everyone {
+			max-width: 39.9rem;
+		}
 		&.wrap_tagline-press {
 			max-width: 22.8rem;
 		}
@@ -425,6 +428,49 @@ nav.nav_sidebar {
 		}
 	}
 }
+
+
+// --- Archive List --- \\
+section.archive_list {
+	.wrap_column {
+		margin-bottom: 3.2rem;
+		text-align: center;
+		&:last-child {
+			margin-bottom: 0;
+		}
+		article {
+			margin-bottom: 3.2rem;
+			&:last-child {
+				margin-bottom: 0;
+			}
+			h3 {
+				margin-bottom: 0.6rem;
+				font-size: 1.5rem;
+				line-height: 1.3;
+				&:first-child {
+					font-weight: 800;
+					text-transform: uppercase;
+					color: $hsl_navy;
+				}
+				&:last-child {
+					margin-bottom: 0;
+				}
+				a {
+					color: $hsl_cyan;
+					transition: color 260ms ease-in-out;
+					&:hover {
+						color: $hsl_red;
+					}
+					&:active {
+						color: darken($hsl_red, 10%);
+					}
+				}
+			}
+		}
+	}
+}
+
+
 // --- The Content --- \\
 .the_content {
 	color: $hsl_navy;
@@ -995,47 +1041,6 @@ aside {
 // ==|== projects =============================================================
 // ============================================================================
 
-// Projects Main
-// ----------------------------------------------------------------------------
-section.projects_main {
-	.wrap_column {
-		margin-bottom: 3.2rem;
-		text-align: center;
-		&:last-child {
-			margin-bottom: 0;
-		}
-		article {
-			margin-bottom: 3.2rem;
-			&:last-child {
-				margin-bottom: 0;
-			}
-			h3 {
-				margin-bottom: 0.6rem;
-				font-size: 1.5rem;
-				line-height: 1.3;
-				&:first-child {
-					font-weight: 800;
-					text-transform: uppercase;
-					color: $hsl_navy;
-				}
-				&:last-child {
-					margin-bottom: 0;
-				}
-				a {
-					color: $hsl_cyan;
-					transition: color 260ms ease-in-out;
-					&:hover {
-						color: $hsl_red;
-					}
-					&:active {
-						color: darken($hsl_red, 10%);
-					}
-				}
-			}
-		}
-	}
-}
-
 // Projects Single Post
 // ----------------------------------------------------------------------------
 section.projects_single {
@@ -1263,7 +1268,8 @@ body.post-type-archive-people main {
 body.page main,
 body.single main, // assuming the 'people single' page uses the same width container
 body.post-type-archive-press main,
-body.post-type-archive-projects main {
+body.post-type-archive-projects main,
+body.post-type-archive-people-everyone main {
 	@include container(946);
 }
 // need to compensate for both #home iso and #people article margin-bottoms with the footer padding-top
@@ -1281,7 +1287,7 @@ body.post-type-archive-people footer.page_footer {
 
 // People
 // ----------------------------------------------------------------------------
-section.people {
+section.people_main {
 	article {
 		@include container(320);
 		margin-bottom: 4.8rem;
@@ -1484,7 +1490,7 @@ section.iso_container .iso_loader .wrap_graphics {
 }
 
 // + page sections + \\
-section.people,
+section.people_main,
 section.press_section,
 section.projects_section {
 	animation: animFadeIn 800ms ease-in-out 1200ms both;
@@ -1493,7 +1499,7 @@ section.press_sidebar {
 	animation: animFadeIn 800ms ease-in-out 1600ms both;
 }
 
-// section.people {
+// section.people_main {
 // 	$numDelay: 1200;
 // 	@for $i from 1 through 20 {
 // 		article:nth-child(#{$i}) {

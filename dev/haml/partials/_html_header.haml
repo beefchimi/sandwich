@@ -42,11 +42,13 @@
 	- viewboxProjects = '0 0 153 11'
 	- taglinePeople   = 'These are the core people who make Sandwich Video what it is.'
 	- viewboxPeople   = '0 0 302 31'
+	- taglineEveryone = 'Here\'s where to find out about all the talented people who\'ve helped make the videos.'
+	- viewboxEveryone = '0 0 399 31'
 	- taglinePress    = 'Catch up on how we\'re doing here at Sandwich.'
 	- viewboxPress    = '0 0 228 31'
 
 	-# determine which tagline markup to use based on locals variable
-	- arrTaglines = { 'home' => [taglineHome, viewboxHome], 'projects' => [taglineProjects, viewboxProjects], 'people' => [taglinePeople, viewboxPeople], 'press' => [taglinePress, viewboxPress] }
+	- arrTaglines = { 'home' => [taglineHome, viewboxHome], 'projects' => [taglineProjects, viewboxProjects], 'people' => [taglinePeople, viewboxPeople], 'everyone' => [taglineEveryone, viewboxEveryone], 'press' => [taglinePress, viewboxPress] }
 
 	- if locals != 'page'
 		%div{:class => "wrap_svg wrap_tagline wrap_tagline-#{locals}"}
