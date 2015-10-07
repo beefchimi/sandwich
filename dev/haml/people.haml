@@ -26,10 +26,10 @@
 
 			%section.people_main.people_section
 
-				- strBio1 = 'Adam started making these on accident. He literally didn\'t know what a camera was, nor that it was <a href="#">recording</a>, but sure enough, the industry came clamoring for more.'
+				- strBio1 = 'Adam started making these on accident. He literally didn\'t know what a camera was, nor that it was <a href="#">recording</a>, but... <a href="people-single.html" class="link_read-more">Read more</a>'
 				- strBio2 = 'This is a very short and sweet bio about a very special person.'
-				- strBio3 = 'I must not demonstrate just how long a single paragraph bio could get. <a href="#">Duis aute irure dolor</a> in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla... <a href="#" class="link_read-more">Read more</a>'
-				- strBio4 = 'Shadie started producing for Sandwich in 2012 as a freelancer, and now serves as Executive Producer. He is also Vice President of the Board of Directors at Cinefamily and a Magi... <a href="#" class="link_read-more">Read more</a>'
+				- strBio3 = 'I must not demonstrate just how long a single paragraph bio could get. <a href="people-single.html">Duis aute irure dolor</a> in reprehenderit in... <a href="people-single.html" class="link_read-more">Read more</a>'
+				- strBio4 = 'Shadie started producing for Sandwich in 2012 as a freelancer, and now serves as Executive Producer. He... <a href="people-single.html" class="link_read-more">Read more</a>'
 
 				- arrBios  = [strBio1, strBio2, strBio3, strBio4]
 				- numIndex = 0
@@ -37,8 +37,10 @@
 				- (1..10).each do |i|
 					%article{:id => "people-#{i}", :class => "person"}
 
-						%img{:src => "assets/img/temp_people.jpg", :alt => ""}
-						%h3.person_name Employee Name ##{i}
+						%a.link_img{:href => "#", :title => "See Full Bio"}
+							%img{:src => "assets/img/temp_people.jpg", :alt => ""}
+						%h3.person_name
+							%a.link_name{:href => "#", :title => "See Full Bio"} Employee Name ##{i}
 						%h3.person_role Role ##{i}
 
 						.person_bio
