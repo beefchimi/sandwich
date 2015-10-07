@@ -36,22 +36,27 @@
 		%div{:class => "wrap_svg wrap_logo-video wrap_video-#{classVideoSVG}"}
 			= Haml::Engine.new(File.read("dev/haml/partials/_svg_video-#{classVideoSVG}.haml")).render
 
-	- taglineHome     = 'We make videos and TV commercials. Here are some.'
+	- taglineHome     = 'We make videos and TV commercials.<br> Here are some.'
 	- viewboxHome     = '0 0 303 31'
 	- taglineProjects = 'So many projects.'
 	- viewboxProjects = '0 0 153 11'
-	- taglinePeople   = 'These are the core people who make Sandwich Video what it is.'
+	- taglinePeople   = 'These are the core people who make<br> Sandwich Video what it is.'
 	- viewboxPeople   = '0 0 302 31'
-	- taglineEveryone = 'Here\'s where to find out about all the talented people who\'ve helped make the videos.'
+	- taglineEveryone = 'Here\'s where to find out about all the<br> talented people who\'ve helped make the videos.'
 	- viewboxEveryone = '0 0 399 31'
-	- taglinePress    = 'Catch up on how we\'re doing here at Sandwich.'
+	- taglinePress    = 'Catch up on how we\'re doing<br> here at Sandwich.'
 	- viewboxPress    = '0 0 228 31'
+	- taglineContact  = 'Want to work with us? We love email.'
+	- viewboxContact  = '0 0 0 0'
 
 	-# determine which tagline markup to use based on locals variable
-	- arrTaglines = { 'home' => [taglineHome, viewboxHome], 'projects' => [taglineProjects, viewboxProjects], 'people' => [taglinePeople, viewboxPeople], 'everyone' => [taglineEveryone, viewboxEveryone], 'press' => [taglinePress, viewboxPress] }
+	- arrTaglines = { 'home' => [taglineHome, viewboxHome], 'projects' => [taglineProjects, viewboxProjects], 'people' => [taglinePeople, viewboxPeople], 'everyone' => [taglineEveryone, viewboxEveryone], 'press' => [taglinePress, viewboxPress], 'contact' => [taglineContact, viewboxContact] }
 
+	-# currently, the 'How It Works' page is the only one to not include a tagline...
+	-# but this should be allowed for all pages, just don't output the markup in Wordpress if no input is detected
 	- if locals != 'page'
-		%div{:class => "wrap_svg wrap_tagline wrap_tagline-#{locals}"}
-			%h2.visuallyhidden #{arrTaglines[locals][0]}
-			%svg.tagline_home{:viewBox => "#{arrTaglines[locals][1]}"}
-				%use{"xlink:href" => "#tagline_#{locals}"}
+		-# .wrap_svg
+		%div{:class => "wrap_tagline wrap_tagline-#{locals}"}
+			%h2 #{arrTaglines[locals][0]}
+			-# %svg.tagline_home{:viewBox => "#{arrTaglines[locals][1]}"}
+				-# %use{"xlink:href" => "#tagline_#{locals}"}

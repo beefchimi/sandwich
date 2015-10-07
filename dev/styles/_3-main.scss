@@ -56,7 +56,6 @@ header.page_header {
 
 	// [ nav_primary moved below for cleaner code ] \\
 
-
 	a.logo_main {
 		display: block; // UNTIL WEBKIT FIXES SVG ANIMATIONS WITHIN AN <a> TAG, THIS CAN'T BE USED :(
 	}
@@ -115,6 +114,19 @@ header.page_header {
 
 	.wrap_tagline {
 		margin: 3.2rem auto 0 auto;
+		h2 {
+			font-family: 'futura-pt',  Futura, 'Trebuchet MS', Arial, sans-serif;
+			font-size: 1.3rem;
+			font-weight: 800;
+			font-style: italic;
+			line-height: 1.4;
+			text-transform: uppercase;
+			color: $hsl_navy;
+			br {
+				display: none;
+			}
+		}
+/*
 		svg {
 			fill: $hsl_navy;
 		}
@@ -133,6 +145,7 @@ header.page_header {
 		&.wrap_tagline-press {
 			max-width: 22.8rem;
 		}
+*/
 	}
 
 }
@@ -410,20 +423,21 @@ nav.nav_sidebar {
 		color: $hsl_cyan;
 	}
 	ul li {
-		margin-bottom: 1.6rem;
-		font-size: 1.5rem;
-		&:last-child {
-			margin-bottom: 0;
-		}
 		a {
-			line-height: 1.2;
+			display: inline-block;
 			color: $hsl_cyan;
 			transition: color 260ms ease-in-out;
 			&:hover {
 				color: $hsl_red; // tried navy, was too dark!
 			}
 			&:active {
-				color: darken($hsl_red, 10%);
+				color: lighten($hsl_red, 10%); // darken($hsl_red, 10%);
+				// technically, the image should darken as well... but I can only do this if it is an SVG
+			}
+			p {
+				display: inline-block;
+				font-size: 1.5rem;
+				line-height: 1.2;
 			}
 		}
 	}
@@ -469,7 +483,6 @@ section.archive_list {
 		}
 	}
 }
-
 
 // --- The Content --- \\
 .the_content {
@@ -575,7 +588,6 @@ section.archive_list {
 	hr, blockquote { margin-top: 3.2rem; margin-bottom: 3.2rem; }
 	p, li { font-size: 1.4rem; }
 	li, th, td { line-height: 1.2; }
-	h1, h2, h3, h4, h5, h6, p, ol, ul, table { @include container(860); }
 	h1:last-child, h2:last-child, h3:last-child, h4:last-child, h5:last-child, h6:last-child,
 	p:last-child, ol:last-child, ul:last-child, li:last-child, hr:last-child, img:last-child, div:last-child, table:last-child, blockquote:last-child { margin-bottom: 0; }
 }
@@ -1096,6 +1108,12 @@ section.projects_single {
 					font-size: 2.2rem;
 				}
 			}
+			nav.wrap_related ul li {
+				margin-bottom: 1.6rem;
+				&:last-child {
+					margin-bottom: 0;
+				}
+			}
 		}
 	}
 }
@@ -1147,9 +1165,99 @@ section.press_section {
 section.press_sidebar {
 	nav.wrap_press-links {
 		margin-bottom: 6.4rem;
+		ul li {
+			margin-bottom: 2.6rem;
+			padding-bottom: 2.6rem;
+			border-bottom: 0.1rem solid $hsl_cyan;
+			&:last-child {
+				margin-bottom: 0;
+				padding-bottom: 0;
+				border-bottom: none;
+			}
+			a {
+				h5,
+				.wrap_press-logo {
+					margin-bottom: 2rem;
+				}
+				.wrap_press-logo {
+					position: relative;
+					max-width: 8.6rem;
+					img {
+						transition: opacity 260ms ease-in-out;
+						&.img_on {
+							position: absolute;
+							top: 0;
+							left: 0;
+							opacity: 0;
+						}
+					}
+				}
+				h5 {
+					font-size: 1.8rem;
+					line-height: 1.2;
+				}
+				&:hover .wrap_press-logo {
+					img.img_off {
+						opacity: 0;
+					}
+					img.img_on {
+						opacity: 1;
+					}
+				}
+				&:active .wrap_press-logo {
+					img.img_on {
+						opacity: 0.9;
+					}
+				}
+			}
+		}
 	}
 	a.link_story {
-		@include blockCircle(120, $hsl_cyan);
+		@include blockCircle(188, $hsl_cyan);
+		.wrap_story-lines {
+			position: absolute;
+			top: 4.2rem;
+			left: 0;
+			width: 11.2rem;
+			div {
+				width: 100%;
+				height: 1.6rem;
+				&.story_line-1 {
+					background-color: $hsl_red;
+				}
+				&.story_line-2 {
+					background-color: $hsl_orange;
+				}
+				&.story_line-3 {
+					background-color: $hsl_yellow;
+				}
+			}
+		}
+		.wrap_ui-hand {
+			position: absolute;
+			top: 2.8rem;
+			left: 9rem;
+			width: 5.2rem;
+			transform: rotate(90deg);
+			svg {
+				fill: $hsl_cyan; // webkit behaves differently than FF
+				path {
+					stroke: $hsl_L100;
+					stroke-width: 4;
+				}
+			}
+		}
+		.wrap_txt-story {
+			position: absolute;
+			top: 11rem;
+			left: 50%;
+			right: 0;
+			margin-left: -6.8rem;
+			width: 13.7rem;
+			svg {
+				fill: $hsl_L100;
+			}
+		}
 	}
 }
 
@@ -1160,9 +1268,28 @@ section.press_main {
 		margin-bottom: 3.2rem;
 		padding-bottom: 3.2rem;
 		border-bottom: 0.1rem solid $hsl_red; // default border-bottom-color
+		a.press_feature {
+			display: block;
+			transition: opacity 260ms ease-in-out;
+			&:hover {
+				opacity: 0.9;
+			}
+			&:active {
+				opacity: 1;
+			}
+		}
+		header h3 a {
+			&:hover {
+				color: $hsl_red; // default color
+			}
+			&:active {
+				color: darken($hsl_red, 10%); // default color
+			}
+		}
 		@for $i from 1 through length($arrRainbowValues) {
 			&:nth-child(#{$i}) {
 				border-bottom-color: nth($arrRainbowValues, $i);
+/*
 				& header h3 a {
 					&:hover {
 						color: nth($arrRainbowValues, $i);
@@ -1181,16 +1308,7 @@ section.press_main {
 						color: darken($contentLinkColor, 10%);
 					}
 				}
-			}
-		}
-		a.press_feature {
-			display: block;
-			transition: opacity 260ms ease-in-out;
-			&:hover {
-				opacity: 0.9;
-			}
-			&:active {
-				opacity: 1;
+*/
 			}
 		}
 	}
@@ -1265,12 +1383,17 @@ body.home main,
 body.post-type-archive-people main {
 	@include container(1640);
 }
-body.page main,
 body.single main, // assuming the 'people single' page uses the same width container
 body.post-type-archive-press main,
 body.post-type-archive-projects main,
 body.post-type-archive-people-everyone main {
 	@include container(946);
+}
+body.page-template-default main {
+	@include container(860);
+}
+body.page-template-tpl-contact main {
+	@include container(1140);
 }
 // need to compensate for both #home iso and #people article margin-bottoms with the footer padding-top
 body.home footer.page_footer {
@@ -1282,7 +1405,56 @@ body.post-type-archive-people footer.page_footer {
 
 // Page Default
 // ----------------------------------------------------------------------------
-.the_content.page_content {
+article.page_post {
+}
+
+// Contact
+// ----------------------------------------------------------------------------
+body.page-template-tpl-contact main .the_content {
+	@include container(860);
+	text-align: center;
+}
+.wrap_gmap {
+	margin-top: 4rem;
+	margin-bottom: 4rem;
+	.contact_circle {
+		@include blockCircle(160, $hsl_navy);
+		margin-bottom: 3.2rem;
+		.wrap_address {
+			display: inline-block;
+			line-height: 1;
+			vertical-align: middle;
+		}
+		p {
+			margin-bottom: 0.8rem;
+			font-size: 1.2rem; // 1.6rem;
+			color: $hsl_L100;
+			&:last-child {
+				margin-bottom: 0;
+			}
+			a {
+				color: $hsl_cyan;
+				transition: color 260ms ease-in-out;
+				&:hover {
+					color: lighten($hsl_cyan, 49%); // exactly enough to be 100% L
+				}
+				&:active {
+					color: lighten($hsl_cyan, 36%);
+				}
+			}
+		}
+	}
+	.wrap_img {
+		height: 26rem;
+		overflow-x: hidden;
+		img {
+			position: relative;
+			left: 50%;
+			transform: translateX(-50%);
+			max-width: none;
+			height: 100%;
+		}
+	}
 }
 
 // People
@@ -1312,6 +1484,11 @@ section.people_main {
 			font-size: 1.5rem;
 			line-height: 1.3;
 			color: $hsl_navy;
+			a.link_read-more {
+				text-decoration: underline;
+				white-space: nowrap;
+				// display: inline-block;
+			}
 		}
 		a {
 			color: $hsl_cyan;
@@ -1332,7 +1509,6 @@ a.link_people-all {
 	@include blockCircle(120, $hsl_navy);
 	margin-bottom: 4.2rem;
 	transition: background-color 260ms ease-in-out;
-
 	.wrap_txt-helped {
 		@include container(86);
 		position: relative;
@@ -1352,7 +1528,10 @@ a.link_people-all {
 		transform: translate3d(0,0,0);
 		transition: transform 260ms ease-in-out;
 		svg {
-			fill: $hsl_L100;
+			fill: none; // webkit behaves differently than FF
+			path {
+				stroke: $hsl_L100;
+			}
 		}
 	}
 	&:hover {
@@ -1410,111 +1589,33 @@ footer.page_footer h6 a.color_cyan:active { color: darken($hsl_cyan, 20%); }
 
 // Page Load
 // ----------------------------------------------------------------------------
-
 // + header + \\
-header.page_header .logo_main .wrap_logo-sandwich {
-	animation: animFadeIn 800ms ease-in-out 200ms both;
+nav.nav_primary,
+.logo_main,
+.wrap_tagline {
+	animation: animFadeIn 800ms ease-in-out both;
 }
-header.page_header .wrap_tagline {
-	animation: animFadeIn 800ms ease-in-out 1000ms both; // could transition fill instead?
-}
-
-// + rainbow letters + \\
-$numDelay: 600;
-@for $i from 1 through 5 { // assumes 5 letters
-	// webkit does not seem to handle the animations being paired together, so we split them into 2 selectors
-	svg.logo_video-rainbow g.rainbow_letter-#{$i} {
-		animation: animFadeIn 400ms ease-in-out #{$numDelay}ms both;
-	}
-	svg.logo_video-rainbow g.rainbow_letter-#{$i} path {
-		animation: animBounceUp 400ms $easeBounce #{$numDelay}ms both;
-	}
-	$numDelay: $numDelay + 100;
+// + main + \\
+nav.nav_filter,
+section:not(#iso_container) {
+	animation: animFadeIn 800ms ease-in-out 400ms both;
 }
 
-// + record letters + \\
-$numDelay: 600;
-@for $i from 1 through 6 { // assumes 6 letters
-	svg.logo_video-record g.record_letter-#{$i} {
-		animation: animFadeIn 400ms ease-in-out #{$numDelay}ms both;
-	}
-	svg.logo_video-record g.record_letter-#{$i} path {
-		animation: animBounceUp 400ms $easeBounce #{$numDelay}ms both;
-	}
-	$numDelay: $numDelay + 100;
+section.iso_container .iso_loader .wrap_graphics {
+	animation: animFadeIn 800ms ease-in-out forwards;
 }
 
-// + vhs letters + \\
-$numDelay: 800;
-@for $i from 1 through 5 { // assumes 5 letters
-	svg.logo_video-vhs g path.group_path-#{$i} {
-		animation: animVHSwipe 480ms $easeBounce #{$numDelay}ms both;
-	}
-	$numDelay: $numDelay + 100;
-}
-
-// + nav primary + \\
-nav.nav_primary a.nav_toggle .nav_icon {
-	.line-1 {
-		animation: animSlideInLeft 400ms ease-out 1200ms both;
-	}
-	.line-2 {
-		animation: animSlideInRight 400ms ease-out 1500ms both;
-	}
-	.line-3 {
-		animation: animSlideInLeft 400ms ease-out 1800ms both;
-	}
-	.nav_line .line_bg {
-		animation: animRainbow2NavyBG 1000ms linear 1200ms;
-	}
-	@for $i from 1 through 3 {
-		html[data-ready="ready"] & .line-#{$i} {
-			animation: none;
-		}
-	}
+a.link_people-all {
+	animation: animFadeIn 800ms ease-in-out 400ms both;
 }
 
 // + footer + \\
 footer.page_footer {
-	animation: animFadeIn 800ms ease-in-out 1800ms both; // final animated element
-}
-
-// + nav filter + \\
-nav.nav_filter {
-	animation: animFadeIn 800ms ease-in-out 1200ms both;
-}
-
-// + isotope loader + \\
-section.iso_container .iso_loader .wrap_graphics {
-	animation: animFadeIn 1000ms ease-in-out forwards;
-}
-
-// + page sections + \\
-section.people_main,
-section.press_section,
-section.projects_section {
-	animation: animFadeIn 800ms ease-in-out 1200ms both;
-}
-section.press_sidebar {
-	animation: animFadeIn 800ms ease-in-out 1600ms both;
-}
-
-// section.people_main {
-// 	$numDelay: 1200;
-// 	@for $i from 1 through 20 {
-// 		article:nth-child(#{$i}) {
-// 			animation: animFadeIn 600ms ease-in-out #{$numDelay}ms both, animBounceUp 600ms $easeBounce #{$numDelay}ms both;
-// 		}
-// 		$numDelay: $numDelay + 100;
-// 	}
-// }
-
-
-a.link_people-all {
-	animation: animFadeIn 600ms ease-in-out 1200ms both, animBounceUp 600ms $easeBounce 1200ms both;
+	animation: animFadeIn 800ms ease-in-out 800ms both; // final animated element
 }
 
 
 
 
-// SHOULD I DECLARE ANIMATION NONE FOR THINGS LIKE SECTION FADES ???
+
+

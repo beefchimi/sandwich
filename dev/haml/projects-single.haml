@@ -50,12 +50,16 @@
 							%h4 Related Videos
 							%ul.projects_related
 								%li
-									%a{:href => "#", :title => "See related post"} "June 2.0"
+									%a{:href => "#", :title => "See related post"}
+										%p "June 2.0"
 								%li
-									%a{:href => "#", :title => "See related post"} "More June Ovens Always"
+									%a{:href => "#", :title => "See related post"}
+										%p "More June Ovens Always"
 								%li
-									%a{:href => "#", :title => "See related post"} "It's June Again"
+									%a{:href => "#", :title => "See related post"}
+										%p "It's June Again"
 								%li
-									%a{:href => "#", :title => "See related post"} "Christmas in... June"
+									%a{:href => "#", :title => "See related post"}
+										%p "Christmas in... June"
 
 		= Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render

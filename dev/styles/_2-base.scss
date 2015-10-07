@@ -98,6 +98,7 @@ $easeInOutBack: cubic-bezier(0.680, -0.400, 0.265, 1.400); // was: -0.550 & 1.55
 // $arrRainbowNames: "red", "orange", "yellow", "aqua", "cyan";
 $arrRainbowKeyframes: 0, 26, 44, 74, 82, 100;
 $arrRainbowValues: $hsl_red, $hsl_orange, $hsl_yellow, $hsl_aqua, $hsl_cyan;
+$arrRainbowTriValues: $hsl_red, $hsl_orange, $hsl_yellow;
 $arrPressValues: $hsl_press-1, $hsl_press-2, $hsl_press-3, $hsl_press-4, $hsl_press-5;
 
 // Mixins
@@ -152,13 +153,16 @@ $arrPressValues: $hsl_press-1, $hsl_press-2, $hsl_press-3, $hsl_press-4, $hsl_pr
 	text-align: center;
 }
 @mixin blockCircle($diameter: 100%, $bgColor: transparent) {
-	$diameter: ($diameter / 10) + rem;
+	$diameterREM: ($diameter / 10) + rem;
+	$lineheight:  ((($diameter * 0.05) + $diameter) / 10) + rem; // added 0.5% of original value to visually centre
 	display: block;
 	position: relative;
 	margin-left: auto;
 	margin-right: auto;
-	width: $diameter;
-	height: $diameter;
+	width: $diameterREM;
+	height: $diameterREM;
+	text-align: center;
+	line-height: $lineheight;
 	background-color: $bgColor;
 	border-radius: 50%;
 	overflow: hidden;

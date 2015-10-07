@@ -1,0 +1,42 @@
+!!!
+/[if IE 9] <html class="ie9" lang="en">
+<!--[if gt IE 9]><!-->
+%html{:lang => "en", "data-ready" => "waiting", "data-overflow" => "scrollable"}<>
+	<!--<![endif]-->
+
+	= Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render(Object.new, :locals => 'Contact')
+
+	%body#contact.page.page-id-2.page-template-tpl-contact
+
+		#svgInject.visuallyhidden
+			/ inject:svg
+			/ endinject
+
+		= Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render(Object.new, :locals => 'contact')
+
+		%main{:role => "main"}
+
+			%section.page_main
+
+				%article.page_post
+
+					.the_content.page_content
+						%p <a href="#" title="Email Us">Send us a friendly one</a> with a little about what you&rsquo;re working on, when you want what, for how much, and we&rsquo;ll be happy to answer questions and help you figure out whether it&rsquo;s a good fit.
+
+					.wrap_gmap
+
+						%address.contact_circle
+							.wrap_address
+								%p
+									%a{:href => "#", :title => "Email Us"} inquire@sandwich.co
+								%p 923 E 3rd St. #304
+								%p Los Angeles CA
+								%p 90013
+
+						.wrap_img
+							%img{:src => "assets/img/gmap.jpg", :alt => ""}
+
+					.the_content.page_content
+						%p For casting stuff, please send email to <a href="#" title="Email Casting">casting@sandwich.co</a> and the right people will see it.
+
+		= Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render

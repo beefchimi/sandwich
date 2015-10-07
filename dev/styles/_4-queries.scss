@@ -289,11 +289,22 @@
 		  0% { opacity: 0; transform: translate3d(0,2rem,0); }
 		100% { opacity: 1; transform: translate3d(0,0rem,0); }
 	}
+
+	@keyframes animModalIn {
+		  0% { opacity: 0; transform: translate3d(0,10rem,0); }
+		100% { opacity: 1; transform: translate3d(0,0rem,0); }
+	}
+	@keyframes animModalOut {
+		  0% { opacity: 1; transform: translate3d(0,0rem,0); }
+		100% { opacity: 0; transform: translate3d(0,10rem,0); }
+	}
+
 	@keyframes animBounceUpFade {
 		  0% { transform: translate3d(0, 4.8rem,0); opacity: 0; }
 		 60% { transform: translate3d(0,-0.8rem,0);             }
 		100% { transform: translate3d(0,   0rem,0); opacity: 1; }
 	}
+
 	@keyframes animBounceInUp {
 		  0% { transform: translate3d(0, 300rem,0); opacity: 0; }
 		 60% { transform: translate3d(0,  -2rem,0); opacity: 1; }
@@ -309,6 +320,7 @@
 		100% { transform: translate3d(0,100rem,0); opacity: 0; }
 		// less than initial value of 300rem... animation is too quick otherwise
 	}
+
 	@keyframes animVHSwipe {
 		// update animation from its initial values
 		  0% { transform: translate3d(-1.6rem,0,0); opacity: 0; }
@@ -333,7 +345,8 @@
 			$numAnimPercent: $numAnimPercent + 20;
 		}
 	}
-	// cascading rainbow letters 1 - 5
+
+	// cascading rainbow letters 1 - 5 (ends on final percentage amount - less than 100)
 	$numRainbowStepIndex: 1;
 	@for $i from 1 through length($arrRainbowValues) {
 		@keyframes animRainbowFill-step#{$i} {
@@ -348,6 +361,27 @@
 		}
 		$numRainbowStepIndex: $numRainbowStepIndex + 1; // increment $numRainbowStepIndex by 1 so we can offset each animation
 	}
+
+	// cascading rainbow stripes 1 - 3 (ends on final percentage amount - less than 100)
+	$numRainbowTriIndex: 1;
+	@for $i from 1 through length($arrRainbowTriValues) {
+		@keyframes animRainbowTri-step#{$i} {
+			$numAnimPercent: 0;
+			@each $color in $arrRainbowTriValues {
+				#{$numAnimPercent}% {
+					background-color: nth($arrRainbowTriValues, $numRainbowTriIndex);
+				}
+				$numAnimPercent: $numAnimPercent + 33;
+				$numRainbowTriIndex: if($numRainbowTriIndex == length($arrRainbowTriValues), 1, $numRainbowTriIndex + 1); // once our array has reached its max, reset
+			}
+		}
+		$numRainbowTriIndex: $numRainbowTriIndex + 1; // increment $numRainbowTriIndex by 1 so we can offset each animation
+	}
+
+
+
+
+
 
 // ==|== primary styles =======================================================
 // ============================================================================
@@ -382,6 +416,12 @@
 		}
 		.wrap_tagline {
 			margin-top: 6.4rem;
+			h2 {
+				font-size: 1.4rem;
+				br {
+					display: block;
+				}
+			}
 		}
 	}
 
@@ -469,7 +509,9 @@
 								text-align: left;
 								opacity: 0;
 								cursor: pointer;
-								transition: width 600ms $easeInOutBack, opacity 600ms $easeInOutBack; // runs when entering 768px width... can i prevent?
+								// runs when entering 768px width... can i prevent?
+								// transition: width 600ms $easeInOutBack, opacity 600ms $easeInOutBack;
+								transition: width 260ms ease-in-out, opacity 260ms ease-in-out;
 								&:hover + svg.ui_search path {
 									stroke: $hsl_red;
 								}
@@ -488,10 +530,13 @@
 								width: 2.6rem;
 								height: 2.6rem;
 								path {
+								/*
 									// beginning animation state
 									opacity: 0;
 									stroke-dasharray: 155;
 									stroke-dashoffset: 155;
+								*/
+									transition: stroke 260ms ease-in-out; // moved here since original page load code has been removed
 								}
 							}
 						}
@@ -614,8 +659,10 @@
 								color: darken($hsl_red, 10%); // default colour
 							}
 						}
-						html[data-ready="ready"] &.filter_current span.color_rainbow::before {
-							opacity: 0; // reveal rainbow border after we have animated in all of our filter items... just looks a bit nicer
+						// reveal rainbow border after we have animated in all of our filter items... just looks a bit nicer
+						// html[data-ready="ready"] &.filter_current span.color_rainbow::before
+						&.filter_current span.color_rainbow::before {
+							opacity: 0;
 						}
 					}
 				}
@@ -702,9 +749,17 @@
 			box-shadow: 0 0 3.2rem hsla(0,0%,0%,0.32);
 			overflow-y: auto;
 			-webkit-overflow-scrolling: auto;
+
+/*
 			// last keyframe styles of animBounceOutDown
 			opacity: 0;
 			transform: translate3d(0,300rem,0);
+*/
+
+			// last keyframe styles of animModalOut
+			opacity: 0;
+			transform: translate3d(0,10rem,0);
+
 			header.modal_header {
 				order: 2; // move below figure
 				padding-left: 2rem;
@@ -764,13 +819,15 @@
 			animation: animHide 400ms ease-in-out 400ms both; // delay the modal fade out just enough to be in sync with .modal_content
 			&[data-content="empty"] .modal_content,
 			&[data-content="loaded"] .modal_content {
-				animation: animBounceOutDown 800ms $easeBounce both;
+				// animation: animBounceOutDown 800ms $easeBounce both;
+				animation: animModalOut 320ms ease-in-out both;
 			}
 		}
 		&[data-modal="visible"] {
 			animation: animFadeIn 400ms ease-in-out both;
 			&[data-content="loaded"] .modal_content {
-				animation: animBounceInUp 800ms $easeBounce forwards;
+				// animation: animBounceInUp 800ms $easeBounce forwards;
+				animation: animModalIn 320ms ease-in-out forwards;
 			}
 		}
 
@@ -874,12 +931,59 @@
 	section.press_sidebar {
 		flex: 0 0 18.8rem;
 		nav.wrap_press-links ul li a {
-			font-size: 1.3rem;
+			h5 {
+				font-size: 1.6rem;
+			}
+			p {
+				font-size: 1.3rem;
+			}
 		}
 		a.link_story {
-			width: 18.8rem;
-			height: 18.8rem;
+			transition: background-color 260ms ease-in-out;
+			.wrap_story-lines {
+				div {
+					animation-duration: 320ms;
+					animation-timing-function: steps(1);
+					animation-iteration-count: infinite;
+					animation-direction: reverse;
+					animation-play-state: paused;
+					@for $i from 1 through 3 {
+						&.story_line-#{$i} {
+							animation-name: animRainbowTri-step#{$i};
+						}
+					}
+				}
+			}
+
+			.wrap_ui-hand svg {
+				transition: fill 260ms ease-in-out;
+			}
+
+			&:hover {
+				background-color: darken($hsl_cyan, 4%);
+				.wrap_story-lines div {
+					animation-play-state: running;
+				}
+				.wrap_ui-hand svg {
+					fill: darken($hsl_cyan, 4%);
+				}
+			}
+			&:active {
+				background-color: $hsl_cyan;
+				.wrap_ui-hand svg {
+					fill: $hsl_cyan;
+				}
+			}
 		}
+/*
+		a.link_story:hover .wrap_story-lines div {
+			@for i from 1 through 3 {
+				&.story_line-i {
+					animation: animRainbowTri-stepi 320ms steps(1) infinite reverse;
+				}
+			}
+		}
+*/
 	}
 
 	// Press Main
@@ -927,6 +1031,29 @@
 		hr, img, div, table, blockquote { margin-top: 6.4rem; margin-bottom: 6.4rem; }
 		h1:last-child, h2:last-child, h3:last-child, h4:last-child, h5:last-child, h6:last-child,
 		p:last-child, ol:last-child, ul:last-child, hr:last-child, img:last-child, div:last-child, table:last-child, blockquote:last-child { margin-bottom: 0; }
+	}
+
+	// Contact
+	// ----------------------------------------------------------------------------
+	.wrap_gmap {
+		position: relative;
+		.contact_circle {
+			position: absolute;
+			top: 1rem;
+			right: 1rem;
+			margin-bottom: 0;
+		}
+		.wrap_img {
+			height: auto;
+			overflow-x: visible;
+			img {
+				position: static;
+				left: auto;
+				transform: none;
+				max-width: 100%;
+				height: auto;
+			}
+		}
 	}
 
 	// People
@@ -1006,20 +1133,7 @@
 
 	// Page Load
 	// ----------------------------------------------------------------------------
-	nav.nav_filter,
-	nav.nav_primary a.nav_toggle .nav_icon .nav_line,
-	nav.nav_primary a.nav_toggle .nav_icon .nav_line .line_bg {
-		animation: none !important; // important seems to be required here...
-	}
-
-	// + header + \\
-	html[data-ready="ready"] .logo_main .wrap_logo-sandwich,
-	html[data-ready="ready"] svg.logo_video-rainbow g,
-	html[data-ready="ready"] svg.logo_video-rainbow g path,
-	html[data-ready="ready"] svg.logo_video-vhs g path {
-		animation: none;
-	}
-	html[data-ready="ready"] body.home .logo_main:hover {
+	body.home .logo_main:hover {
 		@for $i from 1 through 5 { // assumes 5 letters
 			.wrap_video-rainbow svg g.rainbow_letter-#{$i} path {
 				animation: animRainbowFill-step#{$i} 400ms steps(1) infinite reverse;
@@ -1032,13 +1146,13 @@
 			animation: animRainbowFill-steps 600ms steps(1) infinite;
 		}
 	}
-	html[data-ready="ready"] body:not(.home) .logo_main {
+	body:not(.home) .logo_main {
 		.wrap_logo-sandwich,
 		.wrap_logo-video {
 			transition: opacity 260ms ease-in-out;
 		}
 	}
-	html[data-ready="ready"] body:not(.home) .logo_main a.fix_webkit-svg {
+	body:not(.home) .logo_main a.fix_webkit-svg {
 		&:hover {
 			@for $i from 1 through 5 { // assumes 5 letters
 				& ~ .wrap_video-rainbow svg g.rainbow_letter-#{$i} path {
@@ -1048,49 +1162,16 @@
 					animation: animRainbowFill-step#{$i} 400ms steps(1) infinite reverse;
 				}
 			}
+/*
 			& ~ .wrap_video-record svg {
 				animation: animRainbowFill-steps 600ms steps(1) infinite;
 			}
+*/
 		}
 		&:active + .wrap_logo-sandwich,
 		&:active ~ .wrap_logo-video {
 			opacity: 0.8;
 		}
-	}
-	header.page_header .wrap_tagline {
-		animation: animSlideUp 400ms ease-in-out 1000ms both;
-	}
-	// + nav primary + \\
-	$numDelay: 600;
-	@for $i from 1 through 5 { // assumes 5 nav items (excluding twitter and search)
-		nav.nav_primary .wrap_nav ul li:nth-child(#{$i}) {
-			animation: animBounceUpFade 400ms $easeBounce #{$numDelay}ms both;
-		}
-		$numDelay: $numDelay + 100;
-	}
-	nav.nav_primary .wrap_nav ul li.nav_twitter {
-		animation: animFadeIn 600ms ease-in-out 1600ms both;
-	}
-	nav.nav_primary .wrap_nav ul li.nav_search form svg.ui_search path {
-		animation: animSVGPath 1000ms $easeBounce 1600ms forwards;
-	}
-	html[data-ready="ready"] nav.nav_primary .wrap_nav ul li.nav_search form svg.ui_search path {
-/*
-		opacity: 1;
-		stroke-dasharray: 0;
-		stroke-dashoffset: 0;
-		animation: none;
-*/
-		transition: stroke 260ms ease-in-out;
-	}
-
-	// + nav filter + \\
-	$numDelay: 1000;
-	@for $i from 1 through 20 { // assume a maximum of 20 nav items
-		nav.nav_filter .wrap_dropdown ul li:nth-child(#{$i}) {
-			animation: animBounceUpFade 300ms $easeBounce #{$numDelay}ms both;
-		}
-		$numDelay: $numDelay + 40;
 	}
 
 }
@@ -1194,6 +1275,24 @@
 // ==|== page styles ==========================================================
 // ============================================================================
 
+	// Contact
+	// ----------------------------------------------------------------------------
+	.wrap_gmap {
+		margin-top: 6.4rem;
+		margin-bottom: 6.4rem;
+		.contact_circle {
+			top: 3.2rem;
+			right: 3.2rem;
+			// update $diameter
+			width: 21rem;
+			height: 21rem;
+			line-height: (((210 * 0.05) + 210) / 10) + rem;
+			p {
+				font-size: 1.6rem;
+			}
+		}
+	}
+
 	// People
 	// ----------------------------------------------------------------------------
 	section.people_main {
@@ -1216,8 +1315,10 @@
 	}
 	a.link_people-all {
 		top: -27.2rem;
+		// update $diameter;
 		width: 16.8rem;
 		height: 16.8rem;
+		line-height: 16.8rem;
 		.wrap_txt-helped {
 			max-width: 12rem;
 			top: 4.8rem;
@@ -1237,7 +1338,7 @@
 
 	// Variables
 	// ----------------------------------------------------------------------------
-	$easeInOutBack: cubic-bezier(0.680,-0.550,0.265,1.550); // redefine for
+	// $easeInOutBack: cubic-bezier(0.680,-0.550,0.265,1.550); // redefine for
 
 // ==|== primary styles =======================================================
 // ============================================================================
@@ -1247,7 +1348,7 @@
 	nav.nav_primary .wrap_nav ul li.nav_search {
 		width: 23.2rem;
 		form input[type="text"] {
-			transition: width 260ms $easeInOutBack, opacity 260ms $easeInOutCirc; // redefine, since we have updated our easeing variable
+			// transition: width 260ms $easeInOutBack, opacity 260ms $easeInOutCirc; // redefine, since we have updated our easeing variable
 			&:focus {
 				width: 100%;
 			}
@@ -1302,8 +1403,28 @@
 			h4 {
 				margin-bottom: 4.8rem;
 			}
-			ul li a {
-				font-size: 1.5rem;
+			ul li {
+				margin-bottom: 4rem;
+				padding-bottom: 4rem;
+				&:last-child {
+					margin-bottom: 0;
+					padding-bottom: 0;
+				}
+				a {
+					h5,
+					.wrap_press-logo {
+						margin-bottom: 2.6rem;
+					}
+					.wrap_press-logo {
+						max-width: 10rem;
+					}
+					h5 {
+						font-size: 2.2rem;
+					}
+					p {
+						font-size: 1.5rem;
+					}
+				}
 			}
 		}
 	}
@@ -1356,31 +1477,18 @@
 		padding-right: 4.8rem;
 	}
 
-	// Header
-	// ----------------------------------------------------------------------------
-	header.page_header {
-		padding-top: 24rem;
-		padding-bottom: 14rem;
-	}
-
 	// Primary Navigation (child of header)
 	// ----------------------------------------------------------------------------
 	nav.nav_primary {
 		padding-left: 4.8rem;
 		padding-right: 4.8rem;
-		.wrap_nav ul li {
+		.wrap_nav ul li:nth-child(-n+4) {
 			margin-right: 4rem;
 		}
 	}
 
 // ==|== main styles ==========================================================
 // ============================================================================
-
-	// Nav Filter
-	// ----------------------------------------------------------------------------
-	nav.nav_filter {
-		margin-bottom: 12rem;
-	}
 
 	// Isotope
 	// ----------------------------------------------------------------------------
@@ -1417,9 +1525,6 @@
 				margin-right: 0;
 			}
 		}
-	}
-	a.link_people-all {
-		top: -34.8rem;
 	}
 
 	// Press
@@ -1487,12 +1592,9 @@
 		}
 	}
 
-
-
-
 }
 
-@media only screen and (min-width: 1736px) {
+@media only screen and (min-width: 1200px) and (min-height: 820px) {
 
 // ==|== primary styles =======================================================
 // ============================================================================
@@ -1500,9 +1602,34 @@
 	// Header
 	// ----------------------------------------------------------------------------
 	header.page_header {
-		padding-top: 28rem;
-		padding-bottom: 18rem;
+		padding-top: 24rem;
+		padding-bottom: 14rem;
 	}
+
+// ==|== main styles ==========================================================
+// ============================================================================
+
+	// Nav Filter
+	// ----------------------------------------------------------------------------
+	nav.nav_filter {
+		margin-bottom: 12rem;
+	}
+
+// ==|== page styles ==========================================================
+// ============================================================================
+
+	// People
+	// ----------------------------------------------------------------------------
+	a.link_people-all {
+		top: -34.8rem;
+	}
+
+}
+
+@media only screen and (min-width: 1736px) {
+
+// ==|== primary styles =======================================================
+// ============================================================================
 
 	// Primary Navigation (child of header)
 	// ----------------------------------------------------------------------------
@@ -1548,6 +1675,20 @@
 				margin-right: 13.5rem;
 			}
 		}
+	}
+
+}
+
+@media only screen and (min-width: 1736px) and (min-height: 820px) {
+
+// ==|== primary styles =======================================================
+// ============================================================================
+
+	// Header
+	// ----------------------------------------------------------------------------
+	header.page_header {
+		padding-top: 28rem;
+		padding-bottom: 18rem;
 	}
 
 }

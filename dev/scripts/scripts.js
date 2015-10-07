@@ -793,7 +793,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		// currently assumes there is at least 1 link on every page...
 
-		var arrPageLinks    = document.getElementsByClassName('color_random'),
+		// CHANGED TO ONLY LOOK AT ISO LINKS
+		var tempIsoContainer = document.getElementById('iso_container');
+
+		// exit if we are not on the home page
+		if (tempIsoContainer === null) {
+			return;
+		}
+
+		var arrPageLinks    = tempIsoContainer.getElementsByClassName('color_random'), // document.getElementsByClassName('color_random'),
 			arrLinkColors   = ['red', 'orange', 'yellow', 'aqua', 'cyan'],
 			numPageLinks    = arrPageLinks.length,
 			numColorsLength = arrLinkColors.length - 1,
