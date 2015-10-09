@@ -16,28 +16,34 @@
 
 		%main{:role => "main"}
 
-			%section.people_everyone.people_section.archive_list
+			%section.people_everyone.people_section
 
-				- numColumns  = 3.0
-				- numArticles = 12
-				- numArticlesPerColumn = (numArticles / numColumns).ceil
+				%article.archive_layout
 
-				- (1..numColumns).each do |a|
+					- numColumns  = 3.0
+					- numArticles = 12
+					- numArticlesPerColumn = (numArticles / numColumns).ceil
 
-					%div{:class => "wrap_column column-#{a}"}
+					- (1..numColumns).each do |a|
 
-						- (1..numArticlesPerColumn).each do |b|
+						%div{:class => "wrap_column column-#{a}"}
 
-							- if numArticles > 0
+							- (1..numArticlesPerColumn).each do |b|
 
-								- numRandom = rand(10..20)
+								- if numArticles > 0
 
-								%article{:id => "client-#{numArticles}", :class => "projects_client"}
-									%h3 Role ##{numArticles}
-									- rand(6..20).times do
-										%h3
-											%a{:href => "people-single.html", :title => "View Person"} Sandwich Person #{numArticles}
+									- numRandom = rand(10..20)
 
-								- numArticles -= 1
+									%ul{:id => "role-#{numArticles}", :class => "archive_list people_role"}
+
+										%li.archive_heading
+											%h3 Role ##{numArticles}
+
+										- rand(6..20).times do
+											%li.archive_item
+												%p
+													%a{:href => "people-single.html", :title => "View Person"} Sandwich Person #{numArticles}
+
+									- numArticles -= 1
 
 		= Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render

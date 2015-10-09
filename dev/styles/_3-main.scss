@@ -115,7 +115,7 @@ header.page_header {
 	.wrap_tagline {
 		margin: 3.2rem auto 0 auto;
 		h2 {
-			font-family: 'futura-pt',  Futura, 'Trebuchet MS', Arial, sans-serif;
+			font-family: 'futura-pt', Futura, 'Trebuchet MS', Arial, sans-serif;
 			font-size: 1.3rem;
 			font-weight: 800;
 			font-style: italic;
@@ -223,7 +223,7 @@ nav.nav_primary {
 						color: $hsl_red;
 					}
 					&:active {
-						color: $hsl_yellow;
+						color: darken($hsl_red, 10%);
 					}
 				}
 				// + individual list items + \\
@@ -340,7 +340,7 @@ footer.page_footer {
 		line-height: 1.4;
 		color: $hsl_navy;
 		a {
-			color: $hsl_navy;
+			color: $hsl_cyan;
 			transition: color 260ms ease-in-out;
 			&:hover {
 				color: $hsl_red;
@@ -358,35 +358,34 @@ footer.page_footer {
 // Shared Content
 // ----------------------------------------------------------------------------
 // --- Video Details --- \\
-.video_details {
-	.wrap_titles {
-		h3 {
-			font-size: 1.7rem;
-			color: $hsl_navy;
-			&.title_video {
-				margin-bottom: 0.6rem;
-			}
-		}
+.video_details .wrap_titles h3 {
+	font-size: 1.7rem;
+	color: $hsl_navy;
+	&.title_video {
+		margin-bottom: 0.6rem;
 	}
 }
 // --- Video Credits --- \\
-ul.video_credits {
-	li {
-		margin-bottom: 2.2rem;
-		font-size: 1.5rem;
-		p {
-			margin-bottom: 0.6rem;
-			&:first-child {
-				margin-bottom: 1rem;
-			}
-			strong {
-				font-weight: 500;
-				text-transform: uppercase;
-			}
+ul.video_credits li {
+	padding-bottom: 2.2rem;
+	font-size: 1.5rem;
+	&:last-child {
+		padding-bottom: 0;
+	}
+	p {
+		margin-bottom: 0.6rem;
+		&:first-child {
+			margin-bottom: 1rem;
 		}
-		&:last-child,
-		p:last-child {
+		&:last-child {
 			margin-bottom: 0;
+		}
+		strong {
+			font-weight: 500;
+			text-transform: uppercase;
+		}
+		a {
+			transition: color 260ms ease-in-out;
 		}
 	}
 }
@@ -445,31 +444,47 @@ nav.nav_sidebar {
 
 
 // --- Archive List --- \\
-section.archive_list {
+article.archive_layout {
+	text-align: center;
 	.wrap_column {
 		margin-bottom: 3.2rem;
-		text-align: center;
 		&:last-child {
 			margin-bottom: 0;
 		}
-		article {
+
+		ul {
+
 			margin-bottom: 3.2rem;
 			&:last-child {
 				margin-bottom: 0;
 			}
-			h3 {
+
+			li {
 				margin-bottom: 0.6rem;
-				font-size: 1.5rem;
-				line-height: 1.3;
-				&:first-child {
-					font-weight: 800;
-					text-transform: uppercase;
-					color: $hsl_navy;
-				}
+				color: $hsl_navy;
 				&:last-child {
 					margin-bottom: 0;
 				}
-				a {
+				h3 {
+					font-family: 'futura-pt', Futura, 'Trebuchet MS', Arial, sans-serif;
+					font-size: 1.4rem;
+					font-weight: 800;
+					line-height: 1.3;
+					text-transform: uppercase;
+				}
+				h4,
+				p {
+					margin-bottom: 0.8rem;
+					font-size: 1.5rem;
+					line-height: 1.3;
+					&:last-child {
+						margin-bottom: 0;
+					}
+				}
+				h4 {
+					text-transform: uppercase;
+				}
+				p a {
 					color: $hsl_cyan;
 					transition: color 260ms ease-in-out;
 					&:hover {
@@ -480,9 +495,49 @@ section.archive_list {
 					}
 				}
 			}
+
+		}
+
+	}
+
+	&.person_credits .wrap_column {
+		margin-bottom: 4.2rem;
+		&:last-child {
+			margin-bottom: 0;
+		}
+		ul {
+			margin-bottom: 4.2rem;
+			&:last-child {
+				margin-bottom: 0;
+			}
+			li {
+				&.archive_heading {
+					margin-bottom: 2rem;
+					h3 {
+						font-style: italic;
+					}
+				}
+				&.archive_item {
+					margin-bottom: 1.6rem;
+				}
+				&:last-child {
+					margin-bottom: 0;
+				}
+				h4,
+				p {
+					margin-bottom: 0.6rem;
+					font-size: 1.4rem;
+					&:last-child {
+						margin-bottom: 0;
+					}
+				}
+			}
 		}
 	}
+
 }
+
+
 
 // --- The Content --- \\
 .the_content {
@@ -786,6 +841,8 @@ section.iso_container {
 	z-index: 100;
 	overflow-y: hidden; // required to prevent scrollbar on filter change (horizontal scrollbar appears on resize... is this a concern?)
 
+	margin-bottom: 2rem;
+
 	.iso_gutter {
 		width: 2rem; // isotope gutter width
 	}
@@ -928,14 +985,14 @@ aside {
 						display: none;
 					}
 					&.item_link-project,
-					&.item_link-share {
+					&.item_link-tweet {
 						// width: 50%;
 						flex: 0 1 50%;
 					}
 					&.item_link-project {
 						text-align: left;
 					}
-					&.item_link-share {
+					&.item_link-tweet {
 						text-align: right;
 					}
 					a {
@@ -963,17 +1020,26 @@ aside {
 				.wrap_scroll {
 					ul.video_credits {
 						padding: 3.2rem 1.6rem; // apply padding to child of figcaption, as figcaption will eventually require scrolling (would cut off padding-bottom)
-						li {
+						li p {
 							color: $hsl_L100;
+							a {
+								color: $hsl_L100;
+								&:hover {
+									color: $hsl_navy;
+								}
+								&:active {
+									color: darken($hsl_navy, 10%);
+								}
+							}
 						}
 					}
 				}
 				a.wrap_ui-arrow {
 					display: none;
 					width: 3.2rem;
-				}
-				a.wrap_ui-arrow svg {
-					fill: $hsl_bone;
+					svg {
+						fill: $hsl_bone;
+					}
 				}
 			}
 		}
@@ -1013,7 +1079,7 @@ aside {
 			}
 			header.modal_header .wrap_titles,
 			header.modal_header ul.wrap_links li.item_link-project,
-			header.modal_header ul.wrap_links li.item_link-share,
+			header.modal_header ul.wrap_links li.item_link-tweet,
 			figure.modal_figure {
 				display: none;
 			}
@@ -1050,7 +1116,7 @@ aside {
 }
 
 
-// ==|== projects =============================================================
+// ==|== projects cpt =========================================================
 // ============================================================================
 
 // Projects Single Post
@@ -1099,8 +1165,17 @@ section.projects_single {
 			.wrap_credits {
 				margin-bottom: 4rem;
 				h4,
-				ul.video_credits li {
+				ul.video_credits li p {
 					color: $hsl_navy;
+					a {
+						color: $hsl_navy;
+						&:hover {
+							color: $hsl_red;
+						}
+						&:active {
+							color: darken($hsl_red, 10%);
+						}
+					}
 				}
 				// + same <h4> styles as nav.nav_sidebar + \\
 				h4 {
@@ -1119,7 +1194,7 @@ section.projects_single {
 }
 
 
-// ==|== press ================================================================
+// ==|== press cpt ============================================================
 // ============================================================================
 
 // Press Shared
@@ -1374,6 +1449,124 @@ section.press_single {
 }
 
 
+// ==|== people cpt ===========================================================
+// ============================================================================
+
+// People Shared
+// ----------------------------------------------------------------------------
+article.person {
+	@include container(320);
+	text-align: center;
+	.person_img {
+		@include container(220);
+		margin-bottom: 2rem;
+	}
+	header {
+		margin-bottom: 1.6rem;
+		a.person_img {
+			display: block;
+			transition: opacity 260ms ease-in-out;
+			&:hover {
+				opacity: 0.9;
+			}
+			&:active {
+				opacity: 0.96;
+			}
+		}
+		h3 {
+			font-size: 1.8rem;
+			line-height: 1.2;
+			color: $hsl_navy;
+			&.person_name {
+				margin-bottom: 0.8rem;
+			}
+			a {
+				color: $hsl_navy;
+				transition: color 260ms ease-in-out;
+				&:hover {
+					color: $hsl_cyan;
+				}
+				&:active {
+					color: darken($hsl_cyan, 10%);
+				}
+			}
+		}
+	}
+	.the_content.person_content p a.link_read-more {
+		text-decoration: underline;
+		white-space: nowrap;
+	}
+	a.person_twitter {
+		display: inline-block;
+		margin-top: 2rem;
+		font-size: 1.5rem;
+		color: $hsl_cyan;
+		transition: color 260ms ease-in-out;
+		&:hover {
+			color: $hsl_red;
+		}
+		&:active {
+			color: darken($hsl_red, 10%);
+		}
+	}
+}
+
+// People Main
+// ----------------------------------------------------------------------------
+section.people_main article.person {
+	margin-bottom: 4.8rem;
+}
+a.link_people-all {
+	@include blockCircle(120, $hsl_navy);
+	margin-bottom: 4.2rem;
+	transition: background-color 260ms ease-in-out;
+	.wrap_txt-helped {
+		@include container(86);
+		position: relative;
+		top: 3.2rem;
+		svg {
+			fill: $hsl_L100;
+		}
+	}
+	.wrap_ui-hand {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: -1.6rem;
+		margin-left: auto;
+		margin-right: auto;
+		width: 3.6rem;
+		transform: translate3d(0,0,0);
+		transition: transform 260ms ease-in-out;
+		svg {
+			fill: none; // webkit behaves differently than FF
+			path {
+				stroke: $hsl_L100;
+			}
+		}
+	}
+	&:hover {
+		background-color: $hsl_red;
+		.wrap_ui-hand {
+			transform: translate3d(0,-0.6rem,0);
+		}
+	}
+	&:active {
+		background-color: darken($hsl_red, 10%);
+		.wrap_ui-hand {
+			transform: translate3d(0,-0.2rem,0);
+		}
+	}
+}
+
+// People Single
+// ----------------------------------------------------------------------------
+section.people_single article.person {
+	margin-bottom: 4rem;
+	padding-bottom: 4rem;
+	border-bottom: 0.3rem solid $hsl_cyan;
+}
+
 // ==|== page styles ==========================================================
 // ============================================================================
 
@@ -1395,10 +1588,7 @@ body.page-template-default main {
 body.page-template-tpl-contact main {
 	@include container(1140);
 }
-// need to compensate for both #home iso and #people article margin-bottoms with the footer padding-top
-body.home footer.page_footer {
-	padding-top: 8rem; // 100px - 20px
-}
+// need to compensate for #people article margin-bottom with the footer padding-top
 body.post-type-archive-people footer.page_footer {
 	padding-top: 5.2rem; // 100px - 48px
 }
@@ -1407,6 +1597,20 @@ body.post-type-archive-people footer.page_footer {
 // ----------------------------------------------------------------------------
 article.page_post {
 }
+
+// Home
+// ----------------------------------------------------------------------------
+section.about_main {
+	@include container(666);
+	article {
+		h5 {
+			margin-bottom: 3.2rem;
+			font-size: 2.2rem;
+			color: $hsl_navy;
+		}
+	}
+}
+
 
 // Contact
 // ----------------------------------------------------------------------------
@@ -1453,118 +1657,6 @@ body.page-template-tpl-contact main .the_content {
 			transform: translateX(-50%);
 			max-width: none;
 			height: 100%;
-		}
-	}
-}
-
-// People
-// ----------------------------------------------------------------------------
-section.people_main {
-	article {
-		@include container(320);
-		margin-bottom: 4.8rem;
-		text-align: center;
-		a.link_img {
-			@include container(220);
-			display: block;
-			margin-bottom: 2rem;
-			transition: opacity 260ms ease-in-out;
-			&:hover {
-				opacity: 0.9;
-			}
-			&:active {
-				opacity: 0.96;
-			}
-		}
-		h3 {
-			font-size: 1.8rem;
-			line-height: 1.2;
-			color: $hsl_navy;
-			&.person_name {
-				margin-bottom: 0.8rem;
-				a {
-					color: $hsl_navy;
-					transition: color 260ms ease-in-out;
-					&:hover {
-						color: $hsl_cyan;
-					}
-					&:active {
-						color: darken($hsl_cyan, 10%);
-					}
-				}
-			}
-			&.person_role {
-				margin-bottom: 1.6rem;
-			}
-		}
-		.person_bio {
-			p {
-				margin-bottom: 2rem;
-				font-size: 1.5rem;
-				line-height: 1.3;
-				color: $hsl_navy;
-				a.link_read-more {
-					text-decoration: underline;
-					white-space: nowrap;
-					// display: inline-block;
-				}
-			}
-		}
-		.person_bio p a,
-		a.person_twitter {
-			color: $hsl_cyan;
-			transition: color 260ms ease-in-out;
-			&:hover {
-				color: $hsl_red;
-			}
-			&:active {
-				color: darken($hsl_red, 10%);
-			}
-		}
-		a.person_twitter {
-			font-size: 1.5rem;
-		}
-	}
-}
-a.link_people-all {
-	@include blockCircle(120, $hsl_navy);
-	margin-bottom: 4.2rem;
-	transition: background-color 260ms ease-in-out;
-	.wrap_txt-helped {
-		@include container(86);
-		position: relative;
-		top: 3.2rem;
-		svg {
-			fill: $hsl_L100;
-		}
-	}
-	.wrap_ui-hand {
-		position: absolute;
-		left: 0;
-		right: 0;
-		bottom: -1.6rem;
-		margin-left: auto;
-		margin-right: auto;
-		width: 3.6rem;
-		transform: translate3d(0,0,0);
-		transition: transform 260ms ease-in-out;
-		svg {
-			fill: none; // webkit behaves differently than FF
-			path {
-				stroke: $hsl_L100;
-			}
-		}
-	}
-	&:hover {
-		background-color: $hsl_red;
-		.wrap_ui-hand {
-			transform: translate3d(0,-0.6rem,0);
-		}
-	}
-	&:active {
-		background-color: darken($hsl_red, 10%);
-		.wrap_ui-hand {
-			transform: translate3d(0,-0.2rem,0);
 		}
 	}
 }

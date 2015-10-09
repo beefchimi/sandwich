@@ -25,11 +25,11 @@ document.addEventListener('DOMContentLoaded', function() {
 		elModalClient,
 		elWrapVideo,
 		elWrapScroll,
-		elCaptionClose,
+		// elCaptionClose,
 		elModalLinkClose,
 		elModalLinkCredits,
 		elModalLinkProject,
-		elModalLinkShare,
+		elModalLinkTweet,
 		elModalLoader,
 		boolModalCreated = false,
 		boolErrorCreated = false,
@@ -228,7 +228,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 				// attached our link destinations
 				elModalLinkProject.href = pLinkHREF;
-				elModalLinkShare.href   = 'https://twitter.com/home?status=' + encodeURI(pLinkTitle) + '%20http%3A//y2u.be/' + pLinkID;
+				elModalLinkTweet.href   = 'https://twitter.com/home?status=' + encodeURI(pLinkTitle) + '%20http%3A//y2u.be/' + pLinkID;
 
 				// empty out contents of elAjaxHolder...
 				// this element is never appended to the document, so garbage collection can take care of it if / when needed
@@ -299,7 +299,7 @@ document.addEventListener('DOMContentLoaded', function() {
 									{ id: 'close',   title: 'Close project' },
 									{ id: 'credits', title: 'Credits' },
 									{ id: 'project', title: 'View Project Page' },
-									{ id: 'share',   title: 'Share' }
+									{ id: 'tweet',   title: 'Tweet this' }
 								];
 
 							// iterate through each link and create a <li> and <a>
@@ -348,9 +348,9 @@ document.addEventListener('DOMContentLoaded', function() {
 										// if this is the 'single project page' link
 										} else if (i === 2) {
 											elModalLinkProject = thisLink;
-										// if this is the 'tweet / share video' link
+										// if this is the 'tweet this' link
 										} else if (i === 3) {
-											elModalLinkShare = thisLink;
+											elModalLinkTweet = thisLink;
 										}
 
 									}
@@ -382,24 +382,6 @@ document.addEventListener('DOMContentLoaded', function() {
 							elWrapScroll.className = 'wrap_scroll';
 
 								// get .video_credits from AJAX response and elWrapScroll.insertBefore('.video_credits', elWrapScroll.firstChild);
-
-								elCaptionClose = document.createElement('a'); // created as undefined global variable for scope
-								elCaptionClose.className = 'wrap_svg wrap_ui-arrow';
-								elCaptionClose.href = '#';
-								elCaptionClose.title = 'Close Credits';
-
-									var elCaptionCloseSVG = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-									elCaptionCloseSVG.setAttribute('viewBox', '0 0 64 64');
-									elCaptionCloseSVG.className = 'ui_arrow';
-
-										var elCaptionCloseUse = document.createElementNS('http://www.w3.org/2000/svg', 'use');
-										elCaptionCloseUse.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', '#ui_arrow');
-
-										elCaptionCloseSVG.appendChild(elCaptionCloseUse);
-
-									elCaptionClose.appendChild(elCaptionCloseSVG);
-
-								elWrapScroll.appendChild(elCaptionClose);
 
 							elModalCaption.appendChild(elWrapScroll);
 
@@ -580,12 +562,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		});
 
+/*
 		elCaptionClose.addEventListener('click', function(e) {
 
 			e.preventDefault();
 			elModal.classList.remove('toggle_credits');
 
 		});
+*/
 
 	}
 
@@ -699,9 +683,9 @@ document.addEventListener('DOMContentLoaded', function() {
 */
 
 		// in case of ajax failure, we need to be sure we are not removing our credits arrow
-		if (elScrollChild != elCaptionClose) {
+		// if (elScrollChild != elCaptionClose) {
 			elWrapScroll.removeChild(elScrollChild); // .video_credits will be the first child of elWrapScroll
-		}
+		// }
 
 		// clear inner content
 		elModalTitle.innerHTML  = '';
@@ -709,7 +693,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		// reset link destinations
 		elModalLinkProject.href = '#';
-		elModalLinkShare.href   = '#';
+		elModalLinkTweet.href   = '#';
 
 		// declare our elModal as being 'empty', reset 'data-ajax', and re-apply 'visible' class to elModalLoader
 		elModal.setAttribute('data-content', 'empty'); // untoggles the display of .modal_content

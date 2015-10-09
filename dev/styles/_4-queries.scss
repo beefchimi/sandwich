@@ -12,7 +12,7 @@
 		top: 45%;
 	}
 
-// ==|== main styles ==========================================================
+// ==|== main styles ===========================================================
 // =============================================================================
 
 	// Isotope
@@ -71,7 +71,6 @@
 		.modal_content {
 			header.modal_header {
 				display: flex;
-				.wrap_titles,
 				.wrap_titles {
 					// width: 70%;
 					flex: 0 1 70%;
@@ -100,7 +99,7 @@
 							}
 						}
 						&.item_link-project,
-						&.item_link-share {
+						&.item_link-tweet {
 							flex: none;
 						}
 						&.item_link-close,
@@ -111,18 +110,23 @@
 						}
 						// &.item_link-close,
 						&.item_link-project,
-						&.item_link-share {
+						&.item_link-tweet {
 							width: 100%;
 						}
 					}
 				}
 			}
-			figure.modal_figure {
-				figcaption.modal_caption .wrap_scroll ul.video_credits {
-					column-count: 2;
-					text-align: left;
-					li {
-						break-inside: avoid;
+			figure.modal_figure figcaption.modal_caption .wrap_scroll ul.video_credits {
+				column-count: 2;
+				column-gap: 2rem;
+				text-align: left;
+				padding-bottom: 1rem;
+				li {
+					break-inside: avoid;
+					-webkit-margin-before: 0;
+					-webkit-margin-after: 0;
+					&:last-child {
+						padding-bottom: 2.2rem;
 					}
 				}
 			}
@@ -130,43 +134,103 @@
 				padding: 6.4rem 3.2rem;
 			}
 		}
-		&[data-ajax="error"] {
-			.modal_content {
-				header.modal_header ul.wrap_links {
-					// width: 100%;
-					flex: 0 1 100%;
-					li.item_link-close {
-						text-align: center;
-						transform: translateY(3.2rem);
-					}
-				}
+		&[data-ajax="error"] .modal_content header.modal_header ul.wrap_links {
+			// width: 100%;
+			flex: 0 1 100%;
+			li.item_link-close {
+				text-align: center;
+				transform: translateY(3.2rem);
 			}
 		}
 	}
 
-// ==|== projects =============================================================
+// ==|== projects cpt =========================================================
 // ============================================================================
 
 	// Projects Single Post
 	// ----------------------------------------------------------------------------
-	section.projects_single {
-		article.projects_post {
-			.projects_header {
-				text-align: right;
+	section.projects_single article.projects_post {
+		.projects_header {
+			text-align: right;
+		}
+		.wrap_content {
+			text-align: left;
+			.wrap_credits,
+			nav.wrap_related {
+				float: left;
 			}
-			.wrap_content {
-				text-align: left;
-				.wrap_credits,
-				nav.wrap_related {
-					float: left;
-				}
-				.wrap_credits {
-					margin-bottom: 0;
-					width: 62%;
-				}
-				nav.wrap_related {
-					width: 38%;
-				}
+			.wrap_credits {
+				margin-bottom: 0;
+				width: 62%;
+			}
+			nav.wrap_related {
+				width: 38%;
+			}
+		}
+	}
+
+// ==|== people cpt ===========================================================
+// ============================================================================
+
+	// People Shared
+	// ----------------------------------------------------------------------------
+	article.person {
+		@include container(reset);
+		text-align: left;
+		.person_img {
+			@include container(reset);
+/*
+			img {
+				max-width: 100%;
+				// max-width: 100%; does not seem to play nice with flexbox
+				// @include container(reset);
+				// width: 100%;
+				// height: auto;
+			}
+*/
+		}
+	}
+
+	// People Main
+	// ----------------------------------------------------------------------------
+	section.people_main {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center; // center; // space-between; // space-around;
+		// margin-left: -3.2rem;
+		article.person {
+			// flex: 0 1 calc(50% - 3.2rem);
+			// margin-left: 3.2rem;
+			// max-width: 22rem;
+			margin-bottom: 3.2rem;
+			width: calc(50% - 1.6rem); // 46.428571%;
+			&:nth-child(odd) {
+				margin-right: 3.2rem; // 7.142857%;
+			}
+			&:last-child {
+				margin-right: 0;
+			}
+		}
+	}
+
+	// People Single
+	// ----------------------------------------------------------------------------
+	section.people_single article.person {
+		display: flex;
+		.person_img {
+			flex: 0 1 calc(30% - 2rem);
+			max-width: 22rem;
+			margin-right: 2rem;
+			margin-bottom: 0;
+			img {
+				width: 100%; // not behavin' as max-width / flex
+			}
+		}
+		.wrap_bio {
+			flex: 0 1 calc(70%);
+			margin-left: auto;
+			header h3.person_name {
+				margin-bottom: 0.4rem;
 			}
 		}
 	}
@@ -176,40 +240,9 @@
 
 	// Pages IDs
 	// ----------------------------------------------------------------------------
-	// need to compensate for both #home iso and #people article margin-bottoms with the footer padding-top
+	// need to compensate for #people article margin-bottom with the footer padding-top
 	body.post-type-archive-people footer.page_footer {
 		padding-top: 6.8rem; // 100px - 32px
-	}
-
-	// People
-	// ----------------------------------------------------------------------------
-	section.people_main {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: center; // center; // space-between; // space-around;
-		// margin-left: -3.2rem;
-		article {
-			@include container(reset);
-			// flex: 0 1 calc(50% - 3.2rem);
-			// margin-left: 3.2rem;
-			// max-width: 22rem;
-			margin-bottom: 3.2rem;
-			width: calc(50% - 1.6rem); // 46.428571%;
-			text-align: left;
-			&:nth-child(odd) {
-				margin-right: 3.2rem; // 7.142857%;
-			}
-			&:last-child {
-				margin-right: 0;
-			}
-			img {
-				max-width: 100%;
-				// max-width: 100%; does not seem to play nice with flexbox
-				// @include container(reset);
-				// width: 100%;
-				// height: auto;
-			}
-		}
 	}
 
 }
@@ -222,43 +255,46 @@
 
 	// Shared Content
 	// ----------------------------------------------------------------------------
-
-/*
-	section.archive_list {
-		columns: 2;
-		article {
-			break-inside: avoid;
-		}
-	}
-*/
-
 	// --- Archive List --- \\
-	section.archive_list {
+	article.archive_layout {
 		display: flex;
 		flex-wrap: nowrap;
+		&.person_credits {
+			text-align: left;
+			.wrap_column {
+				margin-bottom: 0;
+			}
+		}
 		.wrap_column {
 			flex: 1 1 auto;
-			&.column-1 {
-				padding-right: 2rem;
+			margin-bottom: 0;
+			padding-left: 1rem;
+			padding-right: 1rem;
+		}
+		& > div {
+			&:first-child {
+				padding-left: 0;
 			}
-			&.column-2 {
-				padding-left: 1rem;
-				padding-right: 1rem;
-			}
-			&.column-3 {
-				padding-left: 2rem;
+			&:last-child {
+				padding-right: 0;
 			}
 		}
 	}
 
-// ==|== page styles ==========================================================
+	// Isotope
+	// ----------------------------------------------------------------------------
+	section.iso_container {
+		margin-bottom: 4rem;
+	}
+
+// ==|== people cpt ===========================================================
 // ============================================================================
 
-	// People
+	// People Main
 	// ----------------------------------------------------------------------------
 	section.people_main {
 		// margin-left: -2rem;
-		article {
+		article.person {
 			// flex: 0 1 calc(33.3333333% - 2rem);
 			// margin-left: 2rem;
 			width: calc(33.3333333% - 2rem);
@@ -275,8 +311,48 @@
 		}
 	}
 
-}
+	// People Single
+	// ----------------------------------------------------------------------------
+	section.people_single article.person {
+		position: relative;
+		// not worrying about h3 width / truncation ... shouldn't ever be an issue
+		.wrap_bio a.person_twitter {
+			position: absolute;
+			top: 0;
+			right: 0;
+			margin-top: 0;
+		}
+	}
 
+// ==|== page styles ==========================================================
+// ============================================================================
+
+	// Home
+	// ----------------------------------------------------------------------------
+	section.about_main {
+		article {
+			h5 {
+				margin-bottom: 6.4rem;
+				text-align: center;
+			}
+			.the_content {
+				column-count: 2;
+				column-gap: 5.6rem;
+		/*
+				h1 {
+					column-span: all;
+					width: 100%;
+					text-align: center
+				}
+		*/
+				p {
+					break-inside: avoid;
+				}
+			}
+		}
+	}
+
+}
 
 @media only screen and (min-width: 768px) {
 
@@ -285,48 +361,19 @@
 
 	// Animations
 	// ----------------------------------------------------------------------------
-	@keyframes animSlideUp {
-		  0% { opacity: 0; transform: translate3d(0,2rem,0); }
-		100% { opacity: 1; transform: translate3d(0,0rem,0); }
-	}
-
 	@keyframes animModalIn {
-		  0% { opacity: 0; transform: translate3d(0,10rem,0); }
+		  0% { opacity: 0; transform: translate3d(0,16rem,0); }
 		100% { opacity: 1; transform: translate3d(0,0rem,0); }
 	}
 	@keyframes animModalOut {
 		  0% { opacity: 1; transform: translate3d(0,0rem,0); }
-		100% { opacity: 0; transform: translate3d(0,10rem,0); }
+		100% { opacity: 0; transform: translate3d(0,16rem,0); }
 	}
-
-	@keyframes animBounceUpFade {
-		  0% { transform: translate3d(0, 4.8rem,0); opacity: 0; }
-		 60% { transform: translate3d(0,-0.8rem,0);             }
-		100% { transform: translate3d(0,   0rem,0); opacity: 1; }
-	}
-
-	@keyframes animBounceInUp {
-		  0% { transform: translate3d(0, 300rem,0); opacity: 0; }
-		 60% { transform: translate3d(0,  -2rem,0); opacity: 1; }
-		 75% { transform: translate3d(0,   1rem,0);             }
-		 90% { transform: translate3d(0,-0.5rem,0);             }
-		100% { transform: translate3d(0,   0rem,0); opacity: 1; }
-	}
-	@keyframes animBounceOutDown {
-		  0% { transform: translate3d(0,  0rem,0); opacity: 1; }
-		 20% { transform: translate3d(0,  1rem,0);             }
-		 40%,
-		 45% { transform: translate3d(0, -2rem,0); opacity: 1; }
-		100% { transform: translate3d(0,100rem,0); opacity: 0; }
-		// less than initial value of 300rem... animation is too quick otherwise
-	}
-
-	@keyframes animVHSwipe {
-		// update animation from its initial values
-		  0% { transform: translate3d(-1.6rem,0,0); opacity: 0; }
-		 50% { transform: translate3d( 0.4rem,0,0);             }
-		 75% { transform: translate3d(-0.2rem,0,0);             }
-		100% { transform: translate3d(   0rem,0,0); opacity: 1; }
+	@keyframes animRecordBlink {
+		 0%,
+		40% { opacity: 1; }
+		50%,
+		90% { opacity: 0; }
 	}
 	@keyframes animRainbowColorBorder {
 		  0% { color: $hsl_red;    border-color: $hsl_red;    }
@@ -336,16 +383,6 @@
 		 82% { color: $hsl_cyan;   border-color: $hsl_cyan;   }
 		100% { color: $hsl_red;    border-color: $hsl_red;    }
 	}
-	@keyframes animRainbowFill-steps {
-		$numAnimPercent: 0;
-		@each $color in $arrRainbowValues {
-			#{$numAnimPercent}% {
-				fill: $color;
-			}
-			$numAnimPercent: $numAnimPercent + 20;
-		}
-	}
-
 	// cascading rainbow letters 1 - 5 (ends on final percentage amount - less than 100)
 	$numRainbowStepIndex: 1;
 	@for $i from 1 through length($arrRainbowValues) {
@@ -361,7 +398,6 @@
 		}
 		$numRainbowStepIndex: $numRainbowStepIndex + 1; // increment $numRainbowStepIndex by 1 so we can offset each animation
 	}
-
 	// cascading rainbow stripes 1 - 3 (ends on final percentage amount - less than 100)
 	$numRainbowTriIndex: 1;
 	@for $i from 1 through length($arrRainbowTriValues) {
@@ -377,11 +413,48 @@
 		}
 		$numRainbowTriIndex: $numRainbowTriIndex + 1; // increment $numRainbowTriIndex by 1 so we can offset each animation
 	}
-
-
-
-
-
+/*
+	@keyframes animSlideUp {
+		  0% { opacity: 0; transform: translate3d(0,2rem,0); }
+		100% { opacity: 1; transform: translate3d(0,0rem,0); }
+	}
+	@keyframes animBounceUpFade {
+		  0% { transform: translate3d(0, 4.8rem,0); opacity: 0; }
+		 60% { transform: translate3d(0,-0.8rem,0);             }
+		100% { transform: translate3d(0,   0rem,0); opacity: 1; }
+	}
+	@keyframes animBounceInUp {
+		  0% { transform: translate3d(0, 300rem,0); opacity: 0; }
+		 60% { transform: translate3d(0,  -2rem,0); opacity: 1; }
+		 75% { transform: translate3d(0,   1rem,0);             }
+		 90% { transform: translate3d(0,-0.5rem,0);             }
+		100% { transform: translate3d(0,   0rem,0); opacity: 1; }
+	}
+	@keyframes animBounceOutDown {
+		  0% { transform: translate3d(0,  0rem,0); opacity: 1; }
+		 20% { transform: translate3d(0,  1rem,0);             }
+		 40%,
+		 45% { transform: translate3d(0, -2rem,0); opacity: 1; }
+		100% { transform: translate3d(0,100rem,0); opacity: 0; }
+		// less than initial value of 300rem... animation is too quick otherwise
+	}
+	@keyframes animVHSwipe {
+		// update animation from its initial values
+		  0% { transform: translate3d(-1.6rem,0,0); opacity: 0; }
+		 50% { transform: translate3d( 0.4rem,0,0);             }
+		 75% { transform: translate3d(-0.2rem,0,0);             }
+		100% { transform: translate3d(   0rem,0,0); opacity: 1; }
+	}
+	@keyframes animRainbowFill-steps {
+		-numAnimPercent: 0;
+		@each $color in $arrRainbowValues {
+			#{-numAnimPercent}% {
+				fill: $color;
+			}
+			-numAnimPercent: -numAnimPercent + 20;
+		}
+	}
+*/
 
 // ==|== primary styles =======================================================
 // ============================================================================
@@ -458,11 +531,12 @@
 		.wrap_nav {
 			@include posCover(reset);
 			@include toggleVisibility(on);
+			@include container(1640);
 			position: relative; // is this needed, or is a stacking content retained?
 			perspective: none;
 			background-color: transparent;
 			ul {
-				@include container(1280);
+				// @include container(1280);
 				position: static;
 				top: auto;
 				transform: none;
@@ -749,16 +823,9 @@
 			box-shadow: 0 0 3.2rem hsla(0,0%,0%,0.32);
 			overflow-y: auto;
 			-webkit-overflow-scrolling: auto;
-
-/*
-			// last keyframe styles of animBounceOutDown
+			// last keyframe styles of animModalOut (is there a way to avoid this?)
 			opacity: 0;
-			transform: translate3d(0,300rem,0);
-*/
-
-			// last keyframe styles of animModalOut
-			opacity: 0;
-			transform: translate3d(0,10rem,0);
+			transform: translate3d(0,16rem,0);
 
 			header.modal_header {
 				order: 2; // move below figure
@@ -770,6 +837,11 @@
 					}
 					&.item_link-credits {
 						display: block;
+						a::before {
+							content: "Hide ";
+							opacity: 0;
+							transition: opacity 260ms ease-in-out;
+						}
 					}
 				}
 			}
@@ -782,6 +854,17 @@
 					overflow: hidden;
 					background-color: $hsla_cyan-L96;
 					transition: opacity 260ms ease-in-out, visibility 260ms ease-in-out;
+					// gradient fade for scrolling lists
+					&::before {
+						content: " ";
+						display: block;
+						position: absolute;
+						bottom: 0;
+						left: 0;
+						right: 0;
+						height: 2.6rem;
+						background-image: linear-gradient(hsla(194,76%,51%,0), hsla(194,76%,51%,1));
+					}
 					.wrap_scroll {
 						height: 100%;
 						overflow-y: scroll;
@@ -791,6 +874,7 @@
 							padding-right: 2rem;
 						}
 					}
+/*
 					a.wrap_ui-arrow {
 						display: block;
 						position: absolute;
@@ -806,6 +890,7 @@
 							transform: translateY(0.2rem);
 						}
 					}
+*/
 				}
 			}
 			.content_error {
@@ -819,30 +904,27 @@
 			animation: animHide 400ms ease-in-out 400ms both; // delay the modal fade out just enough to be in sync with .modal_content
 			&[data-content="empty"] .modal_content,
 			&[data-content="loaded"] .modal_content {
-				// animation: animBounceOutDown 800ms $easeBounce both;
 				animation: animModalOut 320ms ease-in-out both;
 			}
 		}
 		&[data-modal="visible"] {
 			animation: animFadeIn 400ms ease-in-out both;
 			&[data-content="loaded"] .modal_content {
-				// animation: animBounceInUp 800ms $easeBounce forwards;
 				animation: animModalIn 320ms ease-in-out forwards;
 			}
 		}
 
-		&[data-ajax="error"] {
-			.modal_content {
-				header.modal_header ul.wrap_links li.item_link-credits {
-					display: none;
-				}
-			}
+		&[data-ajax="error"] .modal_content header.modal_header ul.wrap_links li.item_link-credits {
+			display: none;
 		}
 
 		// toggled credits
 		&.toggle_credits .modal_content {
 			header.modal_header ul.wrap_links li.item_link-credits a {
 				color: $hsl_cyan;
+				&::before {
+					opacity: 1;
+				}
 			}
 			figure.modal_figure figcaption.modal_caption {
 				@include toggleVisibility(on);
@@ -855,13 +937,13 @@
 
 	}
 
-// ==|== projects =============================================================
+// ==|== projects cpt =========================================================
 // ============================================================================
 
 	// Projects Single Post
 	// ----------------------------------------------------------------------------
 	section.projects_single {
-		margin-bottom: 4.8rem;
+		// margin-bottom: 4.8rem;
 		article.projects_post {
 			.projects_header {
 				margin-bottom: 3.2rem;
@@ -895,7 +977,7 @@
 		}
 	}
 
-// ==|== press ================================================================
+// ==|== press cpt ============================================================
 // ============================================================================
 
 	// Press Shared
@@ -1010,15 +1092,54 @@
 		}
 	}
 
+// ==|== people cpt ===========================================================
+// ============================================================================
+
+	// People Main
+	// ----------------------------------------------------------------------------
+	body.post-type-archive-people main {
+		position: relative;
+	}
+	section.people_main {
+		// margin-left: -4rem;
+		article.person {
+			// flex: 0 1 calc(33.3333333% - 4rem);
+			// margin-left: 4rem;
+			margin-bottom: 6.4rem;
+			width: calc(33.3333333% - 4rem);
+			&:nth-child(3n-1),
+			&:nth-child(3n-2) {
+				margin-right: 6rem;
+			}
+			&:last-child {
+				margin-right: 0;
+			}
+		}
+	}
+	a.link_people-all {
+		position: absolute;
+		top: -17rem;
+		right: 0;
+		margin: 0;
+	}
+
+	// People Single
+	// ----------------------------------------------------------------------------
+	section.people_single article.person {
+		.person_img {
+			flex: 0 1 calc(28% - 2rem);
+		}
+		.wrap_bio {
+			flex: 0 1 calc(72%);
+		}
+	}
+
 // ==|== page styles ==========================================================
 // ============================================================================
 
 	// Pages IDs
 	// ----------------------------------------------------------------------------
-	// need to compensate for both #home iso and #people article margin-bottoms with the footer padding-top
-	body.home footer.page_footer {
-		padding-top: 10rem; // 140px - 40px
-	}
+	// need to compensate for #people article margin-bottom with the footer padding-top
 	body.post-type-archive-people footer.page_footer {
 		padding-top: 7.6rem; // 140px - 64px
 	}
@@ -1054,34 +1175,6 @@
 				height: auto;
 			}
 		}
-	}
-
-	// People
-	// ----------------------------------------------------------------------------
-	body.post-type-archive-people main {
-		position: relative;
-	}
-	section.people_main {
-		// margin-left: -4rem;
-		article {
-			// flex: 0 1 calc(33.3333333% - 4rem);
-			// margin-left: 4rem;
-			margin-bottom: 6.4rem;
-			width: calc(33.3333333% - 4rem);
-			&:nth-child(3n-1),
-			&:nth-child(3n-2) {
-				margin-right: 6rem;
-			}
-			&:last-child {
-				margin-right: 0;
-			}
-		}
-	}
-	a.link_people-all {
-		position: absolute;
-		top: -17rem;
-		right: 0;
-		margin: 0;
 	}
 
 	// Alternating Colours
@@ -1135,15 +1228,9 @@
 	// ----------------------------------------------------------------------------
 	body.home .logo_main:hover {
 		@for $i from 1 through 5 { // assumes 5 letters
-			.wrap_video-rainbow svg g.rainbow_letter-#{$i} path {
-				animation: animRainbowFill-step#{$i} 400ms steps(1) infinite reverse;
-			}
 			.wrap_video-vhs svg g path.group_path-#{$i} {
 				animation: animRainbowFill-step#{$i} 400ms steps(1) infinite reverse;
 			}
-		}
-		.wrap_video-record svg {
-			animation: animRainbowFill-steps 600ms steps(1) infinite;
 		}
 	}
 	body:not(.home) .logo_main {
@@ -1162,18 +1249,15 @@
 					animation: animRainbowFill-step#{$i} 400ms steps(1) infinite reverse;
 				}
 			}
-/*
-			& ~ .wrap_video-record svg {
-				animation: animRainbowFill-steps 600ms steps(1) infinite;
+			& ~ .wrap_video-record svg g.record_letter-6 {
+				animation: animRecordBlink 1000ms ease-in-out infinite;
 			}
-*/
 		}
 		&:active + .wrap_logo-sandwich,
 		&:active ~ .wrap_logo-video {
 			opacity: 0.8;
 		}
 	}
-
 }
 
 @media only screen and (min-width: 960px) {
@@ -1185,7 +1269,7 @@
 	// ----------------------------------------------------------------------------
 	// --- Video Credits --- \\
 	ul.video_credits li {
-		margin-bottom: 3.2rem;
+		padding-bottom: 3.2rem;
 		p {
 			margin-bottom: 0.7rem;
 			&:first-child {
@@ -1194,23 +1278,18 @@
 		}
 	}
 	// --- Archive List --- \\
-
-/*
-	section.archive_list {
-		columns: 3;
-	}
-*/
-
-	section.archive_list .wrap_column {
-		&.column-1 {
-			padding-right: 4rem;
+	article.archive_layout {
+		.wrap_column {
+			padding-left: 3.2rem;
+			padding-right: 3.2rem;
 		}
-		&.column-2 {
-			padding-left: 2rem;
-			padding-right: 2rem;
-		}
-		&.column-3 {
-			padding-left: 4rem;
+		& > div {
+			&:first-child {
+				padding-left: 0;
+			}
+			&:last-child {
+				padding-right: 0;
+			}
 		}
 	}
 
@@ -1227,48 +1306,93 @@
 
 	// YouTube Modal
 	// ----------------------------------------------------------------------------
-	aside {
-		.modal_content {
-			header.modal_header {
-				padding-left: 2.6rem;
-				padding-right: 2.6rem;
-			}
-			figure.modal_figure {
-				figcaption.modal_caption .wrap_scroll ul.video_credits {
-					padding: 4.8rem;
+	aside .modal_content {
+		header.modal_header {
+			padding-left: 2.6rem;
+			padding-right: 2.6rem;
+		}
+		figure.modal_figure figcaption.modal_caption .wrap_scroll ul.video_credits {
+			padding: 4.8rem 9.6rem 1.6rem 2.6rem;
+			li {
+				font-size: 1.4rem;
+				&:last-child {
+					padding-bottom: 3.2rem;
+				}
+				p:first-child {
+					margin-bottom: 0.8rem;
 				}
 			}
 		}
 	}
 
-// ==|== projects =============================================================
+// ==|== projects cpt =========================================================
 // ============================================================================
 
 	// Projects Single Post
 	// ----------------------------------------------------------------------------
-	section.projects_single {
-		article.projects_post {
-			figure.projects_figure {
-				margin-bottom: 6rem;
-				figcaption.projects_caption {
-					padding-top: 4rem;
-					padding-bottom: 4rem;
-				}
+	section.projects_single article.projects_post {
+		figure.projects_figure {
+			margin-bottom: 6rem;
+			figcaption.projects_caption {
+				padding-top: 4rem;
+				padding-bottom: 4rem;
 			}
-			.wrap_content {
-				.wrap_credits {
-					width: 70%;
-					ul.video_credits {
-						column-count: 2;
-						li {
-							break-inside: avoid;
+		}
+		.wrap_content {
+			.wrap_credits {
+				width: 70%;
+				ul.video_credits {
+					column-count: 2;
+					li {
+						break-inside: avoid;
+						-webkit-margin-before: 0;
+						-webkit-margin-after: 0;
+						&:last-child {
+							padding-bottom: 3.2rem;
 						}
 					}
 				}
-				nav.wrap_related {
-					width: 30%;
-				}
 			}
+			nav.wrap_related {
+				width: 30%;
+			}
+		}
+	}
+
+// ==|== people cpt ===========================================================
+// ============================================================================
+
+	// People
+	// ----------------------------------------------------------------------------
+	section.people_main article.person {
+		// flex: 0 1 calc(25% - 4rem);
+		width: calc(25% - 4rem);
+		&:nth-child(3n-1),
+		&:nth-child(3n-2) {
+			margin-right: 0;
+		}
+		&:nth-child(4n-1),
+		&:nth-child(4n-2),
+		&:nth-child(4n-3) {
+			margin-right: 5.3rem;
+		}
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+	a.link_people-all {
+		top: -27.2rem;
+		// update $diameter;
+		width: 16.8rem;
+		height: 16.8rem;
+		line-height: 16.8rem;
+		.wrap_txt-helped {
+			max-width: 12rem;
+			top: 4.8rem;
+		}
+		.wrap_ui-hand {
+			bottom: -2.4rem;
+			width: 4.5rem;
 		}
 	}
 
@@ -1290,42 +1414,6 @@
 			p {
 				font-size: 1.6rem;
 			}
-		}
-	}
-
-	// People
-	// ----------------------------------------------------------------------------
-	section.people_main {
-		article {
-			// flex: 0 1 calc(25% - 4rem);
-			width: calc(25% - 4rem);
-			&:nth-child(3n-1),
-			&:nth-child(3n-2) {
-				margin-right: 0;
-			}
-			&:nth-child(4n-1),
-			&:nth-child(4n-2),
-			&:nth-child(4n-3) {
-				margin-right: 5.3rem;
-			}
-			&:last-child {
-				margin-right: 0;
-			}
-		}
-	}
-	a.link_people-all {
-		top: -27.2rem;
-		// update $diameter;
-		width: 16.8rem;
-		height: 16.8rem;
-		line-height: 16.8rem;
-		.wrap_txt-helped {
-			max-width: 12rem;
-			top: 4.8rem;
-		}
-		.wrap_ui-hand {
-			bottom: -2.4rem;
-			width: 4.5rem;
 		}
 	}
 
@@ -1371,7 +1459,7 @@
 	}
 
 
-// ==|== press ================================================================
+// ==|== press cpt ============================================================
 // ============================================================================
 
 	// Press Shared
@@ -1493,6 +1581,7 @@
 	// Isotope
 	// ----------------------------------------------------------------------------
 	section.iso_container {
+		margin-bottom: 6.4rem;
 		.iso_gutter {
 			width: 3.713768%; // 164 / 4 = 41 / 1104 = 3.713768%
 		}
@@ -1501,31 +1590,8 @@
 		}
 	}
 
-// ==|== page styles ==========================================================
+// ==|== press cpt ============================================================
 // ============================================================================
-
-	// People
-	// ----------------------------------------------------------------------------
-	section.people_main {
-		article {
-			// flex: 0 1 calc(20% - 4rem);
-			width: calc(20% - 4rem);
-			&:nth-child(4n-1),
-			&:nth-child(4n-2),
-			&:nth-child(4n-3) {
-				margin-right: 0rem;
-			}
-			&:nth-child(5n-1),
-			&:nth-child(5n-2),
-			&:nth-child(5n-3),
-			&:nth-child(5n-4) {
-				margin-right: 5rem;
-			}
-			&:last-child {
-				margin-right: 0;
-			}
-		}
-	}
 
 	// Press
 	// ----------------------------------------------------------------------------
@@ -1572,6 +1638,49 @@
 		}
 	}
 
+// ==|== people cpt ===========================================================
+// ============================================================================
+
+	// People Main
+	// ----------------------------------------------------------------------------
+	section.people_main {
+		article.person {
+			// flex: 0 1 calc(20% - 4rem);
+			width: calc(20% - 4rem);
+			&:nth-child(4n-1),
+			&:nth-child(4n-2),
+			&:nth-child(4n-3) {
+				margin-right: 0rem;
+			}
+			&:nth-child(5n-1),
+			&:nth-child(5n-2),
+			&:nth-child(5n-3),
+			&:nth-child(5n-4) {
+				margin-right: 5rem;
+			}
+			&:last-child {
+				margin-right: 0;
+			}
+		}
+	}
+
+	// People Single
+	// ----------------------------------------------------------------------------
+	section.people_single article.person {
+		margin-bottom: 5.2rem;
+		padding-bottom: 5.2rem;
+		header {
+			margin-bottom: 2.2rem;
+			h3 {
+				font-size: 2.2rem;
+			}
+		}
+
+	}
+
+// ==|== page styles ==========================================================
+// ============================================================================
+
 	// Page Load
 	// ----------------------------------------------------------------------------
 	html[data-ready="ready"] .press_corner {
@@ -1615,7 +1724,7 @@
 		margin-bottom: 12rem;
 	}
 
-// ==|== page styles ==========================================================
+// ==|== people cpt ===========================================================
 // ============================================================================
 
 	// People
@@ -1652,7 +1761,7 @@
 		}
 	}
 
-// ==|== page styles ==========================================================
+// ==|== people cpt ===========================================================
 // ============================================================================
 
 	// People
@@ -1666,7 +1775,7 @@
 			margin-left: 13.5rem;
 		}
 */
-		article {
+		article.person {
 			width: calc(20% - 10.8rem); // 220px / 1640px = 13.414634%
 			&:nth-child(5n-1),
 			&:nth-child(5n-2),

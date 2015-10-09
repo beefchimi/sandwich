@@ -12,7 +12,7 @@
 			/ inject:svg
 			/ endinject
 
-		= Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render(Object.new, :locals => 'projects')
+		= Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render(Object.new, :locals => 'projects-single')
 
 		%main{:role => "main"}
 
@@ -44,7 +44,7 @@
 
 						.wrap_credits
 							%h4 Credits
-							= Haml::Engine.new(File.read("dev/haml/partials/_con_credits.haml")).render
+							= Haml::Engine.new(File.read("dev/haml/partials/_con_credits-project.haml")).render
 
 						%nav.wrap_related.nav_sidebar
 							%h4 Related Videos

@@ -18,8 +18,8 @@
 					%a#link_credits{:href => "#", :title => "Credits"} Credits
 				%li.item_link-project
 					%a#link_project{:href => "#", :title => "View Project Page"} View Project Page
-				%li.item_link-share
-					%a#link_share{:href => "#", :title => "Share"} Share
+				%li.item_link-tweet
+					%a#link_tweet{:href => "#", :title => "Tweet this"} Tweet this
 
 		%figure.modal_figure
 
@@ -31,11 +31,11 @@
 			%figcaption.modal_caption
 
 				.wrap_scroll
-					= Haml::Engine.new(File.read("dev/haml/partials/_con_credits.haml")).render
+					= Haml::Engine.new(File.read("dev/haml/partials/_con_credits-project.haml")).render
 
-				%a.wrap_svg.wrap_ui-arrow{:href => "#", :title => "Close Credits"}
-					%svg.ui_arrow{:viewBox => "0 0 64 64"}
-						%use{"xlink:href" => "#ui_arrow"}
+				-# %a.wrap_svg.wrap_ui-arrow{:href => "#", :title => "Close Credits"}
+					-# %svg.ui_arrow{:viewBox => "0 0 64 64"}
+						-# %use{"xlink:href" => "#ui_arrow"}
 
 		.content_error
 			%p Whoops! For whatever reason, a server error has occured and is preventing us from fetching the right video for you. Maybe if you <a href="#" class="link_retry" title="" data-client="" data-youtube="">try again</a> the server will have learned from its mistakes.

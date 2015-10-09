@@ -37,13 +37,14 @@
 				- (1..10).each do |i|
 					%article{:id => "people-#{i}", :class => "person"}
 
-						%a.link_img{:href => "#", :title => "See Full Bio"}
-							%img{:src => "assets/img/temp_people.jpg", :alt => ""}
-						%h3.person_name
-							%a.link_name{:href => "#", :title => "See Full Bio"} Employee Name ##{i}
-						%h3.person_role Role ##{i}
+						%header
+							%a.person_img.link_img{:href => "people-single.html", :title => "See Full Bio"}
+								%img{:src => "assets/img/temp_people.jpg", :alt => ""}
+							%h3.person_name
+								%a.link_name{:href => "#", :title => "See Full Bio"} Employee Name ##{i}
+							%h3.person_role Role ##{i}
 
-						.person_bio
+						.the_content.person_content
 							%p #{arrBios[numIndex]}
 
 						- if i % 3 == 0

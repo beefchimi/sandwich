@@ -295,6 +295,35 @@ a.link_people-all {
 	}
 
 
+	// YouTube Modal
+	// ----------------------------------------------------------------------------
+	aside {
+
+/*
+			// last keyframe styles of animBounceOutDown
+			opacity: 0;
+			transform: translate3d(0,300rem,0);
+*/
+
+		// bounce in / out of .modal_content
+		&[data-modal="hidden"] {
+			animation: animHide 400ms ease-in-out 400ms both; // delay the modal fade out just enough to be in sync with .modal_content
+			&[data-content="empty"] .modal_content,
+			&[data-content="loaded"] .modal_content {
+				// animation: animBounceOutDown 800ms $easeBounce both;
+				animation: animModalOut 320ms ease-in-out both;
+			}
+		}
+		&[data-modal="visible"] {
+			animation: animFadeIn 400ms ease-in-out both;
+			&[data-content="loaded"] .modal_content {
+				// animation: animBounceInUp 800ms $easeBounce forwards;
+				animation: animModalIn 320ms ease-in-out forwards;
+			}
+		}
+	}
+
+
 	// Page Load
 	// ----------------------------------------------------------------------------
 	nav.nav_filter,
