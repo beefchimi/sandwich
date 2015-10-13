@@ -23,6 +23,9 @@ dev/extra/scrap
 # Ignore images
 dev/media/images
 
+# Ignore videos
+dev/media/videos
+
 # Ignore plugin scripts from any author other than 'beefchimi'
 dev/scripts/plugins/*.js
 !dev/scripts/plugins/1_helpers.js

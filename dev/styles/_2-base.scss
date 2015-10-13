@@ -26,7 +26,8 @@ svg {
 	padding-bottom: 56.271981%; // aspect ratio percentage : [853:480 = 56.271981%] ... [16:9 = 56.25%]
 	// padding-top: 2.5rem;
 	height: 0;
-	iframe {
+	iframe,
+	video {
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -184,6 +185,10 @@ $arrPressValues: $hsl_press-1, $hsl_press-2, $hsl_press-3, $hsl_press-4, $hsl_pr
 	  0% { opacity: 1; left: 0; }
 	 99% { opacity: 0; left: 0; }
 	100% { opacity: 0; left: -200%; }
+}
+@keyframes animError404Bg {
+	  0% { background-color: $hsl_bone; }
+	100% { background-color: $hsl_press-1; }
 }
 @keyframes animRainbowColor {
 	$numRainbowIndex: 1;

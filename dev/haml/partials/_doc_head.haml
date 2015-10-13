@@ -8,7 +8,12 @@
 	- else
 		%title Sandwich Video
 
-	%meta{:name => "description", :content => "We make videos and TV commercials."}
+	- if locals == 'Error 404'
+		- strDescription = 'You have encountered a catastrophic error. Please evacuate the internet. Thank you.'
+	- else
+		- strDescription = 'We make videos and TV commercials.'
+
+	%meta{:name => "description", :content => "#{strDescription}"}
 	%meta{:name => "viewport", :content => "width=device-width, initial-scale=1"}
 
 	%meta{:name => "apple-mobile-web-app-capable", :content => "yes"}

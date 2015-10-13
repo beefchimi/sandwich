@@ -53,6 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		navToggle();
 		cycleLinkColors();
 		paginationEllipsis(7); // will not run if window width is above 768px
+		error404Video();
 
 	}
 
@@ -703,11 +704,22 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 
+
+
+
+
+
+
 	// finalAnimate: Inform the document when we have finished our loading animations
 	// ----------------------------------------------------------------------------
 	function finalAnimate() {
 
 		var elFooter = document.getElementById('page_footer');
+
+		// exit if there is no footer
+		if (elFooter === null) {
+			return;
+		}
 
 		elFooter.addEventListener(animationEvent, applyReadyState);
 
@@ -725,11 +737,16 @@ document.addEventListener('DOMContentLoaded', function() {
 	// ----------------------------------------------------------------------------
 	function fixedHeader() {
 
-		var numNavTravel = 60; // arbitrary number based on what feels good
+		// var numNavTravel = 60; // arbitrary number based on what feels good
+
+		// exit if there is no elNavPrimary
+		if (elNavPrimary === null) {
+			return;
+		}
 
 		if (numWinWidth >= 768) {
 
-			if (numScrollPos >= numNavTravel) {
+			if (numScrollPos >= 60) {
 				elNavPrimary.classList.add('scrolled');
 			} else {
 				elNavPrimary.classList.remove('scrolled');
@@ -745,6 +762,11 @@ document.addEventListener('DOMContentLoaded', function() {
 	function navToggle() {
 
 		var elNavPrimaryTrigger = document.getElementById('nav_toggle');
+
+		// exit if there is no #nav_toggle
+		if (elNavPrimaryTrigger === null) {
+			return;
+		}
 
 		elNavPrimaryTrigger.addEventListener('click', function(e) {
 
@@ -1089,6 +1111,94 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 
+
+
+
+
+
+
+	// error404Video: Autoload video magic error 404
+	// ----------------------------------------------------------------------------
+	function error404Video() {
+
+		var el404Modal = document.getElementById('modal_404');
+
+		// exit this function if we do not have #modal_404
+		if (el404Modal === null) {
+			return;
+		}
+
+		var el404ModalContent = el404Modal.getElementsByClassName('modal_content')[0],
+			el404Video        = el404ModalContent.getElementsByTagName('video')[0];
+
+		// click to close modal
+		el404Modal.addEventListener('click', close404Modal);
+
+		// prevent elModal click event from triggering on undesired children
+		el404ModalContent.addEventListener('click', function(e) {
+			e.stopPropagation();
+		});
+
+		// wait 6 seconds then show the modal
+		setTimeout(function() {
+			show404Modal();
+		}, 6000);
+
+		function show404Modal() {
+
+			lockBody(boolScrollbar, numScrollbarWidth);
+
+			// if this is our first time toggling visibility...
+			if ( el404Modal.hasAttribute('style') ) {
+				el404Modal.removeAttribute('style'); // remove the opacity: 0; style
+			}
+
+			// toggle modal visibility now that it is in the document
+			el404Modal.setAttribute('data-modal', 'visible');
+			el404Modal.setAttribute('data-content', 'loaded');
+			el404Modal.setAttribute('data-ajax', 'success');
+
+			// play the video
+			el404Video.play();
+
+		}
+
+		function close404Modal(e) {
+
+			e.preventDefault();
+
+			// start listening to the elModal animation event
+			el404Modal.addEventListener(animationEvent, fadeOut404ModalEnd);
+
+			// set modal to 'hidden', which will trigger our fade out animation (to opacity: 0;)
+			el404Modal.setAttribute('data-modal', 'hidden');
+			el404Modal.setAttribute('data-content', 'empty');
+			el404Modal.setAttribute('data-ajax', '');
+
+			// pause the video
+			el404Video.pause();
+
+			function fadeOut404ModalEnd(e) {
+
+				// animation event bubbles, and will trigger on all children...
+				// so make sure we are looking at the right target
+				if (e.target === el404Modal) {
+
+					// stop listening to the animation event
+					el404Modal.removeEventListener(animationEvent, fadeOut404ModalEnd);
+
+					// restore scrolling to the document
+					unlockBody(boolScrollbar);
+
+				}
+
+			}
+
+		}
+
+	}
+
+
 	// Window Events
 	// ----------------------------------------------------------------------------
 	window.addEventListener('resize', debounce(function() {
@@ -1098,12 +1208,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		if (numWinWidth >= 768) {
 
-			// remove 'toggled' class from nav_primary and restore body scrolling...
-			// nav_primary is the only element we should be concerned about with unlocking the body...
-			// but in case this changed, we need to be sure to update how this works
-			if ( elNavPrimary.classList.contains('toggled') ) {
-				elNavPrimary.classList.remove('toggled');
-				unlockBody(boolScrollbar);
+			// if elNavPrimary does exist...
+			if (typeof(elNavPrimary) != 'undefined' && elNavPrimary != null) {
+
+				// remove 'toggled' class from nav_primary and restore body scrolling...
+				// nav_primary is the only element we should be concerned about with unlocking the body...
+				// but in case this changes, we need to be sure to update how this works
+				if ( elNavPrimary.classList.contains('toggled') ) {
+					elNavPrimary.classList.remove('toggled');
+					unlockBody(boolScrollbar);
+				}
+
 			}
 
 			// also remove 'toggled' class from nav_filter (if it exists)
@@ -1113,8 +1228,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		} else {
 
-			// remove 'fixed' positioning from header
-			elNavPrimary.classList.remove('scrolled');
+			// if elNavPrimary does exist...
+			if (typeof(elNavPrimary) != 'undefined' && elNavPrimary != null) {
+				// remove 'fixed' positioning from header
+				elNavPrimary.classList.remove('scrolled');
+			}
 
 			// if we have not run our paginationEllipsis() function yet,
 			// then we must have started above 768px, so we will need run this now

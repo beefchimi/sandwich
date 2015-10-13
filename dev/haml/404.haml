@@ -1,35 +1,42 @@
 !!!
-/[if IE 9] <html class="ie9" lang="en">
+/[if IE 9] <html class="ie9 error404" lang="en">
 <!--[if gt IE 9]><!-->
-%html{:lang => "en"}<>
+%html{:lang => "en", "data-ready" => "ready", "data-overflow" => "scrollable", :class => "error404"}<>
 	<!--<![endif]-->
 
-	%head
+	= Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render(Object.new, :locals => 'Error 404')
 
-		%meta{:charset => "utf-8"}
-		%meta{"http-equiv" => "X-UA-Compatible", :content => "IE=edge"}
+	%body#error.error404
 
-		%title Error 404 | Gulp Config
+		#svgInject.visuallyhidden
+			/ inject:svg
+			/ endinject
 
-		%meta{:name => "description", :content => "you have encountered a catastrophic error. please evacuate the internet. thank you."}
-		%meta{:name => "viewport", :content => "width=device-width, initial-scale=1"}
-
-		%link{:rel => "stylesheet", :href => "assets/css/styles.min.css?v=0"}
-
-		%script
-			= Haml::Engine.new(File.read("dev/haml/partials/_js_fonts.haml")).render
-
-	%body.error404
+		-# = Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render(Object.new, :locals => 'error404')
 
 		%main{:role => "main"}
 
-			%section#error.error
+			%section.error404_main
 
-				%article{"data-container" => ""}
+				%article.error404_post
 
-					.project_content
+					%h1 404
+					%p Nothing to see here.
+					%p Collect yourself and <a href="index.html" title="Go back to home page">try again</a>.
+					-# %p Or click this.
 
-						%h1 Error 404
-						%h2 Nothing to see here
+		%aside#modal_404{"data-modal" => "hidden", "data-content" => "empty", "data-ajax" => "", :style => "opacity:0; visibility:hidden;"}
 
-		= Haml::Engine.new(File.read("dev/haml/partials/_js_analytics.haml")).render
+			.modal_content
+
+				%figure.modal_figure
+
+					.wrap_video
+						-# {:controls => true}
+						%video
+							%source{:src => "assets/vid/oh_claude.webm", :type => "video/webm"}
+							%source{:src => "assets/vid/oh_claude.mp4", :type => "video/mp4"}
+							%source{:src => "assets/vid/oh_claude.ogv", :type => "video/ogg"}
+
+		-# = Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render
+		= Haml::Engine.new(File.read("dev/haml/partials/_doc_scripts.haml")).render

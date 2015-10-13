@@ -935,6 +935,12 @@
 			background-color: transparent;
 		}
 
+		&#modal_404 .modal_content figure.modal_figure {
+			position: static;
+			top: auto;
+			transform: none;
+		}
+
 	}
 
 // ==|== projects cpt =========================================================

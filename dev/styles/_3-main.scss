@@ -1113,6 +1113,15 @@ aside {
 		}
 	}
 
+	&#modal_404 .modal_content {
+		background-color: transparent;
+		figure.modal_figure {
+			position: relative;
+			top: 50%;
+			transform: translateY(-55%);
+		}
+	}
+
 }
 
 
@@ -1661,6 +1670,81 @@ body.page-template-tpl-contact main .the_content {
 	}
 }
 
+// Error 404
+// ----------------------------------------------------------------------------
+html.error404,
+body.error404 {
+	height: 100%;
+	&::before,
+	&::after {
+		content: " ";
+		position: absolute;
+		z-index: 1;
+		top: 0;
+		bottom: 0;
+		width: 20%;
+		height: 100%;
+	}
+}
+html.error404 {
+	position: relative;
+	background-color: $hsl_press-1;
+	&::before {
+		left: 20%;
+		background-color: $hsl_press-2;
+	}
+	&::after {
+		left: 40%;
+		background-color: $hsl_press-3;
+	}
+}
+body.error404 {
+	&::before {
+		left: 60%;
+		background-color: $hsl_press-4;
+	}
+	&::after {
+		left: 80%;
+		background-color: $hsl_press-5;
+	}
+	main {
+		@include posCover(absolute, 2);
+		height: 10rem;
+		transform: translateY(-50%);
+	}
+}
+article.error404_post {
+	text-align: center;
+	h1 {
+		margin-bottom: 3.2rem;
+		font-size: 2.2rem;
+		color: $hsl_L100;
+	}
+	p {
+		// margin-bottom: 1rem;
+		font-size: 1.5rem;
+		line-height: 1.2;
+		color: $hsl_L100;
+/*
+		&:last-child {
+			margin-bottom: 0;
+		}
+*/
+		a {
+			color: $hsl_L100;
+			text-decoration: underline;
+			white-space: nowrap;
+			transition: color 260ms ease-in-out;
+			&:hover {
+				color: $hsl_navy;
+			}
+			&:active {
+				color: darken($hsl_navy, 10%);
+			}
+		}
+	}
+}
+
 // Alternating Colours
 // ----------------------------------------------------------------------------
 // + red links + \\
@@ -1727,8 +1811,35 @@ footer.page_footer {
 	animation: animFadeIn 800ms ease-in-out 800ms both; // final animated element
 }
 
-
-
-
-
+// + error 404 + \\
+html.error404,
+body.error404 {
+	&::before,
+	&::after {
+		animation-name: animFadeIn;
+		animation-duration: 400ms;
+		animation-timing-function: ease-in-out;
+		animation-fill-mode: both;
+	}
+}
+html.error404 {
+	animation: animError404Bg 600ms ease-in-out both;
+	&::before {
+		animation-delay: 400ms;
+	}
+	&::after {
+		animation-delay: 600ms;
+	}
+}
+body.error404 {
+	&::before {
+		animation-delay: 800ms;
+	}
+	&::after {
+		animation-delay: 1000ms;
+	}
+}
+section.error404_main {
+	animation-delay: 1000ms !important; // :not() specificity seems to be unbeatable... !important required
+}
 

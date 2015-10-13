@@ -34,6 +34,10 @@ var paths = {
 		src  : 'dev/media/images/*.{png,jpg,gif}',
 		dest : 'build/assets/img/'
 	},
+	videos: {
+		src  : 'dev/media/videos/*.*',
+		dest : 'build/assets/vid/'
+	},
 	svg: {
 		src  : 'dev/media/svg/*.svg'
 	},
@@ -140,7 +144,7 @@ gulp.task('scripts', function() { // ['copy-scripts'],
 	return gulp.src(paths.scripts.src)
 		.pipe(plugins.sourcemaps.init())
 			.pipe(plugins.concat('scripts.min.js'))
-			.pipe(plugins.uglify()) // firefox doesn't play nice, but Chrome is fine
+			// .pipe(plugins.uglify()) // firefox doesn't play nice, but Chrome is fine
 		.pipe(plugins.sourcemaps.write('../maps'))
 /*
 		.pipe(plugins.sourcemaps.write('../maps', {
@@ -188,6 +192,17 @@ gulp.task('images', function() {
 			use: [pngcrush()]
 		}))
 		.pipe(gulp.dest(paths.images.dest));
+
+});
+
+
+// Copy (if changed) all of our videos to the build vid folder
+// ----------------------------------------------------------------------------
+gulp.task('videos', function() {
+
+	return gulp.src(paths.videos.src)
+		.pipe(plugins.changed(paths.videos.dest))
+		.pipe(gulp.dest(paths.videos.dest));
 
 });
 
