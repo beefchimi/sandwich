@@ -4,7 +4,7 @@
 // Foundation
 // ----------------------------------------------------------------------------
 html {
-	font-family: 'aktiv-grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif; // bug in FF causing 2 scrollbars with Helvetica?
+	font-family: 'aktiv-grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	background-color: $hsl_bone;
 	// lock scrolling
 	min-height: 100%;
@@ -13,14 +13,6 @@ html {
 	&[data-overflow="locked"] body {
 		overflow-y: hidden;
 	}
-/*
-	&[data-ready="waiting"] body {
-		overflow-y: hidden;
-	}
-	&[data-ready="loaded"] body {
-		overflow-y: visible;
-	}
-*/
 }
 body {
 	position: relative;
@@ -49,13 +41,10 @@ body {
 // Header
 // ----------------------------------------------------------------------------
 header.page_header {
-
 	padding-top: 9rem;
 	padding-bottom: 4.2rem;
 	text-align: center;
-
 	// [ nav_primary moved below for cleaner code ] \\
-
 	a.logo_main {
 		display: block; // UNTIL WEBKIT FIXES SVG ANIMATIONS WITHIN AN <a> TAG, THIS CAN'T BE USED :(
 	}
@@ -94,15 +83,9 @@ header.page_header {
 						fill: $hsl_red; // default fill
 					}
 					// + record letters + \\
-					&.logo_video-record {
-					// &.logo_video-record g path {
+					&.logo_video-record { // was: &.logo_video-record g path
 						fill: $hsl_red; // default fill
 					}
-/*
-					&.logo_video-record {
-						fill: url('#video-tracking'); // 'http://localhost/sandwich/build/assets/img/test.svg#video-tracking'
-					}
-*/
 				}
 			}
 			// + record logo: adjust for visual center * \\
@@ -111,7 +94,6 @@ header.page_header {
 			}
 		}
 	}
-
 	.wrap_tagline {
 		margin: 3.2rem auto 0 auto;
 		h2 {
@@ -126,34 +108,13 @@ header.page_header {
 				display: none;
 			}
 		}
-/*
-		svg {
-			fill: $hsl_navy;
-		}
-		&.wrap_tagline-home {
-			max-width: 30.3rem;
-		}
-		&.wrap_tagline-projects {
-			max-width: 15.3rem;
-		}
-		&.wrap_tagline-people {
-			max-width: 30.2rem;
-		}
-		&.wrap_tagline-everyone {
-			max-width: 39.9rem;
-		}
-		&.wrap_tagline-press {
-			max-width: 22.8rem;
-		}
-*/
+		// [ if we revert back to svg taglines, the max-width for each must be specified either here or inline on the element ]
 	}
-
 }
 
 // Primary Navigation (child of header)
 // ----------------------------------------------------------------------------
 nav.nav_primary {
-
 	a.nav_toggle {
 		display: block;
 		position: absolute;
@@ -169,19 +130,19 @@ nav.nav_primary {
 			position: relative;
 			width: 100%;
 			height: 100%;
-			overflow: hidden;
-			html[data-ready="ready"] & {
-				overflow: visible;
-				transition: transform 260ms ease-in-out;
-			}
+			transition: transform 260ms ease-in-out; // was previously waiting for data-ready to apply + overflow: visible;
 			.nav_line {
 				position: absolute;
 				left: 0;
 				width: 100%;
 				height: 0.4rem;
+				transition: transform 260ms ease-in-out; // was previously waiting for data-ready
 				.line_bg {
 					height: 100%;
 					background-color: $hsl_navy; // default background-color
+				}
+				&.line-2 .line_bg {
+					transition: opacity 260ms ease-in-out; // was previously waiting for data-ready
 				}
 				// loop through each nav_line and offset from top by 8px (starting at 0px)
 				$numTop: 0;
@@ -191,16 +152,9 @@ nav.nav_primary {
 					}
 					$numTop: $numTop + 8;
 				}
-				html[data-ready="ready"] & {
-					transition: transform 260ms ease-in-out;
-				}
-				html[data-ready="ready"] &.line-2 .line_bg {
-					transition: opacity 260ms ease-in-out;
-				}
 			}
 		}
 	}
-
 	.wrap_nav {
 		@include posCover(fixed, 400);
 		@include toggleVisibility(off);
@@ -274,7 +228,6 @@ nav.nav_primary {
 							left: 0;
 							width: 2.2rem;
 							height: 2.2rem;
-							overflow: visible; // top and left seem to get cutoff in FF... making this visible doesn't even fix it :(
 							path {
 								stroke: $hsl_navy;
 							}
@@ -304,7 +257,6 @@ nav.nav_primary {
 			}
 		}
 	}
-
 	// + toggled navigation + \\
 	&.toggled {
 		a.nav_toggle .nav_icon {
@@ -326,7 +278,6 @@ nav.nav_primary {
 			}
 		}
 	}
-
 }
 
 // Footer
@@ -431,7 +382,7 @@ nav.nav_sidebar {
 			}
 			&:active {
 				color: lighten($hsl_red, 10%); // darken($hsl_red, 10%);
-				// technically, the image should darken as well... but I can only do this if it is an SVG
+				// technically, the image should darken as well... but I have elected not to use filter: brightness(0.9);
 			}
 			p {
 				display: inline-block;
@@ -441,8 +392,6 @@ nav.nav_sidebar {
 		}
 	}
 }
-
-
 // --- Archive List --- \\
 article.archive_layout {
 	text-align: center;
@@ -451,14 +400,11 @@ article.archive_layout {
 		&:last-child {
 			margin-bottom: 0;
 		}
-
 		ul {
-
 			margin-bottom: 3.2rem;
 			&:last-child {
 				margin-bottom: 0;
 			}
-
 			li {
 				margin-bottom: 0.6rem;
 				color: $hsl_navy;
@@ -495,11 +441,8 @@ article.archive_layout {
 					}
 				}
 			}
-
 		}
-
 	}
-
 	&.person_credits .wrap_column {
 		margin-bottom: 4.2rem;
 		&:last-child {
@@ -534,11 +477,7 @@ article.archive_layout {
 			}
 		}
 	}
-
 }
-
-
-
 // --- The Content --- \\
 .the_content {
 	color: $hsl_navy;
@@ -566,7 +505,6 @@ article.archive_layout {
 		&::before {
 			display: block;
 			position: absolute;
-			// top: 0;
 			left: 0;
 		}
 	}
@@ -581,12 +519,10 @@ article.archive_layout {
 			vertical-align: top;
 		}
 	}
-	ul {
-		& > li::before {
-			content: "\2022"; // bullet
-			top: -0.2rem;
-			font-size: 1.8rem;
-		}
+	ul > li::before {
+		content: "\2022"; // bullet
+		top: -0.2rem;
+		font-size: 1.8rem;
 	}
 	hr {
 		border-color: $hsl_navy;
@@ -643,20 +579,17 @@ article.archive_layout {
 	hr, blockquote { margin-top: 3.2rem; margin-bottom: 3.2rem; }
 	p, li { font-size: 1.4rem; }
 	li, th, td { line-height: 1.2; }
-	h1:last-child, h2:last-child, h3:last-child, h4:last-child, h5:last-child, h6:last-child,
-	p:last-child, ol:last-child, ul:last-child, li:last-child, hr:last-child, img:last-child, div:last-child, table:last-child, blockquote:last-child { margin-bottom: 0; }
+	h1:last-child, h2:last-child, h3:last-child, h4:last-child, h5:last-child, h6:last-child, p:last-child, ol:last-child, ul:last-child, li:last-child, hr:last-child, img:last-child, div:last-child, table:last-child, blockquote:last-child { margin-bottom: 0; }
 }
 
 // Nav Filter
 // ----------------------------------------------------------------------------
 nav.nav_filter {
-
 	@include container(180); // 200
 	position: relative;
 	z-index: 200;
 	margin-bottom: 4.2rem;
 	text-align: center;
-
 	a.filter_trigger {
 		display: table;
 		width: 100%;
@@ -718,7 +651,6 @@ nav.nav_filter {
 				}
 			}
 		}
-
 		// disable use of dropdown nav until iso images have loaded and filterDropdown() has been fired
 		main[data-isotope="waiting"] & {
 			pointer-events: none;
@@ -728,18 +660,15 @@ nav.nav_filter {
 				background-color: $hsl_L72;
 			}
 		}
-
 	}
-
 	// be sure there is no chance ios rubber band will show a different background
+	// would be nice if we could find a way to show the background-color of the top and bottom nav items
 	.wrap_dropdown,
 	.wrap_dropdown ul,
 	.wrap_dropdown .fix_ios-scroll {
 		background-color: $hsl_red;
 	}
-
 	.wrap_dropdown {
-
 		@include toggleVisibility(off);
 		position: absolute;
 		z-index: 201;
@@ -749,22 +678,17 @@ nav.nav_filter {
 		border-radius: 1.3rem;
 		overflow: hidden;
 		transition: opacity 360ms ease-in-out, visibility 360ms ease-in-out; // try to avoid using visibility? not as performant
-
 		// required only get to iOS to behave
 		.fix_ios-scroll {
-
 			@include posCover(absolute, 202);
 			border-radius: 1.3rem;
 			overflow: hidden;
 			-webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC); // required in order to get iOS Chrome to mask the overflow!
-
 			ul {
-				// padding-top: 0;
 				height: 100%;
 				overflow-x: hidden;
 				overflow-y: scroll;
 				-webkit-overflow-scrolling: touch;
-
 				li {
 					span {
 						cursor: pointer;
@@ -777,8 +701,6 @@ nav.nav_filter {
 						pointer-events: none;
 					}
 				}
-
-
 /*
 				// + chrome scrollbar + \\
 				&::-webkit-scrollbar {
@@ -792,14 +714,9 @@ nav.nav_filter {
 					background-color: $hsl_yellow;
 				}
 */
-
-
 			}
-
 		}
-
 	}
-
 	// + toggled filter dropdown + \\
 	&.toggled {
 		z-index: 500;
@@ -820,7 +737,6 @@ nav.nav_filter {
 			z-index: 501;
 		}
 	}
-
 	// collection is 0 based, so we actually have a total of 17 items...
 	// the assumption is there will only ever be this exact amount of tags/filters
 	// everything between 2 and 14 is -120rem
@@ -830,19 +746,15 @@ nav.nav_filter {
 	&[data-index="14"] .wrap_dropdown { top: -16rem; }
 	&[data-index="15"] .wrap_dropdown { top: -20rem; }
 	&[data-index="16"] .wrap_dropdown { top: -24rem; }
-
 }
 
 // Isotope
 // ----------------------------------------------------------------------------
 section.iso_container {
-
 	position: relative;
 	z-index: 100;
 	overflow-y: hidden; // required to prevent scrollbar on filter change (horizontal scrollbar appears on resize... is this a concern?)
-
 	margin-bottom: 2rem;
-
 	.iso_gutter {
 		width: 2rem; // isotope gutter width
 	}
@@ -879,7 +791,6 @@ section.iso_container {
 			}
 		}
 	}
-
 	.iso_loader {
 		z-index: 300;
 		transition-duration: 720ms;
@@ -898,13 +809,11 @@ section.iso_container {
 			}
 		}
 	}
-
 	// + internet explorer + \\
 	html.ie9 & .iso_loader {
 		display: none;
 		visibility: hidden;
 	}
-
 }
 
 // YouTube Modal
@@ -919,7 +828,6 @@ aside {
 	height: 100%;
 	// opacity: 0; // might be required if we find the modal appearing instantly on initial load
 	background-color: hsla(0,0%,0%,0.15);
-
 	// fade in / out of modal
 	&[data-modal="hidden"] {
 		animation: animHide 600ms ease-in-out both;
@@ -934,20 +842,16 @@ aside {
 	html[data-overflow="scrollable"] & {
 		z-index: -1; // move to bottom layer so it does not overlap other elements once hidden
 	}
-
 	html[data-scrollbar] & {
 		padding-right: 1.5rem; // temporary value
 	}
-
 	.modal_content {
-
 		max-width: 85.3rem;
 		width: 100%;
 		height: 100%;
 		background-color: $hsl_cyan; // colour of figcaption in case content is shorter than viewport
 		overflow-y: scroll;
 		-webkit-overflow-scrolling: touch;
-
 		header.modal_header {
 			position: relative;
 			padding: 2rem 1.6rem;
@@ -986,7 +890,6 @@ aside {
 					}
 					&.item_link-project,
 					&.item_link-tweet {
-						// width: 50%;
 						flex: 0 1 50%;
 					}
 					&.item_link-project {
@@ -1008,9 +911,7 @@ aside {
 					}
 				}
 			}
-
 		}
-
 		figure.modal_figure {
 			.wrap_video {
 				background-color: $hsl_L0; // set to black in case of slow video load
@@ -1043,7 +944,6 @@ aside {
 				}
 			}
 		}
-
 		.content_error {
 			display: none;
 			width: 100%;
@@ -1066,9 +966,7 @@ aside {
 				}
 			}
 		}
-
 	}
-
 	&[data-ajax="error"] {
 		.modal_content {
 			.content_error {
@@ -1085,7 +983,6 @@ aside {
 			}
 		}
 	}
-
 	.modal_loader {
 		z-index: -1;
 		pointer-events: none; // click event using stopPropagation
@@ -1112,7 +1009,7 @@ aside {
 			}
 		}
 	}
-
+	// error 404 modal code was kind of rushed, would love to have spent more time on this
 	&#modal_404 .modal_content {
 		background-color: transparent;
 		figure.modal_figure {
@@ -1121,7 +1018,6 @@ aside {
 			transform: translateY(-55%);
 		}
 	}
-
 }
 
 
@@ -1164,7 +1060,7 @@ section.projects_single {
 				.wrap_logo {
 					// flex: 0 0 4rem;
 					// object-fit: scale-down;
-					width: 4rem; // required to set width instead of flex... image will not scale if using flex
+					width: 4rem; // required to set width instead of flex... image will not scale if using flex (bug?)
 					text-align: right;
 				}
 			}
@@ -1290,7 +1186,7 @@ section.press_sidebar {
 				}
 				&:active .wrap_press-logo {
 					img.img_on {
-						opacity: 0.9;
+						opacity: 0.9; // could have darkened using [ filter: brightness(0.9) ] but opacity is the more efficient solution
 					}
 				}
 			}
@@ -1374,6 +1270,7 @@ section.press_main {
 			&:nth-child(#{$i}) {
 				border-bottom-color: nth($arrRainbowValues, $i);
 /*
+				// colour the content links to correspond with article border-bottom (fun stuff but decided to stick with red)
 				& header h3 a {
 					&:hover {
 						color: nth($arrRainbowValues, $i);
@@ -1450,11 +1347,6 @@ section.press_main {
 			display: block;
 		}
 	}
-}
-
-// Press Single
-// ----------------------------------------------------------------------------
-section.press_single {
 }
 
 
@@ -1585,7 +1477,7 @@ body.home main,
 body.post-type-archive-people main {
 	@include container(1640);
 }
-body.single main, // assuming the 'people single' page uses the same width container
+body.single main,
 body.post-type-archive-press main,
 body.post-type-archive-projects main,
 body.post-type-archive-people-everyone main {
@@ -1602,24 +1494,16 @@ body.post-type-archive-people footer.page_footer {
 	padding-top: 5.2rem; // 100px - 48px
 }
 
-// Page Default
-// ----------------------------------------------------------------------------
-article.page_post {
-}
-
 // Home
 // ----------------------------------------------------------------------------
 section.about_main {
 	@include container(666);
-	article {
-		h5 {
-			margin-bottom: 3.2rem;
-			font-size: 2.2rem;
-			color: $hsl_navy;
-		}
+	article h5 {
+		margin-bottom: 3.2rem;
+		font-size: 2.2rem;
+		color: $hsl_navy;
 	}
 }
-
 
 // Contact
 // ----------------------------------------------------------------------------
@@ -1721,15 +1605,9 @@ article.error404_post {
 		color: $hsl_L100;
 	}
 	p {
-		// margin-bottom: 1rem;
 		font-size: 1.5rem;
 		line-height: 1.2;
 		color: $hsl_L100;
-/*
-		&:last-child {
-			margin-bottom: 0;
-		}
-*/
 		a {
 			color: $hsl_L100;
 			text-decoration: underline;
@@ -1751,38 +1629,28 @@ article.error404_post {
 nav.nav_filter[data-color="red"] a.filter_trigger { color: $hsl_red; border-color: $hsl_red; }
 nav.nav_filter .wrap_dropdown ul li span.color_red,
 nav.nav_filter[data-color="red"] a.filter_trigger .wrap_toggle .filter_icon .filter_line .line_bg { background-color: $hsl_red; }
-footer.page_footer h6 a.color_red:hover { color: $hsl_red; }
-footer.page_footer h6 a.color_red:active { color: darken($hsl_red, 20%); }
 // + orange links + \\
 nav.nav_filter[data-color="orange"] a.filter_trigger { color: $hsl_orange; border-color: $hsl_orange; }
 nav.nav_filter .wrap_dropdown ul li span.color_orange,
 nav.nav_filter[data-color="orange"] a.filter_trigger .wrap_toggle .filter_icon .filter_line .line_bg { background-color: $hsl_orange; }
-footer.page_footer h6 a.color_orange:hover { color: $hsl_orange; }
-footer.page_footer h6 a.color_orange:active { color: darken($hsl_orange, 20%); }
 // + yellow links + \\
 nav.nav_filter[data-color="yellow"] a.filter_trigger { color: $hsl_yellow; border-color: $hsl_yellow; }
 nav.nav_filter .wrap_dropdown ul li span.color_yellow,
 nav.nav_filter[data-color="yellow"] a.filter_trigger .wrap_toggle .filter_icon .filter_line .line_bg { background-color: $hsl_yellow; }
-footer.page_footer h6 a.color_yellow:hover { color: $hsl_yellow; }
-footer.page_footer h6 a.color_yellow:active { color: darken($hsl_yellow, 20%); }
-// + aqua links + \\
+// + aqua links (must accomodate "all" filter nav item) + \\
 nav.nav_filter[data-color="aqua"] a.filter_trigger,
 nav.nav_filter[data-current="*"] a.filter_trigger { color: $hsl_aqua; border-color: $hsl_aqua; }
 nav.nav_filter .wrap_dropdown ul li span.color_aqua,
 nav.nav_filter .wrap_dropdown ul li:nth-child(1) span,
 nav.nav_filter[data-color="aqua"] a.filter_trigger .wrap_toggle .filter_icon .filter_line .line_bg,
 nav.nav_filter[data-current="*"] a.filter_trigger .wrap_toggle .filter_icon .filter_line .line_bg { background-color: $hsl_aqua; }
-footer.page_footer h6 a.color_aqua:hover { color: $hsl_aqua; }
-footer.page_footer h6 a.color_aqua:active { color: darken($hsl_aqua, 20%); }
-// + cyan links + \\
+// + cyan links (msut accomodate "curated" filter nav item) + \\
 nav.nav_filter[data-color="cyan"] a.filter_trigger,
 nav.nav_filter[data-current=".curated"] a.filter_trigger { color: $hsl_cyan; border-color: $hsl_cyan; }
 nav.nav_filter .wrap_dropdown ul li span.color_cyan,
 nav.nav_filter .wrap_dropdown ul li:nth-child(2) span,
 nav.nav_filter[data-color="cyan"] a.filter_trigger .wrap_toggle .filter_icon .filter_line .line_bg,
 nav.nav_filter[data-current=".curated"] a.filter_trigger .wrap_toggle .filter_icon .filter_line .line_bg { background-color: $hsl_cyan; }
-footer.page_footer h6 a.color_cyan:hover { color: $hsl_cyan; }
-footer.page_footer h6 a.color_cyan:active { color: darken($hsl_cyan, 20%); }
 
 // Page Load
 // ----------------------------------------------------------------------------
@@ -1797,20 +1665,16 @@ nav.nav_filter,
 section:not(#iso_container) {
 	animation: animFadeIn 800ms ease-in-out 400ms both;
 }
-
 section.iso_container .iso_loader .wrap_graphics {
 	animation: animFadeIn 800ms ease-in-out forwards;
 }
-
 a.link_people-all {
 	animation: animFadeIn 800ms ease-in-out 400ms both;
 }
-
 // + footer + \\
 footer.page_footer {
 	animation: animFadeIn 800ms ease-in-out 800ms both; // final animated element
 }
-
 // + error 404 + \\
 html.error404,
 body.error404 {
@@ -1840,6 +1704,5 @@ body.error404 {
 	}
 }
 section.error404_main {
-	animation-delay: 1000ms !important; // :not() specificity seems to be unbeatable... !important required
+	animation-delay: 1000ms !important; // :not() specificity seems to be unbeatable... !important required :(
 }
-

@@ -3,11 +3,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	// Global Variables [kept from becoming window properties]
 	// ----------------------------------------------------------------------------
-	var elHTML       = document.documentElement,
-		elBody       = document.body,
-		elNavPrimary = document.getElementById('nav_primary'),
-		elNavFilter  = document.getElementById('nav_filter'),
-		boolPagiRun  = false,
+	var elHTML         = document.documentElement,
+		elBody         = document.body,
+		elNavPrimary   = document.getElementById('nav_primary'),
+		elNavFilter    = document.getElementById('nav_filter'),
+		elIsoContainer = document.getElementById('iso_container'),
+		boolPagiRun    = false,
 		objISO;
 
 	// window measurement variables
@@ -25,7 +26,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		elModalClient,
 		elWrapVideo,
 		elWrapScroll,
-		// elCaptionClose,
 		elModalLinkClose,
 		elModalLinkCredits,
 		elModalLinkProject,
@@ -62,7 +62,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	// ----------------------------------------------------------------------------
 	function initIsotope() {
 
-		var elIsoContainer = document.getElementById('iso_container');
+		// moved to global scope for revised color cycle code
+		// var elIsoContainer = document.getElementById('iso_container');
 
 		// check if iso_container exists
 		if (elIsoContainer == null) {
@@ -83,7 +84,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		imagesLoaded(elIsoContainer, function(instance) {
 
 			objISO = new Isotope(elIsoContainer, {
-
 				itemSelector: '.iso_brick',
 				percentPosition: true,
 				masonry: {
@@ -91,7 +91,6 @@ document.addEventListener('DOMContentLoaded', function() {
 					gutter: '.iso_gutter'
 				},
 				filter: strCurrentFilter
-
 			});
 
 			// images are now loaded, so let our <main> know so we can enable use of the filterDropdown
@@ -557,20 +556,9 @@ document.addEventListener('DOMContentLoaded', function() {
 	function toggleCredits() {
 
 		elModalLinkCredits.addEventListener('click', function(e) {
-
 			e.preventDefault();
 			elModal.classList.toggle('toggle_credits');
-
 		});
-
-/*
-		elCaptionClose.addEventListener('click', function(e) {
-
-			e.preventDefault();
-			elModal.classList.remove('toggle_credits');
-
-		});
-*/
 
 	}
 
@@ -683,10 +671,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 */
 
-		// in case of ajax failure, we need to be sure we are not removing our credits arrow
-		// if (elScrollChild != elCaptionClose) {
-			elWrapScroll.removeChild(elScrollChild); // .video_credits will be the first child of elWrapScroll
-		// }
+		elWrapScroll.removeChild(elScrollChild); // .video_credits will be the first child of elWrapScroll
 
 		// clear inner content
 		elModalTitle.innerHTML  = '';
@@ -702,12 +687,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		elModalLoader.classList.add('visible'); // allows our modal loader to be visible on next AJAX request
 
 	}
-
-
-
-
-
-
 
 
 	// finalAnimate: Inform the document when we have finished our loading animations
@@ -798,16 +777,14 @@ document.addEventListener('DOMContentLoaded', function() {
 	function cycleLinkColors() {
 
 		// currently assumes there is at least 1 link on every page...
-
 		// CHANGED TO ONLY LOOK AT ISO LINKS
-		var tempIsoContainer = document.getElementById('iso_container');
 
-		// exit if we are not on the home page
-		if (tempIsoContainer === null) {
+		// check if iso_container exists
+		if (elIsoContainer == null) {
 			return;
 		}
 
-		var arrPageLinks    = tempIsoContainer.getElementsByClassName('color_random'), // document.getElementsByClassName('color_random'),
+		var arrPageLinks    = elIsoContainer.getElementsByClassName('color_random'), // document.getElementsByClassName('color_random'),
 			arrLinkColors   = ['red', 'orange', 'yellow', 'aqua', 'cyan'],
 			numPageLinks    = arrPageLinks.length,
 			numColorsLength = arrLinkColors.length - 1,
@@ -868,15 +845,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 
 	}
-
-
-
-
-
-
-
-
-
 
 
 	// filterDropdown: isoTope Filter Dropdown (NOT locking body once toggled)
@@ -1111,15 +1079,11 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 
-
-
-
-
-
-
 	// error404Video: Autoload video magic error 404
 	// ----------------------------------------------------------------------------
 	function error404Video() {
+
+		// would love to have had more time with this error 404 page, code quality could be improved
 
 		var el404Modal = document.getElementById('modal_404');
 

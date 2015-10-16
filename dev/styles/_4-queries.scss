@@ -72,14 +72,12 @@
 			header.modal_header {
 				display: flex;
 				.wrap_titles {
-					// width: 70%;
 					flex: 0 1 70%;
 					margin-bottom: 0;
 					text-align: left;
 				}
 				ul.wrap_links {
 					display: block;
-					// width: 30%;
 					flex: 0 1 30%;
 					li {
 						&.item_link-close {
@@ -108,7 +106,6 @@
 							margin-bottom: 0.8rem;
 							text-align: right;
 						}
-						// &.item_link-close,
 						&.item_link-project,
 						&.item_link-tweet {
 							width: 100%;
@@ -135,7 +132,6 @@
 			}
 		}
 		&[data-ajax="error"] .modal_content header.modal_header ul.wrap_links {
-			// width: 100%;
 			flex: 0 1 100%;
 			li.item_link-close {
 				text-align: center;
@@ -179,15 +175,6 @@
 		text-align: left;
 		.person_img {
 			@include container(reset);
-/*
-			img {
-				max-width: 100%;
-				// max-width: 100%; does not seem to play nice with flexbox
-				// @include container(reset);
-				// width: 100%;
-				// height: auto;
-			}
-*/
 		}
 	}
 
@@ -196,12 +183,8 @@
 	section.people_main {
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: center; // center; // space-between; // space-around;
-		// margin-left: -3.2rem;
+		justify-content: center;
 		article.person {
-			// flex: 0 1 calc(50% - 3.2rem);
-			// margin-left: 3.2rem;
-			// max-width: 22rem;
 			margin-bottom: 3.2rem;
 			width: calc(50% - 1.6rem); // 46.428571%;
 			&:nth-child(odd) {
@@ -247,7 +230,6 @@
 
 }
 
-
 @media only screen and (min-width: 568px) {
 
 // ==|== main styles ==========================================================
@@ -292,22 +274,17 @@
 
 	// People Main
 	// ----------------------------------------------------------------------------
-	section.people_main {
-		// margin-left: -2rem;
-		article.person {
-			// flex: 0 1 calc(33.3333333% - 2rem);
-			// margin-left: 2rem;
-			width: calc(33.3333333% - 2rem);
-			&:nth-child(odd) {
-				margin-right: 0;
-			}
-			&:nth-child(3n-1),
-			&:nth-child(3n-2) {
-				margin-right: 3rem;
-			}
-			&:last-child {
-				margin-right: 0;
-			}
+	section.people_main article.person {
+		width: calc(33.3333333% - 2rem);
+		&:nth-child(odd) {
+			margin-right: 0;
+		}
+		&:nth-child(3n-1),
+		&:nth-child(3n-2) {
+			margin-right: 3rem;
+		}
+		&:last-child {
+			margin-right: 0;
 		}
 	}
 
@@ -338,13 +315,6 @@
 			.the_content {
 				column-count: 2;
 				column-gap: 5.6rem;
-		/*
-				h1 {
-					column-span: all;
-					width: 100%;
-					text-align: center
-				}
-		*/
 				p {
 					break-inside: avoid;
 				}
@@ -413,48 +383,6 @@
 		}
 		$numRainbowTriIndex: $numRainbowTriIndex + 1; // increment $numRainbowTriIndex by 1 so we can offset each animation
 	}
-/*
-	@keyframes animSlideUp {
-		  0% { opacity: 0; transform: translate3d(0,2rem,0); }
-		100% { opacity: 1; transform: translate3d(0,0rem,0); }
-	}
-	@keyframes animBounceUpFade {
-		  0% { transform: translate3d(0, 4.8rem,0); opacity: 0; }
-		 60% { transform: translate3d(0,-0.8rem,0);             }
-		100% { transform: translate3d(0,   0rem,0); opacity: 1; }
-	}
-	@keyframes animBounceInUp {
-		  0% { transform: translate3d(0, 300rem,0); opacity: 0; }
-		 60% { transform: translate3d(0,  -2rem,0); opacity: 1; }
-		 75% { transform: translate3d(0,   1rem,0);             }
-		 90% { transform: translate3d(0,-0.5rem,0);             }
-		100% { transform: translate3d(0,   0rem,0); opacity: 1; }
-	}
-	@keyframes animBounceOutDown {
-		  0% { transform: translate3d(0,  0rem,0); opacity: 1; }
-		 20% { transform: translate3d(0,  1rem,0);             }
-		 40%,
-		 45% { transform: translate3d(0, -2rem,0); opacity: 1; }
-		100% { transform: translate3d(0,100rem,0); opacity: 0; }
-		// less than initial value of 300rem... animation is too quick otherwise
-	}
-	@keyframes animVHSwipe {
-		// update animation from its initial values
-		  0% { transform: translate3d(-1.6rem,0,0); opacity: 0; }
-		 50% { transform: translate3d( 0.4rem,0,0);             }
-		 75% { transform: translate3d(-0.2rem,0,0);             }
-		100% { transform: translate3d(   0rem,0,0); opacity: 1; }
-	}
-	@keyframes animRainbowFill-steps {
-		-numAnimPercent: 0;
-		@each $color in $arrRainbowValues {
-			#{-numAnimPercent}% {
-				fill: $color;
-			}
-			-numAnimPercent: -numAnimPercent + 20;
-		}
-	}
-*/
 
 // ==|== primary styles =======================================================
 // ============================================================================
@@ -480,7 +408,7 @@
 			}
 		}
 		.logo_main {
-			max-width: 34.6rem; // width of the widest SVG (sandwich)
+			max-width: 34.6rem; // width of the widest SVG ("sandwich")
 			// a.fix_webkit-svg {} with Page Load section for hover + active styles
 			.wrap_svg.wrap_logo-sandwich,
 			.wrap_svg.wrap_logo-video {
@@ -501,7 +429,6 @@
 	// Primary Navigation (child of header)
 	// ----------------------------------------------------------------------------
 	nav.nav_primary {
-
 		position: fixed;
 		z-index: 900;
 		top: 0;
@@ -510,24 +437,21 @@
 		padding: 5.6rem 3.2rem 2rem 3.2rem; // 40px of extra top padding for scroll distance (set in JS - actually 60px)
 		background-color: $hsla_bone-L98;
 		transition: transform 260ms ease-in-out;
-
 		&.scrolled {
 			transform: translate3d(0,-4rem,0);
 		}
-
 		a.nav_toggle {
 			display: none;
 			position: static;
 			.nav_icon .nav_line {
 				position: static;
 			}
-			html[data-ready="ready"] & .nav_icon,
-			html[data-ready="ready"] & .nav_icon .nav_line,
-			html[data-ready="ready"] & .nav_icon .line-2 .line_bg {
-				transition: none;
+			.nav_icon,
+			.nav_icon .nav_line,
+			.nav_icon .line-2 .line_bg {
+				transition: none; // was previously waiting for data-ready
 			}
 		}
-
 		.wrap_nav {
 			@include posCover(reset);
 			@include toggleVisibility(on);
@@ -536,7 +460,6 @@
 			perspective: none;
 			background-color: transparent;
 			ul {
-				// @include container(1280);
 				position: static;
 				top: auto;
 				transform: none;
@@ -584,7 +507,6 @@
 								opacity: 0;
 								cursor: pointer;
 								// runs when entering 768px width... can i prevent?
-								// transition: width 600ms $easeInOutBack, opacity 600ms $easeInOutBack;
 								transition: width 260ms ease-in-out, opacity 260ms ease-in-out;
 								&:hover + svg.ui_search path {
 									stroke: $hsl_red;
@@ -604,12 +526,6 @@
 								width: 2.6rem;
 								height: 2.6rem;
 								path {
-								/*
-									// beginning animation state
-									opacity: 0;
-									stroke-dasharray: 155;
-									stroke-dashoffset: 155;
-								*/
 									transition: stroke 260ms ease-in-out; // moved here since original page load code has been removed
 								}
 							}
@@ -618,17 +534,13 @@
 				}
 			}
 		}
-
 		// + toggled navigation + \\
-		&.toggled {
-			.wrap_nav ul,
-			a.nav_toggle .nav_icon,
-			a.nav_toggle .nav_icon .line-1,
-			a.nav_toggle .nav_icon .line-3 {
-				transform: none; // just to be extra sure...
-			}
+		&.toggled .wrap_nav ul,
+		&.toggled a.nav_toggle .nav_icon,
+		&.toggled a.nav_toggle .nav_icon .line-1,
+		&.toggled a.nav_toggle .nav_icon .line-3 {
+			transform: none; // just to be extra sure...
 		}
-
 	}
 
 	// Footer
@@ -648,12 +560,10 @@
 		img {
 			width: 100%; // required for FF to behave with flexbox
 		}
-		table {
-			tr th,
-			tr td {
-				padding: 1.6rem;
-				font-size: 1.4rem;
-			}
+		table tr th,
+		table tr td {
+			padding: 1.6rem;
+			font-size: 1.4rem;
 		}
 		// + bulk element styles + \\
 		h1, h2, h3 { font-size: 2rem; }
@@ -664,15 +574,12 @@
 	// Nav Filter
 	// ----------------------------------------------------------------------------
 	nav.nav_filter {
-
 		margin-bottom: 6.4rem;
 		max-width: 80rem;
-
 		a.filter_trigger {
 			display: none; // will there be JS errors? should this be visually hidden instead?
 			visibility: hidden;
 		}
-
 		.wrap_dropdown,
 		.wrap_dropdown ul,
 		.wrap_dropdown .fix_ios-scroll {
@@ -733,8 +640,6 @@
 								color: darken($hsl_red, 10%); // default colour
 							}
 						}
-						// reveal rainbow border after we have animated in all of our filter items... just looks a bit nicer
-						// html[data-ready="ready"] &.filter_current span.color_rainbow::before
 						&.filter_current span.color_rainbow::before {
 							opacity: 0;
 						}
@@ -742,7 +647,6 @@
 				}
 			}
 		}
-
 		&[data-index="0"],
 		&[data-index="1"],
 		&[data-index="2"],
@@ -753,21 +657,7 @@
 				top: auto;
 			}
 		}
-
 	}
-
-
-		/*
-						&.filter_current a {
-							color: $hsl_red; // 0% state of animation ... without this, there is a jump on loop
-							border-color: $hsl_red; // 0% state of animation ... without this, there is a jump on loop
-							&::before {
-								opacity: 0;
-							}
-						}
-		*/
-
-
 
 	// Isotope
 	// ----------------------------------------------------------------------------
@@ -811,9 +701,7 @@
 	// YouTube Modal
 	// ----------------------------------------------------------------------------
 	aside {
-
 		cursor: zoom-out;
-
 		.modal_content {
 			cursor: default;
 			display: flex;
@@ -823,10 +711,9 @@
 			box-shadow: 0 0 3.2rem hsla(0,0%,0%,0.32);
 			overflow-y: auto;
 			-webkit-overflow-scrolling: auto;
-			// last keyframe styles of animModalOut (is there a way to avoid this?)
+			// last keyframe styles of animModalOut (is there a way to avoid specifying this?)
 			opacity: 0;
 			transform: translate3d(0,16rem,0);
-
 			header.modal_header {
 				order: 2; // move below figure
 				padding-left: 2rem;
@@ -874,23 +761,6 @@
 							padding-right: 2rem;
 						}
 					}
-/*
-					a.wrap_ui-arrow {
-						display: block;
-						position: absolute;
-						right: 2rem;
-						bottom: 2rem;
-						svg {
-							transition: transform 260ms ease-in-out; // no more 'fill'
-						}
-						&:hover svg {
-							transform: translateY(0.4rem);
-						}
-						&:active svg {
-							transform: translateY(0.2rem);
-						}
-					}
-*/
 				}
 			}
 			.content_error {
@@ -898,7 +768,6 @@
 				padding-right: 6.4rem;
 			}
 		}
-
 		// bounce in / out of .modal_content
 		&[data-modal="hidden"] {
 			animation: animHide 400ms ease-in-out 400ms both; // delay the modal fade out just enough to be in sync with .modal_content
@@ -913,11 +782,9 @@
 				animation: animModalIn 320ms ease-in-out forwards;
 			}
 		}
-
 		&[data-ajax="error"] .modal_content header.modal_header ul.wrap_links li.item_link-credits {
 			display: none;
 		}
-
 		// toggled credits
 		&.toggle_credits .modal_content {
 			header.modal_header ul.wrap_links li.item_link-credits a {
@@ -930,17 +797,15 @@
 				@include toggleVisibility(on);
 			}
 		}
-
 		.modal_loader {
 			background-color: transparent;
 		}
-
+		// error 404 modal code was kind of rushed, would love to have spent more time on this
 		&#modal_404 .modal_content figure.modal_figure {
 			position: static;
 			top: auto;
 			transform: none;
 		}
-
 	}
 
 // ==|== projects cpt =========================================================
@@ -948,37 +813,34 @@
 
 	// Projects Single Post
 	// ----------------------------------------------------------------------------
-	section.projects_single {
-		// margin-bottom: 4.8rem;
-		article.projects_post {
-			.projects_header {
-				margin-bottom: 3.2rem;
-			}
-			figure.projects_figure {
-				margin-bottom: 4.8rem;
-				figcaption.projects_caption {
-					padding-top: 3.2rem;
-					padding-bottom: 3.2rem;
-					.wrap_titles {
-						width: calc(100% - 10.8rem);
-						h3 {
-							font-size: 2.7rem;
-							&.title_video {
-								margin-bottom: 1rem;
-							}
+	section.projects_single article.projects_post {
+		.projects_header {
+			margin-bottom: 3.2rem;
+		}
+		figure.projects_figure {
+			margin-bottom: 4.8rem;
+			figcaption.projects_caption {
+				padding-top: 3.2rem;
+				padding-bottom: 3.2rem;
+				.wrap_titles {
+					width: calc(100% - 10.8rem);
+					h3 {
+						font-size: 2.7rem;
+						&.title_video {
+							margin-bottom: 1rem;
 						}
 					}
-					.wrap_logo {
-						width: 7.6rem;
-						line-height: 7.6rem;
-					}
+				}
+				.wrap_logo {
+					width: 7.6rem;
+					line-height: 7.6rem;
 				}
 			}
-			.wrap_content {
-				.wrap_credits h4,
-				.wrap_related h4 {
-					margin-bottom: 4.8rem;
-				}
+		}
+		.wrap_content {
+			.wrap_credits h4,
+			.wrap_related h4 {
+				margin-bottom: 4.8rem;
 			}
 		}
 	}
@@ -1028,25 +890,21 @@
 		}
 		a.link_story {
 			transition: background-color 260ms ease-in-out;
-			.wrap_story-lines {
-				div {
-					animation-duration: 320ms;
-					animation-timing-function: steps(1);
-					animation-iteration-count: infinite;
-					animation-direction: reverse;
-					animation-play-state: paused;
-					@for $i from 1 through 3 {
-						&.story_line-#{$i} {
-							animation-name: animRainbowTri-step#{$i};
-						}
+			.wrap_story-lines div {
+				animation-duration: 320ms;
+				animation-timing-function: steps(1);
+				animation-iteration-count: infinite;
+				animation-direction: reverse;
+				animation-play-state: paused;
+				@for $i from 1 through 3 {
+					&.story_line-#{$i} {
+						animation-name: animRainbowTri-step#{$i};
 					}
 				}
 			}
-
 			.wrap_ui-hand svg {
 				transition: fill 260ms ease-in-out;
 			}
-
 			&:hover {
 				background-color: darken($hsl_cyan, 4%);
 				.wrap_story-lines div {
@@ -1063,15 +921,6 @@
 				}
 			}
 		}
-/*
-		a.link_story:hover .wrap_story-lines div {
-			@for i from 1 through 3 {
-				&.story_line-i {
-					animation: animRainbowTri-stepi 320ms steps(1) infinite reverse;
-				}
-			}
-		}
-*/
 	}
 
 	// Press Main
@@ -1106,20 +955,15 @@
 	body.post-type-archive-people main {
 		position: relative;
 	}
-	section.people_main {
-		// margin-left: -4rem;
-		article.person {
-			// flex: 0 1 calc(33.3333333% - 4rem);
-			// margin-left: 4rem;
-			margin-bottom: 6.4rem;
-			width: calc(33.3333333% - 4rem);
-			&:nth-child(3n-1),
-			&:nth-child(3n-2) {
-				margin-right: 6rem;
-			}
-			&:last-child {
-				margin-right: 0;
-			}
+	section.people_main article.person {
+		margin-bottom: 6.4rem;
+		width: calc(33.3333333% - 4rem);
+		&:nth-child(3n-1),
+		&:nth-child(3n-2) {
+			margin-right: 6rem;
+		}
+		&:last-child {
+			margin-right: 0;
 		}
 	}
 	a.link_people-all {
@@ -1156,8 +1000,7 @@
 		// + bulk element styles + \\
 		h1, h2, h3, h4, h5, h6, p, ol, ul { margin-bottom: 3.2rem; }
 		hr, img, div, table, blockquote { margin-top: 6.4rem; margin-bottom: 6.4rem; }
-		h1:last-child, h2:last-child, h3:last-child, h4:last-child, h5:last-child, h6:last-child,
-		p:last-child, ol:last-child, ul:last-child, hr:last-child, img:last-child, div:last-child, table:last-child, blockquote:last-child { margin-bottom: 0; }
+		h1:last-child, h2:last-child, h3:last-child, h4:last-child, h5:last-child, h6:last-child, p:last-child, ol:last-child, ul:last-child, hr:last-child, img:last-child, div:last-child, table:last-child, blockquote:last-child { margin-bottom: 0; }
 	}
 
 	// Contact
@@ -1193,41 +1036,31 @@
 	nav.nav_filter[data-color="red"] + section.iso_container article a .wrap_iso-image .wrap_iso-title,
 	nav.nav_filter[data-color="random"] + section.iso_container article a.color_red .wrap_iso-image .wrap_iso-title { background-color: $hsl_red; }
 	nav.nav_filter .wrap_dropdown ul li.filter_current span.color_red { color: $hsl_red; border-color: $hsl_red; }
-	nav.nav_primary .wrap_nav ul li a.color_red:hover,
 	nav.nav_filter .wrap_dropdown ul li span.color_red:hover { color: $hsl_red; }
-	nav.nav_primary .wrap_nav ul li a.color_red:active,
 	nav.nav_filter .wrap_dropdown ul li span.color_red:active { color: darken($hsl_red, 20%); }
 	// + orange links + \\
 	nav.nav_filter[data-color="orange"] + section.iso_container article a .wrap_iso-image .wrap_iso-title,
 	nav.nav_filter[data-color="random"] + section.iso_container article a.color_orange .wrap_iso-image .wrap_iso-title { background-color: $hsl_orange; }
 	nav.nav_filter .wrap_dropdown ul li.filter_current span.color_orange { color: $hsl_orange; border-color: $hsl_orange; }
-	nav.nav_primary .wrap_nav ul li a.color_orange:hover,
 	nav.nav_filter .wrap_dropdown ul li span.color_orange:hover { color: $hsl_orange; }
-	nav.nav_primary .wrap_nav ul li a.color_orange:active,
 	nav.nav_filter .wrap_dropdown ul li span.color_orange:active { color: darken($hsl_orange, 20%); }
 	// + yellow links + \\
 	nav.nav_filter[data-color="yellow"] + section.iso_container article a .wrap_iso-image .wrap_iso-title,
 	nav.nav_filter[data-color="random"] + section.iso_container article a.color_yellow .wrap_iso-image .wrap_iso-title { background-color: $hsl_yellow; }
 	nav.nav_filter .wrap_dropdown ul li.filter_current span.color_yellow { color: $hsl_yellow; border-color: $hsl_yellow; }
-	nav.nav_primary .wrap_nav ul li a.color_yellow:hover,
 	nav.nav_filter .wrap_dropdown ul li span.color_yellow:hover { color: $hsl_yellow; }
-	nav.nav_primary .wrap_nav ul li a.color_yellow:active,
 	nav.nav_filter .wrap_dropdown ul li span.color_yellow:active { color: darken($hsl_yellow, 20%); }
 	// + aqua links + \\
 	nav.nav_filter[data-color="aqua"] + section.iso_container article a .wrap_iso-image .wrap_iso-title,
 	nav.nav_filter[data-color="random"] + section.iso_container article a.color_aqua .wrap_iso-image .wrap_iso-title { background-color: $hsl_aqua; }
 	nav.nav_filter .wrap_dropdown ul li.filter_current span.color_aqua { color: $hsl_aqua; border-color: $hsl_aqua; }
-	nav.nav_primary .wrap_nav ul li a.color_aqua:hover,
 	nav.nav_filter .wrap_dropdown ul li span.color_aqua:hover { color: $hsl_aqua; }
-	nav.nav_primary .wrap_nav ul li a.color_aqua:active,
 	nav.nav_filter .wrap_dropdown ul li span.color_aqua:active { color: darken($hsl_aqua, 20%); }
 	// + cyan links + \\
 	nav.nav_filter[data-color="cyan"] + section.iso_container article a .wrap_iso-image .wrap_iso-title,
 	nav.nav_filter[data-color="random"] + section.iso_container article a.color_cyan .wrap_iso-image .wrap_iso-title { background-color: $hsl_cyan; }
 	nav.nav_filter .wrap_dropdown ul li.filter_current span.color_cyan { color: $hsl_cyan; border-color: $hsl_cyan; }
-	nav.nav_primary .wrap_nav ul li a.color_cyan:hover,
 	nav.nav_filter .wrap_dropdown ul li span.color_cyan:hover { color: $hsl_cyan; }
-	nav.nav_primary .wrap_nav ul li a.color_cyan:active,
 	nav.nav_filter .wrap_dropdown ul li span.color_cyan:active { color: darken($hsl_cyan, 20%); }
 
 	// Page Load
@@ -1239,11 +1072,9 @@
 			}
 		}
 	}
-	body:not(.home) .logo_main {
-		.wrap_logo-sandwich,
-		.wrap_logo-video {
-			transition: opacity 260ms ease-in-out;
-		}
+	body:not(.home) .logo_main .wrap_logo-sandwich,
+	body:not(.home) .logo_main .wrap_logo-video {
+		transition: opacity 260ms ease-in-out;
 	}
 	body:not(.home) .logo_main a.fix_webkit-svg {
 		&:hover {
@@ -1264,6 +1095,7 @@
 			opacity: 0.8;
 		}
 	}
+
 }
 
 @media only screen and (min-width: 960px) {
@@ -1371,7 +1203,6 @@
 	// People
 	// ----------------------------------------------------------------------------
 	section.people_main article.person {
-		// flex: 0 1 calc(25% - 4rem);
 		width: calc(25% - 4rem);
 		&:nth-child(3n-1),
 		&:nth-child(3n-2) {
@@ -1427,13 +1258,6 @@
 
 @media only screen and (min-width: 1024px) {
 
-// ==|== base =================================================================
-// ============================================================================
-
-	// Variables
-	// ----------------------------------------------------------------------------
-	// $easeInOutBack: cubic-bezier(0.680,-0.550,0.265,1.550); // redefine for
-
 // ==|== primary styles =======================================================
 // ============================================================================
 
@@ -1441,11 +1265,8 @@
 	// ----------------------------------------------------------------------------
 	nav.nav_primary .wrap_nav ul li.nav_search {
 		width: 23.2rem;
-		form input[type="text"] {
-			// transition: width 260ms $easeInOutBack, opacity 260ms $easeInOutCirc; // redefine, since we have updated our easeing variable
-			&:focus {
-				width: 100%;
-			}
+		form input[type="text"]:focus {
+			width: 100%;
 		}
 	}
 
@@ -1456,12 +1277,10 @@
 	// Shared Content
 	// ----------------------------------------------------------------------------
 	// --- The Content --- \\
-	.the_content {
-		blockquote {
-			margin-left: 3.2rem;
-			padding-left: 3.2rem;
-			padding-right: 6.4rem;
-		}
+	.the_content blockquote {
+		margin-left: 3.2rem;
+		padding-left: 3.2rem;
+		padding-right: 6.4rem;
 	}
 
 
@@ -1525,11 +1344,9 @@
 
 	// Press Main
 	// ----------------------------------------------------------------------------
-	section.press_main {
-		article.press_post {
-			margin-bottom: 6.4rem;
-			padding-bottom: 6.4rem;
-		}
+	section.press_main article.press_post {
+		margin-bottom: 6.4rem;
+		padding-bottom: 6.4rem;
 	}
 
 }
@@ -1628,11 +1445,6 @@
 					transform: translate3d(0, (($numTranslateY / 10) + rem), 0);
 					animation-duration: #{$numDuration}ms;
 					animation-delay: #{$numDelay}ms;
-/*
-					@if $i == 5 {
-						animation-timing-function: cubic-bezier(0.390, 0.575, 0.565, 1.000);
-					}
-*/
 					@if $i > 1 {
 						left: (-($i - 1) / 10) + rem; // resolve aliasing issues where a 1px white gap would appear
 					}
@@ -1649,24 +1461,21 @@
 
 	// People Main
 	// ----------------------------------------------------------------------------
-	section.people_main {
-		article.person {
-			// flex: 0 1 calc(20% - 4rem);
-			width: calc(20% - 4rem);
-			&:nth-child(4n-1),
-			&:nth-child(4n-2),
-			&:nth-child(4n-3) {
-				margin-right: 0rem;
-			}
-			&:nth-child(5n-1),
-			&:nth-child(5n-2),
-			&:nth-child(5n-3),
-			&:nth-child(5n-4) {
-				margin-right: 5rem;
-			}
-			&:last-child {
-				margin-right: 0;
-			}
+	section.people_main article.person {
+		width: calc(20% - 4rem);
+		&:nth-child(4n-1),
+		&:nth-child(4n-2),
+		&:nth-child(4n-3) {
+			margin-right: 0rem;
+		}
+		&:nth-child(5n-1),
+		&:nth-child(5n-2),
+		&:nth-child(5n-3),
+		&:nth-child(5n-4) {
+			margin-right: 5rem;
+		}
+		&:last-child {
+			margin-right: 0;
 		}
 	}
 
@@ -1681,7 +1490,6 @@
 				font-size: 2.2rem;
 			}
 		}
-
 	}
 
 // ==|== page styles ==========================================================
@@ -1772,23 +1580,13 @@
 
 	// People
 	// ----------------------------------------------------------------------------
-	section.people_main {
-/*
-		margin-left: -13.5rem;
-		// breaks into 6 columns right before this... would love to address that so it never exceeds 5
-		article {
-			flex: 0 1 22rem;
-			margin-left: 13.5rem;
-		}
-*/
-		article.person {
-			width: calc(20% - 10.8rem); // 220px / 1640px = 13.414634%
-			&:nth-child(5n-1),
-			&:nth-child(5n-2),
-			&:nth-child(5n-3),
-			&:nth-child(5n-4) {
-				margin-right: 13.5rem;
-			}
+	section.people_main article.person {
+		width: calc(20% - 10.8rem); // 220px / 1640px = 13.414634%
+		&:nth-child(5n-1),
+		&:nth-child(5n-2),
+		&:nth-child(5n-3),
+		&:nth-child(5n-4) {
+			margin-right: 13.5rem;
 		}
 	}
 

@@ -57,33 +57,6 @@ var paths = {
 };
 
 
-// Spin up a Browser Sync server in our build folder
-// ----------------------------------------------------------------------------
-gulp.task('server', function() {
-
-	browserSync.init({
-		// reloadDelay: 1000,
-		open: false,
-		server: 'build'
-	});
-
-	// inject updated styles into browser
-	gulp.watch(paths.styles.src + '*.scss', ['styles']);
-
-	// reload browser on .html changes
-	gulp.watch(paths.haml.src + '**/*.haml', ['haml']);
-	gulp.watch(paths.haml.dest + '*.html').on('change', browserSync.reload);
-
-	// reload browser on .js changes
-	gulp.watch(paths.scripts.src, ['scripts']);
-	gulp.watch(paths.scripts.dest + '*.js').on('change', browserSync.reload);
-
-	// gulp.watch(paths.scripts.src, ['watch-scripts']);
-	// gulp.watch(paths.haml.src + '**/*.haml', ['watch-haml']);
-
-});
-
-
 // Delete all build files except images, since those take awhile to compress
 // ----------------------------------------------------------------------------
 gulp.task('clean', function() {
@@ -188,6 +161,13 @@ gulp.task('haml', function() {
 });
 
 
+// Watch over HAMNL files and reload the browser upon compilation
+// ----------------------------------------------------------------------------
+gulp.task('watch-haml', ['haml'], function() {
+	browserSync.reload(); // recommended method only works once: gulp.task('watch-haml', ['haml'], browserSync.reload);
+});
+
+
 // Copy (if changed) all of our vendor scripts to build/assets/js
 // ----------------------------------------------------------------------------
 gulp.task('vendor', function() {
@@ -264,22 +244,33 @@ gulp.task('deploy', function() {
 */
 
 
-// Watch over specified files and run corresponding tasks...
+// Spin up a Browser Sync server in our build folder and watch dev files
 // ----------------------------------------------------------------------------
-// gulp.task('watch-scripts', ['scripts'], browserSync.reload);
-// gulp.task('watch-haml', ['haml'], browserSync.reload);
+gulp.task('watch', function() {
 
+	// consider setting up a 2nd server without ghostMode for internal review...
+	// that way everyone can review the site individually without mirrored behaviour
+	browserSync.init({
+		open: false,
+		server: 'build',
+		ghostMode: {
+			clicks: true,
+			forms: true,
+			scroll: true
+		}
+	});
 
-// gulp.task('watch', function() { // ['server'],
+	// inject updated styles into browser
+	gulp.watch(paths.styles.src + '*.scss', ['styles']);
 
-	// plugins.livereload.listen(); // start livereload server
+	// reload browser on .html changes (multiple files, so wait until all have been compiled)
+	gulp.watch(paths.haml.src + '**/*.haml', ['watch-haml']);
 
-	// watch dev files, rebuild when changed
-	// gulp.watch(paths.haml.src + '**/*.haml', ['haml']);  // watch all HAML files, including partials (recursively)
-	// gulp.watch(paths.styles.src + '*.scss', ['styles']); // watch all SCSS files, including partials
-	// gulp.watch(paths.scripts.src, ['scripts']); // watch all javascript files
+	// reload browser on .js changes (only one file, so this approach is fine)
+	gulp.watch(paths.scripts.src, ['scripts']);
+	gulp.watch(paths.scripts.dest + '*.js').on('change', browserSync.reload);
 
-// });
+});
 
 
 // Default gulp task
