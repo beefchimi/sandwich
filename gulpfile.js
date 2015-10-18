@@ -276,5 +276,5 @@ gulp.task('watch', function() {
 // Default gulp task
 // ----------------------------------------------------------------------------
 gulp.task('default', function() {
-	sequence('clean', 'svg', ['styles', 'scripts', 'misc', 'haml'], 'server'); // removed 'images' task as it takes LONG
+	sequence('clean', 'svg', ['styles', 'scripts', 'misc', 'haml'], 'watch'); // removed 'images' task as it takes LONG
 });

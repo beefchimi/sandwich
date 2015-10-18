@@ -1483,7 +1483,7 @@ body.post-type-archive-projects main,
 body.post-type-archive-people-everyone main {
 	@include container(946);
 }
-body.page-template-default main {
+body:not(.home).page-template-default main {
 	@include container(860);
 }
 body.page-template-tpl-contact main {
@@ -1655,7 +1655,7 @@ nav.nav_filter[data-current=".curated"] a.filter_trigger .wrap_toggle .filter_ic
 // Page Load
 // ----------------------------------------------------------------------------
 // + header + \\
-nav.nav_primary,
+a.nav_toggle, // if nav.nav_primary is used for mobile, the stacking context will conflict with the toggled nav
 .logo_main,
 .wrap_tagline {
 	animation: animFadeIn 800ms ease-in-out both;

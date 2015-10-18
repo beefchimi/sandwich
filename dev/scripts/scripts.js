@@ -158,10 +158,29 @@ document.addEventListener('DOMContentLoaded', function() {
 			pISO.arrange({
 				filter: function(itemElem) {
 					return qsRegex ? itemElem.innerHTML.match(qsRegex) : true;
+					// return qsRegex ? isoFilterSuccess(itemElem) : isoFilterFail();
 				}
 			});
 
 		}, 250));
+
+/*
+		function isoFilterSuccess(pItemElem) {
+
+			console.log('we have matched');
+
+			return pItemElem.innerHTML.match(qsRegex);
+
+		}
+
+		function isoFilterFail() {
+
+			console.log('failure to match');
+
+			return true;
+
+		}
+*/
 
 	}
 

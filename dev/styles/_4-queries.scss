@@ -1065,6 +1065,12 @@
 
 	// Page Load
 	// ----------------------------------------------------------------------------
+	a.nav_toggle {
+		animation: none;
+	}
+	nav.nav_primary {
+		animation: animFadeIn 800ms ease-in-out both;
+	}
 	body.home .logo_main:hover {
 		@for $i from 1 through 5 { // assumes 5 letters
 			.wrap_video-vhs svg g path.group_path-#{$i} {
