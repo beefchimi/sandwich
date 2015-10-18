@@ -216,7 +216,7 @@ gulp.task('videos', function() {
 // ----------------------------------------------------------------------------
 gulp.task('misc', ['vendor', 'fonts', 'audio', 'videos'], function() {
 
-	return gulp.src(paths.misc.root + '*')
+	return gulp.src([paths.misc.root + '*', paths.misc.root + '.htaccess'])
 		.pipe(plugins.changed(paths.misc.dest))
 		.pipe(gulp.dest(paths.misc.dest));
 
