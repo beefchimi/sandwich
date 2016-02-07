@@ -2,41 +2,41 @@
 /[if IE 9] <html class="ie9" lang="en">
 <!--[if gt IE 9]><!-->
 %html{:lang => "en", "data-ready" => "waiting", "data-overflow" => "scrollable"}<>
-	<!--<![endif]-->
+  <!--<![endif]-->
 
-	= Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render(Object.new, :locals => 'People')
+  = Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render(Object.new, :locals => 'People')
 
-	%body#people.single.single-people.postid-02
+  %body#people.single.single-people.postid-02
 
-		#svgInject.visuallyhidden
-			/ inject:svg
-			/ endinject
+    #svgInject.visuallyhidden
+      / inject:svg
+      / endinject
 
-		= Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render(Object.new, :locals => 'people-single')
+    = Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render(Object.new, :locals => 'people-single')
 
-		%main{:role => "main"}
+    %main{:role => "main"}
 
-			%section.people_single.people_section
+      %section.people_single.people_section
 
-				%article#people-1.person
+        %article#people-1.person
 
-					.person_img
-						%img{:src => "assets/img/temp_people.jpg", :alt => ""}
+          .person_img
+            %img{:src => "assets/img/temp_people.jpg", :alt => ""}
 
-					.wrap_bio
+          .wrap_bio
 
-						%header
-							%h3.person_name Adam Lisagor
-							%h3.person_role Founder
+            %header
+              %h3.person_name Adam Lisagor
+              %h3.person_role Founder
 
-						.the_content.person_content
-							%p In 2009, Adam made what accidentally became the first of his many videos for neat tech products. He&rsquo;d co-developed an iOS app with a friend, made a video to promote it, and became his own first client. A year later, he started Sandwich Video and began to grow the company into what it is now—a team of talented people he enjoys working with every day he can.
-							%p He has a personal blog <a href="#" title="Follow Adam on Twitter" target="_blank">lonelysandwich</a>, but it&rsquo;s silly.
+            .the_content.person_content
+              %p In 2009, Adam made what accidentally became the first of his many videos for neat tech products. He&rsquo;d co-developed an iOS app with a friend, made a video to promote it, and became his own first client. A year later, he started Sandwich Video and began to grow the company into what it is now—a team of talented people he enjoys working with every day he can.
+              %p He has a personal blog <a href="#" title="Follow Adam on Twitter" target="_blank">lonelysandwich</a>, but it&rsquo;s silly.
 
-						%a.person_twitter{:href => "#", :title => "Follow Adam on Twitter", :target => "_blank"} @lonelysandwich
+            %a.person_twitter{:href => "#", :title => "Follow Adam on Twitter", :target => "_blank"} @lonelysandwich
 
-				%article.person_credits.archive_layout
+        %article.person_credits.archive_layout
 
-					= Haml::Engine.new(File.read("dev/haml/partials/_con_credits-person.haml")).render
+          = Haml::Engine.new(File.read("dev/haml/partials/_con_credits-person.haml")).render
 
-		= Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render
+    = Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render

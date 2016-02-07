@@ -1,62 +1,62 @@
 %header#page_header.page_header
 
-	%h1.visuallyhidden Sandwich Video
+  %h1.visuallyhidden Sandwich Video
 
-	= Haml::Engine.new(File.read("dev/haml/partials/_nav_primary.haml")).render(Object.new, :locals => locals)
+  = Haml::Engine.new(File.read("dev/haml/partials/_nav_primary.haml")).render(Object.new, :locals => locals)
 
-	-# determine which video SVG to use based on locals variable
-	- if locals == 'press'
-		- classVideoSVG = 'rainbow'
-	- elsif locals == 'people' || locals == 'people-single' || locals == 'everyone'
-		- classVideoSVG = 'record'
-	- else
-		- classVideoSVG = 'vhs'
+  -# determine which video SVG to use based on locals variable
+  - if locals == 'press'
+    - classVideoSVG = 'rainbow'
+  - elsif locals == 'people' || locals == 'people-single' || locals == 'everyone'
+    - classVideoSVG = 'record'
+  - else
+    - classVideoSVG = 'vhs'
 
-	-# only output a div on the home page,
-	-# use a <a> for everything else
-	-# - if locals == 'home'
-		-# - tagLogoMain = 'div.logo_main'
-	-# - else
-		-# - tagLogoMain = 'a.logo_main'
+  -# only output a div on the home page,
+  -# use a <a> for everything else
+  -# - if locals == 'home'
+    -# - tagLogoMain = 'div.logo_main'
+  -# - else
+    -# - tagLogoMain = 'a.logo_main'
 
-	-# if text content is required, use:
-	-# haml_tag tagLogoMain, "Hello There!"
+  -# if text content is required, use:
+  -# haml_tag tagLogoMain, "Hello There!"
 
-	-# could not figure out how to pass attributes conditionally... so the <div> will contain a :href and :title as well :(
-	-# - haml_tag tagLogoMain, href: "index.html", title: "Back To Home" do
+  -# could not figure out how to pass attributes conditionally... so the <div> will contain a :href and :title as well :(
+  -# - haml_tag tagLogoMain, href: "index.html", title: "Back To Home" do
 
-	-# DISCOVERED THAT WEBKIT CANNOT ANIMATE SVGs WITHIN A <a> TAG, SO I HAVE COMMENTED OUT MY LOGIC AND DONE THIS THE STUPID WAY
+  -# DISCOVERED THAT WEBKIT CANNOT ANIMATE SVGs WITHIN A <a> TAG, SO I HAVE COMMENTED OUT MY LOGIC AND DONE THIS THE STUPID WAY
 
-	.logo_main
-		- if locals != 'home'
-			%a.fix_webkit-svg{:href => "index.html", title: "Back To Home"}
-		.wrap_svg.wrap_logo-sandwich
-			%svg.logo_sandwich{:viewBox => "0 0 346 48"}
-				%use{"xlink:href" => "#logo_sandwich"}
-		%div{:class => "wrap_svg wrap_logo-video wrap_video-#{classVideoSVG}"}
-			= Haml::Engine.new(File.read("dev/haml/partials/_svg_video-#{classVideoSVG}.haml")).render
+  .logo_main
+    - if locals != 'home'
+      %a.fix_webkit-svg{:href => "index.html", title: "Back To Home"}
+    .wrap_svg.wrap_logo-sandwich
+      %svg.logo_sandwich{:viewBox => "0 0 346 48"}
+        %use{"xlink:href" => "#logo_sandwich"}
+    %div{:class => "wrap_svg wrap_logo-video wrap_video-#{classVideoSVG}"}
+      = Haml::Engine.new(File.read("dev/haml/partials/_svg_video-#{classVideoSVG}.haml")).render
 
-	- taglineHome     = 'We make videos and TV commercials.<br> Here are some.'
-	- viewboxHome     = '0 0 303 31'
-	- taglineProjects = 'So many projects.'
-	- viewboxProjects = '0 0 153 11'
-	- taglinePeople   = 'These are the core people who make<br> Sandwich Video what it is.'
-	- viewboxPeople   = '0 0 302 31'
-	- taglineEveryone = 'Here\'s where to find out about all the<br> talented people who\'ve helped make the videos.'
-	- viewboxEveryone = '0 0 399 31'
-	- taglinePress    = 'Catch up on how we\'re doing<br> here at Sandwich.'
-	- viewboxPress    = '0 0 228 31'
-	- taglineContact  = 'Want to work with us? We love email.'
-	- viewboxContact  = '0 0 0 0'
+  - taglineHome     = 'We make videos and TV commercials.<br> Here are some.'
+  - viewboxHome     = '0 0 303 31'
+  - taglineProjects = 'So many projects.'
+  - viewboxProjects = '0 0 153 11'
+  - taglinePeople   = 'These are the core people who make<br> Sandwich Video what it is.'
+  - viewboxPeople   = '0 0 302 31'
+  - taglineEveryone = 'Here\'s where to find out about all the<br> talented people who\'ve helped make the videos.'
+  - viewboxEveryone = '0 0 399 31'
+  - taglinePress    = 'Catch up on how we\'re doing<br> here at Sandwich.'
+  - viewboxPress    = '0 0 228 31'
+  - taglineContact  = 'Want to work with us? We love email.'
+  - viewboxContact  = '0 0 0 0'
 
-	-# determine which tagline markup to use based on locals variable
-	- arrTaglines = { 'home' => [taglineHome, viewboxHome], 'projects' => [taglineProjects, viewboxProjects], 'people' => [taglinePeople, viewboxPeople], 'everyone' => [taglineEveryone, viewboxEveryone], 'press' => [taglinePress, viewboxPress], 'contact' => [taglineContact, viewboxContact] }
+  -# determine which tagline markup to use based on locals variable
+  - arrTaglines = { 'home' => [taglineHome, viewboxHome], 'projects' => [taglineProjects, viewboxProjects], 'people' => [taglinePeople, viewboxPeople], 'everyone' => [taglineEveryone, viewboxEveryone], 'press' => [taglinePress, viewboxPress], 'contact' => [taglineContact, viewboxContact] }
 
-	-# currently, the 'How It Works' page is the only one to not include a tagline...
-	-# but this should be allowed for all pages, just don't output the markup in Wordpress if no input is detected
-	- if locals != 'page' && locals != 'projects-single' && locals != 'people-single'
-		-# .wrap_svg
-		%div{:class => "wrap_tagline wrap_tagline-#{locals}"}
-			%h2 #{arrTaglines[locals][0]}
-			-# %svg.tagline_home{:viewBox => "#{arrTaglines[locals][1]}"}
-				-# %use{"xlink:href" => "#tagline_#{locals}"}
+  -# currently, the 'How It Works' page is the only one to not include a tagline...
+  -# but this should be allowed for all pages, just don't output the markup in Wordpress if no input is detected
+  - if locals != 'page' && locals != 'projects-single' && locals != 'people-single'
+    -# .wrap_svg
+    %div{:class => "wrap_tagline wrap_tagline-#{locals}"}
+      %h2 #{arrTaglines[locals][0]}
+      -# %svg.tagline_home{:viewBox => "#{arrTaglines[locals][1]}"}
+        -# %use{"xlink:href" => "#tagline_#{locals}"}

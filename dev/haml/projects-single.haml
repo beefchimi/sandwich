@@ -2,64 +2,64 @@
 /[if IE 9] <html class="ie9" lang="en">
 <!--[if gt IE 9]><!-->
 %html{:lang => "en", "data-ready" => "waiting", "data-overflow" => "scrollable"}<>
-	<!--<![endif]-->
+  <!--<![endif]-->
 
-	= Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render(Object.new, :locals => 'Projects Single')
+  = Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render(Object.new, :locals => 'Projects Single')
 
-	%body#projects.single.single-projects.postid-01
+  %body#projects.single.single-projects.postid-01
 
-		#svgInject.visuallyhidden
-			/ inject:svg
-			/ endinject
+    #svgInject.visuallyhidden
+      / inject:svg
+      / endinject
 
-		= Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render(Object.new, :locals => 'projects-single')
+    = Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render(Object.new, :locals => 'projects-single')
 
-		%main{:role => "main"}
+    %main{:role => "main"}
 
-			%section.projects_single.projects_section
+      %section.projects_single.projects_section
 
-				%article#post_id.projects_post
+        %article#post_id.projects_post
 
-					.projects_header
-						%a.link_projects{:href => "projects.html", :title => "Return to projects page"} See all projects
+          .projects_header
+            %a.link_projects{:href => "projects.html", :title => "Return to projects page"} See all projects
 
-					%figure.projects_figure
+          %figure.projects_figure
 
-						.wrap_video
-							-# &html5=1 &wmode=transparent / :wmode => "Opaque",
-							-# &enablejsapi=1
-							%iframe{:type => "text/html", :width => "946", :height => "532", :src => "//www.youtube.com/embed/B6zVzWU95Sw?rel=0&showinfo=0", :frameborder => "0", :allowfullscreen => true}
+            .wrap_video
+              -# &html5=1 &wmode=transparent / :wmode => "Opaque",
+              -# &enablejsapi=1
+              %iframe{:type => "text/html", :width => "946", :height => "532", :src => "//www.youtube.com/embed/B6zVzWU95Sw?rel=0&showinfo=0", :frameborder => "0", :allowfullscreen => true}
 
-						%figcaption.projects_caption.video_details
+            %figcaption.projects_caption.video_details
 
-							.wrap_titles
-								%h3.title_video.truncate "Sandwich Loves Slack"
-								%h3.title_client.truncate Slack
+              .wrap_titles
+                %h3.title_video.truncate "Sandwich Loves Slack"
+                %h3.title_client.truncate Slack
 
-							-# should this link to the client's website, if provided?
-							.wrap_logo
-								%img.logo_client{:src => "assets/img/logo_june-on.png", :alt => "Client Logo"}
+              -# should this link to the client's website, if provided?
+              .wrap_logo
+                %img.logo_client{:src => "assets/img/logo_june-on.png", :alt => "Client Logo"}
 
-					.wrap_content.clearfix
+          .wrap_content.clearfix
 
-						.wrap_credits
-							%h4 Credits
-							= Haml::Engine.new(File.read("dev/haml/partials/_con_credits-project.haml")).render
+            .wrap_credits
+              %h4 Credits
+              = Haml::Engine.new(File.read("dev/haml/partials/_con_credits-project.haml")).render
 
-						%nav.wrap_related.nav_sidebar
-							%h4 Related Videos
-							%ul.projects_related
-								%li
-									%a{:href => "#", :title => "See related post"}
-										%p "June 2.0"
-								%li
-									%a{:href => "#", :title => "See related post"}
-										%p "More June Ovens Always"
-								%li
-									%a{:href => "#", :title => "See related post"}
-										%p "It's June Again"
-								%li
-									%a{:href => "#", :title => "See related post"}
-										%p "Christmas in... June"
+            %nav.wrap_related.nav_sidebar
+              %h4 Related Videos
+              %ul.projects_related
+                %li
+                  %a{:href => "#", :title => "See related post"}
+                    %p "June 2.0"
+                %li
+                  %a{:href => "#", :title => "See related post"}
+                    %p "More June Ovens Always"
+                %li
+                  %a{:href => "#", :title => "See related post"}
+                    %p "It's June Again"
+                %li
+                  %a{:href => "#", :title => "See related post"}
+                    %p "Christmas in... June"
 
-		= Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render
+    = Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render

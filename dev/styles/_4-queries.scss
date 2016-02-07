@@ -6,20 +6,20 @@
 // ==|== primary styles =======================================================
 // ============================================================================
 
-	// Primary Navigation (child of header)
-	// ----------------------------------------------------------------------------
-	nav.nav_primary .wrap_nav ul {
-		top: 45%;
-	}
+  // Primary Navigation (child of header)
+  // ----------------------------------------------------------------------------
+  nav.nav_primary .wrap_nav ul {
+    top: 45%;
+  }
 
 // ==|== main styles ===========================================================
 // =============================================================================
 
-	// Isotope
-	// ----------------------------------------------------------------------------
-	section.iso_container .iso_loader .wrap_graphics {
-		padding-top: 0;
-	}
+  // Isotope
+  // ----------------------------------------------------------------------------
+  section.iso_container .iso_loader .wrap_graphics {
+    padding-top: 0;
+  }
 
 }
 
@@ -28,205 +28,205 @@
 // ==|== primary styles =======================================================
 // ============================================================================
 
-	// Primary Navigation (child of header)
-	// ----------------------------------------------------------------------------
-	nav.nav_primary {
-		a.nav_toggle {
-			top: 1rem;
-			left: 1.6rem;
-			right: auto;
-			margin: 0;
-		}
-		.wrap_nav ul li {
-			a {
-				font-size: 1.8rem;
-			}
-			// + individual list items + \\
-			&:nth-child(-n+5) {
-				margin-bottom: 1.8rem;
-			}
-			&.nav_twitter {
-				margin-bottom: 2.8rem;
-			}
-		}
-	}
+  // Primary Navigation (child of header)
+  // ----------------------------------------------------------------------------
+  nav.nav_primary {
+    a.nav_toggle {
+      top: 1rem;
+      left: 1.6rem;
+      right: auto;
+      margin: 0;
+    }
+    .wrap_nav ul li {
+      a {
+        font-size: 1.8rem;
+      }
+      // + individual list items + \\
+      &:nth-child(-n+5) {
+        margin-bottom: 1.8rem;
+      }
+      &.nav_twitter {
+        margin-bottom: 2.8rem;
+      }
+    }
+  }
 
 // ==|== main styles ==========================================================
 // ============================================================================
 
-	// Isotope
-	// ----------------------------------------------------------------------------
-	section.iso_container {
-		.iso_gutter {
-			width: 4.464286%; // 40 / 2 = 20 / 408 = 4.464286%
-		}
-		article {
-			width: 30.357143%; // 448 - 40 = 408 / 3 = 136 / 408 = 30.357143%
-		}
-	}
+  // Isotope
+  // ----------------------------------------------------------------------------
+  section.iso_container {
+    .iso_gutter {
+      width: 4.464286%; // 40 / 2 = 20 / 408 = 4.464286%
+    }
+    article {
+      width: 30.357143%; // 448 - 40 = 408 / 3 = 136 / 408 = 30.357143%
+    }
+  }
 
-	// YouTube Modal
-	// ----------------------------------------------------------------------------
-	aside {
-		.modal_content {
-			header.modal_header {
-				display: flex;
-				.wrap_titles {
-					flex: 0 1 70%;
-					margin-bottom: 0;
-					text-align: left;
-				}
-				ul.wrap_links {
-					display: block;
-					flex: 0 1 30%;
-					li {
-						&.item_link-close {
-							position: static;
-							top: auto;
-							right: auto;
-							a.wrap_ui-close {
-								display: inline;
-								padding: 0;
-								width: auto;
-								span {
-									display: inline;
-								}
-								svg {
-									display: none;
-								}
-							}
-						}
-						&.item_link-project,
-						&.item_link-tweet {
-							flex: none;
-						}
-						&.item_link-close,
-						&.item_link-credits,
-						&.item_link-project {
-							margin-bottom: 0.8rem;
-							text-align: right;
-						}
-						&.item_link-project,
-						&.item_link-tweet {
-							width: 100%;
-						}
-					}
-				}
-			}
-			figure.modal_figure figcaption.modal_caption .wrap_scroll ul.video_credits {
-				column-count: 2;
-				column-gap: 2rem;
-				text-align: left;
-				padding-bottom: 1rem;
-				li {
-					break-inside: avoid;
-					-webkit-margin-before: 0;
-					-webkit-margin-after: 0;
-					&:last-child {
-						padding-bottom: 2.2rem;
-					}
-				}
-			}
-			.content_error {
-				padding: 6.4rem 3.2rem;
-			}
-		}
-		&[data-ajax="error"] .modal_content header.modal_header ul.wrap_links {
-			flex: 0 1 100%;
-			li.item_link-close {
-				text-align: center;
-				transform: translateY(3.2rem);
-			}
-		}
-	}
+  // YouTube Modal
+  // ----------------------------------------------------------------------------
+  aside {
+    .modal_content {
+      header.modal_header {
+        display: flex;
+        .wrap_titles {
+          flex: 0 1 70%;
+          margin-bottom: 0;
+          text-align: left;
+        }
+        ul.wrap_links {
+          display: block;
+          flex: 0 1 30%;
+          li {
+            &.item_link-close {
+              position: static;
+              top: auto;
+              right: auto;
+              a.wrap_ui-close {
+                display: inline;
+                padding: 0;
+                width: auto;
+                span {
+                  display: inline;
+                }
+                svg {
+                  display: none;
+                }
+              }
+            }
+            &.item_link-project,
+            &.item_link-tweet {
+              flex: none;
+            }
+            &.item_link-close,
+            &.item_link-credits,
+            &.item_link-project {
+              margin-bottom: 0.8rem;
+              text-align: right;
+            }
+            &.item_link-project,
+            &.item_link-tweet {
+              width: 100%;
+            }
+          }
+        }
+      }
+      figure.modal_figure figcaption.modal_caption .wrap_scroll ul.video_credits {
+        column-count: 2;
+        column-gap: 2rem;
+        text-align: left;
+        padding-bottom: 1rem;
+        li {
+          break-inside: avoid;
+          -webkit-margin-before: 0;
+          -webkit-margin-after: 0;
+          &:last-child {
+            padding-bottom: 2.2rem;
+          }
+        }
+      }
+      .content_error {
+        padding: 6.4rem 3.2rem;
+      }
+    }
+    &[data-ajax="error"] .modal_content header.modal_header ul.wrap_links {
+      flex: 0 1 100%;
+      li.item_link-close {
+        text-align: center;
+        transform: translateY(3.2rem);
+      }
+    }
+  }
 
 // ==|== projects cpt =========================================================
 // ============================================================================
 
-	// Projects Single Post
-	// ----------------------------------------------------------------------------
-	section.projects_single article.projects_post {
-		.projects_header {
-			text-align: right;
-		}
-		.wrap_content {
-			text-align: left;
-			.wrap_credits,
-			nav.wrap_related {
-				float: left;
-			}
-			.wrap_credits {
-				margin-bottom: 0;
-				width: 62%;
-			}
-			nav.wrap_related {
-				width: 38%;
-			}
-		}
-	}
+  // Projects Single Post
+  // ----------------------------------------------------------------------------
+  section.projects_single article.projects_post {
+    .projects_header {
+      text-align: right;
+    }
+    .wrap_content {
+      text-align: left;
+      .wrap_credits,
+      nav.wrap_related {
+        float: left;
+      }
+      .wrap_credits {
+        margin-bottom: 0;
+        width: 62%;
+      }
+      nav.wrap_related {
+        width: 38%;
+      }
+    }
+  }
 
 // ==|== people cpt ===========================================================
 // ============================================================================
 
-	// People Shared
-	// ----------------------------------------------------------------------------
-	article.person {
-		@include container(reset);
-		text-align: left;
-		.person_img {
-			@include container(reset);
-		}
-	}
+  // People Shared
+  // ----------------------------------------------------------------------------
+  article.person {
+    @include container(reset);
+    text-align: left;
+    .person_img {
+      @include container(reset);
+    }
+  }
 
-	// People Main
-	// ----------------------------------------------------------------------------
-	section.people_main {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
-		article.person {
-			margin-bottom: 3.2rem;
-			width: calc(50% - 1.6rem); // 46.428571%;
-			&:nth-child(odd) {
-				margin-right: 3.2rem; // 7.142857%;
-			}
-			&:last-child {
-				margin-right: 0;
-			}
-		}
-	}
+  // People Main
+  // ----------------------------------------------------------------------------
+  section.people_main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    article.person {
+      margin-bottom: 3.2rem;
+      width: calc(50% - 1.6rem); // 46.428571%;
+      &:nth-child(odd) {
+        margin-right: 3.2rem; // 7.142857%;
+      }
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
 
-	// People Single
-	// ----------------------------------------------------------------------------
-	section.people_single article.person {
-		display: flex;
-		.person_img {
-			flex: 0 1 calc(30% - 2rem);
-			max-width: 22rem;
-			margin-right: 2rem;
-			margin-bottom: 0;
-			img {
-				width: 100%; // not behavin' as max-width / flex
-			}
-		}
-		.wrap_bio {
-			flex: 0 1 calc(70%);
-			margin-left: auto;
-			header h3.person_name {
-				margin-bottom: 0.4rem;
-			}
-		}
-	}
+  // People Single
+  // ----------------------------------------------------------------------------
+  section.people_single article.person {
+    display: flex;
+    .person_img {
+      flex: 0 1 calc(30% - 2rem);
+      max-width: 22rem;
+      margin-right: 2rem;
+      margin-bottom: 0;
+      img {
+        width: 100%; // not behavin' as max-width / flex
+      }
+    }
+    .wrap_bio {
+      flex: 0 1 calc(70%);
+      margin-left: auto;
+      header h3.person_name {
+        margin-bottom: 0.4rem;
+      }
+    }
+  }
 
 // ==|== page styles ==========================================================
 // ============================================================================
 
-	// Pages IDs
-	// ----------------------------------------------------------------------------
-	// need to compensate for #people article margin-bottom with the footer padding-top
-	body.post-type-archive-people footer.page_footer {
-		padding-top: 6.8rem; // 100px - 32px
-	}
+  // Pages IDs
+  // ----------------------------------------------------------------------------
+  // need to compensate for #people article margin-bottom with the footer padding-top
+  body.post-type-archive-people footer.page_footer {
+    padding-top: 6.8rem; // 100px - 32px
+  }
 
 }
 
@@ -235,92 +235,92 @@
 // ==|== main styles ==========================================================
 // ============================================================================
 
-	// Shared Content
-	// ----------------------------------------------------------------------------
-	// --- Archive List --- \\
-	article.archive_layout {
-		display: flex;
-		flex-wrap: nowrap;
-		&.person_credits {
-			text-align: left;
-			.wrap_column {
-				margin-bottom: 0;
-			}
-		}
-		.wrap_column {
-			flex: 1 1 auto;
-			margin-bottom: 0;
-			padding-left: 1rem;
-			padding-right: 1rem;
-		}
-		& > div {
-			&:first-child {
-				padding-left: 0;
-			}
-			&:last-child {
-				padding-right: 0;
-			}
-		}
-	}
+  // Shared Content
+  // ----------------------------------------------------------------------------
+  // --- Archive List --- \\
+  article.archive_layout {
+    display: flex;
+    flex-wrap: nowrap;
+    &.person_credits {
+      text-align: left;
+      .wrap_column {
+        margin-bottom: 0;
+      }
+    }
+    .wrap_column {
+      flex: 1 1 auto;
+      margin-bottom: 0;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    & > div {
+      &:first-child {
+        padding-left: 0;
+      }
+      &:last-child {
+        padding-right: 0;
+      }
+    }
+  }
 
-	// Isotope
-	// ----------------------------------------------------------------------------
-	section.iso_container {
-		margin-bottom: 4rem;
-	}
+  // Isotope
+  // ----------------------------------------------------------------------------
+  section.iso_container {
+    margin-bottom: 4rem;
+  }
 
 // ==|== people cpt ===========================================================
 // ============================================================================
 
-	// People Main
-	// ----------------------------------------------------------------------------
-	section.people_main article.person {
-		width: calc(33.3333333% - 2rem);
-		&:nth-child(odd) {
-			margin-right: 0;
-		}
-		&:nth-child(3n-1),
-		&:nth-child(3n-2) {
-			margin-right: 3rem;
-		}
-		&:last-child {
-			margin-right: 0;
-		}
-	}
+  // People Main
+  // ----------------------------------------------------------------------------
+  section.people_main article.person {
+    width: calc(33.3333333% - 2rem);
+    &:nth-child(odd) {
+      margin-right: 0;
+    }
+    &:nth-child(3n-1),
+    &:nth-child(3n-2) {
+      margin-right: 3rem;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+  }
 
-	// People Single
-	// ----------------------------------------------------------------------------
-	section.people_single article.person {
-		position: relative;
-		// not worrying about h3 width / truncation ... shouldn't ever be an issue
-		.wrap_bio a.person_twitter {
-			position: absolute;
-			top: 0;
-			right: 0;
-			margin-top: 0;
-		}
-	}
+  // People Single
+  // ----------------------------------------------------------------------------
+  section.people_single article.person {
+    position: relative;
+    // not worrying about h3 width / truncation ... shouldn't ever be an issue
+    .wrap_bio a.person_twitter {
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin-top: 0;
+    }
+  }
 
 // ==|== page styles ==========================================================
 // ============================================================================
 
-	// Home
-	// ----------------------------------------------------------------------------
-	section.about_main {
-		article {
-			h5 {
-				margin-bottom: 6.4rem;
-				text-align: center;
-			}
-			.the_content {
-				column-count: 2;
-				column-gap: 5.6rem;
-				p {
-					break-inside: avoid;
-				}
-			}
-		}
-	}
+  // Home
+  // ----------------------------------------------------------------------------
+  section.about_main {
+    article {
+      h5 {
+        margin-bottom: 6.4rem;
+        text-align: center;
+      }
+      .the_content {
+        column-count: 2;
+        column-gap: 5.6rem;
+        p {
+          break-inside: avoid;
+        }
+      }
+    }
+  }
 
 }
 
@@ -329,778 +329,778 @@
 // ==|== base =================================================================
 // ============================================================================
 
-	// Animations
-	// ----------------------------------------------------------------------------
-	@keyframes animModalIn {
-		  0% { opacity: 0; transform: translate3d(0,16rem,0); }
-		100% { opacity: 1; transform: translate3d(0,0rem,0); }
-	}
-	@keyframes animModalOut {
-		  0% { opacity: 1; transform: translate3d(0,0rem,0); }
-		100% { opacity: 0; transform: translate3d(0,16rem,0); }
-	}
-	@keyframes animRecordBlink {
-		 0%,
-		40% { opacity: 1; }
-		50%,
-		90% { opacity: 0; }
-	}
-	@keyframes animRainbowColorBorder {
-		  0% { color: $hsl_red;    border-color: $hsl_red;    }
-		 26% { color: $hsl_orange; border-color: $hsl_orange; }
-		 44% { color: $hsl_yellow; border-color: $hsl_yellow; }
-		 74% { color: $hsl_aqua;   border-color: $hsl_aqua;   }
-		 82% { color: $hsl_cyan;   border-color: $hsl_cyan;   }
-		100% { color: $hsl_red;    border-color: $hsl_red;    }
-	}
-	// cascading rainbow letters 1 - 5 (ends on final percentage amount - less than 100)
-	$numRainbowStepIndex: 1;
-	@for $i from 1 through length($arrRainbowValues) {
-		@keyframes animRainbowFill-step#{$i} {
-			$numAnimPercent: 0;
-			@each $color in $arrRainbowValues {
-				#{$numAnimPercent}% {
-					fill: nth($arrRainbowValues, $numRainbowStepIndex);
-				}
-				$numAnimPercent: $numAnimPercent + 20;
-				$numRainbowStepIndex: if($numRainbowStepIndex == length($arrRainbowValues), 1, $numRainbowStepIndex + 1); // once our array has reached its max, reset
-			}
-		}
-		$numRainbowStepIndex: $numRainbowStepIndex + 1; // increment $numRainbowStepIndex by 1 so we can offset each animation
-	}
-	// cascading rainbow stripes 1 - 3 (ends on final percentage amount - less than 100)
-	$numRainbowTriIndex: 1;
-	@for $i from 1 through length($arrRainbowTriValues) {
-		@keyframes animRainbowTri-step#{$i} {
-			$numAnimPercent: 0;
-			@each $color in $arrRainbowTriValues {
-				#{$numAnimPercent}% {
-					background-color: nth($arrRainbowTriValues, $numRainbowTriIndex);
-				}
-				$numAnimPercent: $numAnimPercent + 33;
-				$numRainbowTriIndex: if($numRainbowTriIndex == length($arrRainbowTriValues), 1, $numRainbowTriIndex + 1); // once our array has reached its max, reset
-			}
-		}
-		$numRainbowTriIndex: $numRainbowTriIndex + 1; // increment $numRainbowTriIndex by 1 so we can offset each animation
-	}
+  // Animations
+  // ----------------------------------------------------------------------------
+  @keyframes animModalIn {
+      0% { opacity: 0; transform: translate3d(0,16rem,0); }
+    100% { opacity: 1; transform: translate3d(0,0rem,0); }
+  }
+  @keyframes animModalOut {
+      0% { opacity: 1; transform: translate3d(0,0rem,0); }
+    100% { opacity: 0; transform: translate3d(0,16rem,0); }
+  }
+  @keyframes animRecordBlink {
+     0%,
+    40% { opacity: 1; }
+    50%,
+    90% { opacity: 0; }
+  }
+  @keyframes animRainbowColorBorder {
+      0% { color: $hsl_red;    border-color: $hsl_red;    }
+     26% { color: $hsl_orange; border-color: $hsl_orange; }
+     44% { color: $hsl_yellow; border-color: $hsl_yellow; }
+     74% { color: $hsl_aqua;   border-color: $hsl_aqua;   }
+     82% { color: $hsl_cyan;   border-color: $hsl_cyan;   }
+    100% { color: $hsl_red;    border-color: $hsl_red;    }
+  }
+  // cascading rainbow letters 1 - 5 (ends on final percentage amount - less than 100)
+  $numRainbowStepIndex: 1;
+  @for $i from 1 through length($arrRainbowValues) {
+    @keyframes animRainbowFill-step#{$i} {
+      $numAnimPercent: 0;
+      @each $color in $arrRainbowValues {
+        #{$numAnimPercent}% {
+          fill: nth($arrRainbowValues, $numRainbowStepIndex);
+        }
+        $numAnimPercent: $numAnimPercent + 20;
+        $numRainbowStepIndex: if($numRainbowStepIndex == length($arrRainbowValues), 1, $numRainbowStepIndex + 1); // once our array has reached its max, reset
+      }
+    }
+    $numRainbowStepIndex: $numRainbowStepIndex + 1; // increment $numRainbowStepIndex by 1 so we can offset each animation
+  }
+  // cascading rainbow stripes 1 - 3 (ends on final percentage amount - less than 100)
+  $numRainbowTriIndex: 1;
+  @for $i from 1 through length($arrRainbowTriValues) {
+    @keyframes animRainbowTri-step#{$i} {
+      $numAnimPercent: 0;
+      @each $color in $arrRainbowTriValues {
+        #{$numAnimPercent}% {
+          background-color: nth($arrRainbowTriValues, $numRainbowTriIndex);
+        }
+        $numAnimPercent: $numAnimPercent + 33;
+        $numRainbowTriIndex: if($numRainbowTriIndex == length($arrRainbowTriValues), 1, $numRainbowTriIndex + 1); // once our array has reached its max, reset
+      }
+    }
+    $numRainbowTriIndex: $numRainbowTriIndex + 1; // increment $numRainbowTriIndex by 1 so we can offset each animation
+  }
 
 // ==|== primary styles =======================================================
 // ============================================================================
 
-	// Foundation
-	// ----------------------------------------------------------------------------
-	body {
-		padding-left: 3.2rem;
-		padding-right: 3.2rem;
-	}
+  // Foundation
+  // ----------------------------------------------------------------------------
+  body {
+    padding-left: 3.2rem;
+    padding-right: 3.2rem;
+  }
 
-	// Header
-	// ----------------------------------------------------------------------------
-	header.page_header {
-		position: relative;
-		padding-top: 18rem;
-		padding-bottom: 6.4rem;
-		// UNTIL WEBKIT FIXES SVG ANIMATIONS WITHIN AN <a> TAG, THIS CAN'T BE USED...
-		a.logo_main {
-			transition: opacity 260ms ease-in-out;
-			&:active {
-				opacity: 0.8;
-			}
-		}
-		.logo_main {
-			max-width: 34.6rem; // width of the widest SVG ("sandwich")
-			// a.fix_webkit-svg {} with Page Load section for hover + active styles
-			.wrap_svg.wrap_logo-sandwich,
-			.wrap_svg.wrap_logo-video {
-				width: 100%;
-			}
-		}
-		.wrap_tagline {
-			margin-top: 6.4rem;
-			h2 {
-				font-size: 1.4rem;
-				br {
-					display: block;
-				}
-			}
-		}
-	}
+  // Header
+  // ----------------------------------------------------------------------------
+  header.page_header {
+    position: relative;
+    padding-top: 18rem;
+    padding-bottom: 6.4rem;
+    // UNTIL WEBKIT FIXES SVG ANIMATIONS WITHIN AN <a> TAG, THIS CAN'T BE USED...
+    a.logo_main {
+      transition: opacity 260ms ease-in-out;
+      &:active {
+        opacity: 0.8;
+      }
+    }
+    .logo_main {
+      max-width: 34.6rem; // width of the widest SVG ("sandwich")
+      // a.fix_webkit-svg {} with Page Load section for hover + active styles
+      .wrap_svg.wrap_logo-sandwich,
+      .wrap_svg.wrap_logo-video {
+        width: 100%;
+      }
+    }
+    .wrap_tagline {
+      margin-top: 6.4rem;
+      h2 {
+        font-size: 1.4rem;
+        br {
+          display: block;
+        }
+      }
+    }
+  }
 
-	// Primary Navigation (child of header)
-	// ----------------------------------------------------------------------------
-	nav.nav_primary {
-		position: fixed;
-		z-index: 900;
-		top: 0;
-		left: 0;
-		right: 0;
-		padding: 5.6rem 3.2rem 2rem 3.2rem; // 40px of extra top padding for scroll distance (set in JS - actually 60px)
-		background-color: $hsla_bone-L98;
-		transition: transform 260ms ease-in-out;
-		&.scrolled {
-			transform: translate3d(0,-4rem,0);
-		}
-		a.nav_toggle {
-			display: none;
-			position: static;
-			.nav_icon .nav_line {
-				position: static;
-			}
-			.nav_icon,
-			.nav_icon .nav_line,
-			.nav_icon .line-2 .line_bg {
-				transition: none; // was previously waiting for data-ready
-			}
-		}
-		.wrap_nav {
-			@include posCover(reset);
-			@include toggleVisibility(on);
-			@include container(1640);
-			position: relative; // is this needed, or is a stacking content retained?
-			perspective: none;
-			background-color: transparent;
-			ul {
-				position: static;
-				top: auto;
-				transform: none;
-				li {
-					a {
-						font-size: 1.5rem;
-					}
-					// + individual list items + \\
-					&:nth-child(-n+5) {
-						display: inline-block;
-					}
-					&:nth-child(-n+4) {
-						margin-right: 3.2rem;
-					}
-					&:nth-child(-n+5),
-					&.nav_twitter {
-						margin-bottom: 0;
-					}
-					&.nav_twitter {
-						position: absolute;
-						right: 0;
-						bottom: 0;
-						margin-right: 0;
-					}
-					&.nav_search {
-						position: absolute;
-						z-index: 1;
-						left: 0;
-						top: -0.2rem;
-						margin-left: 0;
-						margin-right: 0;
-						width: auto;
-						form {
-							&::before,
-							&::after {
-								display: none;
-								width: auto;
-								height: auto;
-								background: transparent;
-							}
-							input[type="text"] {
-								padding-left: 3.6rem;
-								width: 3.6rem;
-								text-align: left;
-								opacity: 0;
-								cursor: pointer;
-								// runs when entering 768px width... can i prevent?
-								transition: width 260ms ease-in-out, opacity 260ms ease-in-out;
-								&:hover + svg.ui_search path {
-									stroke: $hsl_red;
-								}
-								&:focus {
-									width: calc(100vw - 19rem); // only until 1024px
-									opacity: 1;
-									cursor: text;
-									& + svg.ui_search path {
-										stroke: $hsl_navy;
-									}
-								}
-							}
-							svg.ui_search {
-								top: -0.2rem;
-								left: -0.2rem;
-								width: 2.6rem;
-								height: 2.6rem;
-								path {
-									transition: stroke 260ms ease-in-out; // moved here since original page load code has been removed
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		// + toggled navigation + \\
-		&.toggled .wrap_nav ul,
-		&.toggled a.nav_toggle .nav_icon,
-		&.toggled a.nav_toggle .nav_icon .line-1,
-		&.toggled a.nav_toggle .nav_icon .line-3 {
-			transform: none; // just to be extra sure...
-		}
-	}
+  // Primary Navigation (child of header)
+  // ----------------------------------------------------------------------------
+  nav.nav_primary {
+    position: fixed;
+    z-index: 900;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 5.6rem 3.2rem 2rem 3.2rem; // 40px of extra top padding for scroll distance (set in JS - actually 60px)
+    background-color: $hsla_bone-L98;
+    transition: transform 260ms ease-in-out;
+    &.scrolled {
+      transform: translate3d(0,-4rem,0);
+    }
+    a.nav_toggle {
+      display: none;
+      position: static;
+      .nav_icon .nav_line {
+        position: static;
+      }
+      .nav_icon,
+      .nav_icon .nav_line,
+      .nav_icon .line-2 .line_bg {
+        transition: none; // was previously waiting for data-ready
+      }
+    }
+    .wrap_nav {
+      @include posCover(reset);
+      @include toggleVisibility(on);
+      @include container(1640);
+      position: relative; // is this needed, or is a stacking content retained?
+      perspective: none;
+      background-color: transparent;
+      ul {
+        position: static;
+        top: auto;
+        transform: none;
+        li {
+          a {
+            font-size: 1.5rem;
+          }
+          // + individual list items + \\
+          &:nth-child(-n+5) {
+            display: inline-block;
+          }
+          &:nth-child(-n+4) {
+            margin-right: 3.2rem;
+          }
+          &:nth-child(-n+5),
+          &.nav_twitter {
+            margin-bottom: 0;
+          }
+          &.nav_twitter {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            margin-right: 0;
+          }
+          &.nav_search {
+            position: absolute;
+            z-index: 1;
+            left: 0;
+            top: -0.2rem;
+            margin-left: 0;
+            margin-right: 0;
+            width: auto;
+            form {
+              &::before,
+              &::after {
+                display: none;
+                width: auto;
+                height: auto;
+                background: transparent;
+              }
+              input[type="text"] {
+                padding-left: 3.6rem;
+                width: 3.6rem;
+                text-align: left;
+                opacity: 0;
+                cursor: pointer;
+                // runs when entering 768px width... can i prevent?
+                transition: width 260ms ease-in-out, opacity 260ms ease-in-out;
+                &:hover + svg.ui_search path {
+                  stroke: $hsl_red;
+                }
+                &:focus {
+                  width: calc(100vw - 19rem); // only until 1024px
+                  opacity: 1;
+                  cursor: text;
+                  & + svg.ui_search path {
+                    stroke: $hsl_navy;
+                  }
+                }
+              }
+              svg.ui_search {
+                top: -0.2rem;
+                left: -0.2rem;
+                width: 2.6rem;
+                height: 2.6rem;
+                path {
+                  transition: stroke 260ms ease-in-out; // moved here since original page load code has been removed
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    // + toggled navigation + \\
+    &.toggled .wrap_nav ul,
+    &.toggled a.nav_toggle .nav_icon,
+    &.toggled a.nav_toggle .nav_icon .line-1,
+    &.toggled a.nav_toggle .nav_icon .line-3 {
+      transform: none; // just to be extra sure...
+    }
+  }
 
-	// Footer
-	// ----------------------------------------------------------------------------
-	footer.page_footer {
-		padding-top: 14rem;
-		padding-bottom: 12rem;
-	}
+  // Footer
+  // ----------------------------------------------------------------------------
+  footer.page_footer {
+    padding-top: 14rem;
+    padding-bottom: 12rem;
+  }
 
 // ==|== main styles ==========================================================
 // ============================================================================
 
-	// Shared Content
-	// ----------------------------------------------------------------------------
-	// --- The Content --- \\
-	.the_content {
-		img {
-			width: 100%; // required for FF to behave with flexbox
-		}
-		table tr th,
-		table tr td {
-			padding: 1.6rem;
-			font-size: 1.4rem;
-		}
-		// + bulk element styles + \\
-		h1, h2, h3 { font-size: 2rem; }
-		h4, h5, h6 { font-size: 1.6rem; }
-		p, li { font-size: 1.5rem; }
-	}
+  // Shared Content
+  // ----------------------------------------------------------------------------
+  // --- The Content --- \\
+  .the_content {
+    img {
+      width: 100%; // required for FF to behave with flexbox
+    }
+    table tr th,
+    table tr td {
+      padding: 1.6rem;
+      font-size: 1.4rem;
+    }
+    // + bulk element styles + \\
+    h1, h2, h3 { font-size: 2rem; }
+    h4, h5, h6 { font-size: 1.6rem; }
+    p, li { font-size: 1.5rem; }
+  }
 
-	// Nav Filter
-	// ----------------------------------------------------------------------------
-	nav.nav_filter {
-		margin-bottom: 6.4rem;
-		max-width: 80rem;
-		a.filter_trigger {
-			display: none; // will there be JS errors? should this be visually hidden instead?
-			visibility: hidden;
-		}
-		.wrap_dropdown,
-		.wrap_dropdown ul,
-		.wrap_dropdown .fix_ios-scroll {
-			background-color: transparent;
-		}
-		.wrap_dropdown {
-			@include toggleVisibility(on);
-			position: static;
-			top: auto;
-			height: auto;
-			border-radius: 0;
-			overflow: visible;
-			transition: none;
-			.fix_ios-scroll {
-				@include posCover(reset);
-				overflow: visible;
-				-webkit-mask-image: none;
-				ul {
-					height: auto;
-					overflow: visible;
-					-webkit-overflow-scrolling: auto;
-					li {
-						display: inline-block;
-						margin: 0 0.4rem 0.6rem 0.4rem;
-						&:nth-child(n+3) span {
-							// do not apply the transition to our rainbow links (all & curated) since these use an animation
-							transition: color 420ms ease-in-out, border-color 420ms ease-in-out;
-						}
-						span {
-							padding: 0.8rem 1.2rem 1rem 1.2rem;
-							font-size: 1.4rem;
-							color: $hsl_navy;
-							border: 0.1rem solid transparent; // border-color transitions to correct colour on selection
-							border-radius: 0.8rem;
-							&[class] {
-								background-color: transparent; // reseting background-color requires the 'class' attribute specificity
-							}
-							&.color_rainbow {
-								position: relative;
-								&::before {
-									content: "";
-									display: block;
-									position: absolute;
-									top: -0.2rem;
-									right: -0.2rem;
-									bottom: -0.2rem;
-									left: -0.2rem;
-									border: 0.4rem solid $hsl_bone;
-									border-radius: 0.8rem;
-									opacity: 1;
-									transition: opacity 420ms ease-in-out; // 600ms
-								}
-							}
-							&:hover {
-								color: $hsl_red; // default colour
-							}
-							&:active {
-								color: darken($hsl_red, 10%); // default colour
-							}
-						}
-						&.filter_current span.color_rainbow::before {
-							opacity: 0;
-						}
-					}
-				}
-			}
-		}
-		&[data-index="0"],
-		&[data-index="1"],
-		&[data-index="2"],
-		&[data-index="14"],
-		&[data-index="15"],
-		&[data-index="16"] {
-			.wrap_dropdown {
-				top: auto;
-			}
-		}
-	}
+  // Nav Filter
+  // ----------------------------------------------------------------------------
+  nav.nav_filter {
+    margin-bottom: 6.4rem;
+    max-width: 80rem;
+    a.filter_trigger {
+      display: none; // will there be JS errors? should this be visually hidden instead?
+      visibility: hidden;
+    }
+    .wrap_dropdown,
+    .wrap_dropdown ul,
+    .wrap_dropdown .fix_ios-scroll {
+      background-color: transparent;
+    }
+    .wrap_dropdown {
+      @include toggleVisibility(on);
+      position: static;
+      top: auto;
+      height: auto;
+      border-radius: 0;
+      overflow: visible;
+      transition: none;
+      .fix_ios-scroll {
+        @include posCover(reset);
+        overflow: visible;
+        -webkit-mask-image: none;
+        ul {
+          height: auto;
+          overflow: visible;
+          -webkit-overflow-scrolling: auto;
+          li {
+            display: inline-block;
+            margin: 0 0.4rem 0.6rem 0.4rem;
+            &:nth-child(n+3) span {
+              // do not apply the transition to our rainbow links (all & curated) since these use an animation
+              transition: color 420ms ease-in-out, border-color 420ms ease-in-out;
+            }
+            span {
+              padding: 0.8rem 1.2rem 1rem 1.2rem;
+              font-size: 1.4rem;
+              color: $hsl_navy;
+              border: 0.1rem solid transparent; // border-color transitions to correct colour on selection
+              border-radius: 0.8rem;
+              &[class] {
+                background-color: transparent; // reseting background-color requires the 'class' attribute specificity
+              }
+              &.color_rainbow {
+                position: relative;
+                &::before {
+                  content: "";
+                  display: block;
+                  position: absolute;
+                  top: -0.2rem;
+                  right: -0.2rem;
+                  bottom: -0.2rem;
+                  left: -0.2rem;
+                  border: 0.4rem solid $hsl_bone;
+                  border-radius: 0.8rem;
+                  opacity: 1;
+                  transition: opacity 420ms ease-in-out; // 600ms
+                }
+              }
+              &:hover {
+                color: $hsl_red; // default colour
+              }
+              &:active {
+                color: darken($hsl_red, 10%); // default colour
+              }
+            }
+            &.filter_current span.color_rainbow::before {
+              opacity: 0;
+            }
+          }
+        }
+      }
+    }
+    &[data-index="0"],
+    &[data-index="1"],
+    &[data-index="2"],
+    &[data-index="14"],
+    &[data-index="15"],
+    &[data-index="16"] {
+      .wrap_dropdown {
+        top: auto;
+      }
+    }
+  }
 
-	// Isotope
-	// ----------------------------------------------------------------------------
-	section.iso_container {
-		.iso_gutter {
-			width: 5.681818%; // 80 / 2 = 40 / 704 = 5.681818%
-		}
-		article {
-			margin-bottom: 4rem;
-			width: 29.545455%; // 704 - 80 = 624 / 3 = 208 / 704 = 29.545455%
-			a {
-				.wrap_iso-image .wrap_iso-title {
-					@include posCover(absolute, 103);
-					display: block;
-					opacity: 0;
-					.wrap_txt-center {
-						display: table;
-						width: 100%;
-						height: 100%;
-						text-align: center;
-						h3 {
-							display: table-cell;
-							vertical-align: middle;
-							padding-left: 1.6rem;
-							padding-right: 1.6rem;
-							font-size: 1.8rem;
-							color: $hsl_L100;
-						}
-					}
-				}
-				&:hover .wrap_iso-image .wrap_iso-title {
-					opacity: 1;
-				}
-				&:active .wrap_iso-image .wrap_iso-title {
-					opacity: 0.9;
-				}
-			}
-		}
-	}
+  // Isotope
+  // ----------------------------------------------------------------------------
+  section.iso_container {
+    .iso_gutter {
+      width: 5.681818%; // 80 / 2 = 40 / 704 = 5.681818%
+    }
+    article {
+      margin-bottom: 4rem;
+      width: 29.545455%; // 704 - 80 = 624 / 3 = 208 / 704 = 29.545455%
+      a {
+        .wrap_iso-image .wrap_iso-title {
+          @include posCover(absolute, 103);
+          display: block;
+          opacity: 0;
+          .wrap_txt-center {
+            display: table;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            h3 {
+              display: table-cell;
+              vertical-align: middle;
+              padding-left: 1.6rem;
+              padding-right: 1.6rem;
+              font-size: 1.8rem;
+              color: $hsl_L100;
+            }
+          }
+        }
+        &:hover .wrap_iso-image .wrap_iso-title {
+          opacity: 1;
+        }
+        &:active .wrap_iso-image .wrap_iso-title {
+          opacity: 0.9;
+        }
+      }
+    }
+  }
 
-	// YouTube Modal
-	// ----------------------------------------------------------------------------
-	aside {
-		cursor: zoom-out;
-		.modal_content {
-			cursor: default;
-			display: flex;
-			flex-direction: column;
-			width: 80%;
-			height: auto;
-			box-shadow: 0 0 3.2rem hsla(0,0%,0%,0.32);
-			overflow-y: auto;
-			-webkit-overflow-scrolling: auto;
-			// last keyframe styles of animModalOut (is there a way to avoid specifying this?)
-			opacity: 0;
-			transform: translate3d(0,16rem,0);
-			header.modal_header {
-				order: 2; // move below figure
-				padding-left: 2rem;
-				padding-right: 2rem;
-				ul.wrap_links li {
-					&.item_link-close {
-						display: none;
-					}
-					&.item_link-credits {
-						display: block;
-						a::before {
-							content: "Hide ";
-							opacity: 0;
-							transition: opacity 260ms ease-in-out;
-						}
-					}
-				}
-			}
-			figure.modal_figure {
-				order: 1; // move above header
-				position: relative;
-				figcaption.modal_caption {
-					@include posCover(absolute, 1);
-					@include toggleVisibility(off);
-					overflow: hidden;
-					background-color: $hsla_cyan-L96;
-					transition: opacity 260ms ease-in-out, visibility 260ms ease-in-out;
-					// gradient fade for scrolling lists
-					&::before {
-						content: " ";
-						display: block;
-						position: absolute;
-						bottom: 0;
-						left: 0;
-						right: 0;
-						height: 2.6rem;
-						background-image: linear-gradient(hsla(194,76%,51%,0), hsla(194,76%,51%,1));
-					}
-					.wrap_scroll {
-						height: 100%;
-						overflow-y: scroll;
-						-webkit-overflow-scrolling: touch;
-						ul.video_credits {
-							padding-left: 2rem;
-							padding-right: 2rem;
-						}
-					}
-				}
-			}
-			.content_error {
-				padding-left: 6.4rem;
-				padding-right: 6.4rem;
-			}
-		}
-		// bounce in / out of .modal_content
-		&[data-modal="hidden"] {
-			animation: animHide 400ms ease-in-out 400ms both; // delay the modal fade out just enough to be in sync with .modal_content
-			&[data-content="empty"] .modal_content,
-			&[data-content="loaded"] .modal_content {
-				animation: animModalOut 320ms ease-in-out both;
-			}
-		}
-		&[data-modal="visible"] {
-			animation: animFadeIn 400ms ease-in-out both;
-			&[data-content="loaded"] .modal_content {
-				animation: animModalIn 320ms ease-in-out forwards;
-			}
-		}
-		&[data-ajax="error"] .modal_content header.modal_header ul.wrap_links li.item_link-credits {
-			display: none;
-		}
-		// toggled credits
-		&.toggle_credits .modal_content {
-			header.modal_header ul.wrap_links li.item_link-credits a {
-				color: $hsl_cyan;
-				&::before {
-					opacity: 1;
-				}
-			}
-			figure.modal_figure figcaption.modal_caption {
-				@include toggleVisibility(on);
-			}
-		}
-		.modal_loader {
-			background-color: transparent;
-		}
-		// error 404 modal code was kind of rushed, would love to have spent more time on this
-		&#modal_404 .modal_content figure.modal_figure {
-			position: static;
-			top: auto;
-			transform: none;
-		}
-	}
+  // YouTube Modal
+  // ----------------------------------------------------------------------------
+  aside {
+    cursor: zoom-out;
+    .modal_content {
+      cursor: default;
+      display: flex;
+      flex-direction: column;
+      width: 80%;
+      height: auto;
+      box-shadow: 0 0 3.2rem hsla(0,0%,0%,0.32);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: auto;
+      // last keyframe styles of animModalOut (is there a way to avoid specifying this?)
+      opacity: 0;
+      transform: translate3d(0,16rem,0);
+      header.modal_header {
+        order: 2; // move below figure
+        padding-left: 2rem;
+        padding-right: 2rem;
+        ul.wrap_links li {
+          &.item_link-close {
+            display: none;
+          }
+          &.item_link-credits {
+            display: block;
+            a::before {
+              content: "Hide ";
+              opacity: 0;
+              transition: opacity 260ms ease-in-out;
+            }
+          }
+        }
+      }
+      figure.modal_figure {
+        order: 1; // move above header
+        position: relative;
+        figcaption.modal_caption {
+          @include posCover(absolute, 1);
+          @include toggleVisibility(off);
+          overflow: hidden;
+          background-color: $hsla_cyan-L96;
+          transition: opacity 260ms ease-in-out, visibility 260ms ease-in-out;
+          // gradient fade for scrolling lists
+          &::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2.6rem;
+            background-image: linear-gradient(hsla(194,76%,51%,0), hsla(194,76%,51%,1));
+          }
+          .wrap_scroll {
+            height: 100%;
+            overflow-y: scroll;
+            -webkit-overflow-scrolling: touch;
+            ul.video_credits {
+              padding-left: 2rem;
+              padding-right: 2rem;
+            }
+          }
+        }
+      }
+      .content_error {
+        padding-left: 6.4rem;
+        padding-right: 6.4rem;
+      }
+    }
+    // bounce in / out of .modal_content
+    &[data-modal="hidden"] {
+      animation: animHide 400ms ease-in-out 400ms both; // delay the modal fade out just enough to be in sync with .modal_content
+      &[data-content="empty"] .modal_content,
+      &[data-content="loaded"] .modal_content {
+        animation: animModalOut 320ms ease-in-out both;
+      }
+    }
+    &[data-modal="visible"] {
+      animation: animFadeIn 400ms ease-in-out both;
+      &[data-content="loaded"] .modal_content {
+        animation: animModalIn 320ms ease-in-out forwards;
+      }
+    }
+    &[data-ajax="error"] .modal_content header.modal_header ul.wrap_links li.item_link-credits {
+      display: none;
+    }
+    // toggled credits
+    &.toggle_credits .modal_content {
+      header.modal_header ul.wrap_links li.item_link-credits a {
+        color: $hsl_cyan;
+        &::before {
+          opacity: 1;
+        }
+      }
+      figure.modal_figure figcaption.modal_caption {
+        @include toggleVisibility(on);
+      }
+    }
+    .modal_loader {
+      background-color: transparent;
+    }
+    // error 404 modal code was kind of rushed, would love to have spent more time on this
+    &#modal_404 .modal_content figure.modal_figure {
+      position: static;
+      top: auto;
+      transform: none;
+    }
+  }
 
 // ==|== projects cpt =========================================================
 // ============================================================================
 
-	// Projects Single Post
-	// ----------------------------------------------------------------------------
-	section.projects_single article.projects_post {
-		.projects_header {
-			margin-bottom: 3.2rem;
-		}
-		figure.projects_figure {
-			margin-bottom: 4.8rem;
-			figcaption.projects_caption {
-				padding-top: 3.2rem;
-				padding-bottom: 3.2rem;
-				.wrap_titles {
-					width: calc(100% - 10.8rem);
-					h3 {
-						font-size: 2.7rem;
-						&.title_video {
-							margin-bottom: 1rem;
-						}
-					}
-				}
-				.wrap_logo {
-					width: 7.6rem;
-					line-height: 7.6rem;
-				}
-			}
-		}
-		.wrap_content {
-			.wrap_credits h4,
-			.wrap_related h4 {
-				margin-bottom: 4.8rem;
-			}
-		}
-	}
+  // Projects Single Post
+  // ----------------------------------------------------------------------------
+  section.projects_single article.projects_post {
+    .projects_header {
+      margin-bottom: 3.2rem;
+    }
+    figure.projects_figure {
+      margin-bottom: 4.8rem;
+      figcaption.projects_caption {
+        padding-top: 3.2rem;
+        padding-bottom: 3.2rem;
+        .wrap_titles {
+          width: calc(100% - 10.8rem);
+          h3 {
+            font-size: 2.7rem;
+            &.title_video {
+              margin-bottom: 1rem;
+            }
+          }
+        }
+        .wrap_logo {
+          width: 7.6rem;
+          line-height: 7.6rem;
+        }
+      }
+    }
+    .wrap_content {
+      .wrap_credits h4,
+      .wrap_related h4 {
+        margin-bottom: 4.8rem;
+      }
+    }
+  }
 
 // ==|== press cpt ============================================================
 // ============================================================================
 
-	// Press Shared
-	// ----------------------------------------------------------------------------
-	body.single-press main,
-	body.post-type-archive-press main {
-		display: flex;
-		flex-wrap: nowrap;
-	}
-	section.press_section {
-		flex: 1;
-		margin-bottom: 0;
-		padding-right: 4rem;
-		article.press_post {
-			.press_feature img {
-				width: 100%; // required to get FF to scale images within flex container
-			}
-			header {
-				h3 {
-					font-size: 2.2rem;
-					line-height: 1.2;
-					color: $hsl_navy;
-				}
-				time {
-					font-size: 1.3rem
-				}
-			}
-			.press_author p {
-				font-size: 1.5rem;
-			}
-		}
-	}
-	section.press_sidebar {
-		flex: 0 0 18.8rem;
-		nav.wrap_press-links ul li a {
-			h5 {
-				font-size: 1.6rem;
-			}
-			p {
-				font-size: 1.3rem;
-			}
-		}
-		a.link_story {
-			transition: background-color 260ms ease-in-out;
-			.wrap_story-lines div {
-				animation-duration: 320ms;
-				animation-timing-function: steps(1);
-				animation-iteration-count: infinite;
-				animation-direction: reverse;
-				animation-play-state: paused;
-				@for $i from 1 through 3 {
-					&.story_line-#{$i} {
-						animation-name: animRainbowTri-step#{$i};
-					}
-				}
-			}
-			.wrap_ui-hand svg {
-				transition: fill 260ms ease-in-out;
-			}
-			&:hover {
-				background-color: darken($hsl_cyan, 4%);
-				.wrap_story-lines div {
-					animation-play-state: running;
-				}
-				.wrap_ui-hand svg {
-					fill: darken($hsl_cyan, 4%);
-				}
-			}
-			&:active {
-				background-color: $hsl_cyan;
-				.wrap_ui-hand svg {
-					fill: $hsl_cyan;
-				}
-			}
-		}
-	}
+  // Press Shared
+  // ----------------------------------------------------------------------------
+  body.single-press main,
+  body.post-type-archive-press main {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+  section.press_section {
+    flex: 1;
+    margin-bottom: 0;
+    padding-right: 4rem;
+    article.press_post {
+      .press_feature img {
+        width: 100%; // required to get FF to scale images within flex container
+      }
+      header {
+        h3 {
+          font-size: 2.2rem;
+          line-height: 1.2;
+          color: $hsl_navy;
+        }
+        time {
+          font-size: 1.3rem
+        }
+      }
+      .press_author p {
+        font-size: 1.5rem;
+      }
+    }
+  }
+  section.press_sidebar {
+    flex: 0 0 18.8rem;
+    nav.wrap_press-links ul li a {
+      h5 {
+        font-size: 1.6rem;
+      }
+      p {
+        font-size: 1.3rem;
+      }
+    }
+    a.link_story {
+      transition: background-color 260ms ease-in-out;
+      .wrap_story-lines div {
+        animation-duration: 320ms;
+        animation-timing-function: steps(1);
+        animation-iteration-count: infinite;
+        animation-direction: reverse;
+        animation-play-state: paused;
+        @for $i from 1 through 3 {
+          &.story_line-#{$i} {
+            animation-name: animRainbowTri-step#{$i};
+          }
+        }
+      }
+      .wrap_ui-hand svg {
+        transition: fill 260ms ease-in-out;
+      }
+      &:hover {
+        background-color: darken($hsl_cyan, 4%);
+        .wrap_story-lines div {
+          animation-play-state: running;
+        }
+        .wrap_ui-hand svg {
+          fill: darken($hsl_cyan, 4%);
+        }
+      }
+      &:active {
+        background-color: $hsl_cyan;
+        .wrap_ui-hand svg {
+          fill: $hsl_cyan;
+        }
+      }
+    }
+  }
 
-	// Press Main
-	// ----------------------------------------------------------------------------
-	section.press_main {
-		nav.press_pagination {
-			ul {
-				li {
-					flex: 1;
-					max-width: 4.4rem;
-					&:last-child {
-						margin-right: 0;
-					}
-					// if there are at least 9 items (including back and next), set li.pagi_page elements back to visible
-					&:nth-last-child(n+9) ~ li.pagi_page {
-						display: block;
-					}
-				}
-			}
-			// we now need to force our ellipsis elements back to hidden
-			&.appended_ellipsis ul li:nth-last-child(n+9) ~ li.pagi_more {
-				display: none;
-			}
-		}
-	}
+  // Press Main
+  // ----------------------------------------------------------------------------
+  section.press_main {
+    nav.press_pagination {
+      ul {
+        li {
+          flex: 1;
+          max-width: 4.4rem;
+          &:last-child {
+            margin-right: 0;
+          }
+          // if there are at least 9 items (including back and next), set li.pagi_page elements back to visible
+          &:nth-last-child(n+9) ~ li.pagi_page {
+            display: block;
+          }
+        }
+      }
+      // we now need to force our ellipsis elements back to hidden
+      &.appended_ellipsis ul li:nth-last-child(n+9) ~ li.pagi_more {
+        display: none;
+      }
+    }
+  }
 
 // ==|== people cpt ===========================================================
 // ============================================================================
 
-	// People Main
-	// ----------------------------------------------------------------------------
-	body.post-type-archive-people main {
-		position: relative;
-	}
-	section.people_main article.person {
-		margin-bottom: 6.4rem;
-		width: calc(33.3333333% - 4rem);
-		&:nth-child(3n-1),
-		&:nth-child(3n-2) {
-			margin-right: 6rem;
-		}
-		&:last-child {
-			margin-right: 0;
-		}
-	}
-	a.link_people-all {
-		position: absolute;
-		top: -17rem;
-		right: 0;
-		margin: 0;
-	}
+  // People Main
+  // ----------------------------------------------------------------------------
+  body.post-type-archive-people main {
+    position: relative;
+  }
+  section.people_main article.person {
+    margin-bottom: 6.4rem;
+    width: calc(33.3333333% - 4rem);
+    &:nth-child(3n-1),
+    &:nth-child(3n-2) {
+      margin-right: 6rem;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+  a.link_people-all {
+    position: absolute;
+    top: -17rem;
+    right: 0;
+    margin: 0;
+  }
 
-	// People Single
-	// ----------------------------------------------------------------------------
-	section.people_single article.person {
-		.person_img {
-			flex: 0 1 calc(28% - 2rem);
-		}
-		.wrap_bio {
-			flex: 0 1 calc(72%);
-		}
-	}
+  // People Single
+  // ----------------------------------------------------------------------------
+  section.people_single article.person {
+    .person_img {
+      flex: 0 1 calc(28% - 2rem);
+    }
+    .wrap_bio {
+      flex: 0 1 calc(72%);
+    }
+  }
 
 // ==|== page styles ==========================================================
 // ============================================================================
 
-	// Pages IDs
-	// ----------------------------------------------------------------------------
-	// need to compensate for #people article margin-bottom with the footer padding-top
-	body.post-type-archive-people footer.page_footer {
-		padding-top: 7.6rem; // 140px - 64px
-	}
+  // Pages IDs
+  // ----------------------------------------------------------------------------
+  // need to compensate for #people article margin-bottom with the footer padding-top
+  body.post-type-archive-people footer.page_footer {
+    padding-top: 7.6rem; // 140px - 64px
+  }
 
-	// Page Default
-	// ----------------------------------------------------------------------------
-	.the_content.page_content {
-		// + bulk element styles + \\
-		h1, h2, h3, h4, h5, h6, p, ol, ul { margin-bottom: 3.2rem; }
-		hr, img, div, table, blockquote { margin-top: 6.4rem; margin-bottom: 6.4rem; }
-		h1:last-child, h2:last-child, h3:last-child, h4:last-child, h5:last-child, h6:last-child, p:last-child, ol:last-child, ul:last-child, hr:last-child, img:last-child, div:last-child, table:last-child, blockquote:last-child { margin-bottom: 0; }
-	}
+  // Page Default
+  // ----------------------------------------------------------------------------
+  .the_content.page_content {
+    // + bulk element styles + \\
+    h1, h2, h3, h4, h5, h6, p, ol, ul { margin-bottom: 3.2rem; }
+    hr, img, div, table, blockquote { margin-top: 6.4rem; margin-bottom: 6.4rem; }
+    h1:last-child, h2:last-child, h3:last-child, h4:last-child, h5:last-child, h6:last-child, p:last-child, ol:last-child, ul:last-child, hr:last-child, img:last-child, div:last-child, table:last-child, blockquote:last-child { margin-bottom: 0; }
+  }
 
-	// Contact
-	// ----------------------------------------------------------------------------
-	.wrap_gmap {
-		position: relative;
-		.contact_circle {
-			position: absolute;
-			top: 1rem;
-			right: 1rem;
-			margin-bottom: 0;
-		}
-		.wrap_img {
-			height: auto;
-			overflow-x: visible;
-			img {
-				position: static;
-				left: auto;
-				transform: none;
-				max-width: 100%;
-				height: auto;
-			}
-		}
-	}
+  // Contact
+  // ----------------------------------------------------------------------------
+  .wrap_gmap {
+    position: relative;
+    .contact_circle {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      margin-bottom: 0;
+    }
+    .wrap_img {
+      height: auto;
+      overflow-x: visible;
+      img {
+        position: static;
+        left: auto;
+        transform: none;
+        max-width: 100%;
+        height: auto;
+      }
+    }
+  }
 
-	// Alternating Colours
-	// ----------------------------------------------------------------------------
-	// + rainbow links + \\
-	// animations on :visted links do not currently work in Chrome, so we must use a <span> instead
-	nav.nav_filter .wrap_dropdown ul li span.color_rainbow:hover { animation: animRainbowColor 600ms linear infinite; }
-	nav.nav_filter .wrap_dropdown ul li.filter_current span.color_rainbow { animation: animRainbowColorBorder 600ms linear infinite; }
-	// + red links + \\
-	nav.nav_filter[data-color="red"] + section.iso_container article a .wrap_iso-image .wrap_iso-title,
-	nav.nav_filter[data-color="random"] + section.iso_container article a.color_red .wrap_iso-image .wrap_iso-title { background-color: $hsl_red; }
-	nav.nav_filter .wrap_dropdown ul li.filter_current span.color_red { color: $hsl_red; border-color: $hsl_red; }
-	nav.nav_filter .wrap_dropdown ul li span.color_red:hover { color: $hsl_red; }
-	nav.nav_filter .wrap_dropdown ul li span.color_red:active { color: darken($hsl_red, 20%); }
-	// + orange links + \\
-	nav.nav_filter[data-color="orange"] + section.iso_container article a .wrap_iso-image .wrap_iso-title,
-	nav.nav_filter[data-color="random"] + section.iso_container article a.color_orange .wrap_iso-image .wrap_iso-title { background-color: $hsl_orange; }
-	nav.nav_filter .wrap_dropdown ul li.filter_current span.color_orange { color: $hsl_orange; border-color: $hsl_orange; }
-	nav.nav_filter .wrap_dropdown ul li span.color_orange:hover { color: $hsl_orange; }
-	nav.nav_filter .wrap_dropdown ul li span.color_orange:active { color: darken($hsl_orange, 20%); }
-	// + yellow links + \\
-	nav.nav_filter[data-color="yellow"] + section.iso_container article a .wrap_iso-image .wrap_iso-title,
-	nav.nav_filter[data-color="random"] + section.iso_container article a.color_yellow .wrap_iso-image .wrap_iso-title { background-color: $hsl_yellow; }
-	nav.nav_filter .wrap_dropdown ul li.filter_current span.color_yellow { color: $hsl_yellow; border-color: $hsl_yellow; }
-	nav.nav_filter .wrap_dropdown ul li span.color_yellow:hover { color: $hsl_yellow; }
-	nav.nav_filter .wrap_dropdown ul li span.color_yellow:active { color: darken($hsl_yellow, 20%); }
-	// + aqua links + \\
-	nav.nav_filter[data-color="aqua"] + section.iso_container article a .wrap_iso-image .wrap_iso-title,
-	nav.nav_filter[data-color="random"] + section.iso_container article a.color_aqua .wrap_iso-image .wrap_iso-title { background-color: $hsl_aqua; }
-	nav.nav_filter .wrap_dropdown ul li.filter_current span.color_aqua { color: $hsl_aqua; border-color: $hsl_aqua; }
-	nav.nav_filter .wrap_dropdown ul li span.color_aqua:hover { color: $hsl_aqua; }
-	nav.nav_filter .wrap_dropdown ul li span.color_aqua:active { color: darken($hsl_aqua, 20%); }
-	// + cyan links + \\
-	nav.nav_filter[data-color="cyan"] + section.iso_container article a .wrap_iso-image .wrap_iso-title,
-	nav.nav_filter[data-color="random"] + section.iso_container article a.color_cyan .wrap_iso-image .wrap_iso-title { background-color: $hsl_cyan; }
-	nav.nav_filter .wrap_dropdown ul li.filter_current span.color_cyan { color: $hsl_cyan; border-color: $hsl_cyan; }
-	nav.nav_filter .wrap_dropdown ul li span.color_cyan:hover { color: $hsl_cyan; }
-	nav.nav_filter .wrap_dropdown ul li span.color_cyan:active { color: darken($hsl_cyan, 20%); }
+  // Alternating Colours
+  // ----------------------------------------------------------------------------
+  // + rainbow links + \\
+  // animations on :visted links do not currently work in Chrome, so we must use a <span> instead
+  nav.nav_filter .wrap_dropdown ul li span.color_rainbow:hover { animation: animRainbowColor 600ms linear infinite; }
+  nav.nav_filter .wrap_dropdown ul li.filter_current span.color_rainbow { animation: animRainbowColorBorder 600ms linear infinite; }
+  // + red links + \\
+  nav.nav_filter[data-color="red"] + section.iso_container article a .wrap_iso-image .wrap_iso-title,
+  nav.nav_filter[data-color="random"] + section.iso_container article a.color_red .wrap_iso-image .wrap_iso-title { background-color: $hsl_red; }
+  nav.nav_filter .wrap_dropdown ul li.filter_current span.color_red { color: $hsl_red; border-color: $hsl_red; }
+  nav.nav_filter .wrap_dropdown ul li span.color_red:hover { color: $hsl_red; }
+  nav.nav_filter .wrap_dropdown ul li span.color_red:active { color: darken($hsl_red, 20%); }
+  // + orange links + \\
+  nav.nav_filter[data-color="orange"] + section.iso_container article a .wrap_iso-image .wrap_iso-title,
+  nav.nav_filter[data-color="random"] + section.iso_container article a.color_orange .wrap_iso-image .wrap_iso-title { background-color: $hsl_orange; }
+  nav.nav_filter .wrap_dropdown ul li.filter_current span.color_orange { color: $hsl_orange; border-color: $hsl_orange; }
+  nav.nav_filter .wrap_dropdown ul li span.color_orange:hover { color: $hsl_orange; }
+  nav.nav_filter .wrap_dropdown ul li span.color_orange:active { color: darken($hsl_orange, 20%); }
+  // + yellow links + \\
+  nav.nav_filter[data-color="yellow"] + section.iso_container article a .wrap_iso-image .wrap_iso-title,
+  nav.nav_filter[data-color="random"] + section.iso_container article a.color_yellow .wrap_iso-image .wrap_iso-title { background-color: $hsl_yellow; }
+  nav.nav_filter .wrap_dropdown ul li.filter_current span.color_yellow { color: $hsl_yellow; border-color: $hsl_yellow; }
+  nav.nav_filter .wrap_dropdown ul li span.color_yellow:hover { color: $hsl_yellow; }
+  nav.nav_filter .wrap_dropdown ul li span.color_yellow:active { color: darken($hsl_yellow, 20%); }
+  // + aqua links + \\
+  nav.nav_filter[data-color="aqua"] + section.iso_container article a .wrap_iso-image .wrap_iso-title,
+  nav.nav_filter[data-color="random"] + section.iso_container article a.color_aqua .wrap_iso-image .wrap_iso-title { background-color: $hsl_aqua; }
+  nav.nav_filter .wrap_dropdown ul li.filter_current span.color_aqua { color: $hsl_aqua; border-color: $hsl_aqua; }
+  nav.nav_filter .wrap_dropdown ul li span.color_aqua:hover { color: $hsl_aqua; }
+  nav.nav_filter .wrap_dropdown ul li span.color_aqua:active { color: darken($hsl_aqua, 20%); }
+  // + cyan links + \\
+  nav.nav_filter[data-color="cyan"] + section.iso_container article a .wrap_iso-image .wrap_iso-title,
+  nav.nav_filter[data-color="random"] + section.iso_container article a.color_cyan .wrap_iso-image .wrap_iso-title { background-color: $hsl_cyan; }
+  nav.nav_filter .wrap_dropdown ul li.filter_current span.color_cyan { color: $hsl_cyan; border-color: $hsl_cyan; }
+  nav.nav_filter .wrap_dropdown ul li span.color_cyan:hover { color: $hsl_cyan; }
+  nav.nav_filter .wrap_dropdown ul li span.color_cyan:active { color: darken($hsl_cyan, 20%); }
 
-	// Page Load
-	// ----------------------------------------------------------------------------
-	a.nav_toggle {
-		animation: none;
-	}
-	nav.nav_primary {
-		animation: animFadeIn 800ms ease-in-out both;
-	}
-	body.home .logo_main:hover {
-		@for $i from 1 through 5 { // assumes 5 letters
-			.wrap_video-vhs svg g path.group_path-#{$i} {
-				animation: animRainbowFill-step#{$i} 400ms steps(1) infinite reverse;
-			}
-		}
-	}
-	body:not(.home) .logo_main .wrap_logo-sandwich,
-	body:not(.home) .logo_main .wrap_logo-video {
-		transition: opacity 260ms ease-in-out;
-	}
-	body:not(.home) .logo_main a.fix_webkit-svg {
-		&:hover {
-			@for $i from 1 through 5 { // assumes 5 letters
-				& ~ .wrap_video-rainbow svg g.rainbow_letter-#{$i} path {
-					animation: animRainbowFill-step#{$i} 400ms steps(1) infinite reverse;
-				}
-				& ~ .wrap_video-vhs svg g path.group_path-#{$i} {
-					animation: animRainbowFill-step#{$i} 400ms steps(1) infinite reverse;
-				}
-			}
-			& ~ .wrap_video-record svg g.record_letter-6 {
-				animation: animRecordBlink 1000ms ease-in-out infinite;
-			}
-		}
-		&:active + .wrap_logo-sandwich,
-		&:active ~ .wrap_logo-video {
-			opacity: 0.8;
-		}
-	}
+  // Page Load
+  // ----------------------------------------------------------------------------
+  a.nav_toggle {
+    animation: none;
+  }
+  nav.nav_primary {
+    animation: animFadeIn 800ms ease-in-out both;
+  }
+  body.home .logo_main:hover {
+    @for $i from 1 through 5 { // assumes 5 letters
+      .wrap_video-vhs svg g path.group_path-#{$i} {
+        animation: animRainbowFill-step#{$i} 400ms steps(1) infinite reverse;
+      }
+    }
+  }
+  body:not(.home) .logo_main .wrap_logo-sandwich,
+  body:not(.home) .logo_main .wrap_logo-video {
+    transition: opacity 260ms ease-in-out;
+  }
+  body:not(.home) .logo_main a.fix_webkit-svg {
+    &:hover {
+      @for $i from 1 through 5 { // assumes 5 letters
+        & ~ .wrap_video-rainbow svg g.rainbow_letter-#{$i} path {
+          animation: animRainbowFill-step#{$i} 400ms steps(1) infinite reverse;
+        }
+        & ~ .wrap_video-vhs svg g path.group_path-#{$i} {
+          animation: animRainbowFill-step#{$i} 400ms steps(1) infinite reverse;
+        }
+      }
+      & ~ .wrap_video-record svg g.record_letter-6 {
+        animation: animRecordBlink 1000ms ease-in-out infinite;
+      }
+    }
+    &:active + .wrap_logo-sandwich,
+    &:active ~ .wrap_logo-video {
+      opacity: 0.8;
+    }
+  }
 
 }
 
@@ -1109,156 +1109,156 @@
 // ==|== main styles ==========================================================
 // ============================================================================
 
-	// Shared Content
-	// ----------------------------------------------------------------------------
-	// --- Video Credits --- \\
-	ul.video_credits li {
-		padding-bottom: 3.2rem;
-		p {
-			margin-bottom: 0.7rem;
-			&:first-child {
-				margin-bottom: 1.2rem;
-			}
-		}
-	}
-	// --- Archive List --- \\
-	article.archive_layout {
-		.wrap_column {
-			padding-left: 3.2rem;
-			padding-right: 3.2rem;
-		}
-		& > div {
-			&:first-child {
-				padding-left: 0;
-			}
-			&:last-child {
-				padding-right: 0;
-			}
-		}
-	}
+  // Shared Content
+  // ----------------------------------------------------------------------------
+  // --- Video Credits --- \\
+  ul.video_credits li {
+    padding-bottom: 3.2rem;
+    p {
+      margin-bottom: 0.7rem;
+      &:first-child {
+        margin-bottom: 1.2rem;
+      }
+    }
+  }
+  // --- Archive List --- \\
+  article.archive_layout {
+    .wrap_column {
+      padding-left: 3.2rem;
+      padding-right: 3.2rem;
+    }
+    & > div {
+      &:first-child {
+        padding-left: 0;
+      }
+      &:last-child {
+        padding-right: 0;
+      }
+    }
+  }
 
-	// Isotope
-	// ----------------------------------------------------------------------------
-	section.iso_container {
-		.iso_gutter {
-			width: 4.464286%; // 120 / 3 = 40 / 896 = 4.464286%
-		}
-		article {
-			width: 21.651786%; // 896 - 120 = 776 / 4 = 194 / 704 = 21.651786%
-		}
-	}
+  // Isotope
+  // ----------------------------------------------------------------------------
+  section.iso_container {
+    .iso_gutter {
+      width: 4.464286%; // 120 / 3 = 40 / 896 = 4.464286%
+    }
+    article {
+      width: 21.651786%; // 896 - 120 = 776 / 4 = 194 / 704 = 21.651786%
+    }
+  }
 
-	// YouTube Modal
-	// ----------------------------------------------------------------------------
-	aside .modal_content {
-		header.modal_header {
-			padding-left: 2.6rem;
-			padding-right: 2.6rem;
-		}
-		figure.modal_figure figcaption.modal_caption .wrap_scroll ul.video_credits {
-			padding: 4.8rem 9.6rem 1.6rem 2.6rem;
-			li {
-				font-size: 1.4rem;
-				&:last-child {
-					padding-bottom: 3.2rem;
-				}
-				p:first-child {
-					margin-bottom: 0.8rem;
-				}
-			}
-		}
-	}
+  // YouTube Modal
+  // ----------------------------------------------------------------------------
+  aside .modal_content {
+    header.modal_header {
+      padding-left: 2.6rem;
+      padding-right: 2.6rem;
+    }
+    figure.modal_figure figcaption.modal_caption .wrap_scroll ul.video_credits {
+      padding: 4.8rem 9.6rem 1.6rem 2.6rem;
+      li {
+        font-size: 1.4rem;
+        &:last-child {
+          padding-bottom: 3.2rem;
+        }
+        p:first-child {
+          margin-bottom: 0.8rem;
+        }
+      }
+    }
+  }
 
 // ==|== projects cpt =========================================================
 // ============================================================================
 
-	// Projects Single Post
-	// ----------------------------------------------------------------------------
-	section.projects_single article.projects_post {
-		figure.projects_figure {
-			margin-bottom: 6rem;
-			figcaption.projects_caption {
-				padding-top: 4rem;
-				padding-bottom: 4rem;
-			}
-		}
-		.wrap_content {
-			.wrap_credits {
-				width: 70%;
-				ul.video_credits {
-					column-count: 2;
-					li {
-						break-inside: avoid;
-						-webkit-margin-before: 0;
-						-webkit-margin-after: 0;
-						&:last-child {
-							padding-bottom: 3.2rem;
-						}
-					}
-				}
-			}
-			nav.wrap_related {
-				width: 30%;
-			}
-		}
-	}
+  // Projects Single Post
+  // ----------------------------------------------------------------------------
+  section.projects_single article.projects_post {
+    figure.projects_figure {
+      margin-bottom: 6rem;
+      figcaption.projects_caption {
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+      }
+    }
+    .wrap_content {
+      .wrap_credits {
+        width: 70%;
+        ul.video_credits {
+          column-count: 2;
+          li {
+            break-inside: avoid;
+            -webkit-margin-before: 0;
+            -webkit-margin-after: 0;
+            &:last-child {
+              padding-bottom: 3.2rem;
+            }
+          }
+        }
+      }
+      nav.wrap_related {
+        width: 30%;
+      }
+    }
+  }
 
 // ==|== people cpt ===========================================================
 // ============================================================================
 
-	// People
-	// ----------------------------------------------------------------------------
-	section.people_main article.person {
-		width: calc(25% - 4rem);
-		&:nth-child(3n-1),
-		&:nth-child(3n-2) {
-			margin-right: 0;
-		}
-		&:nth-child(4n-1),
-		&:nth-child(4n-2),
-		&:nth-child(4n-3) {
-			margin-right: 5.3rem;
-		}
-		&:last-child {
-			margin-right: 0;
-		}
-	}
-	a.link_people-all {
-		top: -27.2rem;
-		// update $diameter;
-		width: 16.8rem;
-		height: 16.8rem;
-		line-height: 16.8rem;
-		.wrap_txt-helped {
-			max-width: 12rem;
-			top: 4.8rem;
-		}
-		.wrap_ui-hand {
-			bottom: -2.4rem;
-			width: 4.5rem;
-		}
-	}
+  // People
+  // ----------------------------------------------------------------------------
+  section.people_main article.person {
+    width: calc(25% - 4rem);
+    &:nth-child(3n-1),
+    &:nth-child(3n-2) {
+      margin-right: 0;
+    }
+    &:nth-child(4n-1),
+    &:nth-child(4n-2),
+    &:nth-child(4n-3) {
+      margin-right: 5.3rem;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+  a.link_people-all {
+    top: -27.2rem;
+    // update $diameter;
+    width: 16.8rem;
+    height: 16.8rem;
+    line-height: 16.8rem;
+    .wrap_txt-helped {
+      max-width: 12rem;
+      top: 4.8rem;
+    }
+    .wrap_ui-hand {
+      bottom: -2.4rem;
+      width: 4.5rem;
+    }
+  }
 
 // ==|== page styles ==========================================================
 // ============================================================================
 
-	// Contact
-	// ----------------------------------------------------------------------------
-	.wrap_gmap {
-		margin-top: 6.4rem;
-		margin-bottom: 6.4rem;
-		.contact_circle {
-			top: 3rem;
-			right: 3rem;
-			// update $diameter
-			width: 21rem;
-			height: 21rem;
-			line-height: (((210 * 0.05) + 210) / 10) + rem;
-			p {
-				font-size: 1.6rem;
-			}
-		}
-	}
+  // Contact
+  // ----------------------------------------------------------------------------
+  .wrap_gmap {
+    margin-top: 6.4rem;
+    margin-bottom: 6.4rem;
+    .contact_circle {
+      top: 3rem;
+      right: 3rem;
+      // update $diameter
+      width: 21rem;
+      height: 21rem;
+      line-height: (((210 * 0.05) + 210) / 10) + rem;
+      p {
+        font-size: 1.6rem;
+      }
+    }
+  }
 
 }
 
@@ -1267,93 +1267,93 @@
 // ==|== primary styles =======================================================
 // ============================================================================
 
-	// Primary Navigation (child of header)
-	// ----------------------------------------------------------------------------
-	nav.nav_primary .wrap_nav ul li.nav_search {
-		width: 23.2rem;
-		form input[type="text"]:focus {
-			width: 100%;
-		}
-	}
+  // Primary Navigation (child of header)
+  // ----------------------------------------------------------------------------
+  nav.nav_primary .wrap_nav ul li.nav_search {
+    width: 23.2rem;
+    form input[type="text"]:focus {
+      width: 100%;
+    }
+  }
 
 
 // ==|== main styles ==========================================================
 // ============================================================================
 
-	// Shared Content
-	// ----------------------------------------------------------------------------
-	// --- The Content --- \\
-	.the_content blockquote {
-		margin-left: 3.2rem;
-		padding-left: 3.2rem;
-		padding-right: 6.4rem;
-	}
+  // Shared Content
+  // ----------------------------------------------------------------------------
+  // --- The Content --- \\
+  .the_content blockquote {
+    margin-left: 3.2rem;
+    padding-left: 3.2rem;
+    padding-right: 6.4rem;
+  }
 
 
 // ==|== press cpt ============================================================
 // ============================================================================
 
-	// Press Shared
-	// ----------------------------------------------------------------------------
-	section.press_section {
-		padding-right: 9.8rem;
-		article.press_post {
-			.press_feature {
-				margin-bottom: 4.8rem;
-			}
-			header {
-				display: flex;
-				flex-wrap: nowrap;
-				margin-bottom: 4.2rem;
-				h3 {
-					flex: 1;
-					margin-bottom: 0;
-				}
-				time {
-					flex: 0 0 16rem;
-					text-align: right;
-				}
-			}
-		}
-	}
-	section.press_sidebar {
-		flex: 0 0 24.8rem;
-		nav.wrap_press-links {
-			h4 {
-				margin-bottom: 4.8rem;
-			}
-			ul li {
-				margin-bottom: 4rem;
-				padding-bottom: 4rem;
-				&:last-child {
-					margin-bottom: 0;
-					padding-bottom: 0;
-				}
-				a {
-					h5,
-					.wrap_press-logo {
-						margin-bottom: 2.6rem;
-					}
-					.wrap_press-logo {
-						max-width: 10rem;
-					}
-					h5 {
-						font-size: 2.2rem;
-					}
-					p {
-						font-size: 1.5rem;
-					}
-				}
-			}
-		}
-	}
+  // Press Shared
+  // ----------------------------------------------------------------------------
+  section.press_section {
+    padding-right: 9.8rem;
+    article.press_post {
+      .press_feature {
+        margin-bottom: 4.8rem;
+      }
+      header {
+        display: flex;
+        flex-wrap: nowrap;
+        margin-bottom: 4.2rem;
+        h3 {
+          flex: 1;
+          margin-bottom: 0;
+        }
+        time {
+          flex: 0 0 16rem;
+          text-align: right;
+        }
+      }
+    }
+  }
+  section.press_sidebar {
+    flex: 0 0 24.8rem;
+    nav.wrap_press-links {
+      h4 {
+        margin-bottom: 4.8rem;
+      }
+      ul li {
+        margin-bottom: 4rem;
+        padding-bottom: 4rem;
+        &:last-child {
+          margin-bottom: 0;
+          padding-bottom: 0;
+        }
+        a {
+          h5,
+          .wrap_press-logo {
+            margin-bottom: 2.6rem;
+          }
+          .wrap_press-logo {
+            max-width: 10rem;
+          }
+          h5 {
+            font-size: 2.2rem;
+          }
+          p {
+            font-size: 1.5rem;
+          }
+        }
+      }
+    }
+  }
 
-	// Press Main
-	// ----------------------------------------------------------------------------
-	section.press_main article.press_post {
-		margin-bottom: 6.4rem;
-		padding-bottom: 6.4rem;
-	}
+  // Press Main
+  // ----------------------------------------------------------------------------
+  section.press_main article.press_post {
+    margin-bottom: 6.4rem;
+    padding-bottom: 6.4rem;
+  }
 
 }
 
@@ -1362,164 +1362,164 @@
 // ==|== base =================================================================
 // ============================================================================
 
-	// Animations
-	// ----------------------------------------------------------------------------
-	@keyframes animCornerStripeSlide {
-		// initial (from) values set per element
-		to { opacity: 1; transform: translate3d(0,0rem,0); }
-	}
-	// cascading corner stripes 1 - 5
-	$numPressStepIndex: 1;
-	@for $i from 1 through length($arrPressValues) {
-		@keyframes animCornerStripeBG-step#{$i} {
-			$numAnimPercent: 0;
-			@each $color in $arrPressValues {
-				#{$numAnimPercent}% {
-					background-color: nth($arrPressValues, $numPressStepIndex);
-				}
-				$numAnimPercent: $numAnimPercent + 20;
-				$numPressStepIndex: if($numPressStepIndex == length($arrPressValues), 1, $numPressStepIndex + 1); // once our array has reached its max, reset
-			}
-		}
-		$numPressStepIndex: $numPressStepIndex + 1; // increment $numPressStepIndex by 1 so we can offset each animation
-	}
+  // Animations
+  // ----------------------------------------------------------------------------
+  @keyframes animCornerStripeSlide {
+    // initial (from) values set per element
+    to { opacity: 1; transform: translate3d(0,0rem,0); }
+  }
+  // cascading corner stripes 1 - 5
+  $numPressStepIndex: 1;
+  @for $i from 1 through length($arrPressValues) {
+    @keyframes animCornerStripeBG-step#{$i} {
+      $numAnimPercent: 0;
+      @each $color in $arrPressValues {
+        #{$numAnimPercent}% {
+          background-color: nth($arrPressValues, $numPressStepIndex);
+        }
+        $numAnimPercent: $numAnimPercent + 20;
+        $numPressStepIndex: if($numPressStepIndex == length($arrPressValues), 1, $numPressStepIndex + 1); // once our array has reached its max, reset
+      }
+    }
+    $numPressStepIndex: $numPressStepIndex + 1; // increment $numPressStepIndex by 1 so we can offset each animation
+  }
 
 // ==|== primary styles =======================================================
 // ============================================================================
 
-	// Foundation
-	// ----------------------------------------------------------------------------
-	body {
-		padding-left: 4.8rem;
-		padding-right: 4.8rem;
-	}
+  // Foundation
+  // ----------------------------------------------------------------------------
+  body {
+    padding-left: 4.8rem;
+    padding-right: 4.8rem;
+  }
 
-	// Primary Navigation (child of header)
-	// ----------------------------------------------------------------------------
-	nav.nav_primary {
-		padding-left: 4.8rem;
-		padding-right: 4.8rem;
-		.wrap_nav ul li:nth-child(-n+4) {
-			margin-right: 4rem;
-		}
-	}
+  // Primary Navigation (child of header)
+  // ----------------------------------------------------------------------------
+  nav.nav_primary {
+    padding-left: 4.8rem;
+    padding-right: 4.8rem;
+    .wrap_nav ul li:nth-child(-n+4) {
+      margin-right: 4rem;
+    }
+  }
 
 // ==|== main styles ==========================================================
 // ============================================================================
 
-	// Isotope
-	// ----------------------------------------------------------------------------
-	section.iso_container {
-		margin-bottom: 6.4rem;
-		.iso_gutter {
-			width: 3.713768%; // 164 / 4 = 41 / 1104 = 3.713768%
-		}
-		article {
-			width: 17.028986%; // 1104 - 164 = 940 / 5 = 188 / 1104 = 17.028986%
-		}
-	}
+  // Isotope
+  // ----------------------------------------------------------------------------
+  section.iso_container {
+    margin-bottom: 6.4rem;
+    .iso_gutter {
+      width: 3.713768%; // 164 / 4 = 41 / 1104 = 3.713768%
+    }
+    article {
+      width: 17.028986%; // 1104 - 164 = 940 / 5 = 188 / 1104 = 17.028986%
+    }
+  }
 
 // ==|== press cpt ============================================================
 // ============================================================================
 
-	// Press
-	// ----------------------------------------------------------------------------
-	.press_corner {
-		display: flex;
-		flex-wrap: nowrap;
-		position: absolute;
-		z-index: 999;
-		top: -31rem;
-		left: -14rem;
-		width: 19rem;
-		height: 58rem;
-		transform: rotate(45deg);
-		transform-origin: bottom left;
-		div {
-			flex: 0 0 20%;
-			position: relative;
-			height: 100%;
-			opacity: 0.4; // full transparency just doesn't feel right
-			animation: animCornerStripeSlide $easeInQuart both;
-			// loop through each corner stripe
-			$numDuration: 600;
-			$numDelay: 400;
-			$numTranslateY: 432; // was 420, but found that the first stripe spent too long on screen during its first few frames, so pushed it off screen even further
-			@for $i from 1 through length($arrPressValues) {
-				&.corner_stripe-#{$i} {
-					background-color: nth($arrPressValues, $i);
-					transform: translate3d(0, (($numTranslateY / 10) + rem), 0);
-					animation-duration: #{$numDuration}ms;
-					animation-delay: #{$numDelay}ms;
-					@if $i > 1 {
-						left: (-($i - 1) / 10) + rem; // resolve aliasing issues where a 1px white gap would appear
-					}
-				}
-				$numDuration: $numDuration - 80;
-				$numDelay: $numDelay + 180;
-				$numTranslateY: $numTranslateY + 38;
-			}
-		}
-	}
+  // Press
+  // ----------------------------------------------------------------------------
+  .press_corner {
+    display: flex;
+    flex-wrap: nowrap;
+    position: absolute;
+    z-index: 999;
+    top: -31rem;
+    left: -14rem;
+    width: 19rem;
+    height: 58rem;
+    transform: rotate(45deg);
+    transform-origin: bottom left;
+    div {
+      flex: 0 0 20%;
+      position: relative;
+      height: 100%;
+      opacity: 0.4; // full transparency just doesn't feel right
+      animation: animCornerStripeSlide $easeInQuart both;
+      // loop through each corner stripe
+      $numDuration: 600;
+      $numDelay: 400;
+      $numTranslateY: 432; // was 420, but found that the first stripe spent too long on screen during its first few frames, so pushed it off screen even further
+      @for $i from 1 through length($arrPressValues) {
+        &.corner_stripe-#{$i} {
+          background-color: nth($arrPressValues, $i);
+          transform: translate3d(0, (($numTranslateY / 10) + rem), 0);
+          animation-duration: #{$numDuration}ms;
+          animation-delay: #{$numDelay}ms;
+          @if $i > 1 {
+            left: (-($i - 1) / 10) + rem; // resolve aliasing issues where a 1px white gap would appear
+          }
+        }
+        $numDuration: $numDuration - 80;
+        $numDelay: $numDelay + 180;
+        $numTranslateY: $numTranslateY + 38;
+      }
+    }
+  }
 
 // ==|== people cpt ===========================================================
 // ============================================================================
 
-	// People Main
-	// ----------------------------------------------------------------------------
-	section.people_main article.person {
-		width: calc(20% - 4rem);
-		&:nth-child(4n-1),
-		&:nth-child(4n-2),
-		&:nth-child(4n-3) {
-			margin-right: 0rem;
-		}
-		&:nth-child(5n-1),
-		&:nth-child(5n-2),
-		&:nth-child(5n-3),
-		&:nth-child(5n-4) {
-			margin-right: 5rem;
-		}
-		&:last-child {
-			margin-right: 0;
-		}
-	}
+  // People Main
+  // ----------------------------------------------------------------------------
+  section.people_main article.person {
+    width: calc(20% - 4rem);
+    &:nth-child(4n-1),
+    &:nth-child(4n-2),
+    &:nth-child(4n-3) {
+      margin-right: 0rem;
+    }
+    &:nth-child(5n-1),
+    &:nth-child(5n-2),
+    &:nth-child(5n-3),
+    &:nth-child(5n-4) {
+      margin-right: 5rem;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+  }
 
-	// People Single
-	// ----------------------------------------------------------------------------
-	section.people_single article.person {
-		margin-bottom: 5.2rem;
-		padding-bottom: 5.2rem;
-		header {
-			margin-bottom: 2.2rem;
-			h3 {
-				font-size: 2.2rem;
-			}
-		}
-	}
+  // People Single
+  // ----------------------------------------------------------------------------
+  section.people_single article.person {
+    margin-bottom: 5.2rem;
+    padding-bottom: 5.2rem;
+    header {
+      margin-bottom: 2.2rem;
+      h3 {
+        font-size: 2.2rem;
+      }
+    }
+  }
 
 // ==|== page styles ==========================================================
 // ============================================================================
 
-	// Page Load
-	// ----------------------------------------------------------------------------
-	html[data-ready="ready"] .press_corner {
-		div {
-			opacity: 1;
-			transform: translate3d(0,0,0);
-			@for $i from 1 through length($arrPressValues) {
-				&.corner_stripe-#{$i} {
-					animation: animCornerStripeBG-step#{$i} 400ms steps(1) infinite reverse;
-					// if specified in 'animation' shorthand, safari will pause, but will not resume on 'running'...
-					// however, when used inline, safari will not fire the first frame, as it appears to be doing when declared as its own property
-					animation-play-state: paused;
-				}
-			}
-		}
-		&:hover div {
-			animation-play-state: running; // attr selector [class^="corner_stripe"] may be required for the extra specificity
-		}
-	}
+  // Page Load
+  // ----------------------------------------------------------------------------
+  html[data-ready="ready"] .press_corner {
+    div {
+      opacity: 1;
+      transform: translate3d(0,0,0);
+      @for $i from 1 through length($arrPressValues) {
+        &.corner_stripe-#{$i} {
+          animation: animCornerStripeBG-step#{$i} 400ms steps(1) infinite reverse;
+          // if specified in 'animation' shorthand, safari will pause, but will not resume on 'running'...
+          // however, when used inline, safari will not fire the first frame, as it appears to be doing when declared as its own property
+          animation-play-state: paused;
+        }
+      }
+    }
+    &:hover div {
+      animation-play-state: running; // attr selector [class^="corner_stripe"] may be required for the extra specificity
+    }
+  }
 
 }
 
@@ -1528,30 +1528,30 @@
 // ==|== primary styles =======================================================
 // ============================================================================
 
-	// Header
-	// ----------------------------------------------------------------------------
-	header.page_header {
-		padding-top: 24rem;
-		padding-bottom: 14rem;
-	}
+  // Header
+  // ----------------------------------------------------------------------------
+  header.page_header {
+    padding-top: 24rem;
+    padding-bottom: 14rem;
+  }
 
 // ==|== main styles ==========================================================
 // ============================================================================
 
-	// Nav Filter
-	// ----------------------------------------------------------------------------
-	nav.nav_filter {
-		margin-bottom: 12rem;
-	}
+  // Nav Filter
+  // ----------------------------------------------------------------------------
+  nav.nav_filter {
+    margin-bottom: 12rem;
+  }
 
 // ==|== people cpt ===========================================================
 // ============================================================================
 
-	// People
-	// ----------------------------------------------------------------------------
-	a.link_people-all {
-		top: -34.8rem;
-	}
+  // People
+  // ----------------------------------------------------------------------------
+  a.link_people-all {
+    top: -34.8rem;
+  }
 
 }
 
@@ -1560,41 +1560,41 @@
 // ==|== primary styles =======================================================
 // ============================================================================
 
-	// Primary Navigation (child of header)
-	// ----------------------------------------------------------------------------
-	// --- Search Form --- \\
-	nav.nav_primary .wrap_nav ul li.nav_search {
-		width: 31.2rem;
-	}
+  // Primary Navigation (child of header)
+  // ----------------------------------------------------------------------------
+  // --- Search Form --- \\
+  nav.nav_primary .wrap_nav ul li.nav_search {
+    width: 31.2rem;
+  }
 
 // ==|== main styles ==========================================================
 // ============================================================================
 
-	// Isotope
-	// ----------------------------------------------------------------------------
-	section.iso_container {
-		.iso_gutter {
-			width: 6.097561%; // 400 / 4 = 100 / 1640 = 6.097561%
-		}
-		article {
-			width: 15.121951%; // 1640 - 400 = 1240 / 5 = 248 / 1640 = 15.121951%
-		}
-	}
+  // Isotope
+  // ----------------------------------------------------------------------------
+  section.iso_container {
+    .iso_gutter {
+      width: 6.097561%; // 400 / 4 = 100 / 1640 = 6.097561%
+    }
+    article {
+      width: 15.121951%; // 1640 - 400 = 1240 / 5 = 248 / 1640 = 15.121951%
+    }
+  }
 
 // ==|== people cpt ===========================================================
 // ============================================================================
 
-	// People
-	// ----------------------------------------------------------------------------
-	section.people_main article.person {
-		width: calc(20% - 10.8rem); // 220px / 1640px = 13.414634%
-		&:nth-child(5n-1),
-		&:nth-child(5n-2),
-		&:nth-child(5n-3),
-		&:nth-child(5n-4) {
-			margin-right: 13.5rem;
-		}
-	}
+  // People
+  // ----------------------------------------------------------------------------
+  section.people_main article.person {
+    width: calc(20% - 10.8rem); // 220px / 1640px = 13.414634%
+    &:nth-child(5n-1),
+    &:nth-child(5n-2),
+    &:nth-child(5n-3),
+    &:nth-child(5n-4) {
+      margin-right: 13.5rem;
+    }
+  }
 
 }
 
@@ -1603,12 +1603,12 @@
 // ==|== primary styles =======================================================
 // ============================================================================
 
-	// Header
-	// ----------------------------------------------------------------------------
-	header.page_header {
-		padding-top: 28rem;
-		padding-bottom: 18rem;
-	}
+  // Header
+  // ----------------------------------------------------------------------------
+  header.page_header {
+    padding-top: 28rem;
+    padding-bottom: 18rem;
+  }
 
 }
 

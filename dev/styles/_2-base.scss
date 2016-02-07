@@ -5,54 +5,54 @@
 // ----------------------------------------------------------------------------
 // --- SVGs --- \\
 a.wrap_svg {
-	display: block;
+  display: block;
 }
 .wrap_svg svg {
-	width: 100%;
-	height: 100%;
+  width: 100%;
+  height: 100%;
 }
 // --- Responsive Video Embeds --- \\
 .wrap_video {
-	position: relative;
-	padding-bottom: 56.271981%; // aspect ratio percentage : [853:480 = 56.271981%] ... [16:9 = 56.25%]
-	// padding-top: 2.5rem;
-	height: 0;
-	iframe,
-	video {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-	}
+  position: relative;
+  padding-bottom: 56.271981%; // aspect ratio percentage : [853:480 = 56.271981%] ... [16:9 = 56.25%]
+  // padding-top: 2.5rem;
+  height: 0;
+  iframe,
+  video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
 }
 // --- Helper Classes --- \\
 .clearfix {
-	&::before,
-	&::after {
-		content: " ";
-		display: table;
-	}
-	&::after {
-		clear: both;
-	}
+  &::before,
+  &::after {
+    content: " ";
+    display: table;
+  }
+  &::after {
+    clear: both;
+  }
 }
 .visuallyhidden {
-	clip: rect(0 0 0 0);
-	overflow: hidden;
-	position: absolute;
-	margin: -0.1rem;
-	padding: 0;
-	width: 0.1rem;
-	height: 0.1rem;
-	border: 0;
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+  position: absolute;
+  margin: -0.1rem;
+  padding: 0;
+  width: 0.1rem;
+  height: 0.1rem;
+  border: 0;
 }
 .truncate {
-	overflow: hidden;
-	padding-bottom: 0.1em;
-	width: 100%;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+  overflow: hidden;
+  padding-bottom: 0.1em;
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 // Variables
@@ -92,68 +92,68 @@ $arrPressValues: $hsl_press-1, $hsl_press-2, $hsl_press-3, $hsl_press-4, $hsl_pr
 // Mixins
 // ----------------------------------------------------------------------------
 @mixin toggleVisibility($state) {
-	@if ($state == "off") or ($state == "none") or ($state == "hide") or ($state == "hidden") {
-		opacity: 0;
-		visibility: hidden;
-	} @else {
-		opacity: 1;
-		visibility: visible;
-	}
+  @if ($state == "off") or ($state == "none") or ($state == "hide") or ($state == "hidden") {
+    opacity: 0;
+    visibility: hidden;
+  } @else {
+    opacity: 1;
+    visibility: visible;
+  }
 }
 @mixin posCover($pos: static, $index: 1) {
-	z-index: $index;
-	@if $pos == "reset" {
-		position: static;
-		top: auto;
-		right: auto;
-		bottom: auto;
-		left: auto;
-		margin: 0;
-	} @else {
-		position: $pos;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		left: 0;
-		margin: auto;
-	}
+  z-index: $index;
+  @if $pos == "reset" {
+    position: static;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    margin: 0;
+  } @else {
+    position: $pos;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+  }
 }
 @mixin container($max-width: none) {
-	@if $max-width == "reset" {
-		margin-left: 0;
-		margin-right: 0;
-		max-width: none;
-	} @else if $max-width == "reset-img" {
-		margin-left: 0;
-		margin-right: 0;
-		max-width: 100%;
-	} @else {
-		margin-left: auto;
-		margin-right: auto;
-		max-width: ($max-width / 10) + rem;
-	}
+  @if $max-width == "reset" {
+    margin-left: 0;
+    margin-right: 0;
+    max-width: none;
+  } @else if $max-width == "reset-img" {
+    margin-left: 0;
+    margin-right: 0;
+    max-width: 100%;
+  } @else {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: ($max-width / 10) + rem;
+  }
 }
 @mixin flexCenter() {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
 }
 @mixin blockCircle($diameter: 100%, $bgColor: transparent) {
-	$diameterREM: ($diameter / 10) + rem;
-	$lineheight:  ((($diameter * 0.05) + $diameter) / 10) + rem; // added 0.5% of original value to visually centre
-	display: block;
-	position: relative;
-	margin-left: auto;
-	margin-right: auto;
-	width: $diameterREM;
-	height: $diameterREM;
-	text-align: center;
-	line-height: $lineheight;
-	background-color: $bgColor;
-	border-radius: 50%;
-	overflow: hidden;
+  $diameterREM: ($diameter / 10) + rem;
+  $lineheight:  ((($diameter * 0.05) + $diameter) / 10) + rem; // added 0.5% of original value to visually centre
+  display: block;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  width: $diameterREM;
+  height: $diameterREM;
+  text-align: center;
+  line-height: $lineheight;
+  background-color: $bgColor;
+  border-radius: 50%;
+  overflow: hidden;
 }
 
 // Research SASS Mixins with dynamic / variable parameters...
@@ -162,36 +162,36 @@ $arrPressValues: $hsl_press-1, $hsl_press-2, $hsl_press-3, $hsl_press-4, $hsl_pr
 // Animations
 // ----------------------------------------------------------------------------
 @keyframes anim360 {
-	to { transform: rotate(360deg); }
+  to { transform: rotate(360deg); }
 }
 @keyframes animFadeIn {
-	  0% { opacity: 0; }
-	100% { opacity: 1; }
+    0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 @keyframes animHide {
-	  0% { opacity: 1; left: 0; }
-	 99% { opacity: 0; left: 0; }
-	100% { opacity: 0; left: -200%; }
+    0% { opacity: 1; left: 0; }
+   99% { opacity: 0; left: 0; }
+  100% { opacity: 0; left: -200%; }
 }
 @keyframes animError404Bg {
-	  0% { background-color: $hsl_bone; }
-	100% { background-color: $hsl_press-1; }
+    0% { background-color: $hsl_bone; }
+  100% { background-color: $hsl_press-1; }
 }
 @keyframes animRainbowColor {
-	$numRainbowIndex: 1;
-	@each $keyframe in $arrRainbowKeyframes {
-		#{$keyframe}% {
-			color: nth($arrRainbowValues, $numRainbowIndex);
-		}
-		$numRainbowIndex: if($numRainbowIndex == length($arrRainbowValues), 1, $numRainbowIndex + 1); // once our array has reached its max, reset to beginning
-	}
+  $numRainbowIndex: 1;
+  @each $keyframe in $arrRainbowKeyframes {
+    #{$keyframe}% {
+      color: nth($arrRainbowValues, $numRainbowIndex);
+    }
+    $numRainbowIndex: if($numRainbowIndex == length($arrRainbowValues), 1, $numRainbowIndex + 1); // once our array has reached its max, reset to beginning
+  }
 }
 @keyframes animRainbowFill {
-	$numRainbowIndex: 1;
-	@each $keyframe in $arrRainbowKeyframes {
-		#{$keyframe}% {
-			fill: nth($arrRainbowValues, $numRainbowIndex);
-		}
-		$numRainbowIndex: if($numRainbowIndex == length($arrRainbowValues), 1, $numRainbowIndex + 1); // once our array has reached its max, reset to beginning
-	}
+  $numRainbowIndex: 1;
+  @each $keyframe in $arrRainbowKeyframes {
+    #{$keyframe}% {
+      fill: nth($arrRainbowValues, $numRainbowIndex);
+    }
+    $numRainbowIndex: if($numRainbowIndex == length($arrRainbowValues), 1, $numRainbowIndex + 1); // once our array has reached its max, reset to beginning
+  }
 }

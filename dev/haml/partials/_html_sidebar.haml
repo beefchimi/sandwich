@@ -1,16 +1,16 @@
 %section.press_sidebar
 
-	= Haml::Engine.new(File.read("dev/haml/partials/_nav_sidebar.haml")).render
+  = Haml::Engine.new(File.read("dev/haml/partials/_nav_sidebar.haml")).render
 
-	%a.link_story{:href => "#", :title => "Want a story? Get in touch."}
-		.wrap_story-lines
-			.story_line-1
-			.story_line-2
-			.story_line-3
-		.wrap_svg.wrap_ui-hand
-			%svg.ui_hand{:viewBox => "0 0 45 64"}
-				%use{"xlink:href" => "#ui_hand"}
-		.wrap_svg.wrap_txt-story
-			%h6.visuallyhidden Want a story? Get in touch.
-			%svg.txt_story{:viewBox => "0 0 137 32"}
-				%use{"xlink:href" => "#txt_story"}
+  %a.link_story{:href => "#", :title => "Want a story? Get in touch."}
+    .wrap_story-lines
+      .story_line-1
+      .story_line-2
+      .story_line-3
+    .wrap_svg.wrap_ui-hand
+      %svg.ui_hand{:viewBox => "0 0 45 64"}
+        %use{"xlink:href" => "#ui_hand"}
+    .wrap_svg.wrap_txt-story
+      %h6.visuallyhidden Want a story? Get in touch.
+      %svg.txt_story{:viewBox => "0 0 137 32"}
+        %use{"xlink:href" => "#txt_story"}

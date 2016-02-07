@@ -2,53 +2,53 @@
 /[if IE 9] <html class="ie9" lang="en">
 <!--[if gt IE 9]><!-->
 %html{:lang => "en", "data-ready" => "waiting", "data-overflow" => "scrollable"}<>
-	<!--<![endif]-->
+  <!--<![endif]-->
 
-	= Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render(Object.new, :locals => 'Press')
+  = Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render(Object.new, :locals => 'Press')
 
-	%body#press.archive.post-type-archive.post-type-archive-press
+  %body#press.archive.post-type-archive.post-type-archive-press
 
-		#svgInject.visuallyhidden
-			/ inject:svg
-			/ endinject
+    #svgInject.visuallyhidden
+      / inject:svg
+      / endinject
 
-		= Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render(Object.new, :locals => 'press')
+    = Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render(Object.new, :locals => 'press')
 
-		%main{:role => "main"}
+    %main{:role => "main"}
 
-			%section.press_main.press_section
+      %section.press_main.press_section
 
-				- (1..5).each do |i|
-					%article{:id => "press-#{i}", :class => "press_post"}
+        - (1..5).each do |i|
+          %article{:id => "press-#{i}", :class => "press_post"}
 
-						-# would love to ajaxify these linkypoos
+            -# would love to ajaxify these linkypoos
 
-						- if i % 2 == 0
-							- strTitle = 'This is a Very Long, Multi-Line Headline for a Piece of News'
-							%a.press_feature.link_ajax{:href => "press-single.html", :title => ""}
-								%img{:src => "assets/img/temp_press.jpg", :alt => ""}
-						- else
-							- strTitle = 'Short and Sweet'
+            - if i % 2 == 0
+              - strTitle = 'This is a Very Long, Multi-Line Headline for a Piece of News'
+              %a.press_feature.link_ajax{:href => "press-single.html", :title => ""}
+                %img{:src => "assets/img/temp_press.jpg", :alt => ""}
+            - else
+              - strTitle = 'Short and Sweet'
 
-						%header
-							%h3
-								%a.link_ajax{:href => "press-single.html", :title => "Read more"} #{strTitle}
-							%time{:datetime => "2016-08-13T23:59:59-02:00"} July 13, 2016
+            %header
+              %h3
+                %a.link_ajax{:href => "press-single.html", :title => "Read more"} #{strTitle}
+              %time{:datetime => "2016-08-13T23:59:59-02:00"} July 13, 2016
 
-						.the_content.press_content
-							%p While no one was looking, Apple just took possession of a word no one expected could be owned. Apple of seven years ago might not have been able to just do that. They probably would have defaulted to iWatch. But they&rsquo;ve shown they can so <a href="#" title="">completely reinvent</a> and dominate a space that the is just an honorific, not a part of the name. In six months, when most people refer to their watch, they&rsquo;ll most likely be talking about their Watch.
-							%p In 2001, the iPod was a new entrant in a new space littered with false starts, attempting to disrupt a well-established product category. Using it necessitated owning a separate, more robust device as a hub. It would be the precursor to the iPhone six years later, which would eclipse its predecessor and eventually overtake the hub device in market significance.
+            .the_content.press_content
+              %p While no one was looking, Apple just took possession of a word no one expected could be owned. Apple of seven years ago might not have been able to just do that. They probably would have defaulted to iWatch. But they&rsquo;ve shown they can so <a href="#" title="">completely reinvent</a> and dominate a space that the is just an honorific, not a part of the name. In six months, when most people refer to their watch, they&rsquo;ll most likely be talking about their Watch.
+              %p In 2001, the iPod was a new entrant in a new space littered with false starts, attempting to disrupt a well-established product category. Using it necessitated owning a separate, more robust device as a hub. It would be the precursor to the iPhone six years later, which would eclipse its predecessor and eventually overtake the hub device in market significance.
 
-						.press_author
-							%p by Adam
+            .press_author
+              %p by Adam
 
-				= Haml::Engine.new(File.read("dev/haml/partials/_nav_pagination.haml")).render
+        = Haml::Engine.new(File.read("dev/haml/partials/_nav_pagination.haml")).render
 
-			%section.press_sidebar
-				= Haml::Engine.new(File.read("dev/haml/partials/_html_sidebar.haml")).render
+      %section.press_sidebar
+        = Haml::Engine.new(File.read("dev/haml/partials/_html_sidebar.haml")).render
 
-			.press_corner
-				- (1..5).each do |i|
-					%div{:class => "corner_stripe-#{i}"}
+      .press_corner
+        - (1..5).each do |i|
+          %div{:class => "corner_stripe-#{i}"}
 
-		= Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render
+    = Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render

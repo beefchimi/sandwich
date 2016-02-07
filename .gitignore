@@ -17,18 +17,15 @@ build
 # Ignore copyright webfonts
 dev/extra/fonts
 
-# Ignore scrap directory
-dev/extra/scrap
+# Ignore scrap audio, images, and videos
+dev/extra/scrap/audio
+dev/extra/scrap/images
+dev/extra/scrap/videos
 
-# Ignore images
+# Ignore media audio, images, and videos
+dev/media/audio
 dev/media/images
-
-# Ignore videos
 dev/media/videos
-
-# Ignore plugin scripts from any author other than 'beefchimi' ('1_helpers.js')
-dev/scripts/plugins/*.js
-!dev/scripts/plugins/1_helpers.js
 
 # Ignore vendor scripts
 dev/scripts/vendor

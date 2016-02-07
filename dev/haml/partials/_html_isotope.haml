@@ -1,57 +1,57 @@
 %section#iso_container.iso_container{"data-color" => "random"}
 
-	.iso_gutter
+  .iso_gutter
 
-	- arrProjects = ['aereo', 'aeropress', 'airbnb-host', 'airbnb', 'being-geek', 'big-jambox', 'birdhouse', 'boku', 'bump']
-	- numProjects = 0
-	- numAdjustedLength = arrProjects.length - 1
-	- strCurrentProject = arrProjects[numProjects]
+  - arrProjects = ['aereo', 'aeropress', 'airbnb-host', 'airbnb', 'being-geek', 'big-jambox', 'birdhouse', 'boku', 'bump']
+  - numProjects = 0
+  - numAdjustedLength = arrProjects.length - 1
+  - strCurrentProject = arrProjects[numProjects]
 
-	- (1..42).each do |i|
+  - (1..42).each do |i|
 
-		- if i % 2 == 0
-			- strIsoTitle = 'Even Number / Company Name on Multiple Lines #'
-			- strClasses = 'tv'
-			- if i == 4 || i == 8 || i == 16 || i == 24 || i == 36 || i == 42
-				- strClasses += ' curated'
-			- elsif i == 10 || i == 12 || i == 14 || i == 20 || i == 32 || i == 40
-				- strClasses += ' animation'
-			- else
-				- strClasses += ' hardware'
-		- else
-			- strIsoTitle = 'Odd Number / Company Name #'
-			- strClasses = 'comedy'
-			- if i == 3 || i == 7 || i == 13 || i == 21 || i == 27 || i == 39
-				- strClasses += ' curated'
-			- elsif i == 9 || i == 11 || i == 17 || i == 19 || i == 31 || i == 35
-				- strClasses += ' software'
-			- else
-				- strClasses += ' crowdfunding'
+    - if i % 2 == 0
+      - strIsoTitle = 'Even Number / Company Name on Multiple Lines #'
+      - strClasses = 'tv'
+      - if i == 4 || i == 8 || i == 16 || i == 24 || i == 36 || i == 42
+        - strClasses += ' curated'
+      - elsif i == 10 || i == 12 || i == 14 || i == 20 || i == 32 || i == 40
+        - strClasses += ' animation'
+      - else
+        - strClasses += ' hardware'
+    - else
+      - strIsoTitle = 'Odd Number / Company Name #'
+      - strClasses = 'comedy'
+      - if i == 3 || i == 7 || i == 13 || i == 21 || i == 27 || i == 39
+        - strClasses += ' curated'
+      - elsif i == 9 || i == 11 || i == 17 || i == 19 || i == 31 || i == 35
+        - strClasses += ' software'
+      - else
+        - strClasses += ' crowdfunding'
 
-		-# apply 'color_random' class to a.iso_link for cycleLinkColors()
-		%article{:id => "post_#{i}", :class => "iso_brick #{strClasses}"}
-			%a.iso_link.color_random{:href => "projects-single.html", :title => "Company Name #{i}", "data-client" => "Client Name", "data-youtube" => "B6zVzWU95Sw"}
-				.wrap_iso-image
-					%img.iso_image{:src => "assets/img/thumb_#{strCurrentProject}.jpg", :alt => ""}
-					.wrap_iso-title
-						.wrap_txt-center
-							%h3.iso_title "#{strIsoTitle}#{i}"
-				.iso_logo
-					%img.iso_logo-off{:src => "assets/img/iso_logo-off.png", :alt => ""}
-					%img.iso_logo-on{:src => "assets/img/iso_logo-on.png", :alt => ""}
+    -# apply 'color_random' class to a.iso_link for cycleLinkColors()
+    %article{:id => "post_#{i}", :class => "iso_brick #{strClasses}"}
+      %a.iso_link.color_random{:href => "projects-single.html", :title => "Company Name #{i}", "data-client" => "Client Name", "data-youtube" => "B6zVzWU95Sw"}
+        .wrap_iso-image
+          %img.iso_image{:src => "assets/img/thumb_#{strCurrentProject}.jpg", :alt => ""}
+          .wrap_iso-title
+            .wrap_txt-center
+              %h3.iso_title "#{strIsoTitle}#{i}"
+        .iso_logo
+          %img.iso_logo-off{:src => "assets/img/iso_logo-off.png", :alt => ""}
+          %img.iso_logo-on{:src => "assets/img/iso_logo-on.png", :alt => ""}
 
-		- if numProjects < numAdjustedLength
-			- numProjects += 1
-		- else
-			- numProjects = 0
+    - if numProjects < numAdjustedLength
+      - numProjects += 1
+    - else
+      - numProjects = 0
 
-		- strCurrentProject = arrProjects[numProjects]
+    - strCurrentProject = arrProjects[numProjects]
 
-	-# would probably be better to create this on page load, so it is not sitting the markup
-	#iso_loader.iso_loader.loader_spinner.visible
-		.wrap_graphics
-			.wrap_svg
-				%svg.ui_loader{:viewBox => "0 0 64 64"}
-					%use{"xlink:href" => "#ui_loader"}
-			.wrap_txt
-				%p Loading Videos
+  -# would probably be better to create this on page load, so it is not sitting the markup
+  #iso_loader.iso_loader.loader_spinner.visible
+    .wrap_graphics
+      .wrap_svg
+        %svg.ui_loader{:viewBox => "0 0 64 64"}
+          %use{"xlink:href" => "#ui_loader"}
+      .wrap_txt
+        %p Loading Videos

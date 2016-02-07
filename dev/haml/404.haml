@@ -2,42 +2,42 @@
 /[if IE 9] <html class="ie9 error404" lang="en">
 <!--[if gt IE 9]><!-->
 %html{:lang => "en", "data-ready" => "ready", "data-overflow" => "scrollable", :class => "error404"}<>
-	<!--<![endif]-->
+  <!--<![endif]-->
 
-	= Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render(Object.new, :locals => 'Error 404')
+  = Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render(Object.new, :locals => 'Error 404')
 
-	%body#error.error404
+  %body#error.error404
 
-		#svgInject.visuallyhidden
-			/ inject:svg
-			/ endinject
+    #svgInject.visuallyhidden
+      / inject:svg
+      / endinject
 
-		-# = Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render(Object.new, :locals => 'error404')
+    -# = Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render(Object.new, :locals => 'error404')
 
-		%main{:role => "main"}
+    %main{:role => "main"}
 
-			%section.error404_main
+      %section.error404_main
 
-				%article.error404_post
+        %article.error404_post
 
-					%h1 404
-					%p Nothing to see here.
-					%p Collect yourself and <a href="index.html" title="Go back to home page">try again</a>.
-					-# %p Or click this.
+          %h1 404
+          %p Nothing to see here.
+          %p Collect yourself and <a href="index.html" title="Go back to home page">try again</a>.
+          -# %p Or click this.
 
-		-# taking the easy way out and setting opacity / visibility inline on the element
-		%aside#modal_404{"data-modal" => "hidden", "data-content" => "empty", "data-ajax" => "", :style => "opacity:0; visibility:hidden;"}
+    -# taking the easy way out and setting opacity / visibility inline on the element
+    %aside#modal_404{"data-modal" => "hidden", "data-content" => "empty", "data-ajax" => "", :style => "opacity:0; visibility:hidden;"}
 
-			.modal_content
+      .modal_content
 
-				%figure.modal_figure
+        %figure.modal_figure
 
-					.wrap_video
-						-# {:controls => true}
-						%video
-							%source{:src => "assets/vid/oh_claude.webm", :type => "video/webm"}
-							%source{:src => "assets/vid/oh_claude.mp4", :type => "video/mp4"}
-							%source{:src => "assets/vid/oh_claude.ogv", :type => "video/ogg"}
+          .wrap_video
+            -# {:controls => true}
+            %video
+              %source{:src => "assets/vid/oh_claude.webm", :type => "video/webm"}
+              %source{:src => "assets/vid/oh_claude.mp4", :type => "video/mp4"}
+              %source{:src => "assets/vid/oh_claude.ogv", :type => "video/ogg"}
 
-		-# = Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render
-		= Haml::Engine.new(File.read("dev/haml/partials/_doc_scripts.haml")).render
+    -# = Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render
+    = Haml::Engine.new(File.read("dev/haml/partials/_doc_scripts.haml")).render

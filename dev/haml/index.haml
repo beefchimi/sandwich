@@ -2,24 +2,24 @@
 /[if IE 9] <html class="ie9" lang="en">
 <!--[if gt IE 9]><!-->
 %html{:lang => "en", "data-ready" => "waiting", "data-overflow" => "scrollable"}<>
-	<!--<![endif]-->
+  <!--<![endif]-->
 
-	= Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render(Object.new, :locals => '')
+  = Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render(Object.new, :locals => '')
 
-	%body#home.home
+  %body#home.home
 
-		#svgInject.visuallyhidden
-			/ inject:svg
-			/ endinject
+    #svgInject.visuallyhidden
+      / inject:svg
+      / endinject
 
-		= Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render(Object.new, :locals => 'home')
+    = Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render(Object.new, :locals => 'home')
 
-		%main{:role => "main", "data-isotope" => "waiting"}
+    %main{:role => "main", "data-isotope" => "waiting"}
 
-			= Haml::Engine.new(File.read("dev/haml/partials/_nav_filter.haml")).render
-			= Haml::Engine.new(File.read("dev/haml/partials/_html_isotope.haml")).render
-			= Haml::Engine.new(File.read("dev/haml/partials/_html_about.haml")).render
+      = Haml::Engine.new(File.read("dev/haml/partials/_nav_filter.haml")).render
+      = Haml::Engine.new(File.read("dev/haml/partials/_html_isotope.haml")).render
+      = Haml::Engine.new(File.read("dev/haml/partials/_html_about.haml")).render
 
-			-# = Haml::Engine.new(File.read("dev/haml/partials/_temp_modal-youtube.haml")).render
+      -# = Haml::Engine.new(File.read("dev/haml/partials/_temp_modal-youtube.haml")).render
 
-		= Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render
+    = Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render

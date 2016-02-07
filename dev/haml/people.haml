@@ -2,54 +2,54 @@
 /[if IE 9] <html class="ie9" lang="en">
 <!--[if gt IE 9]><!-->
 %html{:lang => "en", "data-ready" => "waiting", "data-overflow" => "scrollable"}<>
-	<!--<![endif]-->
+  <!--<![endif]-->
 
-	= Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render(Object.new, :locals => 'People')
+  = Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render(Object.new, :locals => 'People')
 
-	%body#people.archive.post-type-archive.post-type-archive-people
+  %body#people.archive.post-type-archive.post-type-archive-people
 
-		#svgInject.visuallyhidden
-			/ inject:svg
-			/ endinject
+    #svgInject.visuallyhidden
+      / inject:svg
+      / endinject
 
-		= Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render(Object.new, :locals => 'people')
+    = Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render(Object.new, :locals => 'people')
 
-		%main{:role => "main"}
+    %main{:role => "main"}
 
-			%a.link_people-all{:href => "people-everyone.html", :title => "See more people"}
-				.wrap_svg.wrap_txt-helped
-					%svg.txt_helped{:viewBox => "0 0 120 61"}
-						%use{"xlink:href" => "#txt_helped"}
-				.wrap_svg.wrap_ui-hand
-					%svg.ui_hand{:viewBox => "0 0 45 64"}
-						%use{"xlink:href" => "#ui_hand"}
+      %a.link_people-all{:href => "people-everyone.html", :title => "See more people"}
+        .wrap_svg.wrap_txt-helped
+          %svg.txt_helped{:viewBox => "0 0 120 61"}
+            %use{"xlink:href" => "#txt_helped"}
+        .wrap_svg.wrap_ui-hand
+          %svg.ui_hand{:viewBox => "0 0 45 64"}
+            %use{"xlink:href" => "#ui_hand"}
 
-			%section.people_main.people_section
+      %section.people_main.people_section
 
-				- strBio1 = 'Adam started making these on accident. He literally didn\'t know what a camera was, nor that it was <a href="#">recording</a>, but... <a href="people-single.html" class="link_read-more">Read more</a>'
-				- strBio2 = 'This is a very short and sweet bio about a very special person.'
-				- strBio3 = 'I must not demonstrate just how long a single paragraph bio could get. <a href="people-single.html">Duis aute irure dolor</a> in reprehenderit in... <a href="people-single.html" class="link_read-more">Read more</a>'
-				- strBio4 = 'Shadie started producing for Sandwich in 2012 as a freelancer, and now serves as Executive Producer. He... <a href="people-single.html" class="link_read-more">Read more</a>'
+        - strBio1 = 'Adam started making these on accident. He literally didn\'t know what a camera was, nor that it was <a href="#">recording</a>, but... <a href="people-single.html" class="link_read-more">Read more</a>'
+        - strBio2 = 'This is a very short and sweet bio about a very special person.'
+        - strBio3 = 'I must not demonstrate just how long a single paragraph bio could get. <a href="people-single.html">Duis aute irure dolor</a> in reprehenderit in... <a href="people-single.html" class="link_read-more">Read more</a>'
+        - strBio4 = 'Shadie started producing for Sandwich in 2012 as a freelancer, and now serves as Executive Producer. He... <a href="people-single.html" class="link_read-more">Read more</a>'
 
-				- arrBios  = [strBio1, strBio2, strBio3, strBio4]
-				- numIndex = 0
+        - arrBios  = [strBio1, strBio2, strBio3, strBio4]
+        - numIndex = 0
 
-				- (1..10).each do |i|
-					%article{:id => "people-#{i}", :class => "person"}
+        - (1..10).each do |i|
+          %article{:id => "people-#{i}", :class => "person"}
 
-						%header
-							%a.person_img.link_img{:href => "people-single.html", :title => "See Full Bio"}
-								%img{:src => "assets/img/temp_people.jpg", :alt => ""}
-							%h3.person_name
-								%a.link_name{:href => "#", :title => "See Full Bio"} Employee Name ##{i}
-							%h3.person_role Role ##{i}
+            %header
+              %a.person_img.link_img{:href => "people-single.html", :title => "See Full Bio"}
+                %img{:src => "assets/img/temp_people.jpg", :alt => ""}
+              %h3.person_name
+                %a.link_name{:href => "#", :title => "See Full Bio"} Employee Name ##{i}
+              %h3.person_role Role ##{i}
 
-						.the_content.person_content
-							%p #{arrBios[numIndex]}
+            .the_content.person_content
+              %p #{arrBios[numIndex]}
 
-						- if i % 3 == 0
-							%a.person_twitter{:href => "#", :title => "Follow on Twitter"} @twittername
+            - if i % 3 == 0
+              %a.person_twitter{:href => "#", :title => "Follow on Twitter"} @twittername
 
-						- numIndex = numIndex >= 3 ? 0 : numIndex += 1
+            - numIndex = numIndex >= 3 ? 0 : numIndex += 1
 
-		= Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render
+    = Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render

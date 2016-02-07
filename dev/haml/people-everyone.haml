@@ -2,48 +2,48 @@
 /[if IE 9] <html class="ie9" lang="en">
 <!--[if gt IE 9]><!-->
 %html{:lang => "en", "data-ready" => "waiting", "data-overflow" => "scrollable"}<>
-	<!--<![endif]-->
+  <!--<![endif]-->
 
-	= Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render(Object.new, :locals => 'Everyone')
+  = Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render(Object.new, :locals => 'Everyone')
 
-	%body#people-everyone.archive.post-type-archive.post-type-archive-people-everyone
+  %body#people-everyone.archive.post-type-archive.post-type-archive-people-everyone
 
-		#svgInject.visuallyhidden
-			/ inject:svg
-			/ endinject
+    #svgInject.visuallyhidden
+      / inject:svg
+      / endinject
 
-		= Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render(Object.new, :locals => 'everyone')
+    = Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render(Object.new, :locals => 'everyone')
 
-		%main{:role => "main"}
+    %main{:role => "main"}
 
-			%section.people_everyone.people_section
+      %section.people_everyone.people_section
 
-				%article.archive_layout
+        %article.archive_layout
 
-					- numColumns  = 3.0
-					- numArticles = 12
-					- numArticlesPerColumn = (numArticles / numColumns).ceil
+          - numColumns  = 3.0
+          - numArticles = 12
+          - numArticlesPerColumn = (numArticles / numColumns).ceil
 
-					- (1..numColumns).each do |a|
+          - (1..numColumns).each do |a|
 
-						%div{:class => "wrap_column column-#{a}"}
+            %div{:class => "wrap_column column-#{a}"}
 
-							- (1..numArticlesPerColumn).each do |b|
+              - (1..numArticlesPerColumn).each do |b|
 
-								- if numArticles > 0
+                - if numArticles > 0
 
-									- numRandom = rand(10..20)
+                  - numRandom = rand(10..20)
 
-									%ul{:id => "role-#{numArticles}", :class => "archive_list people_role"}
+                  %ul{:id => "role-#{numArticles}", :class => "archive_list people_role"}
 
-										%li.archive_heading
-											%h3 Role ##{numArticles}
+                    %li.archive_heading
+                      %h3 Role ##{numArticles}
 
-										- rand(6..20).times do
-											%li.archive_item
-												%p
-													%a{:href => "people-single.html", :title => "View Person"} Sandwich Person #{numArticles}
+                    - rand(6..20).times do
+                      %li.archive_item
+                        %p
+                          %a{:href => "people-single.html", :title => "View Person"} Sandwich Person #{numArticles}
 
-									- numArticles -= 1
+                  - numArticles -= 1
 
-		= Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render
+    = Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render

@@ -2,69 +2,69 @@
 /[if IE 9] <html class="ie9" lang="en">
 <!--[if gt IE 9]><!-->
 %html{:lang => "en", "data-ready" => "waiting", "data-overflow" => "scrollable"}<>
-	<!--<![endif]-->
+  <!--<![endif]-->
 
-	= Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render(Object.new, :locals => 'Projects')
+  = Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render(Object.new, :locals => 'Projects')
 
-	%body#projects.archive.post-type-archive.post-type-archive-projects
+  %body#projects.archive.post-type-archive.post-type-archive-projects
 
-		#svgInject.visuallyhidden
-			/ inject:svg
-			/ endinject
+    #svgInject.visuallyhidden
+      / inject:svg
+      / endinject
 
-		= Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render(Object.new, :locals => 'projects')
+    = Haml::Engine.new(File.read("dev/haml/partials/_html_header.haml")).render(Object.new, :locals => 'projects')
 
-		%main{:role => "main"}
+    %main{:role => "main"}
 
-			%section.projects_main.projects_section
+      %section.projects_main.projects_section
 
-				%article.archive_layout
+        %article.archive_layout
 
-					- numColumns  = 3.0
-					- numArticles = 40
-					- numArticlesPerColumn = (numArticles / numColumns).ceil
+          - numColumns  = 3.0
+          - numArticles = 40
+          - numArticlesPerColumn = (numArticles / numColumns).ceil
 
-					- (1..numColumns).each do |a|
+          - (1..numColumns).each do |a|
 
-						%div{:class => "wrap_column column-#{a}"}
+            %div{:class => "wrap_column column-#{a}"}
 
-							- (1..numArticlesPerColumn).each do |b|
+              - (1..numArticlesPerColumn).each do |b|
 
-								- if numArticles > 0
+                - if numArticles > 0
 
-									%ul{:id => "client-#{numArticles}", :class => "archive_list projects_client"}
+                  %ul{:id => "client-#{numArticles}", :class => "archive_list projects_client"}
 
-										%li.archive_heading
-											%h3 Client ##{numArticles}
+                    %li.archive_heading
+                      %h3 Client ##{numArticles}
 
-										- if numArticles % 3.0 == 0
-											%li.archive_item
-												%p
-													%a{:href => "projects-single.html", :title => "View Project"} &ldquo;No More Sticky Notes&rdquo;
-										- elsif numArticles % 2.0 == 0
-											%li.archive_item
-												%p
-													%a{:href => "projects-single.html", :title => "View Project"} &ldquo;How to Airbnb&rdquo;
-											%li.archive_item
-												%p
-													%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Why We Host&rdquo;
-											%li.archive_item
-												%p
-													%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Fake Title #3&rdquo;
-											%li.archive_item
-												%p
-													%a{:href => "projects-single.html", :title => "View Project"} &ldquo;We Didn't Really Direct This Many Videos&rdquo;
-											%li.archive_item
-												%p
-													%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Last One I Promise&rdquo;
-										- else
-											%li.archive_item
-												%p
-													%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Questions & Answers&rdquo;
-											%li.archive_item
-												%p
-													%a{:href => "projects-single.html", :title => "View Project"} &ldquo;Think About Your Business&rdquo;
+                    - if numArticles % 3.0 == 0
+                      %li.archive_item
+                        %p
+                          %a{:href => "projects-single.html", :title => "View Project"} &ldquo;No More Sticky Notes&rdquo;
+                    - elsif numArticles % 2.0 == 0
+                      %li.archive_item
+                        %p
+                          %a{:href => "projects-single.html", :title => "View Project"} &ldquo;How to Airbnb&rdquo;
+                      %li.archive_item
+                        %p
+                          %a{:href => "projects-single.html", :title => "View Project"} &ldquo;Why We Host&rdquo;
+                      %li.archive_item
+                        %p
+                          %a{:href => "projects-single.html", :title => "View Project"} &ldquo;Fake Title #3&rdquo;
+                      %li.archive_item
+                        %p
+                          %a{:href => "projects-single.html", :title => "View Project"} &ldquo;We Didn't Really Direct This Many Videos&rdquo;
+                      %li.archive_item
+                        %p
+                          %a{:href => "projects-single.html", :title => "View Project"} &ldquo;Last One I Promise&rdquo;
+                    - else
+                      %li.archive_item
+                        %p
+                          %a{:href => "projects-single.html", :title => "View Project"} &ldquo;Questions & Answers&rdquo;
+                      %li.archive_item
+                        %p
+                          %a{:href => "projects-single.html", :title => "View Project"} &ldquo;Think About Your Business&rdquo;
 
-									- numArticles -= 1
+                  - numArticles -= 1
 
-		= Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render
+    = Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render

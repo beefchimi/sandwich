@@ -2,56 +2,56 @@
 -# otherwise: 'data-color' = color array
 %nav#nav_filter.nav_filter{"data-current" => ".curated", "data-index" => "1", "data-color" => "random"}
 
-	%a#filter_trigger.filter_trigger{:href => "#", :title => "Click to Filter Results"}
-		%span.filter_label.truncate Curated
-		.wrap_toggle
-			.filter_icon
-				.filter_line.line-1
-					.line_bg
-				.filter_line.line-2
-					.line_bg
-				.filter_line.line-3
-					.line_bg
+  %a#filter_trigger.filter_trigger{:href => "#", :title => "Click to Filter Results"}
+    %span.filter_label.truncate Curated
+    .wrap_toggle
+      .filter_icon
+        .filter_line.line-1
+          .line_bg
+        .filter_line.line-2
+          .line_bg
+        .filter_line.line-3
+          .line_bg
 
-	.wrap_dropdown
+  .wrap_dropdown
 
-		.fix_ios-scroll
+    .fix_ios-scroll
 
-			-# chrome does not support animations on <a> tags once :visted...
-			-# so we must use a span here.. was formerely:
-			-# %span.filter_link.color_rainbow{:href => "#", :title => "All", "data-color" => "random", "data-filter" => "*"}
-			%ul#filter_list
-				%li#filter_item-0
-					%span.filter_link.color_rainbow{"data-color" => "random", "data-filter" => "*"} All
-				%li#filter_item-1.filter_current
-					%span.filter_link.color_rainbow{"data-color" => "random", "data-filter" => ".curated"} Curated
-				%li#filter_item-2
-					%span.filter_link.color_solid.color_red{"data-color" => "red", "data-filter" => ".tv"} TV
-				%li#filter_item-3
-					%span.filter_link.color_solid.color_orange{"data-color" => "orange", "data-filter" => ".animation"} Animation
-				%li#filter_item-4
-					%span.filter_link.color_solid.color_yellow{"data-color" => "yellow", "data-filter" => ".hardware"} Hardware
-				%li#filter_item-5
-					%span.filter_link.color_solid.color_aqua{"data-color" => "aqua", "data-filter" => ".software"} Software
-				%li#filter_item-6
-					%span.filter_link.color_solid.color_cyan{"data-color" => "cyan", "data-filter" => ".crowdfunding"} Crowdfunding
-				%li#filter_item-7
-					%span.filter_link.color_solid.color_red{"data-color" => "red", "data-filter" => ".comedy"} Comedy
-				%li#filter_item-8
-					%span.filter_link.color_solid.color_orange{"data-color" => "orange", "data-filter" => ".animation"} Game
-				%li#filter_item-9
-					%span.filter_link.color_solid.color_yellow{"data-color" => "yellow", "data-filter" => ".tv"} Platform
-				%li#filter_item-10
-					%span.filter_link.color_solid.color_aqua{"data-color" => "aqua", "data-filter" => ".animation"} Social
-				%li#filter_item-11
-					%span.filter_link.color_solid.color_cyan{"data-color" => "cyan", "data-filter" => ".hardware"} Smart Home
-				%li#filter_item-12
-					%span.filter_link.color_solid.color_red{"data-color" => "red", "data-filter" => ".software"} Medical
-				%li#filter_item-13
-					%span.filter_link.color_solid.color_orange{"data-color" => "orange", "data-filter" => ".crowdfunding"} Business
-				%li#filter_item-14
-					%span.filter_link.color_solid.color_yellow{"data-color" => "yellow", "data-filter" => ".comedy"} Kids
-				%li#filter_item-15
-					%span.filter_link.color_solid.color_red{"data-color" => "red", "data-filter" => ".hardware"} Money
-				%li#filter_item-16
-					%span.filter_link.color_solid.color_orange{"data-color" => "orange", "data-filter" => ".tv"} News
+      -# chrome does not support animations on <a> tags once :visted...
+      -# so we must use a span here.. was formerely:
+      -# %span.filter_link.color_rainbow{:href => "#", :title => "All", "data-color" => "random", "data-filter" => "*"}
+      %ul#filter_list
+        %li#filter_item-0
+          %span.filter_link.color_rainbow{"data-color" => "random", "data-filter" => "*"} All
+        %li#filter_item-1.filter_current
+          %span.filter_link.color_rainbow{"data-color" => "random", "data-filter" => ".curated"} Curated
+        %li#filter_item-2
+          %span.filter_link.color_solid.color_red{"data-color" => "red", "data-filter" => ".tv"} TV
+        %li#filter_item-3
+          %span.filter_link.color_solid.color_orange{"data-color" => "orange", "data-filter" => ".animation"} Animation
+        %li#filter_item-4
+          %span.filter_link.color_solid.color_yellow{"data-color" => "yellow", "data-filter" => ".hardware"} Hardware
+        %li#filter_item-5
+          %span.filter_link.color_solid.color_aqua{"data-color" => "aqua", "data-filter" => ".software"} Software
+        %li#filter_item-6
+          %span.filter_link.color_solid.color_cyan{"data-color" => "cyan", "data-filter" => ".crowdfunding"} Crowdfunding
+        %li#filter_item-7
+          %span.filter_link.color_solid.color_red{"data-color" => "red", "data-filter" => ".comedy"} Comedy
+        %li#filter_item-8
+          %span.filter_link.color_solid.color_orange{"data-color" => "orange", "data-filter" => ".animation"} Game
+        %li#filter_item-9
+          %span.filter_link.color_solid.color_yellow{"data-color" => "yellow", "data-filter" => ".tv"} Platform
+        %li#filter_item-10
+          %span.filter_link.color_solid.color_aqua{"data-color" => "aqua", "data-filter" => ".animation"} Social
+        %li#filter_item-11
+          %span.filter_link.color_solid.color_cyan{"data-color" => "cyan", "data-filter" => ".hardware"} Smart Home
+        %li#filter_item-12
+          %span.filter_link.color_solid.color_red{"data-color" => "red", "data-filter" => ".software"} Medical
+        %li#filter_item-13
+          %span.filter_link.color_solid.color_orange{"data-color" => "orange", "data-filter" => ".crowdfunding"} Business
+        %li#filter_item-14
+          %span.filter_link.color_solid.color_yellow{"data-color" => "yellow", "data-filter" => ".comedy"} Kids
+        %li#filter_item-15
+          %span.filter_link.color_solid.color_red{"data-color" => "red", "data-filter" => ".hardware"} Money
+        %li#filter_item-16
+          %span.filter_link.color_solid.color_orange{"data-color" => "orange", "data-filter" => ".tv"} News
