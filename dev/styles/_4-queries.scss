@@ -541,8 +541,8 @@
                   transition: stroke 260ms ease-in-out; // moved here since original page load code has been removed
                 }
               }
-              &:hover svg.ui_search path,
-              &.is-focused svg.ui_search path {
+              &.is-focused svg.ui_search path,
+              .twitter-typeahead:hover + svg.ui_search path {
                 stroke: $hsl_cyan;
               }
             }
