@@ -83,6 +83,7 @@ $hsla_bone-L98: hsla(180, 50%, 99%, 0.98);
 $hsla_cyan-L96: hsla(194, 76%, 51%, 0.96);
 // custom easing
 $easeInQuart:   cubic-bezier(0.895,  0.030, 0.685, 0.220);
+$easeBounce:    cubic-bezier(0.215,  0.610, 0.355, 1.000);
 // arrays (lists)
 $arrRainbowKeyframes: 0, 26, 44, 74, 82, 100;
 $arrRainbowValues: $hsl_red, $hsl_orange, $hsl_yellow, $hsl_aqua, $hsl_cyan;
@@ -194,4 +195,9 @@ $arrPressValues: $hsl_press-1, $hsl_press-2, $hsl_press-3, $hsl_press-4, $hsl_pr
     }
     $numRainbowIndex: if($numRainbowIndex == length($arrRainbowValues), 1, $numRainbowIndex + 1); // once our array has reached its max, reset to beginning
   }
+}
+@keyframes animTypeahead {
+  0% { transform: translate3d(0, 1.2rem,0); opacity: 0; }
+ 60% { transform: translate3d(0,-0.4rem,0);             }
+100% { transform: translate3d(0,   0rem,0); opacity: 1; }
 }

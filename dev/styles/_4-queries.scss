@@ -500,24 +500,36 @@
                 height: auto;
                 background: transparent;
               }
-              input[type="text"] {
+              input.typeahead {
                 padding-left: 3.6rem;
-                width: 3.6rem;
-                text-align: left;
+              }
+              input.tt-hint {
+                color: $hsl_L60;
+              }
+              input:not(.tt-hint) {
                 opacity: 0;
                 cursor: pointer;
+                width: 3.6rem;
+                text-align: left;
+                color: $hsl_cyan;
+                border-bottom-color: $hsl_cyan;
                 // runs when entering 768px width... can i prevent?
                 transition: width 260ms ease-in-out, opacity 260ms ease-in-out;
-                &:hover + svg.ui_search path {
-                  stroke: $hsl_red;
-                }
                 &:focus {
                   width: calc(100vw - 19rem); // only until 1024px
                   opacity: 1;
+                  color: $hsl_cyan;
                   cursor: text;
-                  & + svg.ui_search path {
-                    stroke: $hsl_navy;
-                  }
+                }
+                // redefine placeholder styles just in case
+                &:focus::-webkit-input-placeholder {
+                  color: $hsl_L60;
+                }
+                &:focus::-moz-placeholder {
+                  color: $hsl_L60;
+                }
+                &:focus:-ms-input-placeholder {
+                  color: $hsl_L60;
                 }
               }
               svg.ui_search {
@@ -528,6 +540,10 @@
                 path {
                   transition: stroke 260ms ease-in-out; // moved here since original page load code has been removed
                 }
+              }
+              &:hover svg.ui_search path,
+              &.is-focused svg.ui_search path {
+                stroke: $hsl_cyan;
               }
             }
           }
@@ -540,6 +556,51 @@
     &.toggled a.nav_toggle .nav_icon .line-1,
     &.toggled a.nav_toggle .nav_icon .line-3 {
       transform: none; // just to be extra sure...
+    }
+  }
+
+  // Typeahead
+  // ----------------------------------------------------------------------------
+  .typeahead.tt-hint {
+    opacity: 1;
+    visibility: visible;
+    background-color: transparent !important;
+    color: $hsl_L60;
+  }
+  .tt-menu {
+    height: auto;
+    overflow: visible;
+  }
+  .tt-dataset {
+    padding-top: 1rem;
+    padding-left: 3.6rem;
+  }
+  .tt-suggestion {
+    cursor: pointer;
+    margin-bottom: 0.6rem;
+    font-size: 1.5rem;
+    color: $hsl_cyan;
+    // opacity: 0;
+    // transform: translateX(-1rem);
+    transition: color 260ms ease-in-out;
+    animation: animTypeahead 260ms $easeBounce both;
+    &:last-child {
+      margin-bottom: 0;
+    }
+    &:hover,
+    &.tt-cursor {
+      color: $hsl_red;
+    }
+    &:active {
+      color: darken($hsl_red, 10%);
+    }
+    // animated suggestions
+    $numDelay: 0;
+    @for $i from 1 through 10 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{$numDelay}ms;
+      }
+      $numDelay: $numDelay + 200;
     }
   }
 
@@ -1271,8 +1332,11 @@
   // ----------------------------------------------------------------------------
   nav.nav_primary .wrap_nav ul li.nav_search {
     width: 23.2rem;
-    form input[type="text"]:focus {
-      width: 100%;
+    form input:not(.tt-hint) {
+      border-bottom: none;
+      &:focus {
+        width: 100%;
+      }
     }
   }
 

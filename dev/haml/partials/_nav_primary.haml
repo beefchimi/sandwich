@@ -26,7 +26,7 @@
       - if locals == 'home'
         %li#nav_search.nav_search
           %form#search_projects{:action => "/search", :method => "get", :role => "search"}
-            %input#filter_search{:type => "text", :name => "search", :value => "", :autocomplete => "off", :placeholder => "Find a specific video", :required => true}
+            %input#filter_search.typeahead{:type => "text", :name => "search", :value => "", :autocomplete => "off", :placeholder => "Find a specific video", "typeahead-src" => "search_typeahead", :required => true}
             -# %input.search_submit{:type => "submit", :value => "Search"}
             -# not using .wrap_svg because of pointer-event support
             = Haml::Engine.new(File.read("dev/haml/partials/_svg_search.haml")).render
